@@ -1,0 +1,9 @@
+# FreeLinX/ports - base/rm : upstream source reference.
+#
+# UPSTREAM SOURCE:
+#   NetBSD 10.1 base src set -> bin/rm.
+DISTINFO_NAME=netbsd-10.1-src
+DISTINFO_ARCHIVE=src.tgz
+DISTINFO_URL=https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/source/sets/src.tgz
+# TODO: pin from fetch.sh output; never invent a hash.
+DISTINFO_SHA256=TODO
