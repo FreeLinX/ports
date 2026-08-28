@@ -1,0 +1,13 @@
+# FreeLinX/ports - base/cat : upstream source reference.
+#
+# UPSTREAM SOURCE (not FreeLinX patches, not generated):
+#   NetBSD 10.1 base source set. The full src set contains bin/cat.
+#   Source: https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/source/sets/src.tgz
+#   Extracted tree includes usr/src/bin/cat/{cat.c,tr.c,str.c}.
+DISTINFO_NAME=netbsd-10.1-src
+DISTINFO_ARCHIVE=src.tgz
+DISTINFO_URL=https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/source/sets/src.tgz
+# TODO: SOURCE_SHA256 is intentionally not pinned yet. It must be computed from
+# the downloaded archive by scripts/fetch.sh and reviewed before use. Never
+# fill in a guessed hash.
+DISTINFO_SHA256=TODO

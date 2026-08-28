@@ -1,0 +1,36 @@
+# FreeLinX/ports - generated artifacts. Never commit these.
+
+# Build/staging/dist output directories.
+/build/
+/staging/
+/dist/
+
+# Downloaded source archives.
+*.tar
+*.tar.gz
+*.tgz
+*.tar.bz2
+*.tar.xz
+*.zip
+
+# Compiler / object artifacts.
+*.o
+*.a
+*.so
+*.d
+*.bc
+*.ll
+*.lo
+*.la
+
+# Editor / OS noise.
+*~
+*.swp
+.DS_Store
+.vscode/
+.idea/
+
+# Logs and caches (the framework writes none, but stay safe).
+*.log
+.cache/
+__pycache__/

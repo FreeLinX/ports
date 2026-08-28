@@ -1,0 +1,25 @@
+# FreeLinX/ports - shells/netbsd-sh : upstream source reference.
+#
+# UPSTREAM SOURCE (not FreeLinX patches, not generated):
+#   NetBSD 10.1 `/bin/sh` -- the Almquist shell (ash) used by NetBSD.
+#   In the NetBSD source tree it lives at:
+#       external/bsd/bin/sh
+#   Full NetBSD base src set (contains bin/ and external/, including sh):
+#       https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/source/sets/src.tgz
+#
+# The NetBSD 10.1 release src set is immutable and reproducible. See
+# https://www.netbsd.org/releases/formal-10/NetBSD-10.1.html and
+# https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/source/sets/SHA512 for the
+# release checksums published by the NetBSD project.
+#
+# Relevant sh sources under that tree:
+#   external/bsd/bin/sh/{main.c, eval.c, exec.c, expand.c, redir.c, parse.c,
+#   var.c, builtins.c, cd.c, mknodes.c,...}
+# Optional libedit/history support: -DNO_HISTORY avoids libedit during bootstrap.
+DISTINFO_NAME=netbsd-10.1-src
+DISTINFO_ARCHIVE=src.tgz
+DISTINFO_URL=https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/source/sets/src.tgz
+# TODO: DISTINFO_SHA256 is intentionally NOT pinned yet. Compute it from the
+# downloaded archive with scripts/fetch.sh and review the value before use.
+# Never fill in a guessed hash.
+DISTINFO_SHA256=TODO
