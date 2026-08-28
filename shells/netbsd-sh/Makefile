@@ -33,15 +33,21 @@ BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot)
 TARGET := $(FREELINX_TRIPLE)
 PREFIX := /
 
+# Install destination, staged as bin/sh -> staging/bin/sh -> src/rootfs/bin/sh.
+# NOTE: INSTALL_BIN / INSTALL_RELPATH must be set BEFORE including mk/port.mk:
+# make freezes rule-target names at parse time, so a value set after the include
+# would not reach the staging rule.
+INSTALL_BIN:= sh
+INSTALL_RELPATH:= bin/sh
+
 include ../../mk/port.mk
 
 # Where the fetched NetBSD src set is unpacked and the sh sources live.
 SRC_ROOT = $(FREELINX_BUILD_DIR)/work/netbsd-sh
 SH_SRC   = $(SRC_ROOT)/external/bsd/bin/sh
 
-# Resulting binary staged as bin/sh (INSTALL_BIN=sh).
+# Built binary (source of the staging copy).
 BUILD_BIN = $(SRC_ROOT)/sh
-INSTALL_BIN:= sh
 
 .PHONY: do-build
 do-build:

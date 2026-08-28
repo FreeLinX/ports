@@ -29,6 +29,33 @@ flx_die()  { printf '[FreeLinX/ports][error] %s\n' "$*" >&2; exit 1; }
 
 have_cmd() { command -v "$1" >/dev/null 2>&1; }
 
+# ---------------------------------------------------------------------------
+# Rootfs destination safety.
+#
+# Rootfs installation must always target an explicit, configured FreeLinX
+# rootfs directory and must NEVER fall back to "/" or an empty/relative path.
+# Fail (non-zero) with a clear message otherwise. Returns the validated
+# absolute directory path on stdout (echo to the caller).
+# ---------------------------------------------------------------------------
+flx_validate_rootfs_dir() {
+    _dir=$1
+    if [ -z "$_dir" ]; then
+        flx_die "rootfs destination is empty; refusing install (set FREELINX_ROOTFS_DIR)"
+    fi
+    case "$_dir" in
+        /*) : ;;
+        *)
+            flx_die "rootfs destination is relative: $_dir; refusing implicit install (use an absolute path)"
+            ;;
+    esac
+    # Resolve cleanly; "/" and "/." both reduce to / and must be refused.
+    _real=$(CDPATH='' cd -P -- "$_dir" 2>/dev/null && pwd -P || printf '%s\n' "$_dir")
+    if [ "$_real" = "/" ]; then
+        flx_die "refusing to install into the root filesystem '/'; set FREELINX_ROOTFS_DIR to a real FreeLinX rootfs"
+    fi
+    printf '%s\n' "$_real"
+}
+
 flx_usage() {
     cat <<EOF
 FreeLinX/ports: BSD-style ports framework for FreeLinX.
