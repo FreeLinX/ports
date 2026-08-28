@@ -2,10 +2,15 @@
 #
 # UPSTREAM SOURCE (not FreeLinX patches, not generated):
 #   NetBSD 10.1 `/bin/sh` -- the Almquist shell (ash) used by NetBSD.
-#   In the NetBSD source tree it lives at:
-#       external/bsd/bin/sh
-#   Full NetBSD base src set (contains bin/ and external/, including sh):
+#
+#   In the NetBSD source tree it lives at bin/sh (the external/bsd/bin/sh
+#   path is from older releases; the port's do-prepare makes both resolve to
+#   the same directory).
+#
+#   It is fetched as part of the full NetBSD base src set:
 #       https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/source/sets/src.tgz
+#   which contains bin/, usr.bin/, lib/ etc., including bin/sh and the
+#   sources sh pulls in from bin/test, bin/kill and usr.bin/printf.
 #
 # The NetBSD 10.1 release src set is immutable and reproducible. See
 # https://www.netbsd.org/releases/formal-10/NetBSD-10.1.html and
@@ -13,13 +18,15 @@
 # release checksums published by the NetBSD project.
 #
 # Relevant sh sources under that tree:
-#   external/bsd/bin/sh/{main.c, eval.c, exec.c, expand.c, redir.c, parse.c,
-#   var.c, builtins.c, cd.c, mknodes.c,...}
-# Optional libedit/history support: -DNO_HISTORY avoids libedit during bootstrap.
+#   bin/sh/{alias.c, arithmetic.c, cd.c, error.c, eval.c, exec.c, expand.c,
+#     histedit.c, input.c, jobs.c, main.c, memalloc.c, miscbltin.c,
+#     mystring.c, options.c, output.c, parser.c, redir.c, show.c, syntax.c,
+#     trap.c, var.c, ...}
+#   bin/sh/bltin/echo.c, bin/test/test.c, bin/kill/kill.c,
+#   usr.bin/printf/printf.c
+#
+# NOTE: the port builds the "small" shell (-DSMALL): no libedit/history.
 DISTINFO_NAME=netbsd-10.1-src
 DISTINFO_ARCHIVE=src.tgz
 DISTINFO_URL=https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/source/sets/src.tgz
-# TODO: DISTINFO_SHA256 is intentionally NOT pinned yet. Compute it from the
-# downloaded archive with scripts/fetch.sh and review the value before use.
-# Never fill in a guessed hash.
-DISTINFO_SHA256=TODO
+DISTINFO_SHA256=4f9cbe87cf7ec9024345cd433908d355b4b91e22b1dac62b375179352e6be399

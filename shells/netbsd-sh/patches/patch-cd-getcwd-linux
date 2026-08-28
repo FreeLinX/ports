@@ -1,0 +1,11 @@
+--- a/bin/sh/cd.c	2026-08-29 02:00:46.520411684 +0400
++++ b/bin/sh/cd.c	2026-08-29 02:00:46.520411684 +0400
+@@ -456,7 +456,7 @@
+ 	 * c implementation of getcwd, that does not open a pipe to
+ 	 * /bin/pwd.
+ 	 */
+-#if defined(__NetBSD__) || defined(__SVR4)
++#if defined(__NetBSD__) || defined(__SVR4) || defined(__linux__)
+ 
+ 	for (i = MAXPWD;; i *= 2) {
+ 		pwd = stalloc(i);

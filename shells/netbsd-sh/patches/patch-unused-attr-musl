@@ -1,0 +1,24 @@
+diff -ruN a/bin/sh/alias.c b/bin/sh/alias.c
+--- a/bin/sh/alias.c	2026-08-29 02:09:36.832946796 +0400
++++ b/bin/sh/alias.c	2026-08-29 02:09:36.836946865 +0400
+@@ -174,7 +174,7 @@
+ }
+ 
+ const char *
+-alias_text(void *dummy __unused, const char *name)
++alias_text(void *dummy, const char *name)
+ {
+ 	struct alias *ap;
+ 
+diff -ruN a/bin/sh/histedit.c b/bin/sh/histedit.c
+--- a/bin/sh/histedit.c	2026-08-29 02:09:36.836946865 +0400
++++ b/bin/sh/histedit.c	2026-08-29 02:09:36.840946933 +0400
+@@ -673,7 +673,7 @@
+  * bind a key (tab by default) to execute the function.
+  */
+ unsigned char
+-sh_complete(EditLine *sel, int ch __unused)
++sh_complete(EditLine *sel, int ch)
+ {
+ 	return (unsigned char)fn_complete2(sel, NULL, sh_matches,
+ 		L" \t\n\"\\'`@$><=;|&{(", NULL, NULL, (size_t)100,
