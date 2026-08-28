@@ -1,0 +1,12 @@
+diff -ruN a/bin/sh/error.h b/bin/sh/error.h
+--- a/bin/sh/error.h	2026-08-29 02:12:49.199356489 +0400
++++ b/bin/sh/error.h	2026-08-29 02:12:49.199356489 +0400
+@@ -117,7 +117,7 @@
+  * so we use _setjmp instead.
+  */
+ 
+-#if defined(BSD) && !defined(__SVR4)
++#if defined(BSD) && !defined(__SVR4) && !defined(__linux__)
+ #define setjmp(jmploc)	_setjmp(jmploc)
+ #define longjmp(jmploc, val)	_longjmp(jmploc, val)
+ #endif

@@ -1,0 +1,42 @@
+diff -ruN a/bin/sh/eval.c b/bin/sh/eval.c
+--- a/bin/sh/eval.c	2026-08-29 02:15:34.873391348 +0400
++++ b/bin/sh/eval.c	2026-08-29 02:15:41.333470692 +0400
+@@ -55,7 +55,6 @@
+ #include <sys/param.h>
+ #include <sys/types.h>
+ #include <sys/wait.h>
+-#include <sys/sysctl.h>
+ 
+ /*
+  * Evaluate a command.
+@@ -814,21 +813,17 @@
+ syspath(void)
+ {
+ 	static char *sys_path = NULL;
+-	static int mib[] = {CTL_USER, USER_CS_PATH};
+ 	static char def_path[] = "PATH=/usr/bin:/bin:/usr/sbin:/sbin";
+-	size_t len;
+ 
+-	if (sys_path == NULL) {
+-		if (sysctl(mib, 2, 0, &len, 0, 0) != -1 &&
+-		    (sys_path = ckmalloc(len + 5)) != NULL &&
+-		    sysctl(mib, 2, sys_path + 5, &len, 0, 0) != -1) {
+-			memcpy(sys_path, "PATH=", 5);
+-		} else {
+-			ckfree(sys_path);
+-			/* something to keep things happy */
+-			sys_path = def_path;
+-		}
+-	}
++	/*
++	 * FreeLinX patch: NetBSD reads the system PATH via sysctl(2)
++	 * (CTL_USER/USER_CS_PATH), an interface musl does not implement.
++	 * FreeLinX is a standalone distro: there is no "system" path to
++	 * query, so return the same conventional value NetBSD's sysctl
++	 * would have produced here.
++	 */
++	if (sys_path == NULL)
++		sys_path = def_path;
+ 	return sys_path;
+ }
+ 

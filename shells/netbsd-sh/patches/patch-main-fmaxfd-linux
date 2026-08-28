@@ -1,0 +1,21 @@
+--- a/bin/sh/main.c	2026-08-29 02:00:46.516411635 +0400
++++ b/bin/sh/main.c	2026-08-29 02:00:46.520411684 +0400
+@@ -134,10 +134,16 @@
+ 
+ 	waspriv = privileged = (uid != geteuid()) || (gid != getegid());
+ 
+-	max_user_fd = fcntl(0, F_MAXFD);
++	user_fd_limit = sysconf(_SC_OPEN_MAX);
++	/*
++	 * FreeLinX patch: musl has no fcntl(F_MAXFD).  NetBSD's F_MAXFD
++	 * returns the highest file descriptor the process could have open,
++	 * which is the RLIMIT_NOFILE ceiling minus one -- the same value we
++	 * already derive from _SC_OPEN_MAX below.
++	 */
++	max_user_fd = (int)user_fd_limit - 1;
+ 	if (max_user_fd < 2)
+ 		max_user_fd = 2;
+-	user_fd_limit = sysconf(_SC_OPEN_MAX);
+ 
+ 	setlocale(LC_ALL, "");
+ 

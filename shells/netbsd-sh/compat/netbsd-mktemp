@@ -1,0 +1,19 @@
+#!/bin/sh
+# FreeLinX/ports - NetBSD-compatible mktemp for FreeLinX host builds.
+#
+# NetBSD's source generators call `mktemp -t PREFIX` (a temp file named
+# PREFIX.* under $TMPDIR).  GNU coreutils mktemp instead treats -t as "the
+# template is already generic" and refuses templates without X's.  This shim
+# translates the NetBSD form to a GNU form.  It is a build-time host helper
+# (exactly what NetBSD's USETOOLS provides as TOOL_MKTEMP); it is not part
+# of any delivered binary.
+case "${1}" in
+-t)
+	prefix="${2:-tmp}"
+	dir="${TMPDIR:-/tmp}"
+	exec mktemp -- "${dir}/${prefix}.XXXXXXXXXX"
+	;;
+*)
+	exec mktemp "$@"
+	;;
+esac

@@ -1,34 +1,77 @@
-# FreeLinX patches for NetBSD sh (external/bsd/bin/sh)
+# FreeLinX patches for NetBSD sh (bin/sh)
 
 This directory holds FreeLinX-specific patches applied on top of the pristine
-NetBSD 10.1 source. It must contain ONLY small, isolated, documented changes
-required to build sh against the FreeLinX musl toolchain — never large rewrites
-or giant hacks.
+NetBSD 10.1 source. It contains ONLY small, isolated, documented changes
+required to build sh against the FreeLinX musl toolchain — never large
+rewrites or giant hacks.
+
+## Layout note
+
+NetBSD 10.1 keeps `/bin/sh` at `bin/sh` (the classic `external/bsd/bin/sh`
+path is from older releases). The port's `do-prepare` normalizes the extracted
+`usr/src` tree to the NetBSD src root and symlinks `external/bsd/bin` ->
+`../../bin`, so `external/bsd/bin/sh` and `bin/sh` are the same directory.
 
 ## Distinguishing sources (keep this straight)
 
-  - UPSTREAM SOURCE    NetBSD 10.1 (fetched; see ../distinfo). Never edited here.
-  - FREELINX PATCHES   Files in this directory (step 3 below).
+  - UPSTREAM SOURCE    NetBSD 10.1 (fetched once into dist/; see ../distinfo).
+                       Textually modified ONLY by these FreeLinX patches.
+  - FREELINX PATCHES   Files in this directory (applied in lexical order by
+                       the port's do-prepare).
+  - FREELINX COMPAT    ../compat/: musl-libc stand-ins compiled into the link
+                       set (see below); NOT part of the NetBSD tree.
   - BUILD FRAMEWORK    This repo (mk/, scripts/, config/). Not upstream.
   - GENERATED ARTIFACTS build/, staging/, dist/. Ignored by git.
 
-## Conventions
+## musl compatibility strategy
 
-  - Name patches as `patch-<fragment>` or `NNN-<description>.patch`.
-  - One logical change per patch (e.g. `patch-musl-compat`).
-  - Each patch must start with a header naming the file and WHY it exists
-    (which missing libc API, which BSD-only construct, whether musl provides it).
-  - Apply in lexical order of the filename.
-  - The apply/applied logic lives in the port recipe; this directory is just
-    the store of patches.
+Two complementary mechanisms, both small and deliberately scoped:
 
-## Known areas likely to need patches (verify against musl before adding any)
+  1. ../compat/sys/cdefs.h is the FreeLinX stand-in for BSD `<sys/cdefs.h>`
+     (musl has none). Because every sh source includes it first, it also
+     carries the small libc gaps the NetBSD code expects from BSD
+     `<sys/param.h>`/`<sys/types.h>` (BSD, ptrdiff_t/stdint types, timespeccmp)
+     plus the declarations for the shims in ../compat.
+  2. ../compat/*.c are compiled into the static link set:
+       getprogname.c  getprogname/setprogname/setproctitle (musl: absent)
+       setmode.c      setmode(3)/getmode(3) for `umask`'s symbolic mode —
+                      NetBSD's own libc source, minus namespace.h, with
+                      reallocarr->reallocarray and S_ISTXT->S_ISVTX.
+       signalname.c   signalname/signalnumber/signalnext for `trap` and
+                      `kill -l`.  Deliberately keyed to musl's <signal.h>
+                      macros: BSD and Linux signal NUMBERING differ (e.g.
+                      SIGCONT is 19 on BSD but 18 on Linux), so a verbatim
+                      NetBSD table would be wrong on FreeLinX.
+  3. Build-time host helpers: ../compat/netbsd-mktemp emulates NetBSD
+     `mktemp -t` for NetBSD's own source generators (mkoptions.sh).  Host
+     awk/sed/sh run those generators exactly as NetBSD's USETOOLS cross-build
+     does; they produce C, they are not the delivered binary.
 
-  1. strlcpy()/strlcat(): musl may lack them -> tiny compat or #define.
-  2. err()/warn() and BSD errno helpers: musl lacks BSD `err.h`-style funcs.
-  3. <sys/queue.h> (NBQUEUE) and other BSD headers not shipped by musl.
-  4. __dead/__printflike attribute macros.
-  5. Any NetBSD bmake-only bits (we compile *.c directly).
+## Patch inventory (apply in this lexical order)
 
-For each, the order of investigation is: is it POSIX? -> does musl provide it?
--> does sh actually need it? -> only then add a minimal patch, and document why.
+  - patch-myhistedit-nohistory
+        Build without history/editline: guard the <histedit.h>/<filecomplete.h>
+        includes under #ifndef SMALL.  histedit.c is still compiled; under
+        -DSMALL its #else stubs provide histcmd()/inputrc().
+  - patch-main-fmaxfd-linux
+        musl has no fcntl(F_MAXFD); derive the fd ceiling from
+        sysconf(_SC_OPEN_MAX) instead.
+  - patch-cd-getcwd-linux
+        On Linux, use the libc getcwd() loop instead of forking /bin/pwd.
+  - patch-unused-attr-musl
+        Drop the NetBSD __unused macro markers.  musl's <sys/stat.h> uses
+        `long __unused[3]` as a literal member name, so __unused must NOT be a
+        macro at all; the two sh sites are patched to not rely on it.
+  - patch-setjmp-musl
+        error.h remaps setjmp->_setjmp (BSD signal-mask semantics).  musl has
+        no _setjmp, and its setjmp is already the plain (non-mask) kind, so
+        skip the remap on __linux__.
+  - patch-eval-syspath-musl
+        syspath() read the system PATH via sysctl(CTL_USER/USER_CS_PATH), an
+        interface musl lacks.  FreeLinX is a standalone distro with no
+        "system" path, so return the conventional default.
+
+## Rules of engagement for new patches
+
+Is it POSIX? -> does musl provide it? -> does sh actually need it? -> only then
+add a minimal patch, and document why right here in the next bullet.

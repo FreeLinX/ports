@@ -1,0 +1,23 @@
+--- a/bin/sh/myhistedit.h	2026-08-29 02:00:46.516411635 +0400
++++ b/bin/sh/myhistedit.h	2026-08-29 02:00:46.520411684 +0400
+@@ -31,6 +31,15 @@
+  *	@(#)myhistedit.h	8.2 (Berkeley) 5/4/95
+  */
+ 
++/*
++ * FreeLinX patch: the FreeLinX bootstrap builds sh WITHOUT libedit/history
++ * (DSMALL), matching NetBSD's own "small shell" configuration.  musl does not
++ * ship <histedit.h> or <filecomplete.h>, so under SMALL everything history-
++ * related is stubbed out; histedit.c still compiles (its #ifndef SMALL region
++ * provides the histcmd/inputrc error stubs) and every other includer either
++ * guards its use with #ifndef SMALL or only touches these symbols there.
++ */
++#ifndef SMALL
+ #include <histedit.h>
+ 
+ extern History *hist;
+@@ -45,3 +54,4 @@
+ int inputrc(int, char **);
+ void set_editrc(const char *);
+ void set_prompt_lit(const char *);
++#endif /* !SMALL */
