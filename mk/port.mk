@@ -54,7 +54,7 @@ all: check-toolchain do-build
 # `do-build` is provided by the port (or by mk/base-port.mk for the simple
 # utilities); see the make error if a port forgets to define it.
 
-install: $(STAGE_PREFIX)/bin/$(INSTALL_BIN)
+install: $(STAGE_FILE)
 
 clean:
 	@true

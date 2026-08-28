@@ -98,9 +98,11 @@ install path. Everything is derived from `config/default.conf`, which uses the
 | `FREELINX_CC`        | `$(FREELINX_TOOLCHAIN_BIN)/clang`          | C compiler driver                   |
 | `FREELINX_LD`        | `$(FREELINX_TOOLCHAIN_BIN)/ld.lld`         | Linker                              |
 | `FREELINX_SYSROOT`   | `$(FREELINX_TOOLCHAIN_DIR)/x86_64-linux-musl` | musl sysroot                    |
-| `FREELINX_PREFIX`    | `staging/$(FREELINX_TRIPLE)`               | Staging destination                 |
+| `FREELINX_PREFIX`    | `staging/$(FREELINX_TRIPLE)`               | Install prefix (kept configurable)  |
 | `FREELINX_LINK_MODE` | `static`                                   | `static` or `dynamic`               |
-| `FREELINX_ROOTFS_BIN`| `../src/rootfs/bin`                        | Where install -r copies binaries    |
+| `FREELINX_STAGING_ROOT` | `../staging`                            | Rootfs-overlay staging tree         |
+| `FREELINX_SRC_DIR`   | `../src`                                   | Sibling FreeLinX/src repo           |
+| `FREELINX_ROOTFS_DIR`| `$(FREELINX_SRC_DIR)/rootfs`               | Rootfs template that consumes output|
 
 The canonical compile invocation is:
 
@@ -175,9 +177,19 @@ clear `[FreeLinX/ports]` prefix and never exaggerates success.
    recipe that compiles/link the sources with the FreeLinX toolchain.
 5. `mk/port.mk`'s `all` target first runs the **toolchain gate**; if the
    toolchain is absent it fails with a clear message.
-6. The build emits `BUILD_BIN`; `install` stages it to
-   `staging/$(FREELINX_TRIPLE)/category/name/bin/<INSTALL_BIN>`.
-7. `install -r` copies the staged binary into `FreeLinX/src/rootfs/bin/`.
+6. The build emits `BUILD_BIN`; the port's `INSTALL_RELPATH` says where in the
+   rootfs that binary belongs (default `bin/$(NAME)`, `sh` uses `bin/sh`).
+7. `install` stages it into the overlay tree at
+   `staging/$(INSTALL_RELPATH)` (e.g. `staging/bin/sh`).
+8. `install -r` copies the staged file into the FreeLinX/src rootfs template:
+   `src/rootfs/bin/sh`.
+
+**Rootfs destination safety:** rootfs installs (the `install-rootfs` make target
+and `scripts/install.sh -r`) always require an explicit, **absolute**, non-`/`
+destination. The destination is validated before anything is copied: empty,
+relative, or `/` (and redirects that resolve to `/`) are refused with a clear
+error. `FREELINX_ROOTFS_DIR` defaults to `<FreeLinX/src>/rootfs` — never `/` —
+so `/` can never be an implicit/default install target.
 
 ---
 
@@ -211,15 +223,17 @@ and isolated. See `shells/netbsd-sh/patches/README` for the full conventions.
 
 - `dist/`      — downloaded upstream archives (gitignored).
 - `build/work/`— unpacked source and per-port build trees (gitignored).
-- `staging/`   — staged binaries, keyed by target triple and port (gitignored).
+- `staging/`   — rootfs-compatible overlay of staged binaries (gitignored).
 
-A successful build of `sh` ends up conceptually as:
+A successful build of `sh` ends up as:
 
 ```
-staging/x86_64-linux-musl/shells/netbsd-sh/bin/sh
+staging/bin/sh
 ```
 
-which `FreeLinX/src` later copies to `rootfs/bin/sh`. Nothing here writes to the
+which the `install` step copies into `FreeLinX/src` as `rootfs/bin/sh` (both the
+staging root and the rootfs template are configurable via
+`FREELINX_STAGING_ROOT` and `FREELINX_ROOTFS_DIR`). Nothing here writes to the
 live system `/`.
 
 ---
