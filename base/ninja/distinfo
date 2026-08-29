@@ -1,0 +1,9 @@
+# FreeLinX/ports - base/ninja : Ninja build system (upstream v1.13.2).
+#
+# Real upstream source: https://github.com/ninja-build/ninja/tree/v1.13.2
+# Archive: GitHub source tag tarball.  Built with CMake (host cmake drives the
+# cross-compile) against the FreeLinX clang + libc++ + LLD + musl toolchain.
+DISTINFO_NAME=ninja-1.13.2
+DISTINFO_ARCHIVE=ninja-1.13.2.tar.gz
+DISTINFO_URL=https://github.com/ninja-build/ninja/archive/refs/tags/v1.13.2.tar.gz
+DISTINFO_SHA256=974d6b2f4eeefa25625d34da3cb36bdcebe7fbce40f4c16ac0835fd1c0cbae17

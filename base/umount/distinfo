@@ -1,0 +1,11 @@
+# FreeLinX/ports - base/umount : FreeLinX-native port (no upstream archive).
+#
+# This port is a FreeLinX-native implementation (Linux umount2(2) front-end
+# reading /proc/mounts); it is NOT built from NetBSD source, so there is no
+# upstream archive or checksum to pin.  NetBSD umount relies on BSD unmount(2),
+# statvfs f_fstypename, getmntinfo, per-type helpers and NFS/RPC - none of
+# which have a Linux-compatible equivalent reusable here.
+DISTINFO_NAME=freelinx-native
+DISTINFO_ARCHIVE=
+DISTINFO_URL=(native FreeLinX implementation)
+DISTINFO_SHA256=native

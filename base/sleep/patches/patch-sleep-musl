@@ -1,0 +1,33 @@
+--- enva/bin/sleep/sleep.c	2026-08-29 15:02:45.461952903 +0400
++++ envb/bin/sleep/sleep.c	2026-08-29 15:02:53.778115112 +0400
+@@ -62,9 +62,10 @@
+ 
+ static volatile sig_atomic_t report_requested;
+ static void
+-report_request(int signo __unused)
++report_request(int signo)
+ {
+ 
++	(void)signo;
+ 	report_requested = 1;
+ }
+ 
+@@ -133,8 +134,6 @@
+ 		 * (but only if that is the potential problem)
+ 		 */
+ 		val = strtod(arg, &temp);
+-		if (*temp != '\0')
+-			val = strtod_l(arg, &temp, LC_C_LOCALE);
+ 		if (val < 0 || temp == arg || *temp != '\0')
+ 			usage();
+ 
+@@ -183,7 +182,9 @@
+ 	    endtime.tv_nsec <= now.tv_nsec))
+ 		errx(EXIT_FAILURE, "cannot sleep beyond the end of time");
+ 
++#ifdef SIGINFO			/* FreeLinX/Linux: no BSD SIGINFO == Ctrl-T */
+ 	signal(SIGINFO, report_request);
++#endif
+ 	for (;;) {
+ 		int e;
+ 

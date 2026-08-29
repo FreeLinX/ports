@@ -36,4 +36,14 @@
 #define	S_BLKSIZE	512
 #endif
 
+/*
+ * NetBSD's usr.bin/touch calls utimens(2)/lutimens(2); musl only exposes
+ * utimensat(2)/futimens(2).  compat/utimens.c provides the BSD-named pair on
+ * top of utimensat.  The prototypes live here (beside <sys/stat.h>, where BSD
+ * declares them) so touch.c needs no change beyond dropping the BSD-only
+ * <tzfile.h>/<util.h>/parsedate block.
+ */
+int	utimens(const char *, const struct timespec [2]);
+int	lutimens(const char *, const struct timespec [2]);
+
 #endif /* !_FREELINX_COMPAT_SYS_STAT_H_ */

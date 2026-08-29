@@ -1,0 +1,78 @@
+--- enva/usr.bin/touch/touch.c	2026-08-29 15:06:18.849341265 +0400
++++ envb/usr.bin/touch/touch.c	2026-08-29 15:07:03.617959555 +0400
+@@ -54,12 +54,20 @@
+ #include <string.h>
+ #include <locale.h>
+ #include <time.h>
+-#include <tzfile.h>
+ #include <unistd.h>
+-#include <util.h>
+ #include <getopt.h>
+ 
+-static void	stime_arg0(char *, struct timespec *);
++/* FreeLinX/Linux/musl: NetBSD defines these in <tzfile.h>/<time.h> and
++ * <sys/stat.h>; musl ships neither tzfile.h nor DEFFILEMODE/TM_YEAR_BASE.
++ * (The <tzfile.h>/<util.h> includes above pulled parsedate(3), which is
++ * not ported; `-d/--date` is reported unsupported.) */
++#ifndef DEFFILEMODE
++#define	DEFFILEMODE	(S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH)
++#endif
++#ifndef TM_YEAR_BASE
++#define	TM_YEAR_BASE	1900
++#endif
++
+ static void	stime_arg1(char *, struct timespec *);
+ static void	stime_arg2(char *, int, struct timespec *);
+ static void	stime_file(char *, struct timespec *);
+@@ -100,8 +108,10 @@
+ 			cflag = 1;
+ 			break;
+ 		case 'd':
+-			timeset = 1;
+-			stime_arg0(optarg, ts);
++			/* FreeLinX/Linux: -d/--date needs parsedate(3), which is
++			 * not ported to the musl userland; use -t instead. */
++			errx(EXIT_FAILURE,
++			    "-d/--date (parsedate) is not supported on FreeLinX");
+ 			break;
+ 		case 'f':
+ 			break;
+@@ -179,9 +189,9 @@
+ 				continue;
+ 		}
+ 		if (!aflag)
+-			ts[0] = sb.st_atimespec;
++			ts[0] = sb.st_atim;
+ 		if (!mflag)
+-			ts[1] = sb.st_mtimespec;
++			ts[1] = sb.st_mtim;
+ 
+ 		/* Try utimes(2). */
+ 		if (!(*change_file_times)(*argv, ts))
+@@ -211,15 +221,6 @@
+ #define	ATOI2(s)	((s) += 2, ((s)[-2] - '0') * 10 + ((s)[-1] - '0'))
+ 
+ static void
+-stime_arg0(char *arg, struct timespec *tsp)
+-{
+-	tsp[1].tv_sec = tsp[0].tv_sec = parsedate(arg, NULL, NULL);
+-	if (tsp[0].tv_sec == -1)
+-		errx(EXIT_FAILURE, "Could not parse `%s'", arg);
+-	tsp[0].tv_nsec = tsp[1].tv_nsec = 0;
+-}
+-
+-static void
+ stime_arg1(char *arg, struct timespec *tsp)
+ {
+ 	struct tm *t;
+@@ -323,8 +324,8 @@
+ 
+ 	if (stat(fname, &sb))
+ 		err(1, "%s", fname);
+-	tsp[0] = sb.st_atimespec;
+-	tsp[1] = sb.st_mtimespec;
++	tsp[0] = sb.st_atim;
++	tsp[1] = sb.st_mtim;
+ }
+ 
+ static void
