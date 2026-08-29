@@ -1,0 +1,101 @@
+diff -ruN lsa/bin/ls/cmp.c lsb/bin/ls/cmp.c
+--- lsa/bin/ls/cmp.c	2003-08-07 14:05:14.000000000 +0500
++++ lsb/bin/ls/cmp.c	2026-08-29 03:29:38.830452096 +0400
+@@ -50,18 +50,19 @@
+ #include "ls.h"
+ #include "extern.h"
+ 
+-#if defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) || \
+-    defined(_XOPEN_SOURCE) || defined(__NetBSD__)
++#if defined(HAVE_STRUCT_STAT_ST_ATIMENSEC)
+ #define ATIMENSEC_CMP(x, op, y) ((x)->st_atimensec op (y)->st_atimensec)
+ #define CTIMENSEC_CMP(x, op, y) ((x)->st_ctimensec op (y)->st_ctimensec)
+ #define MTIMENSEC_CMP(x, op, y) ((x)->st_mtimensec op (y)->st_mtimensec)
+ #else
++/* musl/glibc call the members st_atim/st_ctim/st_mtim (struct timespec);
++ * NetBSD's st_*nsec/st_*timespec names do not exist there. */
+ #define ATIMENSEC_CMP(x, op, y) \
+-	((x)->st_atimespec.tv_nsec op (y)->st_atimespec.tv_nsec)
++	((int)(x)->st_atim.tv_nsec op (int)(y)->st_atim.tv_nsec)
+ #define CTIMENSEC_CMP(x, op, y) \
+-	((x)->st_ctimespec.tv_nsec op (y)->st_ctimespec.tv_nsec)
++	((int)(x)->st_ctim.tv_nsec op (int)(y)->st_ctim.tv_nsec)
+ #define MTIMENSEC_CMP(x, op, y) \
+-	((x)->st_mtimespec.tv_nsec op (y)->st_mtimespec.tv_nsec)
++	((int)(x)->st_mtim.tv_nsec op (int)(y)->st_mtim.tv_nsec)
+ #endif
+ 
+ int
+diff -ruN lsa/bin/ls/ls.c lsb/bin/ls/ls.c
+--- lsa/bin/ls/ls.c	2024-07-20 18:46:10.000000000 +0400
++++ lsb/bin/ls/ls.c	2026-08-29 03:29:38.830452096 +0400
+@@ -50,6 +50,7 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/ioctl.h>
++#include <sys/sysmacros.h>	/* FreeLinX: musl keeps major()/minor() here */
+ 
+ #include <dirent.h>
+ #include <err.h>
+@@ -593,6 +594,7 @@
+ 					maxuser = ulen;
+ 				if ((glen = strlen(group)) > maxgroup)
+ 					maxgroup = glen;
++				#if defined(HAVE_STRUCT_STAT_ST_FLAGS)
+ 				if (f_flags) {
+ 					flags =
+ 					    flags_to_string((u_long)sp->st_flags, "-");
+@@ -600,6 +602,9 @@
+ 						maxflags = flen;
+ 				} else
+ 					flen = 0;
++#else
++				flen = 0;
++#endif
+ 
+ 				if ((np = malloc(sizeof(NAMES) +
+ 				    ulen + glen + flen + 2)) == NULL)
+@@ -610,11 +615,13 @@
+ 				np->group = &np->data[ulen + 1];
+ 				(void)strcpy(np->group, group);
+ 
++				#if defined(HAVE_STRUCT_STAT_ST_FLAGS)
+ 				if (f_flags) {
+ 					np->flags = &np->data[ulen + glen + 2];
+ 				  	(void)strcpy(np->flags, flags);
+ 					free(flags);
+ 				}
++#endif
+ 				cur->fts_pointer = np;
+ 			}
+ 		}
+diff -ruN lsa/bin/ls/print.c lsb/bin/ls/print.c
+--- lsa/bin/ls/print.c	2020-05-18 03:34:11.000000000 +0400
++++ lsb/bin/ls/print.c	2026-08-29 03:29:38.834452150 +0400
+@@ -43,6 +43,7 @@
+ 
+ #include <sys/param.h>
+ #include <sys/stat.h>
++#include <sys/sysmacros.h>	/* FreeLinX: musl keeps major()/minor() here */
+ #ifndef SMALL
+ #include <sys/acl.h>
+ #endif
+@@ -57,7 +58,6 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <time.h>
+-#include <tzfile.h>
+ #include <unistd.h>
+ #include <util.h>
+ 
+@@ -169,8 +169,10 @@
+ 		if (!f_grouponly)
+ 			(void)printf("%-*s  ", dp->s_user, np->user);
+ 		(void)printf("%-*s  ", dp->s_group, np->group);
++		#if defined(HAVE_STRUCT_STAT_ST_FLAGS)
+ 		if (f_flags)
+ 			(void)printf("%-*s ", dp->s_flags, np->flags);
++#endif
+ 		if (S_ISCHR(sp->st_mode) || S_ISBLK(sp->st_mode))
+ 			(void)printf("%*lld, %*lld ",
+ 			    dp->s_major, (long long)major(sp->st_rdev),

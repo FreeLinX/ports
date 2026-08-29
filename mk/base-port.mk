@@ -1,36 +1,109 @@
 # -*- makefile -*-
-# FreeLinX/ports - shared template for the simple base utilities.
+# FreeLinX/ports - mk/base-port.mk : shared recipe for the base utilities.
 #
-# A single-source-file NetBSD utility (cat, echo, mkdir, cp, mv, rm) only sets
-# metadata + SRC_DIR/BUILD_BIN and includes this file. It avoids redefining
-# do-build, so there is no target-override noise and one source of logic.
+# Every base port (cat, cp, echo, ls, mkdir, mv, rm) builds the ACTUAL NetBSD
+# 10.1 source of that utility with the FreeLinX toolchain (clang + LLD + musl
+# sysroot), statically linked, exactly like the netbsd-sh port.  It is NOT an
+# invented tool, a fake binary, or a host coreutils program: the C is the
+# pristine src set pulled from dist/, the result is compiled and linked only
+# with the FreeLinX toolchain.
 #
-# The build recipe is intentionally conservative: it only proceeds if the
-# toolchain gate passed AND the source file is actually staged; otherwise it
-# reports the blocker instead of pretending.
+# A port Makefile declares its metadata plus:
+#   SRC_DIR          extraction root (default build/work/$(NAME))
+#   NETBSD_MEMBERS   tar members of $(DISTINFO_ARCHIVE) to extract; paths are
+#                    the src set's own "usr/src/..." (the leading two
+#                    components are stripped, so usr/src/bin/cp/cp.c lands at
+#                    $(SRC_DIR)/bin/cp/cp.c and usr/src/include/fts.h at
+#                    $(SRC_DIR)/include/fts.h).
+#   PORT_SRCS        upstream .c files to compile, relative to $(SRC_DIR).
+#   COMPAT_SRCS      FreeLinX musl-compat objects (default:
+#                    base/compat/getprogname.c; mkdir adds setmode.c).
+#   FLX_CPPFLAGS     extra -D/-I flags (e.g. -DSMALL, -DHAVE_NBTOOL_CONFIG_H).
+#   BUILD_BIN        the delivered statically-linked binary; mk/install.mk
+#                    stages it at staging/$(INSTALL_RELPATH).
+#
+# Everything else - selective extraction, patch application, the static-link
+# ceremony (crt + -lc + clang compiler-rt, driven with -nostdlib because the
+# musl sysroot has no crtbegin/crtend/libgcc) - is shared here so there is a
+# single source of truth.
 
-# This file lives at <root>/mk/base-port.mk. MAKEFILE_LIST's last entry is this
-# file when the line below is read, so the repo root is one level up from its
-# own directory.
 FREELINX_PORTS_ROOT:=$(abspath $(dir $(lastword $(MAKEFILE_LIST)))..)
 
 include $(FREELINX_PORTS_ROOT)/mk/port.mk
 
-# The .c file to compile (relative to SRC_DIR; override if layout differs).
-SRC_FILE?=$(SRC_DIR)/$(NAME).c
+SRC_DIR?=$(FREELINX_BUILD_DIR)/work/$(NAME)
+OBJ_DIR?=$(FREELINX_BUILD_DIR)/obj/$(NAME)
+DIST_TGZ?=$(FREELINX_DIST_DIR)/$(DISTINFO_ARCHIVE)
+FLX_COMPAT?=$(FREELINX_PORTS_ROOT)/base/compat
+COMPAT_SRCS?=$(FLX_COMPAT)/getprogname.c
+PATCHES?=$(wildcard $(CURDIR)/patches/patch-*)
+
+NETBSD_MEMBERS?=
+PORT_SRCS?=
+BUILD_BIN?=$(SRC_DIR)/$(NAME)
+
+ALL_SRCS = $(addprefix $(SRC_DIR)/,$(PORT_SRCS)) $(COMPAT_SRCS)
+
+# Default flags for every base utility: the shared FreeLinX compat layer leads
+# the include path, and extracted upstream headers (src set include/) are
+# reachable as their own <fts.h>/<vis.h>.  A port extends FLX_CPPFLAGS with
+# the configuration it needs (-DSMALL, -DHAVE_NBTOOL_CONFIG_H=1, ...).
+FLX_CPPFLAGS?=-I$(FLX_COMPAT) -I$(SRC_DIR)/include
+
+# Static-link set, identical to shells/netbsd-sh: crt1.o + crti.o at the
+# front, crtn.o at the very end, -lc in between, and clang compiler-rt in
+# place of the libgcc a GCC toolchain would add.  compiler-rt lives in the
+# clang resource tree (lib/clang/<ver>/lib/) under the compiler's normalized
+# target triple; it is looked up through `clang -print-resource-dir` so the
+# path follows the toolchain wherever it is installed.
+FLX_CRT         = $(FREELINX_SYSROOT)/lib/crt1.o $(FREELINX_SYSROOT)/lib/crti.o
+FLX_CRT_END     = $(FREELINX_SYSROOT)/lib/crtn.o
+FLX_RTDIR       := $(shell $(CC) $(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -print-resource-dir 2>/dev/null)
+FLX_COMPILER_RT = $(filter %-musl/libclang_rt.builtins.a,$(wildcard $(FLX_RTDIR)/lib/*/libclang_rt.builtins.a))
+FLX_LD          = $(CC) $(FREELINX_CFLAGS) $(FREELINX_LDFLAGS) \
+			-nostdlib -L$(FREELINX_SYSROOT)/lib \
+			$(FLX_CRT) \
+			$(OBJ_DIR)/*.o \
+			-lc $(FLX_COMPILER_RT) \
+			$(FLX_CRT_END)
+
+# ---------------------------------------------------------------------------
+# do-prepare: extract only the members this utility needs from dist/ and
+# apply the FreeLinX patches.  A .flx-patched sentinel keeps repeated builds
+# idempotent; delete build/work/$(NAME) to force a re-extract.
+# ---------------------------------------------------------------------------
+.PHONY: do-prepare
+
+do-prepare:
+	@set -e; \
+	if [ ! -f "$(SRC_DIR)/.flx-patched" ]; then \
+		printf '[FreeLinX/ports] extracting %s members into %s\n' "$(DISTINFO_ARCHIVE)" "$(SRC_DIR)"; \
+		rm -rf "$(SRC_DIR)"; \
+		mkdir -p "$(SRC_DIR)"; \
+		tar -xzf "$(DIST_TGZ)" -C "$(SRC_DIR)" --strip-components=2 $(NETBSD_MEMBERS); \
+		printf '[FreeLinX/ports] applying FreeLinX patches\n'; \
+		for p in $(PATCHES); do \
+			patch -d "$(SRC_DIR)" -p1 < "$$p"; \
+		done; \
+		touch "$(SRC_DIR)/.flx-patched"; \
+	fi
+
+# ---------------------------------------------------------------------------
+# Build: compile every source (upstream + FreeLinX compat) and statically
+# link the binary with clang + LLD + musl sysroot.  Any failure surfaces the
+# real compiler/linker error - nothing is faked.
+# ---------------------------------------------------------------------------
+$(BUILD_BIN): do-prepare
+	@set -e; \
+	mkdir -p "$(OBJ_DIR)"; \
+	for s in $(ALL_SRCS); do \
+		o="$(OBJ_DIR)/$${s##*/}"; o="$${o%.c}.o"; \
+		printf '[FreeLinX/ports] cc %s\n' "$${s##*/}"; \
+		$(CC) $(FREELINX_CFLAGS) $(FLX_CPPFLAGS) -c -o "$$o" "$$s"; \
+	done; \
+	printf '[FreeLinX/ports] ld %s\n' "$@"; \
+	$(FLX_LD) -o "$@"
 
 .PHONY: do-build
-do-build:
-	@printf '[FreeLinX/ports] Building $(NAME)...\n'
-	@if [ -f "$(SRC_FILE)" ]; then \
-	    if $(CC) $(FREELINX_CFLAGS) -o $(BUILD_BIN) "$(SRC_FILE)" $(FREELINX_LDFLAGS); then \
-	        printf '[FreeLinX/ports] $(NAME): built $(BUILD_BIN)\n'; \
-	    else \
-	        printf '[FreeLinX/ports][error] $(NAME): compile/link failed\n'; \
-	        exit 1; \
-	    fi; \
-	else \
-	    printf '[FreeLinX/ports][error] $(NAME): source not staged at $(SRC_FILE)\n'; \
-	    printf '[FreeLinX/ports][error] fetch the NetBSD source and unpack it there first\n'; \
-	    exit 1; \
-	fi
+do-build: $(BUILD_BIN)
+	@printf '[FreeLinX/ports] built: %s\n' "$(BUILD_BIN)"

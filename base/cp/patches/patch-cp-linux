@@ -1,0 +1,103 @@
+diff -ruN cpa2/bin/cp/cp.c cpb2/bin/cp/cp.c
+--- cpa2/bin/cp/cp.c	2026-08-29 03:26:26.479886969 +0400
++++ cpb2/bin/cp/cp.c	2026-08-29 03:26:26.483887022 +0400
+@@ -96,7 +96,7 @@
+ static int copy(char *[], enum op, int);
+ 
+ static void
+-progress(int sig __unused)
++progress(int sig)
+ {
+ 
+ 	pinfo++;
+@@ -218,7 +218,9 @@
+ 	/* Set end of argument list for fts(3). */
+ 	argv[argc] = NULL;     
+ 	
++	#ifdef SIGINFO
+ 	(void)signal(SIGINFO, progress);
++#endif
+ 	
+ 	/*
+ 	 * Cp has two distinct cases:
+diff -ruN cpa2/bin/cp/extern.h cpb2/bin/cp/extern.h
+--- cpa2/bin/cp/extern.h	2026-08-29 03:26:26.483887022 +0400
++++ cpb2/bin/cp/extern.h	2026-08-29 03:26:26.483887022 +0400
+@@ -1,5 +1,10 @@
+ /* $NetBSD: extern.h,v 1.18 2020/05/16 18:31:45 christos Exp $ */
+ 
++/* musl does not leak sig_atomic_t from other headers as NetBSD does, and
++ * extern.h declares `volatile sig_atomic_t pinfo` before the <signal.h>
++ * include in utils.c; pull the type in explicitly.  (FreeLinX porting.) */
++#include <signal.h>
++
+ /*-
+  * Copyright (c) 1991, 1993, 1994
+  *	The Regents of the University of California.  All rights reserved.
+diff -ruN cpa2/bin/cp/utils.c cpb2/bin/cp/utils.c
+--- cpa2/bin/cp/utils.c	2026-08-29 03:26:26.479886969 +0400
++++ cpb2/bin/cp/utils.c	2026-08-29 03:26:26.483887022 +0400
+@@ -45,8 +45,8 @@
+ #include <sys/time.h>
+ #ifndef SMALL
+ #include <sys/acl.h>
+-#endif
+ #include <sys/extattr.h>
++#endif
+ 
+ #include <err.h>
+ #include <errno.h>
+@@ -68,6 +68,7 @@
+ {
+     struct timespec ts[2];
+ 
++    #if defined(HAVE_STRUCT_STAT_ST_ATIMESPEC)
+     ts[0] = fs->st_atimespec;
+     ts[1] = fs->st_mtimespec;
+ 
+@@ -75,6 +76,17 @@
+ 	warn("lutimens: %s", file);
+ 	return (1);
+     }
++#else
++    /* musl calls the members st_atim/st_mtim and lacks lutimens(3);
++     * utimensat(..., AT_SYMLINK_NOFOLLOW) is the same operation. */
++    ts[0] = fs->st_atim;
++    ts[1] = fs->st_mtim;
++
++    if (utimensat(AT_FDCWD, file, ts, AT_SYMLINK_NOFOLLOW)) {
++	warn("utimensat: %s", file);
++	return (1);
++    }
++#endif
+     return (0);
+ }
+ 
+@@ -255,10 +267,9 @@
+ 		}
+ 	}
+ 
++	#ifndef SMALL
+ 	if (pflag && (fcpxattr(from_fd, to_fd) != 0))
+ 		warn("%s: error copying extended attributes", to.p_path);
+-
+-#ifndef SMALL
+ 	if (pflag && preserve_fd_acls(from_fd, to_fd) != 0)
+ 		rval = 1;
+ #endif
+@@ -388,6 +399,7 @@
+ 		rval = 1;
+ 	}
+ 
++#if defined(HAVE_STRUCT_STAT_ST_FLAGS)
+ 	if (!islink && !Nflag) {
+ 		unsigned long fflags = fs->st_flags;
+ 		/*
+@@ -406,6 +418,7 @@
+ 				rval = 1;
+ 			}
+ 	}
++#endif
+ 	/* if fd is non-zero, caller must call set_utimes() after close() */
+ 	if (fd == 0 && set_utimes(to.p_path, fs))
+ 	    rval = 1;

@@ -1,0 +1,52 @@
+diff -ruN a/bin/rm/rm.c b/bin/rm/rm.c
+--- a/bin/rm/rm.c	2021-09-11 02:11:03.000000000 +0400
++++ b/bin/rm/rm.c	2026-08-29 03:24:36.770425447 +0400
+@@ -138,7 +138,9 @@
+ 		usage();
+ 	}
+ 
++	#ifdef SIGINFO
+ 	(void)signal(SIGINFO, progress);
++#endif
+ 
+ 	checkdot(argv);
+ 
+@@ -244,11 +246,13 @@
+ 				continue;
+ 			break;
+ 
++#if defined(HAVE_UNDELETE)
+ 		case FTS_W:
+ 			rval = undelete(p->fts_accpath);
+ 			if (rval != 0 && fflag && errno == ENOENT)
+ 				continue;
+ 			break;
++#endif
+ 
+ 		default:
+ 			if (Pflag) {
+@@ -309,9 +313,12 @@
+ 		}
+ 		if (!fflag && !S_ISWHT(sb.st_mode) && !check(f, f, &sb))
+ 			continue;
++#if defined(HAVE_UNDELETE)
+ 		if (S_ISWHT(sb.st_mode))
+ 			rval = undelete(f);
+-		else if (S_ISDIR(sb.st_mode))
++		else
++#endif
++		if (S_ISDIR(sb.st_mode))
+ 			rval = rmdir(f);
+ 		else {
+ 			if (Pflag) {
+@@ -604,8 +611,8 @@
+ }
+ 
+ static void
+-progress(int sig __unused)
++progress(int sig)
+ {
+-	
++
+ 	pinfo++;
+ }
