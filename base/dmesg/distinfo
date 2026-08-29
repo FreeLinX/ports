@@ -1,0 +1,10 @@
+# FreeLinX/ports - base/dmesg : FreeLinX-native port (no upstream archive).
+#
+# This port is a FreeLinX-native implementation (Linux syslog(2) ring-buffer
+# reader via musl klogctl(3)); it is NOT built from NetBSD source, so there is
+# no upstream archive or checksum to pin.  The NetBSD src.tgz used by the other
+# base ports does not contain a Linux-compatible dmesg that we could reuse.
+DISTINFO_NAME=freelinx-native
+DISTINFO_ARCHIVE=
+DISTINFO_URL=(native FreeLinX implementation)
+DISTINFO_SHA256=native

@@ -1,0 +1,8 @@
+# FreeLinX/ports - base/zlib : zlib 1.3.1 (build dependency, upstream port).
+#
+# Real upstream source: https://github.com/madler/zlib/releases/tag/v1.3.1
+# Built statically with FreeLinX clang + LLD + musl; consumed by Git/OpenSSH.
+DISTINFO_NAME=zlib-1.3.1
+DISTINFO_ARCHIVE=zlib-1.3.1.tar.gz
+DISTINFO_URL=https://github.com/madler/zlib/releases/download/v1.3.1/zlib-1.3.1.tar.gz
+DISTINFO_SHA256=9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23

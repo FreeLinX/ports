@@ -1,0 +1,26 @@
+--- enva/usr.bin/env/env.c	2026-08-29 14:56:22.482482841 +0400
++++ envb/usr.bin/env/env.c	2026-08-29 14:56:33.398695763 +0400
+@@ -64,6 +64,15 @@
+ 	term = '\n';
+ 	while ((ch = getopt(argc, argv, "-0C:iu:")) != -1)
+ 		switch((char)ch) {
++		case 1:
++			/* FreeLinX/musl: a leading '-' in the optstring makes
++			 * musl's getopt(3) return each non-option argument as
++			 * optopt==1 (the GNU convention), where NetBSD's getopt
++			 * returned the literal '-'.  Rewind optind to point at
++			 * that non-option and stop parsing so the name=value /
++			 * command loop below sees it unchanged. */
++			--optind;
++			goto done_parsing;
+ 		case '0':
+ 			term = '\0';
+ 			break;
+@@ -84,6 +93,7 @@
+ 		default:
+ 			usage();
+ 		}
++done_parsing:
+ 
+ 	for (argv += optind; *argv && strchr(*argv, '=') != NULL; ++argv)
+ 		(void)putenv(*argv);

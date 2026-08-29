@@ -1,0 +1,13 @@
+# FreeLinX/ports - base/git : Git 2.47.1 (upstream project port).
+#
+# Real upstream source: https://github.com/git/git/tree/v2.47.1
+# Minimal static build: zlib (base/zlib) only; no openssl, curl, expat,
+# gettext, perl, python, iconv, pthreads.  Built with FreeLinX clang + musl +
+# LLD, fully static, no GNU runtime dependency.
+DISTINFO_NAME=git-2.47.1
+DISTINFO_ARCHIVE=git-2.47.1.tar.gz
+DISTINFO_URL=https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.47.1.tar.gz
+# Pinned to the artifact actually served by the official kernel.org SCM mirror
+# (mirrors.edge.kernel.org).  Cross-check against the upstream distributed
+# checksum before shipping; the mirror is the canonical FreeLinX source.
+DISTINFO_SHA256=f4c4e98667800585d218dfdf415eb72f73baa7abcac4569e2ce497970f8d6665

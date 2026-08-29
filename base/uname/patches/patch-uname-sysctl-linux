@@ -1,0 +1,34 @@
+--- enva/usr.bin/uname/uname.c	2026-08-29 15:00:53.731773592 +0400
++++ envb/usr.bin/uname/uname.c	2026-08-29 15:01:31.132503098 +0400
+@@ -44,7 +44,12 @@
+ #include <unistd.h>
+ #include <err.h>
+ 
+-#include <sys/sysctl.h>
++/* FreeLinX/Linux: NetBSD defines SYS_NMLN in <sys/param.h>; musl does not
++ * export it (its utsname fields are sized by _UTSNAME_LENGTH, 65). */
++#ifndef SYS_NMLN
++#define	SYS_NMLN	65
++#endif
++
+ #include <sys/utsname.h>
+ 
+ __dead static void usage(void);
+@@ -113,12 +118,11 @@
+ 		/* NOTREACHED */
+ 	}
+ 	if (print_mask & PRINT_MACHINE_ARCH) {
+-		int mib[2] = { CTL_HW, HW_MACHINE_ARCH };
+-		size_t len = sizeof (machine_arch);
+-
+-		if (sysctl(mib, sizeof (mib) / sizeof (mib[0]), machine_arch,
+-		    &len, NULL, 0) < 0)
+-			err(EXIT_FAILURE, "sysctl");
++		/* FreeLinX/Linux: there is no sysctl(2); the machine
++		 * architecture is exposed through uname(2) in
++		 * utsname.machine (e.g. "x86_64"), so derive it from
++		 * there instead of the BSD CTL_HW.HW_MACHINE_ARCH sysctl. */
++		(void)strlcpy(machine_arch, u.machine, sizeof(machine_arch));
+ 	}
+ 
+ 	if (print_mask & PRINT_SYSNAME) {
