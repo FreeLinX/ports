@@ -1,0 +1,52 @@
+diff -ruN a/bin/mv/mv.c b/bin/mv/mv.c
+--- a/bin/mv/mv.c	2026-08-29 03:16:41.376128076 +0400
++++ b/bin/mv/mv.c	2026-08-29 03:16:41.376128076 +0400
+@@ -50,7 +50,6 @@
+ #include <sys/time.h>
+ #include <sys/wait.h>
+ #include <sys/stat.h>
+-#include <sys/extattr.h>
+ 
+ #include <err.h>
+ #include <errno.h>
+@@ -75,7 +74,7 @@
+ __dead static void	usage(void);
+ 
+ static void
+-progress(int sig __unused)
++progress(int sig)
+ {
+ 
+ 	pinfo++;
+@@ -120,7 +119,9 @@
+ 
+ 	stdin_ok = isatty(STDIN_FILENO);
+ 
++#ifdef SIGINFO
+ 	(void)signal(SIGINFO, progress);
++#endif
+ 
+ 	/*
+ 	 * If the stat on the target fails or the target isn't a directory,
+@@ -320,8 +321,10 @@
+ 		return (1);
+ 	}
+ 
++#if defined(HAVE_SYS_EXTATTR_H)
+ 	if (fcpxattr(from_fd, to_fd) == -1)
+ 		warn("%s: error copying extended attributes", to);
++#endif
+ 
+ 	(void)close(from_fd);
+ #ifdef BSD4_4
+@@ -355,8 +358,10 @@
+ 	}
+ 	if (fchmod(to_fd, sbp->st_mode))
+ 		warn("%s: set mode", to);
++#if defined(HAVE_STRUCT_STAT_ST_FLAGS)
+ 	if (fchflags(to_fd, sbp->st_flags) && (errno != EOPNOTSUPP))
+ 		warn("%s: set flags (was: 0%07o)", to, sbp->st_flags);
++#endif
+ 
+ 	if (close(to_fd)) {
+ 		warn("%s", to);
