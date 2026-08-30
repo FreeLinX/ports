@@ -1,0 +1,13 @@
+diff -ruN a/sbin/chown/chown.c b/sbin/chown/chown.c
+--- a/sbin/chown/chown.c	2026-08-31 00:00:00.000000000 +0000
++++ b/sbin/chown/chown.c	2026-08-31 00:00:00.000000000 +0000
+@@ -61,3 +61,9 @@
+ #include <getopt.h>
+ 
++/* FreeLinX: NetBSD declares uid_from_user(3) in <pwd.h> and gid_from_group(3)
++ * in <grp.h>; musl does not.  Implemented by libc/gen/pwcache.c (extracted
++ * from the same src set). */
++int	 uid_from_user(const char *, uid_t *);
++int	 gid_from_group(const char *, gid_t *);
++
+ static void	a_gid(const char *);

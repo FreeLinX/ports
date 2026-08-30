@@ -1,0 +1,18 @@
+diff -ruN pa/usr.bin/grep/util.c pb/usr.bin/grep/util.c
+--- a/usr.bin/grep/util.c	2026-08-31 02:31:22.523054157 +0400
++++ b/usr.bin/grep/util.c	2026-08-31 02:31:22.683056525 +0400
+@@ -310,8 +310,12 @@
+ 				r = (r == 0) ? 0 : REG_NOMATCH;
+ 				st = pmatch.rm_eo;
+ 			} else {
+-				r = regexec(&r_pattern[i], l->dat, 1,
+-				    &pmatch, eflags);
++				r = regexec(&r_pattern[i], l->dat + st, 1,
++				    &pmatch, 0);
++				if (r == 0) {
++					pmatch.rm_so += st;
++					pmatch.rm_eo += st;
++				}
+ 				r = (r == 0) ? 0 : REG_NOMATCH;
+ 				st = pmatch.rm_eo;
+ 			}

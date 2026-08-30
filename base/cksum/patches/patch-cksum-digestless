@@ -1,0 +1,47 @@
+diff -ruN a/usr.bin/cksum/cksum.c b/usr.bin/cksum/cksum.c
+--- a/usr.bin/cksum/cksum.c
++++ b/usr.bin/cksum/cksum.c
+@@ -91,12 +91,6 @@
+ #include <errno.h>
+ #include <fcntl.h>
+ #include <locale.h>
+-#include <md2.h>
+-#include <md4.h>
+-#include <md5.h>
+-#include <rmd160.h>
+-#include <sha1.h>
+-#include <sha2.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+@@ -118,30 +112,6 @@
+ 	void (*filterfunc)(int);
+ 	char *(*filefunc)(const char *, char *);
+ } hashes[] = {
+-	{ "md2", "MD2",
+-	  MD2String, MD2TimeTrial, MD2TestSuite,
+-	  MD2Filter, MD2File },
+-	{ "md4", "MD4",
+-	  MD4String, MD4TimeTrial, MD4TestSuite,
+-	  MD4Filter, MD4File },
+-	{ "md5", "MD5",
+-	  MD5String, MD5TimeTrial, MD5TestSuite,
+-	  MD5Filter, MD5File },
+-	{ "rmd160", "RMD160",
+-	  RMD160String, RMD160TimeTrial, RMD160TestSuite,
+-	  RMD160Filter, (_filefunc) RMD160File },
+-	{ "sha1", "SHA1",
+-	  SHA1String, SHA1TimeTrial, SHA1TestSuite,
+-	  SHA1Filter, (_filefunc) SHA1File },
+-	{ "sha256", "SHA256",
+-	  SHA256_String, SHA256_TimeTrial, SHA256_TestSuite,
+-	  SHA256_Filter, (_filefunc) SHA256_File },
+-	{ "sha384", "SHA384",
+-	  SHA384_String, SHA384_TimeTrial, SHA384_TestSuite,
+-	  SHA384_Filter, (_filefunc) SHA384_File },
+-	{ "sha512", "SHA512",
+-	  SHA512_String, SHA512_TimeTrial, SHA512_TestSuite,
+-	  SHA512_Filter, (_filefunc) SHA512_File },
+ 	{ .progname = NULL, },
+ };
+ 

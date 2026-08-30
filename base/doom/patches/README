@@ -1,0 +1,32 @@
+FreeLinX/ports - base/doom : patch/port notes
+=============================================
+
+This port vendors no source changes into the upstream doomgeneric source it
+builds from (dist/doomgeneric-master.tar.gz).  Everything about the FreeLinX
+build is expressed in the port `Makefile` (static link ceremony, toolchain
+flags) and one FreeLinX-owned file:
+
+  backends/doomgeneric_ppm.c
+      A FreeLinX addition (not upstream).  An alternative `doomgeneric_p`-
+      style backend that writes rendered frames to PPM files instead of the
+      Linux framebuffer, so the Doom render/game core can be verified on a
+      machine / kernel with no /dev/fb0.  It is compiled into the `doombench`
+      verification binary, never into the rootfs `doom` binary.
+
+The delivered rootfs binary `doom` uses the upstream `linuxvt` backend
+(doomgeneric_linuxvt.c), which writes each frame to /dev/fb0 via the standard
+FBIO mmap interface and reads input from evdev.  It needs:
+
+  - a Linux framebuffer device /dev/fb0 at runtime
+  - /dev/input/event* (keyboard) for input
+
+Runtime data: DOOM requires a .wad data file (e.g. the freely redistributable
+shareware doom1.wad) alongside the binary.  The .wad is game data belonging to
+id Software and is intentionally NOT vendored into FreeLinX.
+
+Known kernel blocker (see base/doom): the current FreeLinX 6.6.21 kernel
+config enables CONFIG_VT/CONFIG_VGA_CONSOLE but disables the framebuffer
+subsystem (no CONFIG_FB, no CONFIG_DRM_FBDEV_EMULATION), so no /dev/fb0 is
+created.  Without enabling CONFIG_FB (or CONFIG_DRM_FBDEV_EMULATION on the
+virtio-gpu/i915 DRM driver) the `doom` binary cannot display; use `doombench`
+to verify the engine without a framebuffer.

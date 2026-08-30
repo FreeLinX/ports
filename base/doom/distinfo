@@ -1,0 +1,18 @@
+# FreeLinX/ports - base/doom : doomgeneric (id Software Doom source, ported).
+#
+# UPSTREAM SOURCE (not FreeLinX patches, not generated):
+#   doomgeneric by ozkl (MIT-licensed to the doomgeneric glue; the underlying
+#   Doom engine code is the GPL-2.0 id Software "Linux Doom" sources).
+#   https://github.com/ozkl/doomgeneric
+#
+#   doomgeneric is a minimal porting layer around the classic Doom engine:
+#   it renders into a single 32-bit framebuffer (DG_ScreenBuffer) and hands
+#   it to a tiny platform backend.  FreeLinX uses the `linuxvt` backend
+#   (doomgeneric_linuxvt.c) which pushes the frame to the Linux framebuffer
+#   device /dev/fb0 and reads input from evdev.
+#
+# Fetch: GitHub archive tarball of the `master` branch.
+DISTINFO_NAME=doomgeneric-master
+DISTINFO_ARCHIVE=doomgeneric-master.tar.gz
+DISTINFO_URL=https://github.com/ozkl/doomgeneric/archive/refs/heads/master.tar.gz
+DISTINFO_SHA256=52f599b5f2113fe09a84501c17f87f63a48e0a15fe4273ceb00beb58220225fc

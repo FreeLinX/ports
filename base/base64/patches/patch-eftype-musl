@@ -1,0 +1,13 @@
+diff -ruN a/usr.bin/base64/base64.c b/usr.bin/base64/base64.c
+--- a/usr.bin/base64/base64.c	2024-04-08 00:00:00.000000000 +0000
++++ b/usr.bin/base64/base64.c	2026-08-31 00:00:00.000000000 +0000
+@@ -43,4 +43,8 @@
+ #include <unistd.h>
+ 
++/* FreeLinX: musl has no EFTYPE (NetBSD uses it for non-text base64 input). */
++#ifndef EFTYPE
++#define EFTYPE EINVAL
++#endif
+ 
+ static const char B64[] =
+     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";

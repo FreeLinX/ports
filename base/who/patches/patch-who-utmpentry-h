@@ -1,0 +1,22 @@
+diff -ruN a/usr.bin/who/utmpentry.h b/usr.bin/who/utmpentry.h
+--- a/usr.bin/who/utmpentry.h
++++ b/usr.bin/who/utmpentry.h
+@@ -28,6 +28,18 @@
+  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  * POSSIBILITY OF SUCH DAMAGE.
+  */
++
++/* FreeLinX: musl <utmpx.h> omits NetBSD's _UTX_* size macros (size must
++ * exceed the musl utmpx field: ut_user/ut_line[32], ut_host[256]). */
++#ifndef _UTX_USERSIZE
++#define _UTX_USERSIZE	32
++#endif
++#ifndef _UTX_LINESIZE
++#define _UTX_LINESIZE	32
++#endif
++#ifndef _UTX_HOSTSIZE
++#define _UTX_HOSTSIZE	256
++#endif
+ 
+ #if defined(SUPPORT_UTMPX)
+ # include <utmpx.h>

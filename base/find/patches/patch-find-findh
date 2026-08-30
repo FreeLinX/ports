@@ -1,0 +1,16 @@
+--- a/usr.bin/find/find.h	2026-08-31 02:12:38.946471462 +0400
++++ b/usr.bin/find/find.h	2026-08-31 02:14:44.952320071 +0400
+@@ -37,6 +37,12 @@
+ #include <regex.h>
+ #include <time.h>
+ 
++/* FreeLinX: NetBSD declares emalloc(3)/erealloc(3) in <util.h>; the
++ * FreeLinX compat <util.h> stand-in (musl ships no util.h) only declares
++ * getbsize.  Implementations come from libutil's efun.c (extracted). */
++void		*emalloc(size_t);
++void		*erealloc(void *, size_t);
++
+ /* node type */
+ enum ntype {
+ 	N_AND = 1, 				/* must start > 0 */
+

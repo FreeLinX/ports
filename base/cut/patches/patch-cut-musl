@@ -1,0 +1,32 @@
+diff -ruN a/usr.bin/cut/cut.c b/usr.bin/cut/cut.c
+--- a/usr.bin/cut/cut.c	2026-08-31 02:04:46.495540225 +0400
++++ b/usr.bin/cut/cut.c	2026-08-31 02:04:46.735543746 +0400
+@@ -54,10 +54,27 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+-#include <util.h>
+ #include <wchar.h>
+ #include <sys/param.h>
+ 
++/* FreeLinX: musl lacks NetBSD libutil erealloc(3)/ecalloc(3) and the
++ * __unused attribute macro.  Provide local equivalents. */
++#ifndef __unused
++#define __unused __attribute__((__unused__))
++#endif
++static void *erealloc(void *p, size_t n) {
++	p = realloc(p, n);
++	if (p == NULL)
++		err(1, NULL);
++	return p;
++}
++static void *ecalloc(size_t n, size_t s) {
++	void *p = calloc(n, s);
++	if (p == NULL)
++		err(1, NULL);
++	return p;
++}
++
+ static int bflag;
+ static int	cflag;
+ static char	dchar;

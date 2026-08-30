@@ -1,0 +1,12 @@
+--- a/usr.bin/find/misc.c	2026-08-31 02:12:38.946471462 +0400
++++ b/usr.bin/find/misc.c	2026-08-31 02:13:08.614906722 +0400
+@@ -154,7 +154,7 @@
+ 	if (ttyfd == -1)
+ 		goto out;
+ 
+-	n = snprintf_ss(buf, sizeof(buf), "%s: path %s\n", getprogname(), 
++	n = snprintf(buf, sizeof(buf), "%s: path %s\n", getprogname(), 
+ 	    g_entry->fts_path);
+ 
+ 	if (n <= 0)
+

@@ -1,0 +1,15 @@
+--- a/usr.bin/find/main.c	2026-08-31 02:12:38.946471462 +0400
++++ b/usr.bin/find/main.c	2026-08-31 02:18:44.299833378 +0400
+@@ -57,6 +57,12 @@
+ #include <time.h>
+ #include <unistd.h>
+ 
++/* FreeLinX: REG_BASIC is a BSD-only <regex.h> flag; musl's regcomp(3)
++ * compiles basic (BRE) expressions by default, and REG_BASIC == 0 there. */
++#ifndef REG_BASIC
++#define	REG_BASIC	0
++#endif
++
+ #include "find.h"
+ 
+ time_t now;			/* time find was run */

@@ -1,0 +1,29 @@
+diff -ruN a/usr.bin/rev/rev.c b/usr.bin/rev/rev.c
+--- a/usr.bin/rev/rev.c	2026-08-31 02:03:33.294466305 +0400
++++ b/usr.bin/rev/rev.c	2026-08-31 02:03:33.590470648 +0400
+@@ -59,7 +59,8 @@
+ main(int argc, char *argv[])
+ {
+ 	const char *filename;
+-	wchar_t *p, *t;
++	wchar_t *p;
++	wchar_t line[1024], *t;
+ 	FILE *fp;
+ 	size_t len;
+ 	int ch, rval;
+@@ -90,11 +91,11 @@
+ 			}
+ 			filename = *argv++;
+ 		}
+-		while ((p = fgetwln(fp, &len)) != NULL) {
+-			if (p[len - 1] == L'\n')
++		while (fgetws(line, sizeof(line) / sizeof(line[0]), fp) != NULL) {
++			len = wcslen(line);
++			if (line[len - 1] == L'\n')
+ 				--len;
+-			t = p + len - 1;
+-			for (t = p + len - 1; t >= p; --t)
++			for (t = line + len - 1; t >= line; --t)
+ 				putwchar(*t);
+ 			putwchar(L'\n');
+ 		}

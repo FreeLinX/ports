@@ -1,0 +1,10 @@
+diff -ruN a/usr.bin/base64/base64.c b/usr.bin/base64/base64.c
+--- a/usr.bin/base64/base64.c	2024-04-08 00:00:00.000000000 +0000
++++ b/usr.bin/base64/base64.c	2026-08-31 00:00:00.000000000 +0000
+@@ -233,3 +237,5 @@
+ 	if (e == 0)
+ 		return;
+-	errc(EXIT_FAILURE, e, "%scoding failed", decode ? "De": "En");
++	/* FreeLinX: musl lacks errc(3); use errno + err(3). */
++	errno = e;
++	err(EXIT_FAILURE, "%scoding failed", decode ? "De": "En");

@@ -1,0 +1,15 @@
+--- a/usr.bin/find/find.c	2026-08-31 02:12:38.946471462 +0400
++++ b/usr.bin/find/find.c	2026-08-31 02:13:56.483608995 +0400
+@@ -54,6 +54,11 @@
+ #include <stdbool.h>
+ #include <unistd.h>
+ 
++/* FreeLinX: musl has no BSD SIGINFO; wire the info-hook to SIGUSR1. */
++#ifndef SIGINFO
++#define	SIGINFO	SIGUSR1
++#endif
++
+ #include "find.h"
+ 
+ static int ftscompare(const FTSENT **, const FTSENT **);
+

@@ -1,0 +1,19 @@
+diff -ruN a/lib/libc/gen/pwcache.c b/lib/libc/gen/pwcache.c
+--- a/lib/libc/gen/pwcache.c	2026-08-31 00:00:00.000000000 +0000
++++ b/lib/libc/gen/pwcache.c	2026-08-31 00:00:00.000000000 +0000
+@@ -116,9 +116,12 @@
+ /*
+  * function pointers to various name lookup routines.
+- * these may be changed as necessary.
++ * these may be changed as necessary.  FreeLinX: musl has no
++ * setpassent(3)/setgroupent(3); the "keep the passwd/group file open"
++ * hooks are disabled (NULL) -- lookups still work, just without the
++ * stay-open optimisation.
+  */
+-static	int		(*_pwcache_setgroupent)(int)		= setgroupent;
++static	int		(*_pwcache_setgroupent)(int)		= NULL;
+ static	void		(*_pwcache_endgrent)(void)		= endgrent;
+ static	struct group *	(*_pwcache_getgrnam)(const char *)	= getgrnam;
+ static	struct group *	(*_pwcache_getgrgid)(gid_t)		= getgrgid;
+-static	int		(*_pwcache_setpassent)(int)		= setpassent;
++static	int		(*_pwcache_setpassent)(int)		= NULL;
