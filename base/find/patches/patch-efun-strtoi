@@ -1,0 +1,55 @@
+diff -ruN a/lib/libutil/efun.c b/lib/libutil/efun.c
+--- a/lib/libutil/efun.c	2026-08-31 02:09:47.555957026 +0400
++++ b/lib/libutil/efun.c	2026-08-31 02:09:55.004066296 +0400
+@@ -50,7 +50,7 @@
+ static void (*efunc)(int, const char *, ...) = err;
+ 
+ static void __dead
+-eexit(int e, const char *fmt __unused, ...)
++eexit(int e, const char *fmt, ...)
+ {
+ 	exit(e);
+ }
+@@ -177,8 +177,19 @@
+ intmax_t
+ estrtoi(const char * nptr, int base, intmax_t lo, intmax_t hi)
+ {
++	char *ep;
+ 	int e;
+-	intmax_t rv = strtoi(nptr, NULL, base, lo, hi, &e);
++	intmax_t rv;
++	/* FreeLinX: musl has no NetBSD strtoi(3); translate with
++	 * strtoimax(3) + clamping, keeping the same fatal-error contract. */
++	errno = 0;
++	rv = strtoimax(nptr, &ep, base);
++	if (ep == nptr)
++		e = ECANCELED;
++	else if (errno == ERANGE || rv < lo || rv > hi)
++		e = ERANGE;
++	else
++		e = 0;
+ 	if (e != 0) {
+ 		errno = e;
+ 		(*efunc)(1,
+@@ -191,8 +202,18 @@
+ uintmax_t
+ estrtou(const char * nptr, int base, uintmax_t lo, uintmax_t hi)
+ {
++	char *ep;
+ 	int e;
+-	uintmax_t rv = strtou(nptr, NULL, base, lo, hi, &e);
++	uintmax_t rv;
++	/* FreeLinX: as estrtoi above, via strtoumax(3). */
++	errno = 0;
++	rv = strtoumax(nptr, &ep, base);
++	if (ep == nptr)
++		e = ECANCELED;
++	else if (errno == ERANGE || rv < lo || rv > hi)
++		e = ERANGE;
++	else
++		e = 0;
+ 	if (e != 0) {
+ 		errno = e;
+ 		(*efunc)(1,
+
+

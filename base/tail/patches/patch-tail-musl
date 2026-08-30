@@ -1,0 +1,81 @@
+diff -ruN a/usr.bin/tail/forward.c b/usr.bin/tail/forward.c
+--- a/usr.bin/tail/forward.c
++++ b/usr.bin/tail/forward.c
+@@ -44,7 +44,6 @@
+ #include <sys/stat.h>
+ #include <sys/time.h>
+ #include <sys/mman.h>
+-#include <sys/event.h>
+ 
+ #include <limits.h>
+ #include <fcntl.h>
+@@ -87,10 +86,9 @@
+ void
+ forward(FILE *fp, enum STYLE style, off_t off, struct stat *sbp)
+ {
+-	int ch, n;
++	int ch;
+ 	int kq=-1, action=USE_SLEEP;
+ 	struct stat statbuf;
+-	struct kevent ev[2];
+ 
+ 	switch(style) {
+ 	case FBYTES:
+@@ -172,10 +170,7 @@
+ 	}
+ 
+ 	if (fflag) {
+-		kq = kqueue();
+-		if (kq < 0)
+-			xerr(1, "kqueue");
+-		action = ADD_EVENTS;
++		/* FreeLinX: no kqueue(2) on Linux/musl; follow by polling */
+ 	}
+ 
+ 	for (;;) {
+@@ -194,45 +189,6 @@
+ 		clearerr(fp);
+ 
+ 		switch (action) {
+-		case ADD_EVENTS:
+-			n = 0;
+-
+-			memset(ev, 0, sizeof(ev));
+-			if (fflag == 2 && fp != stdin) {
+-				EV_SET(&ev[n], fileno(fp), EVFILT_VNODE,
+-				    EV_ADD | EV_ENABLE | EV_CLEAR,
+-				    NOTE_DELETE | NOTE_RENAME, 0, 0);
+-				n++;
+-			}
+-			EV_SET(&ev[n], fileno(fp), EVFILT_READ,
+-			    EV_ADD | EV_ENABLE, 0, 0, 0);
+-			n++;
+-
+-			if (kevent(kq, ev, n, NULL, 0, NULL) == -1) {
+-				close(kq);
+-				kq = -1;
+-				action = USE_SLEEP;
+-			} else {
+-				action = USE_KQUEUE;
+-			}
+-			break;
+-
+-		case USE_KQUEUE:
+-			if (kevent(kq, NULL, 0, ev, 1, NULL) == -1)
+-				xerr(1, "kevent");
+-
+-			if (ev[0].filter == EVFILT_VNODE) {
+-				/* file was rotated, wait until it reappears */
+-				action = USE_SLEEP;
+-			} else if (ev[0].data < 0) {
+-				/* file shrank, reposition to end */
+-				if (fseek(fp, 0L, SEEK_END) == -1) {
+-					ierr();
+-					return;
+-				}
+-			}
+-			break;
+-
+ 		case USE_SLEEP:
+ 			/*
+ 			 * We pause for one second after displaying any data

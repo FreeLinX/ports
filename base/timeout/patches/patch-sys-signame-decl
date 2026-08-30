@@ -1,0 +1,13 @@
+diff -ruN a/usr.bin/timeout/timeout.c b/usr.bin/timeout/timeout.c
+--- a/usr.bin/timeout/timeout.c	2024-04-08 00:00:00.000000000 +0000
++++ b/usr.bin/timeout/timeout.c	2026-08-31 00:00:00.000000000 +0000
+@@ -52,5 +52,9 @@
+ #include <unistd.h>
+ 
++/* FreeLinX: sys_nsig/sys_signame come from base/timeout/sys_signame.c. */
++extern const char *sys_signame[];
++extern int sys_nsig;
++
+ #define EXIT_TIMEOUT 124
+ 
+ static sig_atomic_t sig_chld = 0;

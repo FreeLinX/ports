@@ -1,0 +1,18 @@
+diff -ruN a/usr.bin/split/split.c b/usr.bin/split/split.c
+--- a/usr.bin/split/split.c	2024-02-10 10:04:23.000000000 +0000
++++ b/usr.bin/split/split.c	2026-08-31 00:00:00.000000000 +0000
+@@ -55,6 +55,12 @@
+ #include <unistd.h>
+ 
++/* musl has no DEFFILEMODE (0666); NetBSD defines it in <sys/stat.h>.
++ * FreeLinX: supply the same default mode for open(2) here. */
++#ifndef DEFFILEMODE
++#define	DEFFILEMODE	(S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH)
++#endif
++
+ #define DEFLINE	1000		/* Default num lines per file. */
+ 
+ static int file_open;		/* If a file open. */
+ static int ifd = STDIN_FILENO, ofd = -1; /* Input/output file descriptors. */
+ static char *fname;		/* File name prefix. */
+ static size_t sfxlen = 2;		/* suffix length. */

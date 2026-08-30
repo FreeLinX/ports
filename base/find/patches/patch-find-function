@@ -1,0 +1,194 @@
+--- a/usr.bin/find/function.c	2026-08-31 02:12:38.946471462 +0400
++++ b/usr.bin/find/function.c	2026-08-31 02:14:39.876245601 +0400
+@@ -45,6 +45,7 @@
+ #include <sys/stat.h>
+ #include <sys/wait.h>
+ #include <sys/mount.h>
++#include <sys/statvfs.h>
+ 
+ #include <dirent.h>
+ #include <err.h>
+@@ -59,10 +60,31 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+-#include <tzfile.h>
+ #include <unistd.h>
+ #include <util.h>
+ 
++/* FreeLinX: musl has no <tzfile.h> (NetBSD supplies these time literals
++ * there) and no BSD MNT_* flags; Linux spellings for the sticky bit and
++ * the read-only statvfs flag differ too. */
++#ifndef SECSPERMIN
++#define	SECSPERMIN	60
++#endif
++#ifndef SECSPERDAY
++#define	SECSPERDAY	(24 * 60 * 60)
++#endif
++#ifndef DAYSPERNYEAR
++#define	DAYSPERNYEAR	365
++#endif
++#ifndef S_ISTXT
++#define	S_ISTXT		S_ISVTX
++#endif
++#ifndef MNT_LOCAL
++#define	MNT_LOCAL	0x20000000	/* unassigned on Linux: never matches */
++#endif
++#ifndef MNT_RDONLY
++#define	MNT_RDONLY	ST_RDONLY
++#endif
++
+ #include "find.h"
+ 
+ #define	COMPARE(a, b) {							\
+@@ -200,12 +222,36 @@
+ find_parsedate(PLAN *plan, const char *option, const char *vp)
+ {
+ 	time_t timestamp;
++	struct tm tm;
++	char *end;
++	static const char *const fmts[] = {
++		"%Y-%m-%d %H:%M:%S",
++		"%Y-%m-%d %H:%M",
++		"%Y-%m-%d",
++		"%d-%b-%Y",
++		"%a %b %e %H:%M:%S %Y",
++		NULL
++	};
++	const char *const *fmt;
+ 
++	/* FreeLinX: musl has no NetBSD parsedate(3); accept plain
++	 * epoch seconds or the strptime formats above. */
+ 	errno = 0;
+-	timestamp = parsedate(vp, NULL, NULL);
+-	if (timestamp == -1 && errno != 0)
+-		errx(1, "%s: %s: invalid timestamp value", option, vp);
+-	return timestamp;
++	timestamp = (time_t)strtoll(vp, &end, 10);
++	if (end != vp && *end == '\0')
++		return timestamp;
++
++	if (vp[0] == '@')
++		++vp;
++	for (fmt = fmts; *fmt != NULL; ++fmt) {
++		memset(&tm, 0, sizeof(tm));
++		if (strptime(vp, *fmt, &tm) != NULL &&
++		    (timestamp = mktime(&tm)) != (time_t)-1)
++			return timestamp;
++	}
++	(void)plan;
++	errx(1, "%s: %s: invalid timestamp value", option, vp);
++	/* NOTREACHED */
+ }
+ 
+ /*
+@@ -450,7 +496,7 @@
+  *	Always true.  Makes its best shot and continues on regardless.
+  */
+ int
+-f_delete(PLAN *plan __unused, FTSENT *entry)
++f_delete(PLAN *plan, FTSENT *entry)
+ {
+ 	/* ignore these from fts */
+ 	if (strcmp(entry->fts_accpath, ".") == 0 ||
+@@ -470,11 +516,15 @@
+ 			entry->fts_accpath);
+ 
+ 	/* Turn off user immutable bits if running as root */
++#if defined(HAVE_STRUCT_STAT_ST_FLAGS)
++	/* FreeLinX: musl's struct stat has no st_flags; the chflags(2)
++	 * dance is a BSD-only nicety and is compiled out. */
+ 	if ((entry->fts_statp->st_flags & (UF_APPEND|UF_IMMUTABLE)) &&
+ 	    !(entry->fts_statp->st_flags & (SF_APPEND|SF_IMMUTABLE)) &&
+ 	    geteuid() == 0)
+ 		chflags(entry->fts_accpath,
+ 		       entry->fts_statp->st_flags &= ~(UF_APPEND|UF_IMMUTABLE));
++#endif
+ 
+ 	/* rmdir directories, unlink everything else */
+ 	if (S_ISDIR(entry->fts_statp->st_mode)) {
+@@ -490,7 +540,7 @@
+ }
+ 
+ PLAN *
+-c_delete(char ***argvp __unused, int isok, char *opt)
++c_delete(char ***argvp, int isok, char *opt)
+ {
+ 
+ 	ftsoptions &= ~FTS_NOSTAT;	/* no optimize */
+@@ -958,43 +1008,27 @@
+ 
+ /*
+  * -flags [-]flags functions --
++ * FreeLinX: musl/Linux have no BSD file flags (no st_flags member), so
++ * `-flags` is accepted but never matches anything.
+  */
+ int
+ f_flags(PLAN *plan, FTSENT *entry)
+ {
+-	uint32_t flags;
+-
+-	flags = entry->fts_statp->st_flags;
+-	if (plan->flags == F_ATLEAST)
+-		return ((plan->f_data | flags) == flags);
+-	else
+-		return (flags == plan->f_data);
+-	/* NOTREACHED */
++	(void)plan;
++	(void)entry;
++	return 0;
+ }
+ 
+ PLAN *
+ c_flags(char ***argvp, int isok, char *opt)
+ {
+-	char *flags = **argvp;
+-	PLAN *new;
+-	u_long flagset;
++	(void)isok;
++	(void)opt;
+ 
+ 	(*argvp)++;
+ 	ftsoptions &= ~FTS_NOSTAT;
+ 
+-	new = palloc(N_FLAGS, f_flags);
+-
+-	if (*flags == '-') {
+-		new->flags = F_ATLEAST;
+-		++flags;
+-	}
+-
+-	flagset = 0;
+-	if ((strcmp(flags, "none") != 0) &&
+-	    (string_to_flags(&flags, &flagset, NULL) != 0))
+-		errx(1, "%s: %s: illegal flags string", opt, flags);
+-	new->f_data = flagset;
+-	return (new);
++	return (palloc(N_FLAGS, f_flags));
+ }
+ 
+ /*
+@@ -1057,7 +1091,7 @@
+ 	static int first = 1;
+ 	struct statvfs sb;
+ 	static short val;
+-	static char fstype[sizeof(sb.f_fstypename)];
++	static char fstype[32];
+ 	char *p, save[2];
+ 
+ 	memset(&save, 0, sizeof save);	/* XXX gcc */
+@@ -1098,8 +1132,11 @@
+ 		 * Further tests may need both of these values, so
+ 		 * always copy both of them.
+ 		 */
+-		val = sb.f_flag;
+-		strlcpy(fstype, sb.f_fstypename, sizeof(fstype));
++val = sb.f_flag;
++	/* FreeLinX: musl's struct statvfs has no f_fstypename, so a named
++	 * `-fstype <name>` can never match; "local"/"rdonly" still work off
++	 * sb.f_flag, and "local" never matches (Linux has no notion). */
++	fstype[0] = '\0';
+ 	}
+ 	switch (plan->flags) {
+ 	case F_MTFLAG:
+

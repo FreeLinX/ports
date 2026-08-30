@@ -1,0 +1,62 @@
+diff -ruN a/usr.bin/sed/compile.c b/usr.bin/sed/compile.c
+--- a/usr.bin/sed/compile.c
++++ b/usr.bin/sed/compile.c
+@@ -49,6 +49,11 @@
+ 
+ #include <sys/types.h>
+ #include <sys/stat.h>
++
++/* FreeLinX: musl omits BSD DEFFILEMODE */
++#ifndef DEFFILEMODE
++#define DEFFILEMODE	0666
++#endif
+ 
+ #include <ctype.h>
+ #include <err.h>
+@@ -850,10 +855,10 @@
+ 		while (*op != '\0') {
+ 			oclen = mbrlen(op, MB_LEN_MAX, &mbs1);
+ 			if (oclen == (size_t)-1 || oclen == (size_t)-2)
+-				errc(1, EILSEQ, NULL);
++				errx(1, "%s", strerror(EILSEQ));
+ 			nclen = mbrlen(np, MB_LEN_MAX, &mbs2);
+ 			if (nclen == (size_t)-1 || nclen == (size_t)-2)
+-				errc(1, EILSEQ, NULL);
++				errx(1, "%s", strerror(EILSEQ));
+ 			if (oclen == 1 && nclen == 1)
+ 				y->bytetab[(u_char)*op] = (u_char)*np;
+ 			else {
+diff -ruN a/usr.bin/sed/process.c b/usr.bin/sed/process.c
+--- a/usr.bin/sed/process.c
++++ b/usr.bin/sed/process.c
+@@ -49,6 +49,12 @@
+ 
+ #include <sys/types.h>
+ #include <sys/stat.h>
++
++/* FreeLinX: musl omits BSD DEFFILEMODE */
++#ifndef DEFFILEMODE
++#define DEFFILEMODE	0666
++#endif
++
+ #include <sys/ioctl.h>
+ #include <sys/uio.h>
+ 
+diff -ruN a/usr.bin/sed/main.c b/usr.bin/sed/main.c
+--- a/usr.bin/sed/main.c
++++ b/usr.bin/sed/main.c
+@@ -71,6 +71,14 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
++
++/* FreeLinX: musl regex lacks REG_GNU; BSD ALLPERMS not in musl */
++#ifndef REG_GNU
++#define REG_GNU	0
++#endif
++#ifndef ALLPERMS
++#define ALLPERMS	07777
++#endif
+ 
+ #include "defs.h"
+ #include "extern.h"

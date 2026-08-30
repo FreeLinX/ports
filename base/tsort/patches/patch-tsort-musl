@@ -1,0 +1,123 @@
+diff -ruN a/usr.bin/tsort/tsort.c b/usr.bin/tsort/tsort.c
+--- a/usr.bin/tsort/tsort.c	2026-08-31 02:07:04.085558782 +0400
++++ b/usr.bin/tsort/tsort.c	2026-08-31 02:07:17.925761829 +0400
+@@ -48,7 +48,6 @@
+ 
+ #include <sys/types.h>
+ #include <ctype.h>
+-#include <db.h>
+ #include <err.h>
+ #include <errno.h>
+ #include <fcntl.h>
+@@ -56,9 +55,27 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+-#if !HAVE_NBTOOL_CONFIG_H
+-#include <util.h>
+-#endif
++
++/* FreeLinX: musl lacks NetBSD libutil erealloc(3)/emalloc(3)/ecalloc(3).
++ * Provide local equivalents (err(1) on failure, matching NetBSD). */
++static void *emalloc(size_t n) {
++	void *p = malloc(n);
++	if (p == NULL)
++		err(1, NULL);
++	return p;
++}
++static void *ecalloc(size_t n, size_t s) {
++	void *p = calloc(n, s);
++	if (p == NULL)
++		err(1, NULL);
++	return p;
++}
++static void *erealloc(void *p, size_t n) {
++	p = realloc(p, n);
++	if (p == NULL)
++		err(1, NULL);
++	return p;
++}
+ 
+ /*
+  *  Topological sort.  Input is a list of pairs of strings separated by
+@@ -100,7 +117,12 @@
+ 	size_t b_bsize;
+ } BUF;
+ 
+-static DB *db;
++static struct hlink {
++	struct hlink *next;
++	const char *name;
++	NODE *node;
++} **htab;
++static size_t htsize;
+ static NODE *graph, **cycle_buf, **longest_cycle;
+ static int debug, longest, quiet, reverse;
+ 
+@@ -238,35 +260,31 @@
+ static NODE *
+ get_node(const char *name)
+ {
+-	DBT data, key;
++	struct hlink *p, *np;
+ 	NODE *n;
++	size_t h;
++	const unsigned char *s;
+ 
+-	if (db == NULL &&
+-	    (db = dbopen(NULL, O_RDWR, 0, DB_HASH, NULL)) == NULL)
+-		err(EXIT_FAILURE, "db: %s", name);
+-
+-	key.data = __UNCONST(name);
+-	key.size = strlen(name) + 1;
+-
+-	switch ((*db->get)(db, &key, &data, 0)) {
+-	case 0:
+-		(void)memmove(&n, data.data, sizeof(n));
+-		return n;
+-	case 1:
+-		break;
+-	default:
+-	case -1:
+-		err(EXIT_FAILURE, "db: %s", name);
++	if (htab == NULL) {
++		htsize = HASHSIZE;
++		htab = ecalloc(htsize, sizeof(*htab));
+ 	}
++	for (h = 0, s = (const unsigned char *)name; *s != '\0'; s++)
++		h = h * 33 + *s;
++	h %= htsize;
++
++	for (p = htab[h]; p != NULL; p = p->next)
++		if (strcmp(p->name, name) == 0)
++			return p->node;
+ 
+-	n = emalloc(sizeof(NODE) + key.size);
++	n = emalloc(sizeof(NODE) + strlen(name) + 1);
+ 
+ 	n->n_narcs = 0;
+ 	n->n_arcsize = 0;
+ 	n->n_arcs = NULL;
+ 	n->n_refcnt = 0;
+ 	n->n_flags = 0;
+-	(void)memmove(n->n_name, name, key.size);
++	(void)memmove(n->n_name, name, strlen(name) + 1);
+ 
+ 	/* Add to linked list. */
+ 	if ((n->n_next = graph) != NULL)
+@@ -275,10 +293,11 @@
+ 	graph = n;
+ 
+ 	/* Add to hash table. */
+-	data.data = &n;
+-	data.size = sizeof(n);
+-	if ((*db->put)(db, &key, &data, 0))
+-		err(EXIT_FAILURE, "db: %s", name);
++	np = emalloc(sizeof(*np));
++	np->name = n->n_name;
++	np->node = n;
++	np->next = htab[h];
++	htab[h] = np;
+ 	return n;
+ }
+ 

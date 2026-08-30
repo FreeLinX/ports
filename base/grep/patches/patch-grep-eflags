@@ -1,0 +1,12 @@
+diff -ruN pc/usr.bin/grep/grep.c pd/usr.bin/grep/grep.c
+--- a/usr.bin/grep/grep.c	2026-08-31 02:35:57.755131356 +0400
++++ b/usr.bin/grep/grep.c	2026-08-31 02:35:58.231138558 +0400
+@@ -78,7 +78,7 @@
+ 
+ /* Flags passed to regcomp() and regexec() */
+ int		 cflags = 0;
+-int		 eflags = REG_STARTEND;
++int		 eflags = 0;	/* FreeLinX: musl has no REG_STARTEND */
+ 
+ /* Searching patterns */
+ unsigned int	 patterns, pattern_sz;

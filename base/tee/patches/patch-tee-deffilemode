@@ -1,0 +1,18 @@
+diff -ruN a/usr.bin/tee/tee.c b/usr.bin/tee/tee.c
+--- a/usr.bin/tee/tee.c	2021-08-14 19:10:09.000000000 +0000
++++ b/usr.bin/tee/tee.c	2026-08-31 00:00:00.000000000 +0000
+@@ -55,7 +55,13 @@
+ #include <err.h>
+ 
++/* musl has no DEFFILEMODE (0666); NetBSD defines it in <sys/stat.h>.
++ * FreeLinX: supply the same default mode for open(2) here. */
++#ifndef DEFFILEMODE
++#define	DEFFILEMODE	(S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH)
++#endif
++
+ typedef struct _list {
+ 	struct _list *next;
+ 	int fd;
+ 	const char *name;
+ } LIST;
+ LIST *head;

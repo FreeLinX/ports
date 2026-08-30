@@ -1,0 +1,16 @@
+diff -ruN a/usr.bin/du/du.c b/usr.bin/du/du.c
+--- a/usr.bin/du/du.c	2026-08-31 00:00:00.000000000 +0000
++++ b/usr.bin/du/du.c	2026-08-31 00:00:00.000000000 +0000
+@@ -204,6 +204,12 @@
+ 			default:
++#if defined(HAVE_STRUCT_STAT_ST_FLAGS)
+ 				if (p->fts_statp->st_flags & UF_NODUMP) {
+ 					fts_set(fts, p, FTS_SKIP);
+ 					continue;
+ 				}
++#else
++				/* FreeLinX: musl has no st_flags, so the
++				 * BSD-only `-n` (no-dump) check is a no-op. */
++				break;
++#endif
+ 			}

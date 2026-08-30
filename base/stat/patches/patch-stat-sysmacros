@@ -1,0 +1,10 @@
+diff -ruN a/usr.bin/stat/stat.c b/usr.bin/stat/stat.c
+--- a/usr.bin/stat/stat.c	2022-06-22 18:20:30.000000000 +0000
++++ b/usr.bin/stat/stat.c	2026-08-31 00:00:00.000000000 +0000
+@@ -47,6 +47,7 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
++#include <sys/sysmacros.h>	/* FreeLinX: musl keeps major()/minor() here */
+ 
+ #include <ctype.h>
+ #include <err.h>
