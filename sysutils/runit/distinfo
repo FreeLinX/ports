@@ -1,0 +1,12 @@
+# FreeLinX/ports - sysutils/runit : upstream source reference.
+#
+# UPSTREAM SOURCE: runit 2.2.0, Gerrit Pape (smarden.org). BSD-2-Clause.
+# A cross-platform Unix init scheme with service supervision. Its own build
+# system (src/compile, src/load, src/choose) does runtime feature-probing
+# against the target libc rather than assuming glibc, which is why this
+# port drives runit's own scripts (via conf-cc/conf-ld) instead of manually
+# enumerating translation units the way shells/netbsd-sh does.
+DISTINFO_NAME=runit-2.2.0
+DISTINFO_ARCHIVE=runit-2.2.0.tar.gz
+DISTINFO_URL=http://smarden.org/runit/runit-2.2.0.tar.gz
+DISTINFO_SHA256=95ef4d2868b978c7179fe47901e5c578e11cf273d292bd6208bd3a7ccb029290
