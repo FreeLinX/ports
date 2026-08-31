@@ -1,8 +1,10 @@
+```markdown
 # FreeLinX/ports
 
 A clean, minimal **BSD-style ports framework** for FreeLinX — a Linux-based
 operating system. It is used to fetch, patch, build and stage **NetBSD-derived
-userspace** programs against the FreeLinX musl toolchain.
+userspace** programs (and, where FreeLinX needs it, small non-NetBSD
+components like runit) against the FreeLinX musl toolchain.
 
 This repository is **not** a package manager, not a dependency solver, not a
 binary package repository, and not the OS itself. It is a thin, reproducible
@@ -68,6 +70,10 @@ ports/
 │       ├── distinfo
 │       └── patches/
 │           └── README     patch conventions
+├── sysutils/
+│   └── runit/             service supervision + init (see below)
+│       ├── Makefile
+│       └── distinfo
 └── scripts/               top-level or port operations (POSIX /bin/sh)
     ├── common.sh          shared helpers + config loading + toolchain detect
     ├── fetch.sh           download + verify upstream source
@@ -137,7 +143,7 @@ claims a build happened.
   `staging/`, and `FreeLinX/src` later consumes them into `rootfs/bin/` (e.g.
   `sh -> rootfs/bin/sh`). `install -r` can also copy a staged binary directly
   into `FreeLinX/src/rootfs/bin/`.
-- **`FreeLinX/kernel`** — Linux 6.1; untouched here.
+- **`FreeLinX/kernel`** — Linux 6.6.21; untouched here.
 - **`FreeLinX/iso`** — consumes `FreeLinX/src`'s output; untouched here.
 
 ---
@@ -160,6 +166,10 @@ make clean                # remove build/, staging/, dist/
 
 The scripts can be run directly (`./scripts/build.sh netbsd-sh`). Output uses a
 clear `[FreeLinX/ports]` prefix and never exaggerates success.
+
+**Multi-binary ports** (see `sysutils/runit` below) don't fully work through
+the top-level `make install PORT=...` / `scripts/install.sh` path — invoke
+their installs directly (`make -C sysutils/runit install`) instead.
 
 ---
 
@@ -197,6 +207,8 @@ so `/` can never be an implicit/default install target.
 
 1. Pick the NetBSD source it comes from and confirm the exact upstream location
    and release (prefer a fixed NetBSD release src set for reproducibility).
+   (For a non-NetBSD component, like `sysutils/runit`, pick a pinned upstream
+   release/tarball instead and document why it's not NetBSD-derived.)
 2. Create `category/name/{Makefile,distinfo,patches/}`.
 3. In `distinfo`, set `DISTINFO_NAME`, `DISTINFO_ARCHIVE`, `DISTINFO_URL` and
    leave `DISTINFO_SHA256=TODO`; run `scripts/fetch.sh name` and pin the printed
@@ -208,6 +220,8 @@ so `/` can never be an implicit/default install target.
    musl provide it? → does the program actually need it?** Only then add a
    minimal patch under `patches/` (see `patches/README`).
 6. `make build PORT=name`, then `make install PORT=name`.
+7. If the port produces more than one binary FreeLinX needs, see
+   **"Multi-binary port pattern"** under `sysutils/runit` below.
 
 ---
 
@@ -240,9 +254,8 @@ live system `/`.
 
 ## First port: NetBSD sh
 
-Status: **framework complete; the compile itself is BLOCKED by the not-yet-built
-FreeLinX toolchain** (no clang/ld.lld/musl sysroot exists in `FreeLinX/toolchain`
-yet). This is expected and intentionally reported, not faked.
+Status: **complete.** `shells/netbsd-sh` builds against the FreeLinX
+toolchain and is staged as `/bin/sh` in `FreeLinX/src`'s rootfs.
 
 Please keep these four layers distinct when working on it:
 
@@ -259,13 +272,77 @@ release source set `src.tgz`:
 `https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/source/sets/src.tgz`
 (release checksums published by the NetBSD project at that directory).
 
-**Compatibility work expected** (verify against musl before patching):
-`strlcpy()/strlcat()`, BSD `err()`/`warn()`, `<sys/queue.h>`, BSD attribute
-macros, and compiling the `.c` sources directly (NetBSD itself uses bmake).
+**Compatibility work done** (verified against musl): `strlcpy()/strlcat()`,
+BSD `err()`/`warn()`, `<sys/queue.h>`, BSD attribute macros, and compiling
+the `.c` sources directly (NetBSD itself uses bmake).
 
-**To build once the toolchain is ready:** set `FREELINX_CC`, `FREELINX_LD`,
-`FREELINX_SYSROOT` (defaults already point at `FreeLinX/toolchain` output),
-then `make build PORT=netbsd-sh` and `make install PORT=netbsd-sh`.
+**To build:** set `FREELINX_CC`, `FREELINX_LD`, `FREELINX_SYSROOT` (defaults
+already point at `FreeLinX/toolchain` output), then
+`make build PORT=netbsd-sh` and `make install PORT=netbsd-sh`.
+
+---
+
+## Second real port: runit (sysutils/runit)
+
+Status: **built, staged, and installed into FreeLinX/src rootfs. Verified
+booting in QEMU as PID 1 — kernel → /init → runsvdir → runsv supervising a
+test service — 2026-08-30.**
+
+**Upstream source:** runit 2.2.0 (Gerrit Pape, smarden.org), BSD-2-Clause.
+Unlike every other port here, this is **not NetBSD-derived** — runit is its
+own independent upstream, included because it is FreeLinX's intended init
+and service supervisor (see `FreeLinX/src/rootfs/init`).
+
+**Build model (deliberately different from shells/netbsd-sh):** runit ships
+its own build system (`src/compile`, `src/load`, `src/choose`), which does
+*runtime* feature-probing — it compiles a small test program, links it,
+executes it, and picks a header variant based on what actually happened on
+this system. Because FreeLinX targets `x86_64-linux-musl` and builds run on
+`x86_64` Linux hosts, these probes execute correctly. Rather than manually
+enumerating translation units the way `shells/netbsd-sh` does, this port
+writes runit's own `conf-cc`/`conf-ld` to point at the FreeLinX toolchain
+(`-rtlib=compiler-rt -unwindlib=none`, since the musl sysroot has no
+libgcc/crtbegin/crtend) and lets `package/compile` run unmodified.
+
+**Multi-binary port pattern:** runit produces four binaries FreeLinX needs
+(`runsvdir`, `runsv`, `sv`, `chpst`), not one. `mk/port.mk` + `mk/install.mk`
+only natively support one binary per port
+(`INSTALL_BIN`/`INSTALL_RELPATH`). For any future suite-style port:
+
+1. Set `INSTALL_BIN`/`INSTALL_RELPATH` to just *one* of the binaries — the
+   generic framework rules stage/install that one automatically.
+2. Add an `install:` target in the port's own Makefile with extra
+   prerequisites/recipes staging the remaining binaries to
+   `$(STAGE_ROOT)/...` (`make` accumulates multiple `install:` rule bodies
+   in one Makefile as long as none conflict).
+3. Add a matching `install-rootfs:` target doing the same for
+   `$(ROOTFS_DIR)/...`, depending on `check-install-rootfs`.
+
+**Important:** the top-level `scripts/install.sh` (used by
+`make install PORT=...` from the repo root) only understands the single
+`INSTALL_BIN`/`INSTALL_RELPATH` pair — it has no awareness of a port's extra
+install rules. For a multi-binary port, always invoke installs directly
+against the port directory:
+
+    make -C sysutils/runit install
+    make -C sysutils/runit install-rootfs
+
+rather than `make install PORT=sysutils/runit` from the repo root, which
+would only stage/install `runsvdir` and silently skip the other three.
+
+**Boot-critical binaries:**
+
+| Binary      | Rootfs path       | Role                                          |
+|-------------|--------------------|------------------------------------------------|
+| `runsvdir`  | `/sbin/runsvdir`   | Checked directly by `src/rootfs/init`          |
+| `runsv`     | `/sbin/runsv`      | Exec'd by `runsvdir` per service, via `$PATH`  |
+| `sv`        | `/usr/bin/sv`      | Admin tool (start/stop/status a service)       |
+| `chpst`     | `/usr/bin/chpst`   | Admin tool (run a command under changed state) |
+
+Other binaries the suite builds (`runit`, `runit-init`, `svlogd`,
+`runsvctrl`, `runsvstat`, `runsvchdir`, `svwaitup`, `svwaitdown`,
+`utmpset`) are left in the build tree for now; extend the port's
+`install`/`install-rootfs` targets when FreeLinX needs one.
 
 ---
 
@@ -277,14 +354,16 @@ then `make build PORT=netbsd-sh` and `make install PORT=netbsd-sh`.
 3. Start with trivial ports (base): compile single-file NetBSD utilities.
 4. Bring up `netbsd-sh` next, adding minimal musl-compat patches.
 5. Expand to more NetBSD userland, staging binaries for `FreeLinX/src`.
+6. Bring up `sysutils/runit` for service supervision/init (see above).
 
 ## Current limitations
 
-- The FreeLinX toolchain is still being finalized; the first real port
-  (`netbsd-sh`) cannot be compiled yet and reports that blocker honestly.
 - No package manager / dependency solver yet (not needed at this stage).
-- Base utilities are scaffolding metadata ports; their compile recipes are
-  pending source fetch + toolchain availability.
-- Archive checksums are intentionally unverified (`DISTINFO_SHA256=TODO`) until
-  the real downloads are hashed and reviewed.
+- Some base utilities remain scaffolding metadata ports pending source
+  fetch + build recipes.
+- Archive checksums are intentionally unverified (`DISTINFO_SHA256=TODO`)
+  for any port that hasn't yet had its real download hashed and reviewed.
+- The top-level `make install PORT=...` / `scripts/install.sh` path only
+  supports single-binary ports; multi-binary ports (`sysutils/runit`) need
+  their installs invoked directly (see above).
 ```
