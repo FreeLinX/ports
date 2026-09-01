@@ -1,0 +1,9 @@
+# FreeLinX/ports - base/vim : Vim 9.2.1025 (upstream project port).
+#
+# Real upstream source: https://github.com/vim/vim/releases/tag/v9.2.1025
+# Built statically with FreeLinX clang + LLD + musl.  Vim License (charityware)
+# -- NOT a GNU component.  Depends on static wide-char ncurses (base/ncurses).
+DISTINFO_NAME=vim-9.2.1025
+DISTINFO_ARCHIVE=v9.2.1025.tar.gz
+DISTINFO_URL=https://github.com/vim/vim/archive/refs/tags/v9.2.1025.tar.gz
+DISTINFO_SHA256=cb0dbf701f8550bb54940304fa4d8b875e078db84967e5b36a0eb7ebe8a6d0cc

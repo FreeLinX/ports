@@ -1,0 +1,11 @@
+# FreeLinX/ports - base/ncurses : ncurses 6.5 (build dependency, upstream port).
+#
+# Real upstream source:
+#   https://launchpad.net/ncurses/main/6.5/+download/ncurses-6.5.tar.gz
+# Built statically with FreeLinX clang + LLD + musl (wide-char ncursesw);
+# consumed by base/vim.  ncurses is NOT a GNU component (X11/MIT-style
+# permissive license); it is an independent terminal/curses library.
+DISTINFO_NAME=ncurses-6.5
+DISTINFO_ARCHIVE=ncurses-6.5.tar.gz
+DISTINFO_URL=https://launchpad.net/ncurses/main/6.5/+download/ncurses-6.5.tar.gz
+DISTINFO_SHA256=136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6
