@@ -1,0 +1,17 @@
+# FreeLinX/ports - sysutils/pfetch : upstream source reference.
+#
+# UPSTREAM SOURCE: pfetch (Dylan Araps), MIT license. A system information
+# tool written entirely in POSIX sh -- no compilation, no dependencies
+# beyond a POSIX shell and standard utilities FreeLinX has already ported
+# (uname, cat, etc). Chosen over fastfetch (a C/CMake project with dynamic
+# optional dependencies) as a better fit for FreeLinX's minimal, BSD-style
+# philosophy: nothing to compile, nothing to statically link, and it works
+# directly with the already-ported netbsd-sh.
+#
+# github.com/dylanaraps/pfetch is ARCHIVED (read-only, no longer accepting
+# changes), which means its `master` branch is permanently frozen -- pinning
+# to it here is equivalent to pinning a commit SHA, since it can never move.
+DISTINFO_NAME=pfetch-master
+DISTINFO_ARCHIVE=pfetch-master.tar.gz
+DISTINFO_URL=https://github.com/dylanaraps/pfetch/archive/refs/heads/master.tar.gz
+DISTINFO_SHA256=ccea779114c90e57c21e1a43cbcd16079f7558dd46d22810adb7c7d985a4d1a8
