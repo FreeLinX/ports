@@ -19,7 +19,9 @@
 #     prototypes (NetBSD declares them in <pwd.h>/<grp.h>, musl does not).
 #   - patches/patch-pwcache-null-funcs points pwcache's optional
 #     setpassent(3)/setgroupent(3) hooks at NULL: musl has neither.
-#   - The binary behaves as `chown` (the chgrp front-end does not get built).
+#   - The same built binary is also installed as `chgrp` (via
+#     INSTALL_ALIASES); chown.c's argv[0]-based `ischown` (myname[2]=='o')
+#     selects chgrp semantics when invoked through that name.
 NAME   := chown
 VERSION:= 10.1
 CATEGORY:= base
@@ -32,6 +34,9 @@ PREFIX := /
 # Installed as staging/bin/chown.  Set before include.
 INSTALL_BIN:= chown
 INSTALL_RELPATH:= bin/chown
+
+# Install the same binary as bin/chgrp too (argv[0]-driven front-end).
+INSTALL_ALIASES:= chgrp
 
 include ../../mk/base-port.mk
 
