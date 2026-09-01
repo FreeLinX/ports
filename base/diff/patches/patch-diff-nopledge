@@ -1,0 +1,14 @@
+--- a/usr.bin/diff/diff.c
++++ b/usr.bin/diff/diff.c
+@@ -211,13 +211,6 @@ main(int argc, char **argv)
+ 	argc -= optind;
+ 	argv += optind;
+ 
+-	if (unveil("/tmp", "rwc") == -1)
+-		err(2, "unveil /tmp");
+-	if (unveil("/", "r") == -1)
+-		err(2, "unveil /");
+-	if (pledge("stdio rpath wpath cpath", NULL) == -1)
+-		err(2, "pledge");
+-
+ 	/*

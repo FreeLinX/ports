@@ -60,10 +60,16 @@ FLX_CRT         = $(FREELINX_SYSROOT)/lib/crt1.o $(FREELINX_SYSROOT)/lib/crti.o
 FLX_CRT_END     = $(FREELINX_SYSROOT)/lib/crtn.o
 FLX_RTDIR       := $(shell $(CC) $(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -print-resource-dir 2>/dev/null)
 FLX_COMPILER_RT = $(filter %-musl/libclang_rt.builtins.a,$(wildcard $(FLX_RTDIR)/lib/*/libclang_rt.builtins.a))
+# FLX_LDADD: extra statically-linked archives/libs for a port (e.g. the
+# FreeLinX openssl port's libcrypto.a for dc's BIGNUM math).  Placed between
+# the port objects and libc, so a static archive's own libc references still
+# resolve.  A port sets it in its Makefile (never hard-coded paths).
+FLX_LDADD	 =
 FLX_LD          = $(CC) $(FREELINX_CFLAGS) $(FREELINX_LDFLAGS) \
 			-nostdlib -L$(FREELINX_SYSROOT)/lib \
 			$(FLX_CRT) \
 			$(OBJ_DIR)/*.o \
+			$(FLX_LDADD) \
 			-lc $(FLX_COMPILER_RT) \
 			$(FLX_CRT_END)
 
@@ -97,7 +103,7 @@ $(BUILD_BIN): do-prepare
 	@set -e; \
 	mkdir -p "$(OBJ_DIR)"; \
 	for s in $(ALL_SRCS); do \
-		o="$(OBJ_DIR)/$${s##*/}"; o="$${o%.c}.o"; \
+		o="$(OBJ_DIR)/$$(printf '%s' "$$s" | sed 's|/|_|g')"; o="$${o%.c}.o"; \
 		printf '[FreeLinX/ports] cc %s\n' "$${s##*/}"; \
 		$(CC) $(FREELINX_CFLAGS) $(FLX_CPPFLAGS) -c -o "$$o" "$$s"; \
 	done; \
