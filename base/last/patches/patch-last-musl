@@ -1,0 +1,12 @@
+--- a/usr.bin/last/last.c
++++ b/usr.bin/last/last.c
+@@ -53,7 +53,8 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <time.h>
+-#include <tzfile.h>
++/* FreeLinX/Linux/musl: no tzfile.h; last.c uses no timezone-file symbols. */
++#include <signal.h>
+ #include <unistd.h>
+ #include <arpa/inet.h>
+ #ifdef SUPPORT_UTMPX

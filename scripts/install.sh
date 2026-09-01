@@ -79,5 +79,23 @@ for p in "$@"; do
         mkdir -p "$(dirname "$_rootfs")"
         cp -f "$_stage" "$_rootfs"
     fi
+
+    # Optional per-port front-ends/aliases (space-separated names, e.g.
+    # "chgrp").  Each alias is the same built binary copied under another
+    # name, so argv[0]-driven behavior (chown vs chgrp) works.  Requires the
+    # port's INSTALL_BIN to be a single binary.
+    _aliases=$(sed -n "s/^INSTALL_ALIASES[[:space:]]*[:?]\?=[[:space:]]*//p" \
+        "$_dir/Makefile" 2>/dev/null | head -n1)
+    for _alias in $_aliases; do
+        _astage="$FREELINX_STAGING_ROOT/bin/$_alias"
+        flx_info "  aliasing $p as $_alias -> $_astage"
+        cp -f "$_stage" "$_astage"
+        if [ "$INSTALL_TO_ROOTFS" -eq 1 ]; then
+            _arootfs="$_rootfs_base/bin/$_alias"
+            mkdir -p "$(dirname "$_arootfs")"
+            cp -f "$_astage" "$_arootfs"
+            flx_info "  copying $_alias into FreeLinX/src rootfs -> $_arootfs"
+        fi
+    done
 done
 flx_info "install finished"

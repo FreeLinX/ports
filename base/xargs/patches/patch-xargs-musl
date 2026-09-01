@@ -1,0 +1,31 @@
+--- a/usr.bin/xargs/xargs.c
++++ b/usr.bin/xargs/xargs.c
+@@ -61,6 +61,8 @@
+ #include <signal.h>
+ #include <unistd.h>
+ 
++const char *signalname(int);	/* FreeLinX: base/compat/signalname.c */
++
+ #include "pathnames.h"
+ 
+ static void	parse_input(int, char *[]);
+@@ -600,8 +602,9 @@
+ 			}
+ 		} else if (WIFSIGNALED (status)) {
+ 			if (WTERMSIG(status) < NSIG) {
++				const char *sn = signalname(WTERMSIG(status));
+ 				warnx("%s terminated by SIG%s", name,
+-				    sys_signame[WTERMSIG(status)]);
++				    sn != NULL ? sn : "");
+ 			} else {
+ 				warnx("%s terminated by signal %d", name,
+ 				    WTERMSIG(status));
+@@ -630,7 +633,7 @@
+ 	(void)fprintf(stderr, "?...");
+ 	(void)fflush(stderr);
+ 	if ((response = fgetln(ttyfp, &rsize)) == NULL ||
+-	    regcomp(&cre, nl_langinfo(YESEXPR), REG_BASIC) != 0) {
++	    regcomp(&cre, nl_langinfo(YESEXPR), 0) != 0) {
+ 		(void)fclose(ttyfp);
+ 		return (0);
+ 	}

@@ -1,0 +1,12 @@
+--- a/usr.bin/last/want.c
++++ b/usr.bin/last/want.c
+@@ -311,7 +311,8 @@
+ 	/* FIXME: None of this is allowed in a signal handler */
+ 	printf("\ninterrupted %s\n", fmttime(seentime, FULLTIME));
+ 	if (signo == SIGINT) {
+-		(void)raise_default_signal(signo);
++		(void)signal(SIGINT, SIG_DFL);	/* musl: no raise_default_signal */
++		(void)raise(SIGINT);
+ 		exit(EXIT_FAILURE);
+ 	}
+ 	(void)fflush(stdout);		/* fix required for rsh */
