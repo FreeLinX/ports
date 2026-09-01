@@ -1,0 +1,78 @@
+--- a/usr.bin/iconv/iconv.c
++++ b/usr.bin/iconv/iconv.c
+@@ -73,18 +73,14 @@
+ static void
+ show_codesets(void)
+ {
+-	char **list;
+-	size_t sz, i;
+-
+-	if (__iconv_get_list(&list, &sz))
+-		err(EXIT_FAILURE, "__iconv_get_list()");
+-
+-	qsort(list, sz, sizeof(char *), scmp);
+-
+-	for (i = 0; i < sz; i++)
+-		(void)printf("%s\n", list[i]);
+-
+-	__iconv_free_list(list, sz);
++	/* FreeLinX/Linux/musl: musl's iconv has no codeset-enumeration API
++	 * (__iconv_get_list(3)/__iconv_free_list(3) are NetBSD extensions),
++	 * so `-l` cannot list the loader's supported codesets.  -f/-t
++	 * conversion still works exactly as before. */
++	(void)fprintf(stderr,
++	    "iconv: codeset enumeration is not supported on FreeLinX/musl "
++	    "(use -f/-t to convert)\n");
++	exit(EXIT_FAILURE);
+ }
+ 
+ #define INBUFSIZE 1024
+@@ -98,11 +94,8 @@
+ 	const char *in;
+ 	size_t inbytes, outbytes, ret, invalids;
+ 	iconv_t cd;
+-	uint32_t flags = 0;
+ 	int serrno;
+ 
+-	if (hide_invalid)
+-		flags |= __ICONV_F_HIDE_INVALID;
+ 	cd = iconv_open(to, from);
+ 	if (cd == (iconv_t)-1)
+ 		err(EXIT_FAILURE, "iconv_open(%s, %s)", to, from);
+@@ -111,24 +104,26 @@
+ 	while ((inbytes = fread(inbuf, 1, INBUFSIZE, fp)) > 0) {
+ 		in = inbuf;
+ 		while (inbytes > 0) {
+-			size_t inval;
+-
+ 			out = outbuf;
+ 			outbytes = OUTBUFSIZE;
+-			ret = __iconv(cd, __UNCONST(&in), &inbytes, &out,
+-			    &outbytes, flags, &inval);
++			ret = iconv(cd, __UNCONST(&in), &inbytes, &out,
++			    &outbytes);
+ 			serrno = errno;
+-			invalids += inval;
+ 			if (outbytes < OUTBUFSIZE)
+ 				(void)fwrite(outbuf, 1, OUTBUFSIZE - outbytes,
+ 				    stdout);
+ 			errno = serrno;
+ 			if (ret == (size_t)-1 && errno != E2BIG) {
+-				/*
+-				 * XXX: iconv(3) is bad interface.
+-				 *   invalid character count is lost here.
+-				 *   instead, we just provide __iconv function.
+-				 */
++				/* FreeLinX/musl: standard iconv() reports an
++				 * invalid input sequence as EILSEQ and leaves
++				 * the input pointer alone; -c wants that byte
++				 * skipped. */
++				if (errno == EILSEQ && hide_invalid) {
++					in++;
++					inbytes--;
++					invalids++;
++					continue;
++				}
+ 				if (errno != EINVAL || in == inbuf)
+ 					err(EXIT_FAILURE, "iconv()");
+ 
