@@ -1,0 +1,32 @@
+--- a/usr.bin/logger/logger.c	2026-09-01 23:25:55.918784458 +0400
++++ b/usr.bin/logger/logger.c	2026-09-01 23:26:08.730965807 +0400
+@@ -124,11 +124,11 @@
+ 		for (p = buf, endp = buf + sizeof(buf) - 2; *argv != NULL;) {
+ 			len = strlen(*argv);
+ 			if (p + len > endp && p > buf) {
+-				syslogp(pri, msgid, sd, "%s", buf);
++				syslog(pri, "%s", buf);
+ 				p = buf;
+ 			}
+ 			if (len > sizeof(buf) - 1)
+-				syslogp(pri, msgid, sd, "%s", *argv++);
++				syslog(pri, "%s", *argv++);
+ 			else {
+ 				if (p != buf)
+ 					*p++ = ' ';
+@@ -137,13 +137,13 @@
+ 			}
+ 		}
+ 		if (p != buf)
+-			syslogp(pri, msgid, sd, "%s", buf);
++			syslog(pri, "%s", buf);
+ 	} else	/* TODO: allow syslog-protocol messages from file/stdin
+ 		 *       but that will require parsing the line to split
+ 		 *       it into three fields.
+ 		 */
+ 		while (fgets(buf, sizeof(buf), stdin) != NULL)
+-			syslogp(pri, msgid, sd, "%s", buf);
++			syslog(pri, "%s", buf);
+ 
+ 	exit(EXIT_SUCCESS);
+ 	/* NOTREACHED */

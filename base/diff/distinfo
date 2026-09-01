@@ -1,0 +1,10 @@
+# FreeLinX/ports - base/diff : upstream source reference.
+#
+# NetBSD 10.1 ships no /usr/bin/diff (only tests and sdiff), so per FreeLinX
+# policy the same-named BSD utility is taken from OpenBSD's userland (the
+# classic Bell/Hunt diff, ISC/BSD-licensed, non-GNU).
+#   Source: OpenBSD src, usr.bin/diff (current master), github.com/openbsd/src
+DISTINFO_NAME=openbsd-diff
+DISTINFO_ARCHIVE=openbsd-diff.tgz
+DISTINFO_URL=https://github.com/openbsd/src/tree/master/usr.bin/diff
+SHA256=1a6a2eae2f8c925ac1f453a88fd8d380d01c760e46051228ed05380e5b9c5cea

@@ -28,6 +28,9 @@ char *estrdup(const char *);
 char *estrndup(const char *, size_t);
 char *strspct(char *, size_t, intmax_t, intmax_t, size_t);
 char *strpct(char *, size_t, uintmax_t, uintmax_t, size_t);
+/* BSD libutil easprintf(3) (asprintf + err(1) on failure), used by
+ * NetBSD hexdump's odsyntax.c.  Implemented in compat/easprintf.c. */
+int easprintf(char ** __restrict, const char * __restrict, ...);
 __END_DECLS
 
 #endif /* !_FREELINX_UTIL_H_ */
