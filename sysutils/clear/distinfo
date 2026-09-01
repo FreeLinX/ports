@@ -1,0 +1,18 @@
+# FreeLinX/ports - sysutils/clear : minimal screen-clear utility.
+#
+# NOT fetched from any upstream. FreeLinX's target environment has no
+# terminfo/curses library ported yet (that's what a "real" clear -- NetBSD's
+# usr.bin/clear, ncurses' clear -- actually needs, via tgetent()/tputs()
+# against $TERM). Rather than port an entire terminfo database and curses
+# library just to clear a screen, this ships a tiny original POSIX sh script
+# that emits the standard ANSI escape sequence directly. This is a stopgap:
+# if/when FreeLinX ports terminfo/curses (e.g. for a real NetBSD utility
+# that genuinely needs it), this port should be revisited to use it properly
+# instead of a hardcoded escape sequence.
+#
+# No DISTINFO_URL/DISTINFO_SHA256: there is no upstream archive to fetch.
+# scripts/fetch.sh is a no-op for this port.
+DISTINFO_NAME=freelinx-clear
+DISTINFO_ARCHIVE=
+DISTINFO_URL=
+DISTINFO_SHA256=
