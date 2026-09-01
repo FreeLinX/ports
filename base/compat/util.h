@@ -17,9 +17,17 @@
 #define _FREELINX_UTIL_H_
 
 #include <sys/cdefs.h>
+#include <stdint.h>
 
 __BEGIN_DECLS
-int getbsize(int *, long *);
+char *getbsize(int *, long *);
+void *emalloc(size_t);
+void *ecalloc(size_t, size_t);
+void *erealloc(void *, size_t);
+char *estrdup(const char *);
+char *estrndup(const char *, size_t);
+char *strspct(char *, size_t, intmax_t, intmax_t, size_t);
+char *strpct(char *, size_t, uintmax_t, uintmax_t, size_t);
 __END_DECLS
 
 #endif /* !_FREELINX_UTIL_H_ */
