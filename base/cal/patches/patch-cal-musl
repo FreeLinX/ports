@@ -1,0 +1,77 @@
+--- a/usr.bin/cal/cal.c
++++ b/usr.bin/cal/cal.c
+@@ -55,9 +55,12 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+-#include <term.h>
+ #include <time.h>
+-#include <tzfile.h>
++/* FreeLinX/Linux/musl: NetBSD defines TM_YEAR_BASE in <tzfile.h>.
++ * musl ships no tzfile.h; the calendar only needs TM_YEAR_BASE. */
++#ifndef TM_YEAR_BASE
++#define TM_YEAR_BASE	1900
++#endif
+ #include <unistd.h>
+ 
+ #define	SATURDAY 		6		/* 1 Jan 1 was a Saturday */
+@@ -198,7 +201,6 @@
+ static int julian;
+ static int dow;
+ static int hilite;
+-static const char *md, *me;
+ 
+ static void	init_hilite(void);
+ static int	getnum(const char *);
+@@ -611,22 +613,13 @@
+ 		memcpy(h, b, l);
+ 		p = b;
+ 
+-		if (md != NULL) {
+-			for (t = md; *t; rc++)
+-				*p++ = *t++;
+-			memcpy(p, h, l);
+-			p += l;
+-			for (t = me; *t; rc++)
+-				*p++ = *t++;
+-		} else {
+-			for (t = &h[0]; l--; t++) {
++		for (t = &h[0]; l--; t++) {
+ 				*p++ = *t;
+ 				rc++;
+ 				*p++ = '\b';
+ 				rc++;
+ 				*p++ = *t;
+ 			}
+-		}
+ 	}
+ 
+ 	*p = ' ';
+@@ -890,27 +883,10 @@
+ static void
+ init_hilite(void)
+ {
+-	const char *term;
+-	int errret;
+-
+ 	hilite++;
+ 
+ 	if (!isatty(fileno(stdout)))
+ 		return;
+-
+-	term = getenv("TERM");
+-	if (term == NULL)
+-		term = "dumb";
+-	if (setupterm(term, fileno(stdout), &errret) != 0 && errret != 1)
+-		return;
+-
+-	if (hilite > 1)
+-		md = enter_reverse_mode;
+-	else
+-		md = enter_bold_mode;
+-	me = exit_attribute_mode;
+-	if (me == NULL || md == NULL)
+-		md = me = NULL;
+ }
+ 
+ static void
