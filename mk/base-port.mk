@@ -39,6 +39,10 @@ COMPAT_SRCS?=$(FLX_COMPAT)/getprogname.c
 PATCHES?=$(wildcard $(CURDIR)/patches/patch-*)
 
 NETBSD_MEMBERS?=
+# Source files maintained directly by a FreeLinX port.  This is for a small
+# Linux-native backend when an upstream BSD kernel ABI has no Linux analogue.
+# They are copied into SRC_DIR before the normal compile/link path.
+LOCAL_SRCS?=
 PORT_SRCS?=
 BUILD_BIN?=$(SRC_DIR)/$(NAME)
 
@@ -86,7 +90,10 @@ do-prepare:
 		printf '[FreeLinX/ports] extracting %s members into %s\n' "$(DISTINFO_ARCHIVE)" "$(SRC_DIR)"; \
 		rm -rf "$(SRC_DIR)"; \
 		mkdir -p "$(SRC_DIR)"; \
-		tar -xzf "$(DIST_TGZ)" -C "$(SRC_DIR)" --strip-components=2 $(NETBSD_MEMBERS); \
+		if [ -n "$(NETBSD_MEMBERS)" ]; then \
+			tar -xf "$(DIST_TGZ)" -C "$(SRC_DIR)" --strip-components=2 $(NETBSD_MEMBERS); \
+		fi; \
+		for s in $(LOCAL_SRCS); do cp "$$s" "$(SRC_DIR)/"; done; \
 		printf '[FreeLinX/ports] applying FreeLinX patches\n'; \
 		for p in $(PATCHES); do \
 			patch -d "$(SRC_DIR)" -p1 < "$$p"; \

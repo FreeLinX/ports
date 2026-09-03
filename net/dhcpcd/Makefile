@@ -27,7 +27,7 @@ TARGET := $(FREELINX_TRIPLE)
 PREFIX := /
 
 INSTALL_BIN:= dhcpcd
-INSTALL_RELPATH:= bin/dhcpcd
+INSTALL_RELPATH:= sbin/dhcpcd
 
 # dhcpcd is C; no C++ link libs.
 FLX_PROJECT_LIBS :=

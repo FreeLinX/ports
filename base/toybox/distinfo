@@ -1,0 +1,4 @@
+DISTINFO_NAME=toybox-0.8.12
+DISTINFO_ARCHIVE=toybox-0.8.12.tar.gz
+DISTINFO_URL=https://landley.net/toybox/downloads/toybox-0.8.12.tar.gz
+DISTINFO_SHA256=ad88a921133ae2231d9f2df875ec0bd42af4429145caea7d7db9e02208a6fd2e

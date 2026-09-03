@@ -1,0 +1,5 @@
+# FreeLinX patches for base/libarchive (bsdtar).
+#
+# Patches are applied after extraction into build/work/libarchive/.
+# Name convention: patch-<description>
+# Format: unified diff (-p1 from the SRC_DIR root).

@@ -1,0 +1,11 @@
+# FreeLinX/ports - base/libarchive : libarchive 3.8.9 (bsdtar, bsdcpio).
+#
+# Real upstream source:
+#   https://github.com/libarchive/libarchive/releases/download/v3.8.9/libarchive-3.8.9.tar.gz
+# Built statically with FreeLinX clang + LLD + musl.
+# Produces: bsdtar (staged as /bin/tar), bsdcpio, bsdcat, plus libarchive.a.
+DISTINFO_NAME=libarchive-3.8.9
+DISTINFO_ARCHIVE=libarchive-3.8.9.tar.gz
+DISTINFO_URL=https://github.com/libarchive/libarchive/releases/download/v3.8.9/libarchive-3.8.9.tar.gz
+# Pin after first successful fetch.
+DISTINFO_SHA256=TODO

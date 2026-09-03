@@ -1,0 +1,10 @@
+# FreeLinX/ports - sysutils/kmod : Linux kernel module tools 34.2.
+#
+# Real upstream source:
+#   https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-34.2.tar.xz
+# Produces: modprobe, insmod, rmmod, lsmod, modinfo, depmod.
+DISTINFO_NAME=kmod-34.2
+DISTINFO_ARCHIVE=kmod-34.2.tar.xz
+DISTINFO_URL=https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-34.2.tar.xz
+# Pin after first successful fetch.
+DISTINFO_SHA256=5a5d5073070cc7e0c7a7a3c6ec2a0e1780850c8b47b3e3892226b93ffcb9cb54
