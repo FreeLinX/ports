@@ -1,0 +1,4 @@
+# FreeLinX/ports - base/dd : OS porting notes.
+#
+# NetBSD dd uses <sys/param.h> and standard POSIX.  No patches needed for musl.
+# dd_hostops.c uses Linux ioctl for disk operations — compatible with musl.

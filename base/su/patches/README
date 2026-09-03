@@ -1,0 +1,4 @@
+# FreeLinX/ports - base/su : OS porting notes.
+#
+# NetBSD su uses PAM by default.  Patch #1 disables PAM and enables
+# direct /etc/shadow + crypt(3) authentication for musl/Linux.

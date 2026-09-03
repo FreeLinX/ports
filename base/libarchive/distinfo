@@ -8,4 +8,4 @@ DISTINFO_NAME=libarchive-3.8.9
 DISTINFO_ARCHIVE=libarchive-3.8.9.tar.gz
 DISTINFO_URL=https://github.com/libarchive/libarchive/releases/download/v3.8.9/libarchive-3.8.9.tar.gz
 # Pin after first successful fetch.
-DISTINFO_SHA256=TODO
+DISTINFO_SHA256=f5a6539059cf5e597dbeda37bfa4874b1e8dea063c8d93bf85a2b44af90a5bd4

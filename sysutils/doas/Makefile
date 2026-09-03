@@ -30,13 +30,14 @@ PROJECT_BIN = $(SRC_TREE)/doas
 BUILD_BIN   = $(PROJECT_BIN)
 
 PROJECT_CFG_CMDS = \
+	CC="$(FREELINX_CC)" \
+	CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2" \
+	LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt" \
 	./configure \
 		--prefix=/usr \
 		--sysconfdir=/etc \
 		--without-pam \
-		CC="$(FREELINX_CC)" \
-		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2" \
-		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt"
+		--enable-static
 
 BUILD_CMDS = \
 	make -j"$(FREELINX_JOBS)" doas

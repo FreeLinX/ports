@@ -36,6 +36,7 @@ PROJECT_CFG_CMDS = \
 		--disable-shared \
 		--with-include="$(SKALIBS_PREFIX)/include" \
 		--with-lib="$(SKALIBS_PREFIX)/lib" \
+		--with-sysdeps="$(SKALIBS_PREFIX)/lib/skalibs/sysdeps" \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2 -I$(SKALIBS_PREFIX)/include" \
 		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(SKALIBS_PREFIX)/lib" \

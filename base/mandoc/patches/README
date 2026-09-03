@@ -1,0 +1,4 @@
+# FreeLinX/ports - base/mandoc : OS porting notes.
+#
+# mandoc is designed to build on any POSIX system.  No patches needed for musl.
+# Uses its own configure script.  Static build with FreeLinX clang works clean.

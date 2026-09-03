@@ -1,0 +1,5 @@
+# FreeLinX/ports - base/ps : OS porting notes.
+#
+# NetBSD ps reads /proc on Linux.  The ps.h header includes <sys/param.h> and
+# <kvm.h>.  On Linux/musl, kvm is not available; we use /proc directly.
+# Patch #1: disable kvm dependency, use /proc.
