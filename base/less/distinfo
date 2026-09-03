@@ -1,0 +1,8 @@
+# FreeLinX/ports - base/less : less 661 (terminal pager).
+#
+# ISC-licensed terminal pager by Mark Nudelman.
+# Not a GNU program. Source: https://github.com/gwsw/less
+DISTINFO_NAME=less-661
+DISTINFO_ARCHIVE=less-661.tar.gz
+DISTINFO_URL=https://github.com/gwsw/less/archive/refs/tags/v661.tar.gz
+DISTINFO_SHA256=b3d6dd54038946f688ac07ffa2cc019cbf47549edde415656ee2e3e52201c1b1

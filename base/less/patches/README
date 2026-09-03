@@ -1,0 +1,4 @@
+# FreeLinX/ports - base/less : OS porting notes.
+#
+# less is highly portable and builds cleanly on musl Linux without patches.
+# No termcap/curses dependency needed for basic operation (--without-termcap).

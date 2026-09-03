@@ -1,0 +1,8 @@
+# FreeLinX/ports - base/mandoc : mandoc 1.14.6 (man page viewer).
+#
+# BSD-2-Clause mandoc by Kristaps Dzonsons. The BSD man page formatter.
+# Replacement for GNU groff/man. Source: https://github.com/openbsd/mandoc
+DISTINFO_NAME=mandoc-1.14.6
+DISTINFO_ARCHIVE=mandoc-1.14.6.tar.gz
+DISTINFO_URL=https://mandoc.bsd.lv/snapshots/mandoc-1.14.6.tar.gz
+DISTINFO_SHA256=8bf0d570f01e70a6e124884088870cbed7537f36328d512909eb10cd53179d9c
