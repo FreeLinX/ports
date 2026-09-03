@@ -1,0 +1,8 @@
+# FreeLinX/ports - base/bmake : NetBSD bmake (portable NetBSD make tool).
+#
+# Real upstream source: https://www.crufty.net/ftp/pub/sjg/bmake.tar.gz
+# Portable version of NetBSD's make utility by Simon J. Gerraty.
+DISTINFO_NAME=bmake
+DISTINFO_ARCHIVE=bmake.tar.gz
+DISTINFO_URL=https://www.crufty.net/ftp/pub/sjg/bmake.tar.gz
+DISTINFO_SHA256=TODO

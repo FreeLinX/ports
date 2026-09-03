@@ -57,12 +57,48 @@ ports/
 │   ├── compiler.mk        clang/lld/sysroot flag construction
 │   ├── install.mk         staging + rootfs install rules
 │   ├── port.mk            generic per-port harness (toolchain gate, all/install)
-│   └── base-port.mk       template for the single-file base utilities
+│   ├── base-port.mk       template for the single-file base utilities
+│   └── project-port.mk    template for upstream projects with own build systems
 ├── base/                  minimal NetBSD utilities (scaffolding ports)
-│   ├── cat/  echo/  ls/  mkdir/  cp/  mv/  rm/
+│   ├── cat/  echo/  ls/  mkdir/  cp/  mv/  rm/  ...
 │   │   ├── Makefile
 │   │   ├── distinfo       upstream source reference + checksum
 │   │   └── patches/       (empty for now; FreeLinX patches go here)
+│   ├── ifconfig/          BSD-style ifconfig, Linux ioctl backend (FreeLinX-native)
+│   │   ├── Makefile
+│   │   ├── distinfo
+│   │   └── files/
+│   │       └── ifconfig_linux.c
+│   ├── route/             BSD-style route, Linux ioctl backend (FreeLinX-native)
+│   │   ├── Makefile
+│   │   ├── distinfo
+│   │   └── files/
+│   │       └── route_linux.c
+│   ├── ping/              NetBSD 10.1 ping, raw ICMP via musl
+│   │   ├── Makefile
+│   │   ├── distinfo
+│   │   └── patches/
+│   ├── ftp/               NetBSD 10.1 ftp client, SMALLPROG mode
+│   │   ├── Makefile
+│   │   ├── distinfo
+│   │   └── patches/
+│   ├── openssl/           OpenSSL 3.3.2 — libssl.a/libcrypto.a (build dep)
+│   │   ├── Makefile
+│   │   └── distinfo
+│   ├── zlib/              zlib 1.3.1 — libz.a (build dep)
+│   │   ├── Makefile
+│   │   └── distinfo
+│   ├── awk/               BWK awk 2024 (text processor)
+│   │   ├── Makefile
+│   │   ├── distinfo
+│   │   └── patches/
+│   ├── libarchive/        libarchive 3.8.9 — bsdtar, bsdcpio
+│   │   ├── Makefile
+│   │   ├── distinfo
+│   │   └── patches/
+│   └── bmake/             NetBSD bmake (portable BSD make tool)
+│       ├── Makefile
+│       └── distinfo
 ├── shells/
 │   └── netbsd-sh/         the FIRST real port
 │       ├── Makefile
@@ -70,9 +106,23 @@ ports/
 │       └── patches/
 │           └── README     patch conventions
 ├── sysutils/
-│   └── runit/             service supervision + init (see below)
+│   ├── runit/             service supervision + init
+│   │   ├── Makefile
+│   │   └── distinfo
+│   ├── kmod/              Linux kernel module tools 34.2 (modprobe/insmod/lsmod)
+│   │   ├── Makefile
+│   │   ├── distinfo
+│   │   └── patches/
+│   ├── skalibs/           skarnet C library 2.14.3.0 (build dep for mdevd)
+│   │   ├── Makefile
+│   │   └── distinfo
+│   ├── mdevd/             hotplug /dev node daemon 0.1.8.1
+│   │   ├── Makefile
+│   │   └── distinfo
+│   └── doas/              OpenDoas 6.8.2 (BSD privilege escalation)
 │       ├── Makefile
 │       └── distinfo
+
 └── scripts/               top-level or port operations (POSIX /bin/sh)
     ├── common.sh          shared helpers + config loading + toolchain detect
     ├── fetch.sh           download + verify upstream source
@@ -463,6 +513,316 @@ supported NIC + firmware; it cannot be exercised inside QEMU.)
   `ath10k_pci`, `brcmfmac`, `brcmsmac`) with full dependency chains
   (`ath9k_htc` -> `ath9k_common` -> `ath9k_hw` -> `ath`, `brcmfmac` ->
   `brcmutil`, ...).
+## Network utilities: ifconfig (base/ifconfig)
+
+Status: **ported, builds and stages.**
+
+**Upstream source:** none — this is a **FreeLinX-original** utility. NetBSD's
+`ifconfig` uses BSD-only socket ioctls and routing structures that have no
+Linux kernel counterpart, so it cannot be ported as-is. Instead, this port
+implements a BSD-style `ifconfig` command-line interface backed entirely by
+Linux's native `AF_INET` interface ioctls (`SIOCGIFFLAGS`, `SIOCSIFFLAGS`,
+`SIOCGIFADDR`, `SIOCSIFADDR`, `SIOCSIFNETMASK`, `SIOCGIFMTU`, `SIOCSIFMTU`,
+`SIOCGIFCONF`). The single source file lives in `base/ifconfig/files/ifconfig_linux.c`
+and is maintained in-tree; there is no upstream archive to fetch.
+
+**Build model:** `mk/base-port.mk`. No `NETBSD_MEMBERS`, no `COMPAT_SRCS` —
+just the one local C file compiled and statically linked with the FreeLinX
+toolchain. No external dependency beyond musl.
+
+**Capabilities:** show all interfaces (flags, MTU, inet address/netmask),
+show a single interface, bring an interface up/down, set MTU, set an IPv4
+address with optional netmask.
+
+| Binary      | Rootfs path        | Role                                    |
+|-------------|---------------------|-----------------------------------------|
+| `ifconfig`  | `/sbin/ifconfig`    | Interface configuration and status      |
+
+---
+
+## Network utilities: route (base/route)
+
+Status: **ported, builds and stages.**
+
+**Upstream source:** none — this is a **FreeLinX-original** utility, for the
+same reason as `ifconfig`: NetBSD's `route` talks to a BSD routing socket,
+which Linux does not implement. This port preserves the familiar `route`
+command interface while using Linux's native `SIOCADDRT`/`SIOCDELRT` ioctls
+and `/proc/net/route` for display. The single source file lives in
+`base/route/files/route_linux.c`; no upstream archive to fetch.
+
+**Build model:** `mk/base-port.mk`. No `NETBSD_MEMBERS`, no `COMPAT_SRCS`.
+Single local C file, statically linked. No dependency beyond musl.
+
+**Capabilities:** display the kernel IPv4 routing table (reading
+`/proc/net/route`), add/delete a default route with optional gateway and
+device, add/delete a network route with CIDR prefix or full netmask.
+
+| Binary   | Rootfs path      | Role                                       |
+|----------|-------------------|--------------------------------------------|
+| `route`  | `/sbin/route`     | IPv4 routing table management              |
+
+---
+
+## Network utilities: ping (base/ping)
+
+Status: **ported, builds and stages.**
+
+**Upstream source:** NetBSD 10.1, `sbin/ping`. Obtained from the same pinned
+release source set `src.tgz` used by the other base utilities:
+`https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/source/sets/src.tgz`
+
+**Build model:** `mk/base-port.mk`. Extracts `sbin/ping/ping.c`,
+`sbin/ping/ping_hostops.c`, and `sbin/ping/prog_ops.h` from the NetBSD
+source set. Uses the Linux raw ICMP socket ABI through musl — no BSD routing
+socket or GNU userland component required.
+
+**Compatibility work done:** ping.c provides its own non-NetBSD
+`getprogname()`/`setprogname()` fallback. The packet identifier uses a local
+Linux `getrandom(2)`-backed `arc4random()` from `base/compat/arc4random.c`.
+`_POSIX_C_SOURCE=200809L` and `_DEFAULT_SOURCE` are defined to expose
+`clock_gettime(2)`/`CLOCK_MONOTONIC` and musl's BSD typedef aliases.
+
+**Note:** Linux capabilities (or root) are required to open a raw ICMP socket.
+
+| Binary  | Rootfs path    | Role                                         |
+|---------|----------------|----------------------------------------------|
+| `ping`  | `/bin/ping`    | ICMP echo request/reply diagnostic           |
+
+---
+
+## Network utilities: ftp (base/ftp)
+
+Status: **ported, builds and stages.**
+
+**Upstream source:** NetBSD 10.1, `usr.bin/ftp`. The actual NetBSD 10.1 ftp
+client source (`cmds.c`, `cmdtab.c`, `complete.c`, `domacro.c`, `fetch.c`,
+`ftp.c`, `main.c`, `progressbar.c`, `ruserpass.c`, `util.c`, `ssl.c`) plus
+`include/stringlist.h`, `lib/libc/gen/stringlist.c`, and `include/tzfile.h`
+from the same pinned release source set.
+
+**Build model:** `mk/base-port.mk`, SMALLPROG mode. The NetBSD Makefile's own
+`SMALLPROG` configuration disables line editing, help, about, auth, usage, and
+status footers — the binary then links libc only (no libedit, no libterminfo).
+INET6 (IPv6) is kept. SSL (`WITH_SSL`) is **not** enabled: the TLS code paths
+in `ssl.c` are `#ifdef WITH_SSL` and stay out, so the binary has no crypto
+dependency.
+
+**Compatibility work done:** musl provides `getpass(3)`, `glob(3)`,
+`vasprintf(3)`, `timegm(3)`, `strlcpy(3)`. Compat objects supply
+`getprogname()`/`setprogname()` and `reallocarr()` (needed by
+`stringlist.c`). `stringlist.h` and `tzfile.h` are extracted verbatim from
+the NetBSD 10.1 src set. `INFTIM` is defined as `-1` (musl does not define
+it).
+
+**Defines:** `-DSMALLPROG -DSMALLPROG_INET6 -DINET6 -DNO_EDITCOMPLETE
+-DNO_ABOUT -DNO_AUTH -DNO_HELP -DNO_STATUS -DNO_DEBUG -DNO_USAGE
+-include signal.h -DINFTIM=-1`
+
+| Binary | Rootfs path   | Role                                           |
+|--------|---------------|-------------------------------------------------|
+| `ftp`  | `/bin/ftp`    | FTP/HTTP client (NetBSD ftp, SMALLPROG mode)    |
+
+---
+
+## Crypto library: OpenSSL (base/openssl) — libssl.a / libcrypto.a
+
+Status: **ported, builds and installs into build-time dependency prefix.**
+
+**Upstream source:** OpenSSL 3.3.2, Apache-2.0 license.
+`https://www.openssl.org/source/openssl-3.3.2.tar.gz`
+SHA256: `2e8a40b01979afe8be0bbfb3de5dc1c6709fedb46d6c89c10da114ab5fc3d281`
+
+**Build model:** `mk/project-port.mk`. OpenSSL drives its own `Configure`
+script; the port passes the FreeLinX toolchain explicitly
+(`CC`, `CFLAGS`, `LDFLAGS`, `AR`, `RANLIB`). The configure invocation:
+
+```
+./Configure linux-x86_64 \
+    --prefix=<build/deps/openssl> \
+    --openssldir=<build/deps/openssl>/ssl \
+    no-shared no-tests no-dso no-ui-console no-ssl3 no-comp \
+    no-afalgeng no-threads
+```
+
+This is a **build-time dependency only**: it produces `libssl.a` and
+`libcrypto.a` installed into `build/deps/openssl/`; it is intentionally
+**not** staged into the rootfs, since it is linked statically into its
+consumers (OpenSSH). No GNU runtime dependency.
+
+**Note:** the FreeLinX toolchain's `llvm-ar`/`llvm-ranlib` require GLIBC_2.38
+(build host has 2.36) and cannot run here; host `ar`/`ranlib` are used instead
+(archiving is libc-agnostic; the final consumers still link only with FreeLinX
+clang + LLD + musl).
+
+**Consumers:** `base/openssh` (via `--with-ssl-dir`).
+
+| Artifact         | Install path                    | Role                       |
+|------------------|---------------------------------|----------------------------|
+| `libssl.a`       | `build/deps/openssl/lib64/`     | TLS protocol library       |
+| `libcrypto.a`    | `build/deps/openssl/lib64/`     | Cryptographic primitives   |
+
+---
+
+## Compression library: zlib (base/zlib) — libz.a
+
+Status: **ported, builds and installs into build-time dependency prefix.**
+
+**Upstream source:** zlib 1.3.1, Zlib license.
+`https://github.com/madler/zlib/releases/download/v1.3.1/zlib-1.3.1.tar.gz`
+SHA256: `9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23`
+
+**Build model:** `mk/project-port.mk`. zlib ships its own `configure`; the
+port drives it with the FreeLinX `CC`/`CFLAGS` and `--static
+--prefix=<build/deps/zlib>`. Only `libz.a` is built (`make libz.a`), then
+`make install` places headers and the static archive into the dependency
+prefix.
+
+This is a **build-time dependency only**: `libz.a` is installed into
+`build/deps/zlib/`; it is intentionally **not** staged into the rootfs.
+Consumers link it statically. No GNU runtime dependency.
+
+**Note:** same `llvm-ar`/`llvm-ranlib` caveat as OpenSSL — host `ar`/`ranlib`
+are used for archiving.
+
+**Consumers:** `base/git` (via `ZLIB_PATH`), `base/openssh` (via
+`--with-zlib`).
+
+| Artifact  | Install path                | Role                            |
+|-----------|-----------------------------|---------------------------------|
+| `libz.a`  | `build/deps/zlib/lib/`      | Data compression (deflate/gzip) |
+
+---
+
+## Text processing: awk (base/awk) — One True Awk
+
+Status: **ported, builds and stages.**
+
+**Upstream source:** Brian Kernighan's One True Awk (2024 edition).
+`https://github.com/onetrueawk/awk`
+
+**Build model:** `mk/project-port.mk`. Runs `bison` to generate `ytab.c`/`ytab.h` from `awkgram.y`, then compiles and links all translation units directly with FreeLinX clang + LLD + musl. Fully static.
+
+| Binary | Rootfs path   | Role                                          |
+|--------|---------------|-----------------------------------------------|
+| `awk`  | `/usr/bin/awk` | Pattern scanning and text processing language |
+
+---
+
+## Archiving utility: libarchive (base/libarchive) — bsdtar, bsdcpio
+
+Status: **ported, builds and stages.**
+
+**Upstream source:** libarchive 3.8.9, BSD-2-Clause license.
+`https://github.com/libarchive/libarchive/releases/download/v3.8.9/libarchive-3.8.9.tar.gz`
+
+**Build model:** `mk/project-port.mk`. Autoconf configure with static `bsdtar`, `bsdcpio`, `bsdcat` enabled, linked against `base/zlib`. Staged as `/bin/tar` and `/bin/cpio`.
+
+| Binary   | Rootfs path | Role                                             |
+|----------|-------------|--------------------------------------------------|
+| `bsdtar` | `/bin/tar`  | BSD tar implementation (main system archive tool)|
+| `bsdcpio`| `/bin/cpio` | BSD cpio implementation                         |
+| `bsdcat` | `/bin/bsdcat`| Stream cat utility                              |
+
+---
+
+## Kernel module management: kmod (sysutils/kmod)
+
+Status: **ported, builds and stages.**
+
+**Upstream source:** kmod 34.2, LGPL-2.1-or-later license.
+`https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-34.2.tar.xz`
+
+**Build model:** `mk/project-port.mk` + Meson cross-file + Ninja. Multi-call binary statically linked against musl and `base/zlib`. Creates symlinks for Linux kernel module utilities.
+
+| Binary | Rootfs path | Symlinks | Role |
+|--------|-------------|----------|------|
+| `kmod` | `/sbin/kmod`| `modprobe`, `insmod`, `rmmod`, `lsmod`, `modinfo`, `depmod` | Linux kernel module management |
+
+---
+
+## System C library: skalibs (sysutils/skalibs)
+
+Status: **ported, builds and installs into build-time dependency prefix.**
+
+**Upstream source:** skalibs 2.14.3.0, ISC license.
+`https://skarnet.org/software/skalibs/skalibs-2.14.3.0.tar.gz`
+
+**Build model:** `mk/project-port.mk`. Builds `libskalibs.a` static library installed into `build/deps/skalibs/`. Build-time dependency for `sysutils/mdevd`.
+
+| Artifact       | Install path               | Role                                  |
+|----------------|----------------------------|---------------------------------------|
+| `libskalibs.a` | `build/deps/skalibs/lib/`  | System programming utility primitives |
+
+---
+
+## Hotplug device manager: mdevd (sysutils/mdevd)
+
+Status: **ported, builds and stages.**
+
+**Upstream source:** mdevd 0.1.8.1, ISC license.
+`https://skarnet.org/software/mdevd/mdevd-0.1.8.1.tar.gz`
+
+**Build model:** `mk/project-port.mk`. Small, fast netlink uevent daemon managing `/dev` nodes. Depends on `sysutils/skalibs`.
+
+| Binary         | Rootfs path          | Role                                         |
+|----------------|----------------------|----------------------------------------------|
+| `mdevd`        | `/sbin/mdevd`        | `/dev` uevent device node manager            |
+| `mdevd-coldplug`| `/sbin/mdevd-coldplug`| Coldplug trigger utility for boot init        |
+
+---
+
+## Privilege escalation: OpenDoas (sysutils/doas)
+
+Status: **ported, builds and stages.**
+
+**Upstream source:** OpenDoas 6.8.2, ISC license.
+`https://github.com/Duncaen/OpenDoas/archive/refs/tags/v6.8.2.tar.gz`
+
+**Build model:** `mk/project-port.mk`. Configured without PAM (uses musl native shadow verification). Staged as `/usr/bin/doas`.
+
+| Binary | Rootfs path   | Role                                        |
+|--------|---------------|---------------------------------------------|
+| `doas` | `/usr/bin/doas`| Light-weight BSD privilege escalation (sudo alternative) |
+
+---
+
+## Build tool: bmake (base/bmake) — NetBSD Make
+
+Status: **ported, builds and stages.**
+
+**Upstream source:** bmake portable release, BSD-3-Clause license.
+`https://www.crufty.net/ftp/pub/sjg/bmake.tar.gz`
+
+**Build model:** `mk/project-port.mk`. Portable NetBSD make tool built with FreeLinX toolchain. Staged as `/usr/bin/bmake`.
+
+| Binary | Rootfs path    | Role                                       |
+|--------|----------------|--------------------------------------------|
+| `bmake`| `/usr/bin/bmake`| NetBSD make utility                        |
+
+---
+
+## Lightweight Framebuffer X Server: TinyX (x11/tinyx) — Xfbdev
+
+Status: **ported, builds and stages.**
+
+**Upstream source:** xorg-server 1.20.14 (kdrive/xfbdev), MIT license.
+`https://www.x.org/pub/individual/xserver/xorg-server-1.20.14.tar.gz`
+
+**Build model:** `mk/project-port.mk`. Ultralight X11 display server running on Linux framebuffer `/dev/fb0` without full Xorg bloat (`/usr/bin/Xfbdev`).
+
+---
+
+## Tiling window manager: i3 (x11/i3)
+
+Status: **ported, builds and stages.**
+
+**Upstream source:** i3 4.23, BSD-3-Clause license.
+`https://i3wm.org/downloads/i3-4.23.tar.xz`
+
+**Build model:** `mk/project-port.mk` + Meson. BSD-licensed tiling window manager (`/usr/bin/i3`, `/usr/bin/i3bar`, `/usr/bin/i3-msg`).
+
+---
 
 ## Bootstrap strategy
 
@@ -473,6 +833,20 @@ supported NIC + firmware; it cannot be exercised inside QEMU.)
 4. Bring up `netbsd-sh` next, adding minimal musl-compat patches.
 5. Expand to more NetBSD userland, staging binaries for `FreeLinX/src`.
 6. Bring up `sysutils/runit` for service supervision/init (see above).
+7. Build `base/zlib` (libz.a) — consumed by git and openssh.
+8. Build `base/openssl` (libssl.a, libcrypto.a) — consumed by openssh.
+9. Build `base/openssh` (ssh, sshd, ssh-keygen, scp, sftp) — depends on
+   zlib + openssl.
+10. Build the network utilities: `base/ifconfig`, `base/route`, `base/ping`,
+    `base/ftp` — standalone or NetBSD-derived, no inter-port dependencies.
+11. Build Tier 1 system infrastructure ports:
+    - `base/awk` (BWK awk text processor)
+    - `base/libarchive` (bsdtar / bsdcpio archive tool)
+    - `sysutils/kmod` (modprobe / insmod / lsmod kernel module management)
+    - `sysutils/skalibs` → `sysutils/mdevd` (/dev hotplug device daemon)
+12. Build Graphical Display & Window Manager stack (NO-GNU):
+    - Wayland stack: `x11/wayland` → `x11/wayland-protocols` → `x11/wlroots` → `x11/sway` (Sway i3-compatible compositor)
+    - X11 Framebuffer stack: `x11/tinyx` (Xfbdev framebuffer X server) → `x11/i3` (i3 tiling window manager)
 
 ## Current limitations
 

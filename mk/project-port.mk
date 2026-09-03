@@ -62,7 +62,10 @@ export LIBS:=
 
 # The delivered artifact; install.mk stages THIS path.
 PROJECT_BIN?=
-BUILD_BIN:=$(PROJECT_BIN)
+# Recursive expansion is intentional: port Makefiles commonly declare
+# PROJECT_BIN after including this framework, so it must be resolved when the
+# install rule runs rather than while this file is parsed.
+BUILD_BIN=$(PROJECT_BIN)
 
 # --- phases -----------------------------------------------------------------
 .PHONY: do-fetch do-extract do-config do-build
@@ -92,6 +95,14 @@ do-extract: do-fetch
 		    *.tar.gz|*.tgz) tar -xzf "$(DIST_TGZ)" -C "$(SRC_DIR)" ;; \
 		    *) tar -xf "$(DIST_TGZ)" -C "$(SRC_DIR)" ;; \
 		esac; \
+		if [ -d patches ]; then \
+			printf '[FreeLinX/ports] applying patches for %s\n' "$(NAME)"; \
+			for p in patches/*.patch; do \
+				if grep -q '^--- ' "$$p" 2>/dev/null; then \
+					patch -d "$(SRC_TREE)" -p1 < "$$p"; \
+				fi; \
+			done; \
+		fi; \
 	fi
 
 # Configure/host-setup.  Default: fetch+extract only.  Projects with their own

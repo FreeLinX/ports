@@ -24,7 +24,7 @@ TARGET := $(FREELINX_TRIPLE)
 PREFIX := /
 
 INSTALL_BIN:= wpa_supplicant
-INSTALL_RELPATH:= bin/wpa_supplicant
+INSTALL_RELPATH:= sbin/wpa_supplicant
 
 # Static musl deps from net/libnl and base/openssl.
 LIBnl_PREFIX  = $(FREELINX_BUILD_DIR)/deps/libnl
@@ -66,4 +66,33 @@ PROJECT_CFG_CMDS = \
 
 BUILD_CMDS = \
 	cd wpa_supplicant && \
-	make -j"$(FREELINX_JOBS)" wpa_supplicant
+	make -j"$(FREELINX_JOBS)" wpa_supplicant wpa_cli wpa_passphrase
+
+# The suite delivers three tools: wpa_supplicant (main), plus the wpa_cli
+# control client and wpa_passphrase PSK generator used by flx-wifi. Each is
+# built into the same work tree and staged into sbin/ alongside the main
+# binary. INSTALL_RELPATH (above) drives the primary; these cover the rest.
+WPA_BUILD_DIR = $(SRC_TREE)/wpa_supplicant
+STAGE_CLI = $(STAGE_ROOT)/sbin/wpa_cli
+STAGE_PSK = $(STAGE_ROOT)/sbin/wpa_passphrase
+ROOTFS_CLI = $(ROOTFS_DIR)/sbin/wpa_cli
+ROOTFS_PSK = $(ROOTFS_DIR)/sbin/wpa_passphrase
+
+$(STAGE_CLI): $(WPA_BUILD_DIR)/wpa_cli
+	@printf '[FreeLinX/ports] staging %s -> %s\n' wpa_cli "$@"
+	$(MKDIR) -p $(dir $@)
+	$(INSTALL) -m 755 $< $@
+
+$(STAGE_PSK): $(WPA_BUILD_DIR)/wpa_passphrase
+	@printf '[FreeLinX/ports] staging %s -> %s\n' wpa_passphrase "$@"
+	$(MKDIR) -p $(dir $@)
+	$(INSTALL) -m 755 $< $@
+
+install: $(STAGE_CLI) $(STAGE_PSK)
+	@printf '[FreeLinX/ports] staged wpa suite into %s\n' "$(STAGE_ROOT)/sbin"
+
+install-rootfs: check-install-rootfs $(STAGE_CLI) $(STAGE_PSK)
+	@printf '[FreeLinX/ports] installing wpa_cli/wpa_passphrase into rootfs\n'
+	$(MKDIR) -p $(dir $(ROOTFS_CLI)) $(dir $(ROOTFS_PSK))
+	$(INSTALL) -m 755 $(STAGE_CLI) $(ROOTFS_CLI)
+	$(INSTALL) -m 755 $(STAGE_PSK) $(ROOTFS_PSK)

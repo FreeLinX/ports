@@ -1,0 +1,8 @@
+# FreeLinX/ports - sysutils/doas : OpenDoas 6.8.2 (OpenBSD doas port for Linux).
+#
+# Real upstream source: https://github.com/Duncaen/OpenDoas/archive/refs/tags/v6.8.2.tar.gz
+# Light-weight, PAM-optional privilege escalation replacing GNU sudo.
+DISTINFO_NAME=OpenDoas-6.8.2
+DISTINFO_ARCHIVE=v6.8.2.tar.gz
+DISTINFO_URL=https://github.com/Duncaen/OpenDoas/archive/refs/tags/v6.8.2.tar.gz
+DISTINFO_SHA256=TODO

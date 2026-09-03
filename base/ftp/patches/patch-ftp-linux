@@ -1,0 +1,136 @@
+--- a/usr.bin/ftp/cmds.c	2026-09-02 02:01:56.144043694 +0400
++++ b/usr.bin/ftp/cmds.c	2026-09-02 02:05:55.711325864 +0400
+@@ -521,7 +521,7 @@
+ 		}
+ 
+ 		memset(&gl, 0, sizeof(gl));
+-		flags = GLOB_BRACE|GLOB_NOCHECK|GLOB_TILDE;
++		flags = GLOB_NOCHECK|GLOB_TILDE;
+ 		if (glob(argv[i], flags, NULL, &gl) || gl.gl_pathc == 0) {
+ 			warnx("Glob pattern `%s' not found", argv[i]);
+ 			globfree(&gl);
+@@ -1832,7 +1832,7 @@
+ static sigjmp_buf abortprox;
+ 
+ void
+-proxabort(int notused __unused)
++proxabort(int notused)
+ {
+ 
+ 	sigint_raised = 1;
+--- a/usr.bin/ftp/fetch.c	2026-09-02 02:02:02.024124253 +0400
++++ b/usr.bin/ftp/fetch.c	2026-09-02 02:05:55.711325864 +0400
+@@ -1906,7 +1906,7 @@
+  * Abort a HTTP retrieval
+  */
+ static void
+-aborthttp(int notused __unused)
++aborthttp(int notused)
+ {
+ 	char msgbuf[100];
+ 	int len;
+@@ -1923,7 +1923,7 @@
+ }
+ 
+ static void
+-timeouthttp(int notused __unused)
++timeouthttp(int notused)
+ {
+ 	char msgbuf[100];
+ 	int len;
+--- a/usr.bin/ftp/ftp.c	2026-09-02 02:02:10.912246024 +0400
++++ b/usr.bin/ftp/ftp.c	2026-09-02 02:05:55.711325864 +0400
+@@ -298,7 +298,7 @@
+ }
+ 
+ void
+-cmdabort(int notused __unused)
++cmdabort(int notused)
+ {
+ 	int oerrno = errno;
+ 
+@@ -313,7 +313,7 @@
+ }
+ 
+ void
+-cmdtimeout(int notused __unused)
++cmdtimeout(int notused)
+ {
+ 	int oerrno = errno;
+ 
+@@ -572,7 +572,7 @@
+ static sigjmp_buf	xferabort;
+ 
+ __dead static void
+-abortxfer(int notused __unused)
++abortxfer(int notused)
+ {
+ 	char msgbuf[100];
+ 	size_t len;
+@@ -1779,7 +1779,7 @@
+ }
+ 
+ void
+-psabort(int notused __unused)
++psabort(int notused)
+ {
+ 	int oerrno = errno;
+ 
+@@ -1877,7 +1877,7 @@
+ }
+ 
+ __dead static void
+-abortpt(int notused __unused)
++abortpt(int notused)
+ {
+ 
+ 	sigint_raised = 1;
+--- a/usr.bin/ftp/progressbar.c	2026-09-02 02:02:18.568350915 +0400
++++ b/usr.bin/ftp/progressbar.c	2026-09-02 02:05:55.715325919 +0400
+@@ -76,7 +76,7 @@
+  * SIGALRM handler to update the progress meter
+  */
+ static void
+-updateprogressmeter(int dummy __unused)
++updateprogressmeter(int dummy)
+ {
+ 	int oerrno = errno;
+ 
+@@ -376,7 +376,7 @@
+  * SIG{INFO,QUIT} handler to print transfer stats if a transfer is in progress
+  */
+ void
+-psummary(int notused __unused)
++psummary(int notused)
+ {
+ 	int oerrno = errno;
+ 
+--- a/usr.bin/ftp/util.c	2026-09-02 02:02:26.376457889 +0400
++++ b/usr.bin/ftp/util.c	2026-09-02 02:05:55.715325919 +0400
+@@ -311,7 +311,7 @@
+  * Top-level signal handler for interrupted commands.
+  */
+ void
+-intr(int signo __unused)
++intr(int signo)
+ {
+ 
+ 	sigint_raised = 1;
+@@ -632,7 +632,7 @@
+ 	if (!doglob)
+ 		return (ftp_strdup(pattern));
+ 
+-	flags = GLOB_BRACE|GLOB_NOCHECK|GLOB_TILDE;
++	flags = GLOB_NOCHECK|GLOB_TILDE;
+ 	memset(&gl, 0, sizeof(gl));
+ 	if (glob(pattern, flags, NULL, &gl) || gl.gl_pathc == 0) {
+ 		warnx("Glob pattern `%s' not found", pattern);
+@@ -949,7 +949,7 @@
+  * Update the global ttywidth value, using TIOCGWINSZ.
+  */
+ void
+-setttywidth(int a __unused)
++setttywidth(int a)
+ {
+ 	struct winsize winsize;
+ 	int oerrno = errno;

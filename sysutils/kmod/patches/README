@@ -1,0 +1,5 @@
+# FreeLinX patches for sysutils/kmod (kernel module tools).
+#
+# Patches are applied after extraction into build/work/kmod/.
+# Name convention: patch-<description>
+# Format: unified diff (-p1 from the SRC_DIR root).

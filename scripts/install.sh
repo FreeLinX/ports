@@ -6,10 +6,9 @@
 # stages its built artifact at staging/$(INSTALL_RELPATH) (e.g. staging/bin/sh).
 # With -r, the same relpath is copied into the src rootfs (src/rootfs/bin/sh).
 #
-# A port must be built before it can be installed; this script only copies the
-# already-built binary into the staging tree, then (with -r) into the
-# FreeLinX/src rootfs. It never compiles, so it never claims a success that did
-# not happen.
+# The port's own install target owns staging and its build prerequisites.  This
+# wrapper invokes that target first, then (with -r) mirrors the staged output
+# into the FreeLinX/src rootfs.
 
 set -eu
 . "$(dirname "$0")/common.sh"
@@ -51,6 +50,10 @@ for p in "$@"; do
     _dir=$(flx_port_dir "$p") || flx_die "no such port: $p"
     [ -f "$_dir/Makefile" ] || flx_die "$p: no Makefile"
 
+    flx_info "Staging $p..."
+    ( cd "$_dir" && make FREELINX_ROOT="$FREELINX_ROOT" install ) || \
+        flx_die "$p: install failed (see above)"
+
     # Resolve the port's own staging metadata so it matches mk/install.mk.
     _relpath=$(flx_port_var INSTALL_RELPATH "$_dir")
     _name=$(flx_port_var NAME "$_dir"); _name=${_name:-$p}
@@ -65,7 +68,7 @@ for p in "$@"; do
     _stage="$FREELINX_STAGING_ROOT/$_relpath"
     _rootfs="$FREELINX_ROOTFS_DIR/$_relpath"
     if [ ! -f "$_stage" ]; then
-        flx_die "$p: no staged binary at $_stage (build it first)"
+        flx_die "$p: install target did not create expected staged binary at $_stage"
     fi
 
     flx_info "Installing $p to staging overlay: $_stage"

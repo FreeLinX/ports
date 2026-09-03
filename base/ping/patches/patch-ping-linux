@@ -1,0 +1,25 @@
+--- a/sbin/ping/ping.c
++++ b/sbin/ping/ping.c
+@@ -44,6 +44,7 @@
+ #include <stdio.h>
+ #include <stddef.h>
+ #include <errno.h>
++#include <time.h>
+ #include <signal.h>
+ #include <sys/time.h>
+ #include <sys/types.h>
+@@ -489,7 +490,6 @@
+ 		(void) memcpy(&send_addr, &whereto, sizeof(send_addr));
+ 
+ 	loc_addr.sin_family = AF_INET;
+-	loc_addr.sin_len = sizeof(struct sockaddr_in);
+ 	loc_addr.sin_addr.s_addr = htonl((127 << 24) + 1);
+ 
+ 	if (len != -1)
+@@ -1935,7 +1935,6 @@
+ 
+ 	(void)memset(sa, 0, sizeof(*sa));
+ 	sa->sin_family = AF_INET;
+-	sa->sin_len = sizeof(struct sockaddr_in);
+ 
+ 	/* If it is an IP address, try to convert it to a name to

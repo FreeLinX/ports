@@ -1,0 +1,9 @@
+# FreeLinX/ports - base/awk : Brian Kernighan's One True Awk (2nd ed).
+#
+# No versioned release tarball; upstream is commit-based on GitHub.
+# We pin to a specific commit archive for reproducibility.
+# Upstream repository: https://github.com/onetrueawk/awk
+DISTINFO_NAME=awk
+DISTINFO_ARCHIVE=awk-master.tar.gz
+DISTINFO_URL=https://github.com/onetrueawk/awk/archive/refs/heads/master.tar.gz
+DISTINFO_SHA256=TODO

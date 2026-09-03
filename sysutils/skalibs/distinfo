@@ -1,0 +1,8 @@
+# FreeLinX/ports - sysutils/skalibs : skarnet.org C development library 2.14.3.0.
+#
+# Real upstream source: https://skarnet.org/software/skalibs/skalibs-2.14.3.0.tar.gz
+# Build dependency for mdevd and other skarnet utilities.
+DISTINFO_NAME=skalibs-2.14.3.0
+DISTINFO_ARCHIVE=skalibs-2.14.3.0.tar.gz
+DISTINFO_URL=https://skarnet.org/software/skalibs/skalibs-2.14.3.0.tar.gz
+DISTINFO_SHA256=TODO
