@@ -1,0 +1,8 @@
+# FreeLinX/ports - base/sqlite : SQLite 3.45.3 (build dependency, upstream).
+#
+# Real upstream source: https://www.sqlite.org/2024/sqlite-autoconf-3450300.tar.gz
+# Built statically with FreeLinX clang + LLD + musl; consumed by xpkg.
+DISTINFO_NAME=sqlite-autoconf-3450300
+DISTINFO_ARCHIVE=sqlite-autoconf-3450300.tar.gz
+DISTINFO_URL=https://www.sqlite.org/2024/sqlite-autoconf-3450300.tar.gz
+DISTINFO_SHA256=b2809ca53124c19c60f42bf627736eae011afdcc205bb48270a5ee9a38191531
