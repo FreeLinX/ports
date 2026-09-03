@@ -1,0 +1,8 @@
+# FreeLinX/ports - net/dhcpcd : upstream source reference.
+#
+# UPSTREAM SOURCE: dhcpcd 10.5.2 (github.com/NetworkConfiguration/dhcpcd),
+# BSD-2-Clause. DHCP client for IP configuration. Released as tar.xz.
+DISTINFO_NAME=dhcpcd-10.5.2
+DISTINFO_ARCHIVE=dhcpcd-10.5.2.tar.xz
+DISTINFO_URL=https://github.com/NetworkConfiguration/dhcpcd/releases/download/v10.5.2/dhcpcd-10.5.2.tar.xz
+DISTINFO_SHA256=3e476657fdb6eeb38b277da3a48d0ac0113ecce5858ebdcddff2b629faed52b4

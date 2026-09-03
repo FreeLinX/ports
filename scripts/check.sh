@@ -34,12 +34,12 @@ fi
 flx_info ""
 flx_info "Ports:"
 flx_all_ports() {
-    find "$FREELINX_ROOT/base" "$FREELINX_ROOT/shells" -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
+    find "$FREELINX_ROOT/base" "$FREELINX_ROOT/shells" "$FREELINX_ROOT/net" "$FREELINX_ROOT/firmware" -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
         | sed 's#^.*/##' | sort -u
 }
 for _p in $(flx_all_ports); do
     _d=""
-    for _cat in base shells; do
+    for _cat in base shells net firmware; do
         [ -d "$FREELINX_ROOT/$_cat/$_p" ] && _d="$FREELINX_ROOT/$_cat/$_p" && break
     done
     _v="?"

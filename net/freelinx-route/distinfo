@@ -1,0 +1,10 @@
+# FreeLinX/ports - net/freelinx-route
+#
+# No upstream archive: the source is FreeLinX's own route.c, vendored in this
+# port directory. Nothing is fetched; this file exists so the port's
+# provenance and license are explicit and searchable.
+#
+# SOURCE KIND   FreeLinX original code (not derivative of NetBSD/Linux tools)
+# LICENSE       BSD-2-Clause
+# VERSION       1.0
+# LOCATION      route.c in this port directory

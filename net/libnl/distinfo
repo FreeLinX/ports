@@ -1,0 +1,9 @@
+# FreeLinX/ports - net/libnl : upstream source reference.
+#
+# UPSTREAM SOURCE: libnl 3.9.0 (github.com/thom311/libnl), LGPL-2.1-or-later.
+# libnl provides netlink socket helpers; wpa_supplicant links libnl-genl for
+# cfg80211 netlink.
+DISTINFO_NAME=libnl-3.9.0
+DISTINFO_ARCHIVE=libnl-3.9.0.tar.gz
+DISTINFO_URL=https://github.com/thom311/libnl/releases/download/libnl3_9_0/libnl-3.9.0.tar.gz
+DISTINFO_SHA256=aed507004d728a5cf11eab48ca4bf9e6e1874444e33939b9d3dfed25018ee9bb

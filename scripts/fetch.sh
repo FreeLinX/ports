@@ -17,7 +17,7 @@ flx_port_dir() {
         */*) printf '%s/%s/%s\n' "$FREELINX_ROOT" "${1%%/*}" "${1##*/}" ;;
         *)
             # name-only match across all categories.
-            for _cat in base shells; do
+            for _cat in base shells net firmware; do
                 [ -d "$FREELINX_ROOT/$_cat/$1" ] && { printf '%s/%s/%s\n' "$FREELINX_ROOT" "$_cat" "$1"; return 0; }
             done
             return 1
