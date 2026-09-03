@@ -1,0 +1,15 @@
+# FreeLinX/ports - firmware/linux-firmware : upstream source reference.
+#
+# UPSTREAM SOURCE: linux-firmware git tree snapshot from kernel.org.
+#   https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+# Released as a tarball at:
+#   https://cdn.kernel.org/pub/linux/kernel/firmware/linux-firmware-20240811.tar.gz
+# (also available as .tar.xz). Checksum from kernel.org's sha256sums.asc.
+#
+# LICENSE: each blob has its own license. The collection is redistributable;
+# FreeLinX treats this as the documented, unavoidable non-Free exception for
+# wireless/GPU/other hardware support (see ports README.md).
+DISTINFO_NAME=linux-firmware-20240811
+DISTINFO_ARCHIVE=linux-firmware-20240811.tar.gz
+DISTINFO_URL=https://cdn.kernel.org/pub/linux/kernel/firmware/linux-firmware-20240811.tar.gz
+DISTINFO_SHA256=639af65e08b45ef0adbee8a7b5a1b6afc030a05c019fd52f16d5673f5c0664bd

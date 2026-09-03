@@ -87,7 +87,11 @@ do-extract: do-fetch
 	if [ ! -d "$(SRC_TREE)" ]; then \
 		printf '[FreeLinX/ports] extracting %s\n' "$(DISTINFO_ARCHIVE)"; \
 		mkdir -p "$(SRC_DIR)"; \
-		tar -xzf "$(DIST_TGZ)" -C "$(SRC_DIR)"; \
+		case "$(DISTINFO_ARCHIVE)" in \
+		    *.tar.xz) tar -xJf "$(DIST_TGZ)" -C "$(SRC_DIR)" ;; \
+		    *.tar.gz|*.tgz) tar -xzf "$(DIST_TGZ)" -C "$(SRC_DIR)" ;; \
+		    *) tar -xf "$(DIST_TGZ)" -C "$(SRC_DIR)" ;; \
+		esac; \
 	fi
 
 # Configure/host-setup.  Default: fetch+extract only.  Projects with their own

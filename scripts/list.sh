@@ -11,14 +11,14 @@ printf '%-14s %-14s %-10s %s\n' "PORT" "CATEGORY" "VERSION" "STATUS"
 printf '%s\n' "-----------------------------------------------"
 
 flx_all_ports() {
-    find "$FREELINX_ROOT/base" "$FREELINX_ROOT/shells" -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
+    find "$FREELINX_ROOT/base" "$FREELINX_ROOT/shells" "$FREELINX_ROOT/net" "$FREELINX_ROOT/firmware" -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
         | sed 's#^.*/##' | sort -u
 }
 
 for _p in $(flx_all_ports); do
     _d=""
     _catname=""
-    for _cat in base shells; do
+    for _cat in base shells net firmware; do
         [ -d "$FREELINX_ROOT/$_cat/$_p" ] && _d="$FREELINX_ROOT/$_cat/$_p" && _catname="$_cat" && break
     done
     [ -z "$_d" ] && continue

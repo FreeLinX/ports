@@ -13,7 +13,7 @@ flx_port_dir() {
     case "$1" in
         */*) printf '%s/%s/%s\n' "$FREELINX_ROOT" "${1%%/*}" "${1##*/}" ;;
         *)
-            for _cat in base shells; do
+            for _cat in base shells net firmware; do
                 [ -d "$FREELINX_ROOT/$_cat/$1" ] && { printf '%s/%s/%s\n' "$FREELINX_ROOT" "$_cat" "$1"; return 0; }
             done
             return 1
@@ -22,7 +22,7 @@ flx_port_dir() {
 }
 
 flx_all_ports() {
-    find "$FREELINX_ROOT/base" "$FREELINX_ROOT/shells" -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
+    find "$FREELINX_ROOT/base" "$FREELINX_ROOT/shells" "$FREELINX_ROOT/net" "$FREELINX_ROOT/firmware" -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
         | sed 's#^.*/##' | sort -u
 }
 

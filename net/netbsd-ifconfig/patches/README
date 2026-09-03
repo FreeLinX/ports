@@ -1,0 +1,40 @@
+# FreeLinX patches for NetBSD networking tools (net/)
+
+This directory holds FreeLinX-specific patches applied on top of the pristine
+NetBSD 10.1 source. It contains ONLY small, isolated, documented changes — the
+goal is to compile and link these NetBSD tools against the FreeLinX musl
+toolchain and the Linux kernel. See also shells/netbsd-sh/patches/README for
+the shared musl-compat strategy (base/compat shims for cdefs/getprogname/
+strlcpy/err etc.) that every NetBSD-derived port reuses.
+
+## Per-port status and required work
+
+### net/netbsd-ping (sbin/ping) — scaffolded, needs header shims
+NetBSD's ping is mostly portable (raw ICMP sockets exist on Linux), but it
+includes NetBSD-kernel headers musl/Linux do not ship:
+  - <netinet/in_systm.h>        (n_time/n_short types)   -> map to musl <netinet/in.h>
+  - <netinet/ip_var.h>          (NetBSD-only)            -> provide minimal stub or drop
+  - <netipsec/ipsec.h>          (IPsec, NetBSD-only)     -> disable (CONFIG/IPsec absent)
+  - BSD <sys/cdefs.h>, err(3)   -> base/compat
+Patches needed: replace those includes, samin from netbsd-sh.
+
+### net/netbsd-ifconfig (sbin/ifconfig) — blocked on kernel API
+This is not a header-only port. NetBSD's ifconfig drives interfaces and
+addresses through **routing sockets** (AF_ROUTE / struct rt_msghdr /
+RTM_* messages) and NetBSD-only ioctls/MIBs (SIOCGIFMEDIA, sysctl NET_RT_*).
+The Linux kernel has no AF_ROUTE; it uses AF_NETLINK (RTM_NEWLINK /
+RTM_NEWADDR). Porting requires rewriting ifconfig_hostops to talk netlink +
+Linux ioctls — a Linux hostops layer, not a cosmetic patch. Until that is
+written (in patches/), this port cannot link.
+
+### net/netbsd-route (sbin/route) — blocked on kernel API
+NetBSD's route is fundamentally a routing-socket client (RTM_ADD / RTM_DELETE /
+RTM_CHANGE). Linux substitutes AF_NETLINK RTM_NEWROUTE/RTM_DELROUTE with a
+different wire format. Requires rewriting route_hostops onto netlink. Same
+caveat as ifconfig.
+
+## Deciding principle (from the ports README)
+For every missing libc API: is it POSIX? -> does musl provide it? -> does the
+program actually need it? Only then patch. For missing *kernel* APIs (AF_ROUTE,
+NetBSD MIBs), the answer is a Linux hostops port — that is the substantive work
+these two scaffolds exist to host.

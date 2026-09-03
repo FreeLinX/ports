@@ -1,0 +1,8 @@
+# FreeLinX/ports - net/wpa_supplicant : upstream source reference.
+#
+# UPSTREAM SOURCE: wpa_supplicant 2.11 (w1.fi), BSD-2-Clause.
+# Linux wireless supplicant; links libnl-genl for cfg80211.
+DISTINFO_NAME=wpa_supplicant-2.11
+DISTINFO_ARCHIVE=wpa_supplicant-2.11.tar.gz
+DISTINFO_URL=https://w1.fi/releases/wpa_supplicant-2.11.tar.gz
+DISTINFO_SHA256=912ea06f74e30a8e36fbb68064d6cdff218d8d591db0fc5d75dee6c81ac7fc0a
