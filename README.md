@@ -345,6 +345,38 @@ Other binaries the suite builds (`runit`, `runit-init`, `svlogd`,
 
 ---
 
+## xpkg build-dependencies (base/sqlite, base/zlib, base/openssl)
+
+`FreeLinX/xpkg` (first-party package manager) links three static
+libraries that FreeLinX/ports provides as **build-time dependencies**
+(installed into `build/deps/` and linked statically into xpkg; never
+staged into the rootfs disk):
+
+| Port             | Archive           | Provides            | Consumer            |
+|------------------|-------------------|---------------------|---------------------|
+| `base/sqlite`    | SQLite 3.45.3     | `libsqlite3.a`      | xpkg package db     |
+| `base/zlib`      | zlib 1.3.1        | `libz.a`            | xpkg gzip (tar.c)   |
+| `base/openssl`   | OpenSSL 3.3.2     | `libcrypto.a`       | xpkg SHA256 (hash)  |
+
+`base/sqlite` is a **new port** added for xpkg (2026-09-03): the upstream
+autoconf amalgamation, built statically with FreeLinX clang+LLD+musl
+(`--disable-shared --disable-threadsafe --disable-dynamic-extensions`),
+installing `libsqlite3.a` + `sqlite3.h` under `build/deps/sqlite/`. Its
+distinfo pins SHA256 of `sqlite-autoconf-3450300.tar.gz`.
+
+All three follow the same build-time-dependency pattern: host `ar`/`ranlib`
+package the musl `.o` files (the FreeLinX llvm-ar needs a newer glibc than
+the build host has), while the final xpkg link uses ONLY FreeLinX
+clang+LLD+musl.
+
+```
+make build PORT=base/sqlite     # new port
+make build PORT=base/zlib
+make build PORT=base/openssl
+```
+
+---
+
 ## Networking & wireless stack (net/ + firmware/)
 
 FreeLinX is a GNU-free, BSD-flavoured system. Networking is provided by a mix
