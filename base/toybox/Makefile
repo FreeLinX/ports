@@ -23,10 +23,5 @@ PROJECT_BIN = $(SRC_TREE)/toybox
 # Start from the upstream configuration, then enable the Linux system tools
 # FreeLinX needs.  The compiler and linker environment comes exclusively from
 # project-port.mk's FreeLinX flags.
-PROJECT_CFG_CMDS = \
-	make defconfig && \
-	for c in ROUTE GETTY PASSWD FDISK FSCK MODPROBE; do \
-		sed -i "s/# CONFIG_$$c is not set/CONFIG_$$c=y/" .config; \
-	done && \
-	make oldconfig
+PROJECT_CFG_CMDS = sh $(FREELINX_ROOT)/base/toybox/config.sh
 BUILD_CMDS = make -j"$(FREELINX_JOBS)" toybox

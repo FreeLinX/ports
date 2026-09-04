@@ -67,4 +67,5 @@ COMPAT_SRCS = $(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/reallocarr.c
 # reachable through the default FLX_CPPFLAGS include path.
 FLX_CPPFLAGS += -DSMALLPROG -DSMALLPROG_INET6 -DINET6 \
 	-DNO_EDITCOMPLETE -DNO_ABOUT -DNO_AUTH -DNO_HELP \
-	-DNO_STATUS -DNO_DEBUG -DNO_USAGE -include signal.h -DINFTIM=-1
+	-DNO_STATUS -DNO_DEBUG -DNO_USAGE -include signal.h -DINFTIM=-1 \
+	-DSECSPERHOUR=60

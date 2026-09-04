@@ -6,4 +6,4 @@
 DISTINFO_NAME=awk
 DISTINFO_ARCHIVE=awk-master.tar.gz
 DISTINFO_URL=https://github.com/onetrueawk/awk/archive/refs/heads/master.tar.gz
-DISTINFO_SHA256=TODO
+DISTINFO_SHA256=b3883a3a464ab4a1d20d4cc3b9245983f6ee2f455a78ead9fa9ef5a7b201eb7d
