@@ -1,0 +1,31 @@
+--- a/usr.bin/tftp/tftp.c
++++ b/usr.bin/tftp/tftp.c
+@@ -176,7 +176,6 @@
+ 	memset(&s, 0, sizeof(struct sockaddr_in));
+ 	s.sin_family = AF_INET;
+ 	s.sin_port = htons(mcport);
+-	s.sin_len = sizeof(struct sockaddr_in);
+ 	rv = bind(fd, (struct sockaddr *)&s, sizeof(struct sockaddr_in));
+ 	if (rv < 0) {
+ 		perror("bind");
+@@ -623,7 +622,7 @@
+ 	msglen = &tp->th_msg[length + 1] - ackbuf;
+ 	if (trace)
+ 		tpacket("sent", tp, (int)msglen);
+-	if ((size_t)sendto(f, ackbuf, msglen, 0, peer, (socklen_t)peer->sa_len) != msglen)
++	if ((size_t)sendto(f, ackbuf, msglen, 0, peer, flx_sa_len(peer)) != msglen)
+ 		warn("nak");
+ }
+ 
+@@ -761,9 +760,9 @@
+ {
+ 	char a[NI_MAXSERV], b[NI_MAXSERV];
+ 
+-	if (getnameinfo(sa, (socklen_t)sa->sa_len, NULL, 0, a, sizeof(a), NI_NUMERICSERV))
++	if (getnameinfo(sa, flx_sa_len(sa), NULL, 0, a, sizeof(a), NI_NUMERICSERV))
+ 		return 0;
+-	if (getnameinfo(sb, (socklen_t)sb->sa_len, NULL, 0, b, sizeof(b), NI_NUMERICSERV))
++	if (getnameinfo(sb, flx_sa_len(sb), NULL, 0, b, sizeof(b), NI_NUMERICSERV))
+ 		return 0;
+ 	if (strcmp(a, b) != 0)
+ 		return 0;

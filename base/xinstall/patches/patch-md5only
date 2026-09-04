@@ -1,0 +1,173 @@
+--- a/usr.bin/xinstall/xinstall.c
++++ b/usr.bin/xinstall/xinstall.c
+@@ -107,12 +107,8 @@
+ #endif
+ 
+ #include <md5.h>
+-#include <rmd160.h>
+-#include <sha1.h>
+-#include <sha2.h>
+ 
+ #include "pathnames.h"
+-#include "mtree.h"
+ 
+ #define BACKUP_SUFFIX ".old"
+ 
+@@ -135,11 +131,6 @@
+ enum {
+ 	DIGEST_NONE = 0,
+ 	DIGEST_MD5,
+-	DIGEST_RMD160,
+-	DIGEST_SHA1,
+-	DIGEST_SHA256,
+-	DIGEST_SHA384,
+-	DIGEST_SHA512,
+ } digesttype = DIGEST_NONE;
+ 
+ static char	*digest;
+@@ -331,16 +322,6 @@
+ 			digesttype = DIGEST_NONE;
+ 		} else if (strcmp(digest, "md5") == 0) {
+ 			digesttype = DIGEST_MD5;
+-		} else if (strcmp(digest, "rmd160") == 0) {
+-			digesttype = DIGEST_RMD160;
+-		} else if (strcmp(digest, "sha1") == 0) {
+-			digesttype = DIGEST_SHA1;
+-		} else if (strcmp(digest, "sha256") == 0) {
+-			digesttype = DIGEST_SHA256;
+-		} else if (strcmp(digest, "sha384") == 0) {
+-			digesttype = DIGEST_SHA384;
+-		} else if (strcmp(digest, "sha512") == 0) {
+-			digesttype = DIGEST_SHA512;
+ 		} else {
+ 			warnx("unknown digest `%s'", digest);
+ 			usage();
+@@ -556,21 +537,6 @@
+ 				case DIGEST_MD5:
+ 					dres = MD5File(from_name, NULL);
+ 					break;
+-				case DIGEST_RMD160:
+-					dres = RMD160File(from_name, NULL);
+-					break;
+-				case DIGEST_SHA1:
+-					dres = SHA1File(from_name, NULL);
+-					break;
+-				case DIGEST_SHA256:
+-					dres = SHA256_File(from_name, NULL);
+-					break;
+-				case DIGEST_SHA384:
+-					dres = SHA384_File(from_name, NULL);
+-					break;
+-				case DIGEST_SHA512:
+-					dres = SHA512_File(from_name, NULL);
+-					break;
+ 				default:
+ 					dres = NULL;
+ 				}
+@@ -672,10 +638,10 @@
+ 		TIMESPEC_TO_TIMEVAL(&tv[0], &from_sb.st_atimespec);
+ 		TIMESPEC_TO_TIMEVAL(&tv[1], &from_sb.st_mtimespec);
+ #else
+-		tv[0].tv_sec = from_sb.st_atime;
+-		tv[0].tv_usec = 0;
+-		tv[1].tv_sec = from_sb.st_mtime;
+-		tv[1].tv_usec = 0;
++		tv[0].tv_sec = from_sb.st_atim.tv_sec;
++		tv[0].tv_usec = from_sb.st_atim.tv_nsec / 1000;
++		tv[1].tv_sec = from_sb.st_mtim.tv_sec;
++		tv[1].tv_usec = from_sb.st_mtim.tv_nsec / 1000;
+ #endif
+ 	}
+ 
+@@ -852,30 +818,10 @@
+ 	u_char	*p;
+ 	u_char	buf[MAXBSIZE];
+ 	MD5_CTX		ctxMD5;
+-	RMD160_CTX	ctxRMD160;
+-	SHA1_CTX	ctxSHA1;
+-	SHA256_CTX	ctxSHA256;
+-	SHA384_CTX	ctxSHA384;
+-	SHA512_CTX	ctxSHA512;
+ 
+ 	switch (digesttype) {
+ 	case DIGEST_MD5:
+ 		MD5Init(&ctxMD5);
+-		break;
+-	case DIGEST_RMD160:
+-		RMD160Init(&ctxRMD160);
+-		break;
+-	case DIGEST_SHA1:
+-		SHA1Init(&ctxSHA1);
+-		break;
+-	case DIGEST_SHA256:
+-		SHA256_Init(&ctxSHA256);
+-		break;
+-	case DIGEST_SHA384:
+-		SHA384_Init(&ctxSHA384);
+-		break;
+-	case DIGEST_SHA512:
+-		SHA512_Init(&ctxSHA512);
+ 		break;
+ 	case DIGEST_NONE:
+ 		if (to_fd < 0)
+@@ -916,21 +862,6 @@
+ 			switch (digesttype) {
+ 			case DIGEST_MD5:
+ 				MD5Update(&ctxMD5, p, size);
+-				break;
+-			case DIGEST_RMD160:
+-				RMD160Update(&ctxRMD160, p, size);
+-				break;
+-			case DIGEST_SHA1:
+-				SHA1Update(&ctxSHA1, p, size);
+-				break;
+-			case DIGEST_SHA256:
+-				SHA256_Update(&ctxSHA256, p, size);
+-				break;
+-			case DIGEST_SHA384:
+-				SHA384_Update(&ctxSHA384, p, size);
+-				break;
+-			case DIGEST_SHA512:
+-				SHA512_Update(&ctxSHA512, p, size);
+ 				break;
+ 			default:
+ 				break;
+@@ -951,21 +882,6 @@
+ 				case DIGEST_MD5:
+ 					MD5Update(&ctxMD5, buf, nr);
+ 					break;
+-				case DIGEST_RMD160:
+-					RMD160Update(&ctxRMD160, buf, nr);
+-					break;
+-				case DIGEST_SHA1:
+-					SHA1Update(&ctxSHA1, buf, nr);
+-					break;
+-				case DIGEST_SHA256:
+-					SHA256_Update(&ctxSHA256, buf, nr);
+-					break;
+-				case DIGEST_SHA384:
+-					SHA384_Update(&ctxSHA384, buf, nr);
+-					break;
+-				case DIGEST_SHA512:
+-					SHA512_Update(&ctxSHA512, buf, nr);
+-					break;
+ 				default:
+ 					break;
+ 				}
+@@ -981,16 +897,6 @@
+ 	switch (digesttype) {
+ 	case DIGEST_MD5:
+ 		return MD5End(&ctxMD5, NULL);
+-	case DIGEST_RMD160:
+-		return RMD160End(&ctxRMD160, NULL);
+-	case DIGEST_SHA1:
+-		return SHA1End(&ctxSHA1, NULL);
+-	case DIGEST_SHA256:
+-		return SHA256_End(&ctxSHA256, NULL);
+-	case DIGEST_SHA384:
+-		return SHA384_End(&ctxSHA384, NULL);
+-	case DIGEST_SHA512:
+-		return SHA512_End(&ctxSHA512, NULL);
+ 	default:
+ 		return NULL;
+ 	}

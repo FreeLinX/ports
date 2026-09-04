@@ -31,6 +31,14 @@ char *strpct(char *, size_t, uintmax_t, uintmax_t, size_t);
 /* BSD libutil easprintf(3) (asprintf + err(1) on failure), used by
  * NetBSD hexdump's odsyntax.c.  Implemented in compat/easprintf.c. */
 int easprintf(char ** __restrict, const char * __restrict, ...);
+int evasprintf(char ** __restrict, const char * __restrict, va_list);
+
+/* BSD libutil file-flag / user-db helpers used by usr.bin/xinstall.
+ * Stubbed in sigstub.c (Linux has no chflags(2) metadata; -N dbdir is a
+ * no-op install mode). */
+int string_to_flags(char **, unsigned long *, unsigned long *);
+char *flags_to_string(unsigned long, const char *);
+int setup_getid(const char *);
 __END_DECLS
 
 #endif /* !_FREELINX_UTIL_H_ */
