@@ -1,0 +1,11 @@
+--- a/usr.bin/mail/support.c
++++ b/usr.bin/mail/support.c
+@@ -400,7 +400,7 @@
+ 		return;
+ 	(void)gettimeofday(&tv[0], NULL);
+ 	tv[0].tv_sec++;
+-	TIMESPEC_TO_TIMEVAL(&tv[1], &sb.st_mtimespec);
++	TIMESPEC_TO_TIMEVAL(&tv[1], &sb.st_mtim);
+ 	(void)utimes(name, tv);
+ }
+ 

@@ -1,0 +1,32 @@
+--- a/usr.bin/at/at.c
++++ b/usr.bin/at/at.c
+@@ -639,7 +639,7 @@
+ 			queue_set = 1;
+ 			break;
+ 		case 't':	/* touch(1) date format */
+-			timer = stime(optarg);
++			timer = parsedate(optarg);
+ 			time_set = 1;
+ 			break;
+ 
+--- a/usr.bin/at/stime.h
++++ b/usr.bin/at/stime.h
+@@ -48,6 +48,6 @@
+  */
+ #define conv_2dig_year(y) ((y) < 69 ? (y) + 2000 : (y) + 1900)
+ 
+-time_t	stime(char *);
++time_t	parsedate(const char *);
+ 
+ #endif /* _STIME_H_ */
+--- a/usr.bin/at/stime.c
++++ b/usr.bin/at/stime.c
+@@ -53,7 +53,7 @@
+ #define	ATOI2(s)	((s) += 2, ((s)[-2] - '0') * 10 + ((s)[-1] - '0'))
+ 
+ time_t
+-stime(char *arg)
++parsedate(const char *arg)
+ {
+ 	struct tm *t;
+ 	time_t tmptime;

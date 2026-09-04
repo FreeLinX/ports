@@ -24,3 +24,15 @@ easprintf(char ** __restrict ret, const char * __restrict fmt, ...)
 
 	return rv;
 }
+int
+evasprintf(char ** __restrict ret, const char * __restrict fmt, va_list ap)
+{
+	int rv;
+
+	rv = vasprintf(ret, fmt, ap);
+
+	if (rv == -1)
+		err(1, "vasprintf");
+
+	return rv;
+}

@@ -52,7 +52,7 @@ ALL_SRCS = $(addprefix $(SRC_DIR)/,$(PORT_SRCS)) $(COMPAT_SRCS)
 # the include path, and extracted upstream headers (src set include/) are
 # reachable as their own <fts.h>/<vis.h>.  A port extends FLX_CPPFLAGS with
 # the configuration it needs (-DSMALL, -DHAVE_NBTOOL_CONFIG_H=1, ...).
-FLX_CPPFLAGS?=-I$(FLX_COMPAT) -I$(SRC_DIR)/include
+FLX_CPPFLAGS+=-I$(FLX_COMPAT) -I$(SRC_DIR)/include -include flx_bsd.h
 
 # Static-link set, identical to shells/netbsd-sh: crt1.o + crti.o at the
 # front, crtn.o at the very end, -lc in between, and clang compiler-rt in
