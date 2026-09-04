@@ -75,7 +75,7 @@ do-fetch:
 	if [ ! -f "$(DIST_TGZ)" ]; then \
 		printf '[FreeLinX/ports] fetching %s\n' "$(DISTINFO_URL)"; \
 		mkdir -p "$(FREELINX_DIST_DIR)"; \
-		(cd "$(FREELINX_DIST_DIR)" && curl -fLSO "$(DISTINFO_URL)"); \
+		(cd "$(FREELINX_DIST_DIR)" && curl -fL -o "$(DISTINFO_ARCHIVE)" "$(DISTINFO_URL)"); \
 		_c="$$($(FLX_SHA256_CMD) "$(DIST_TGZ)" | awk '{print $$1}')"; \
 		if [ -n "$(DISTINFO_SHA256)" ] && [ "$$_c" != "$(DISTINFO_SHA256)" ]; then \
 			printf '[FreeLinX/ports][error] sha256 mismatch for %s (got %s)\n' "$(DIST_TGZ)" "$$_c"; \

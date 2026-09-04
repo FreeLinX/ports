@@ -8,3 +8,4 @@ DISTINFO_NAME=openbsd-diff
 DISTINFO_ARCHIVE=openbsd-diff.tgz
 DISTINFO_URL=https://github.com/openbsd/src/tree/master/usr.bin/diff
 SHA256=1a6a2eae2f8c925ac1f453a88fd8d380d01c760e46051228ed05380e5b9c5cea
+DISTINFO_SHA256=03df556ac41e3ade588054fe543d7714fc1ce1a0af47693ce2a00c5ebf6de969

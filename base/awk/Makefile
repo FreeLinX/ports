@@ -43,13 +43,18 @@ FLX_PROJECT_LDFLAGS  =
 FLX_HOST_AR      ?= /usr/bin/ar
 FLX_HOST_RANLIB  ?= /usr/bin/ranlib
 
-# One-true-awk source files (after yacc generates ytab.c).
-AWK_SRCS = b.c lex.c lib.c main.c parse.c proctab.c run.c tran.c ytab.c
+# One-true-awk source files (after bison/maketab generate the rest).
+AWK_SRCS = awkgram.tab.c b.c lex.c lib.c main.c parse.c proctab.c run.c tran.c
 
-# Generate ytab.c/ytab.h from awkgram.y, then compile and link.
+# Generate awkgram.tab.c/h from awkgram.y (bison default naming), then build
+# `maketab` with the HOST compiler and run it to emit proctab.c.
 PROJECT_CFG_CMDS = \
-	if [ ! -f ytab.c ]; then \
-		bison -d -y -o ytab.c awkgram.y; \
+	if [ ! -f awkgram.tab.c ]; then \
+		bison -d awkgram.y; \
+	fi && \
+	if [ ! -f proctab.c ]; then \
+		cc -g maketab.c -o maketab && \
+		./maketab awkgram.tab.h > proctab.c; \
 	fi
 
 BUILD_CMDS = \
@@ -58,4 +63,4 @@ BUILD_CMDS = \
 		$(CC) $(CFLAGS) -c -o "$${s%.c}.o" "$$s" || exit 1; \
 	done && \
 	printf '[FreeLinX/ports] ld awk\n' && \
-	$(CC) $(LDFLAGS) -o a.out $(AWK_SRCS:.c=.o)
+	$(CC) $(LDFLAGS) -o a.out $(AWK_SRCS:.c=.o) -lm

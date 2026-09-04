@@ -43,5 +43,6 @@ BUILD_CMDS = \
 	cd $(SRC_TREE) && \
 	sh mkhelp.sh < less.hlp > help.c && \
 	grep -h '^public [^;]*$$' *.c | sed 's/$$/;/' > funcs.h && \
-	LDFLAGS="-static -fuse-ld=lld --rtlib=compiler-rt" \
-	make -j"$(FREELINX_JOBS)"
+	make -j"$(FREELINX_JOBS)" \
+			LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(NCURSES_PREFIX)/lib" \
+		LIBS="-lncursesw -ltinfo"
