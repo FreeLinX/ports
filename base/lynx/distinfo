@@ -1,0 +1,9 @@
+# FreeLinX/ports - base/lynx : upstream source reference.
+#
+# UPSTREAM SOURCE:
+#   Lynx 2.9.2 release from invisible-island.net (Thomas Dickey).
+#   ISC-style/lynx license. No GNU code.
+DISTINFO_NAME=lynx2.9.2
+DISTINFO_ARCHIVE=lynx2.9.2.tar.bz2
+DISTINFO_URL=https://invisible-island.net/archives/lynx/tarballs/lynx2.9.2.tar.bz2
+DISTINFO_SHA256=7374b89936d991669e101f4e97f2c9592036e1e8cdaa7bafc259a77ab6fb07ce
