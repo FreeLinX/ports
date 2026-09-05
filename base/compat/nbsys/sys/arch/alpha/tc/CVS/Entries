@@ -1,0 +1,17 @@
+/ioasic.c/1.49/Fri May  7 16:58:34 2021//Tnetbsd-10-1-RELEASE
+/mcclock_ioasic.c/1.18/Fri May  7 16:58:34 2021//Tnetbsd-10-1-RELEASE
+/tc_3000_300.c/1.39/Fri May  7 16:58:34 2021//Tnetbsd-10-1-RELEASE
+/tc_3000_300.h/1.7/Thu Jun 22 16:46:52 2017//Tnetbsd-10-1-RELEASE
+/tc_3000_500.c/1.38/Fri May  7 16:58:34 2021//Tnetbsd-10-1-RELEASE
+/tc_3000_500.h/1.7/Thu Jun 22 16:46:52 2017//Tnetbsd-10-1-RELEASE
+/tc_bus_mem.c/1.40/Sun Jul  4 22:42:36 2021//Tnetbsd-10-1-RELEASE
+/tc_conf.h/1.15/Fri May  7 16:58:34 2021//Tnetbsd-10-1-RELEASE
+/tc_dma.c/1.15/Sun Jul 18 05:12:27 2021//Tnetbsd-10-1-RELEASE
+/tc_dma_3000_300.c/1.6/Fri Jul  1 19:19:50 2011//Tnetbsd-10-1-RELEASE
+/tc_dma_3000_300.h/1.4/Sat Mar 14 14:45:54 2009//Tnetbsd-10-1-RELEASE
+/tc_dma_3000_500.c/1.24/Sun Jul 18 05:12:27 2021//Tnetbsd-10-1-RELEASE
+/tc_dma_3000_500.h/1.4/Sat Mar 14 14:45:54 2009//Tnetbsd-10-1-RELEASE
+/tc_sgmap.c/1.10/Sun Jul  4 22:42:36 2021//Tnetbsd-10-1-RELEASE
+/tc_sgmap.h/1.5/Thu Jun 22 16:46:52 2017//Tnetbsd-10-1-RELEASE
+/tcasic.c/1.52/Sat Aug  7 16:18:41 2021//Tnetbsd-10-1-RELEASE
+D

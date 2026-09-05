@@ -1,0 +1,9 @@
+/fdc_pnpbus.c/1.6/Sat Jul 24 21:31:34 2021//Tnetbsd-10-1-RELEASE
+/if_we_pnpbus.c/1.9/Sat Oct 27 17:18:08 2012//Tnetbsd-10-1-RELEASE
+/mcclock_pnpbus.c/1.10/Fri Jul  1 16:55:42 2011//Tnetbsd-10-1-RELEASE
+/mkclock_pnpbus.c/1.6/Fri Jul  1 16:55:42 2011//Tnetbsd-10-1-RELEASE
+/nvram_pnpbus.c/1.22/Sun Nov 10 21:16:32 2019//Tnetbsd-10-1-RELEASE
+/pnpbus.c/1.15/Sat Aug  7 16:19:03 2021//Tnetbsd-10-1-RELEASE
+/pnpbusvar.h/1.8/Fri Jul  1 16:55:42 2011//Tnetbsd-10-1-RELEASE
+/wdc_pnpbus.c/1.15/Fri Oct 20 07:06:07 2017//Tnetbsd-10-1-RELEASE
+D

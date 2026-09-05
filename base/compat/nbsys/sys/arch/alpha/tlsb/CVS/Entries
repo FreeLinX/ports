@@ -1,0 +1,12 @@
+/gbus.c/1.25/Sat Aug  7 16:18:41 2021//Tnetbsd-10-1-RELEASE
+/gbusreg.h/1.2/Mon Apr 28 20:23:12 2008//Tnetbsd-10-1-RELEASE
+/gbusvar.h/1.3/Fri Jul  1 19:19:50 2011//Tnetbsd-10-1-RELEASE
+/kftxx.c/1.19/Sat Aug  7 16:18:41 2021//Tnetbsd-10-1-RELEASE
+/kftxxreg.h/1.5/Wed Jul  8 00:45:08 1998//Tnetbsd-10-1-RELEASE
+/kftxxvar.h/1.6/Mon Feb  6 02:14:16 2012//Tnetbsd-10-1-RELEASE
+/mcclock_tlsb.c/1.18/Fri May  7 22:46:11 2021//Tnetbsd-10-1-RELEASE
+/tlsb.c/1.41/Sat Aug  7 16:18:41 2021//Tnetbsd-10-1-RELEASE
+/tlsbmem.c/1.12/Sun Jul  4 22:42:36 2021//Tnetbsd-10-1-RELEASE
+/tlsbreg.h/1.7/Sat Jan  1 22:01:18 2022//Tnetbsd-10-1-RELEASE
+/tlsbvar.h/1.7/Mon Feb  6 02:14:16 2012//Tnetbsd-10-1-RELEASE
+D

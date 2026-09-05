@@ -1,0 +1,8 @@
+/files.ofw/1.1/Wed Feb  6 21:30:25 2002//Tnetbsd-10-1-RELEASE
+/files.ofwgencfg/1.1/Wed Feb  6 21:30:26 2002//Tnetbsd-10-1-RELEASE
+/ofw_irq.S/1.17/Sat Nov 21 19:57:35 2020//Tnetbsd-10-1-RELEASE
+/ofw_irqhandler.c/1.23/Fri Nov 20 18:26:26 2020//Tnetbsd-10-1-RELEASE
+/ofwgencfg_clock.c/1.10/Wed Mar 18 10:22:24 2009//Tnetbsd-10-1-RELEASE
+/ofwgencfg_machdep.c/1.20/Tue Jul 16 14:41:44 2019//Tnetbsd-10-1-RELEASE
+/openfirm.c/1.11/Sun Feb  7 13:59:36 2021//Tnetbsd-10-1-RELEASE
+D

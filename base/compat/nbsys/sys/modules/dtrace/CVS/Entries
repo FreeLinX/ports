@@ -1,0 +1,10 @@
+/Makefile/1.10/Sun Apr 25 23:41:23 2021//Tnetbsd-10-1-RELEASE
+D/dtrace////
+D/fbt////
+D/linux32_syscall////
+D/linux_syscall////
+D/lockstat////
+D/netbsd32_syscall////
+D/profile////
+D/sdt////
+D/syscall////

@@ -1,0 +1,12 @@
+/if_sm_obio.c/1.7/Thu Feb  8 09:05:17 2018//Tnetbsd-10-1-RELEASE
+/lubbock_lcd.c/1.17/Sat Aug  7 16:18:50 2021//Tnetbsd-10-1-RELEASE
+/lubbock_machdep.c/1.42.4.1/Sat Oct 14 06:52:17 2023//Tnetbsd-10-1-RELEASE
+/lubbock_pcic.c/1.7/Fri Jul  1 20:42:37 2011//Tnetbsd-10-1-RELEASE
+/lubbock_reg.h/1.4/Sun Dec 11 12:17:09 2005//Tnetbsd-10-1-RELEASE
+/lubbock_start.S/1.3/Mon Jan 31 06:28:04 2011//Tnetbsd-10-1-RELEASE
+/lubbock_var.h/1.3/Fri Jul  1 20:42:37 2011//Tnetbsd-10-1-RELEASE
+/obio.c/1.12.6.1/Wed Aug  9 17:42:05 2023//Tnetbsd-10-1-RELEASE
+/sacc_obio.c/1.15.6.1/Wed Aug  9 17:42:05 2023//Tnetbsd-10-1-RELEASE
+/sm_obio_space.c/1.5/Fri Mar 16 17:56:33 2018//Tnetbsd-10-1-RELEASE
+/sm_obio_space_asm.S/1.5/Mon Aug 12 21:17:03 2013//Tnetbsd-10-1-RELEASE
+D

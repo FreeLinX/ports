@@ -1,0 +1,23 @@
+/Makefile/1.5/Sun Dec 11 12:22:02 2005//Tnetbsd-10-1-RELEASE
+/files.ieee1394/1.11/Sat Apr 24 23:36:55 2021//Tnetbsd-10-1-RELEASE
+/firewire.c/1.55/Sun May 22 11:27:35 2022//Tnetbsd-10-1-RELEASE
+/firewire.h/1.7/Mon Apr 12 09:22:21 2021//Tnetbsd-10-1-RELEASE
+/firewire_phy.h/1.3/Mon Mar 29 03:05:27 2010//Tnetbsd-10-1-RELEASE
+/firewirereg.h/1.20/Sun Nov 20 22:47:39 2016//Tnetbsd-10-1-RELEASE
+/fwcrom.c/1.17/Fri Nov 21 23:37:25 2014//Tnetbsd-10-1-RELEASE
+/fwdev.c/1.33/Wed Nov 10 16:08:17 2021//Tnetbsd-10-1-RELEASE
+/fwdma.c/1.18/Sat Jul 24 21:31:37 2021//Tnetbsd-10-1-RELEASE
+/fwdma.h/1.6/Mon Mar 29 03:05:27 2010//Tnetbsd-10-1-RELEASE
+/fwmem.c/1.19/Mon Sep  3 16:29:31 2018//Tnetbsd-10-1-RELEASE
+/fwmem.h/1.4/Mon Mar 29 03:05:27 2010//Tnetbsd-10-1-RELEASE
+/fwohci.c/1.151/Sun Jul  3 19:58:42 2022//Tnetbsd-10-1-RELEASE
+/fwohcireg.h/1.20/Tue Oct 15 18:21:47 2019//Tnetbsd-10-1-RELEASE
+/fwohcivar.h/1.34/Sat Aug  4 03:55:43 2012//Tnetbsd-10-1-RELEASE
+/fwphyreg.h/1.3/Mon Mar 29 03:05:28 2010//Tnetbsd-10-1-RELEASE
+/iec13213.h/1.6/Fri Mar 28 04:09:19 2014//Tnetbsd-10-1-RELEASE
+/iec68113.h/1.4/Mon Mar 29 03:05:28 2010//Tnetbsd-10-1-RELEASE
+/if_fwip.c/1.31/Sat Aug 20 19:01:31 2022//Tnetbsd-10-1-RELEASE
+/if_fwipvar.h/1.5/Mon Mar 29 03:05:28 2010//Tnetbsd-10-1-RELEASE
+/sbp.c/1.42/Tue Apr 12 21:05:37 2022//Tnetbsd-10-1-RELEASE
+/sbp.h/1.7/Sun Dec  5 02:21:08 2021//Tnetbsd-10-1-RELEASE
+D

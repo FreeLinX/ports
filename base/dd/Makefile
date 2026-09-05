@@ -26,7 +26,13 @@ NETBSD_MEMBERS = usr/src/bin/dd/dd.c usr/src/bin/dd/dd.h usr/src/bin/dd/args.c \
 		usr/src/bin/dd/extern.h
 PORT_SRCS = bin/dd/dd.c bin/dd/args.c bin/dd/conv.c bin/dd/conv_tab.c \
 	    bin/dd/misc.c bin/dd/position.c bin/dd/dd_hostops.c bin/dd/dd_swab.c
-FLX_CPPFLAGS = -I$(FLX_COMPAT) -I$(SRC_DIR) -DHAVE_NBTOOL_CONFIG_H=0
+# args.c parses its size/skip/count arguments via strsuftoll(3), which musl
+# lacks; compat/strsuftoll.c provides it (returns the numeric value dd uses).
+# misc.c's progress output calls libutil humanize_number(3) (vendored
+# humanize_number.c) and raise_default_signal(3) (sigstub.c).
+COMPAT_SRCS = $(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/strsuftoll.c \
+	$(FLX_COMPAT)/sigstub.c $(FLX_COMPAT)/humanize_number.c
+FLX_CPPFLAGS += -DHAVE_NBTOOL_CONFIG_H=0
 
 # Apply musl/Linux fixups before compiling (files already extracted by do-prepare)
 $(BUILD_BIN): do-prepare

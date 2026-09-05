@@ -1,0 +1,18 @@
+/dmac.c/1.12/Mon Mar 31 11:25:49 2014//Tnetbsd-10-1-RELEASE
+/dmacreg.h/1.5/Sun Apr  3 10:03:34 2016//Tnetbsd-10-1-RELEASE
+/dmacvar.h/1.4/Mon Mar 31 11:25:49 2014//Tnetbsd-10-1-RELEASE
+/eevar.h/1.6/Wed Oct  6 20:36:58 2021//Tnetbsd-10-1-RELEASE
+/gifreg.h/1.6/Mon Mar 31 11:25:49 2014//Tnetbsd-10-1-RELEASE
+/gs.c/1.6/Mon Mar 31 11:25:49 2014//Tnetbsd-10-1-RELEASE
+/gsfb.c/1.24/Sat Aug  7 16:19:02 2021//Tnetbsd-10-1-RELEASE
+/gsreg.h/1.4/Mon Mar 31 11:25:49 2014//Tnetbsd-10-1-RELEASE
+/gsvar.h/1.4/Mon Mar 31 11:25:49 2014//Tnetbsd-10-1-RELEASE
+/intc.c/1.8/Mon Mar 31 11:25:49 2014//Tnetbsd-10-1-RELEASE
+/intcreg.h/1.4/Mon Mar 31 11:25:49 2014//Tnetbsd-10-1-RELEASE
+/intcvar.h/1.4/Mon Mar 31 11:25:49 2014//Tnetbsd-10-1-RELEASE
+/sif.c/1.12/Sat Apr 16 17:35:57 2022//Tnetbsd-10-1-RELEASE
+/sifvar.h/1.4/Mon Mar 31 11:25:49 2014//Tnetbsd-10-1-RELEASE
+/timer.c/1.9/Sat Jun  5 21:38:37 2021//Tnetbsd-10-1-RELEASE
+/timerreg.h/1.8/Mon Mar 31 11:25:49 2014//Tnetbsd-10-1-RELEASE
+/timervar.h/1.4/Mon Mar 31 11:25:49 2014//Tnetbsd-10-1-RELEASE
+D

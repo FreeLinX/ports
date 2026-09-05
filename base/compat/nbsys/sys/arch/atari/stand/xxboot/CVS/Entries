@@ -1,0 +1,11 @@
+/MILAN_LOADADDR/1.1/Fri May 23 21:56:37 2003//Tnetbsd-10-1-RELEASE
+/Makefile/1.1.1.1/Thu Feb 29 11:36:49 1996//Tnetbsd-10-1-RELEASE
+/Makefile.xxboot/1.6/Sun Jan 12 15:26:28 2014//Tnetbsd-10-1-RELEASE
+/STD_LOADADDR/1.1/Fri May 23 21:56:37 2003//Tnetbsd-10-1-RELEASE
+/xxboot.h/1.5/Fri May 23 21:56:37 2003//Tnetbsd-10-1-RELEASE
+D/ahdi-sdb00t////
+D/ahdi-wdb00t////
+D/ahdi-xxboot////
+D/fdboot////
+D/sdboot////
+D/wdboot////

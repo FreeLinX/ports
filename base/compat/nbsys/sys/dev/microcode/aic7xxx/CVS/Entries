@@ -1,0 +1,19 @@
+/Makefile/1.9/Mon Jun 29 06:39:38 2020//Tnetbsd-10-1-RELEASE
+/aic79xx.reg/1.16/Tue May 31 08:43:15 2022//Tnetbsd-10-1-RELEASE
+/aic79xx.seq/1.17/Mon Jun 27 22:41:29 2022//Tnetbsd-10-1-RELEASE
+/aic79xx_reg.h/1.12/Sat Jun 27 16:29:11 2020//Tnetbsd-10-1-RELEASE
+/aic79xx_seq.h/1.13/Mon Oct 25 07:43:48 2021//Tnetbsd-10-1-RELEASE
+/aic7xxx.reg/1.6/Tue Jan 25 22:01:34 2022//Tnetbsd-10-1-RELEASE
+/aic7xxx.seq/1.23/Mon Jun 27 22:41:29 2022//Tnetbsd-10-1-RELEASE
+/aic7xxx_reg.h/1.6/Mon Oct 25 07:43:48 2021//Tnetbsd-10-1-RELEASE
+/aic7xxx_seq.h/1.15/Mon Oct 25 07:43:48 2021//Tnetbsd-10-1-RELEASE
+/aicasm.c/1.13/Tue May 24 20:50:19 2022//Tnetbsd-10-1-RELEASE
+/aicasm.h/1.4/Sun Dec 11 12:22:18 2005//Tnetbsd-10-1-RELEASE
+/aicasm_gram.y/1.9/Mon Oct 25 07:40:29 2021//Tnetbsd-10-1-RELEASE
+/aicasm_insformat.h/1.1/Sat Apr 19 19:26:11 2003//Tnetbsd-10-1-RELEASE
+/aicasm_macro_gram.y/1.3/Sat Jun 27 16:19:38 2020//Tnetbsd-10-1-RELEASE
+/aicasm_macro_scan.l/1.3/Sun Dec 11 12:22:18 2005//Tnetbsd-10-1-RELEASE
+/aicasm_scan.l/1.6/Sat Jun 27 16:19:38 2020//Tnetbsd-10-1-RELEASE
+/aicasm_symbol.c/1.9/Tue May 24 20:50:19 2022//Tnetbsd-10-1-RELEASE
+/aicasm_symbol.h/1.4/Tue May 24 20:50:19 2022//Tnetbsd-10-1-RELEASE
+D

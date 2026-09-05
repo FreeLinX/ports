@@ -1,0 +1,19 @@
+/TODO/1.1/Sat Dec 28 20:12:24 2002//Tnetbsd-10-1-RELEASE
+/atppc_pnpbios.c/1.9/Fri Jul  1 18:14:15 2011//Tnetbsd-10-1-RELEASE
+/com_pnpbios.c/1.16/Sat Dec  8 17:46:11 2018//Tnetbsd-10-1-RELEASE
+/ess_pnpbios.c/1.23/Wed May  8 13:40:15 2019//Tnetbsd-10-1-RELEASE
+/fdc_pnpbios.c/1.19/Mon Jul 11 11:31:49 2016//Tnetbsd-10-1-RELEASE
+/files.pnpbios/1.18/Sun Jan 26 19:16:17 2014//Tnetbsd-10-1-RELEASE
+/joy_pnpbios.c/1.15/Sat Nov 26 14:06:44 2011//Tnetbsd-10-1-RELEASE
+/lm_pnpbios.c/1.15/Fri Jul  1 18:14:15 2011//Tnetbsd-10-1-RELEASE
+/lpt_pnpbios.c/1.13/Thu Jul 14 10:19:05 2016//Tnetbsd-10-1-RELEASE
+/pciide_pnpbios.c/1.34/Mon Aug 24 05:37:40 2020//Tnetbsd-10-1-RELEASE
+/pckbc_pnpbios.c/1.18/Sun Mar 23 02:57:58 2014//Tnetbsd-10-1-RELEASE
+/pnpbios.c/1.77/Sat Aug  7 16:18:55 2021//Tnetbsd-10-1-RELEASE
+/pnpbioscall.S/1.3/Sat Jul 14 14:29:40 2018//Tnetbsd-10-1-RELEASE
+/pnpbiosreg.h/1.4/Tue Dec 25 18:33:33 2007//Tnetbsd-10-1-RELEASE
+/pnpbiosvar.h/1.12/Thu Jun 30 20:09:31 2011//Tnetbsd-10-1-RELEASE
+/sb_pnpbios.c/1.18/Wed May  8 13:40:15 2019//Tnetbsd-10-1-RELEASE
+/wss_pnpbios.c/1.25/Wed Oct  6 23:58:49 2021//Tnetbsd-10-1-RELEASE
+/ym_pnpbios.c/1.19/Wed May  8 13:40:15 2019//Tnetbsd-10-1-RELEASE
+D

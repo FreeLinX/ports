@@ -1,0 +1,19 @@
+/argon2-core.c/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/argon2-core.h/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/argon2-encoding.c/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/argon2-encoding.h/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/argon2-fill-block-avx2.c/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/argon2-fill-block-avx512f.c/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/argon2-fill-block-ref.c/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/argon2-fill-block-ssse3.c/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/argon2.c/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/argon2.h/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/blake2b-long.c/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/blake2b-long.h/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/blamka-round-avx2.h/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/blamka-round-avx512f.h/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/blamka-round-ref.h/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/blamka-round-ssse3.h/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/pwhash_argon2i.c/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/pwhash_argon2id.c/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+D

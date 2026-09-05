@@ -1,0 +1,42 @@
+/Makefile/1.1.1.1/Sat Dec 18 20:11:17 2021//Tnetbsd-10-1-RELEASE
+/amdgpu_dc_dmub_srv.c/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/amdgpu_dc_helper.c/1.4/Sun Dec 19 10:59:01 2021//Tnetbsd-10-1-RELEASE
+/dc.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/dc_bios_types.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/dc_ddc_types.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/dc_dmub_srv.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/dc_dp_types.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/dc_dsc.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/dc_hw_types.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/dc_link.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/dc_stream.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/dc_types.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/dm_cp_psp.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/dm_event_log.h/1.3/Sun Dec 19 11:23:26 2021//Tnetbsd-10-1-RELEASE
+/dm_helpers.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/dm_pp_smu.h/1.3/Sun Dec 19 10:59:01 2021//Tnetbsd-10-1-RELEASE
+/dm_services.h/1.3/Sun Dec 19 11:24:52 2021//Tnetbsd-10-1-RELEASE
+/dm_services_types.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/irq_types.h/1.2/Sat Dec 18 23:45:00 2021//Tnetbsd-10-1-RELEASE
+/os_types.h/1.4/Sun Jul 24 20:05:08 2022//Tnetbsd-10-1-RELEASE
+D/basics////
+D/bios////
+D/calcs////
+D/clk_mgr////
+D/core////
+D/dce////
+D/dce100////
+D/dce110////
+D/dce112////
+D/dce120////
+D/dce80////
+D/dcn10////
+D/dcn20////
+D/dcn21////
+D/dml////
+D/dsc////
+D/gpio////
+D/hdcp////
+D/inc////
+D/irq////
+D/virtual////

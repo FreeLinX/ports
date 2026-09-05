@@ -1,0 +1,24 @@
+/Makefile/1.1.1.3/Sat May 25 11:29:15 2019//Tnetbsd-10-1-RELEASE
+/foundation-v8-gicv2.dtsi/1.1.1.3/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/foundation-v8-gicv3-psci.dts/1.1.1.1/Thu Nov 30 19:40:51 2017//Tnetbsd-10-1-RELEASE
+/foundation-v8-gicv3.dts/1.1.1.2/Thu Nov 30 19:40:51 2017//Tnetbsd-10-1-RELEASE
+/foundation-v8-gicv3.dtsi/1.1.1.3/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/foundation-v8-psci.dts/1.1.1.1/Thu Nov 30 19:40:51 2017//Tnetbsd-10-1-RELEASE
+/foundation-v8-psci.dtsi/1.1.1.1/Thu Nov 30 19:40:51 2017//Tnetbsd-10-1-RELEASE
+/foundation-v8-spin-table.dtsi/1.1.1.1/Thu Nov 30 19:40:51 2017//Tnetbsd-10-1-RELEASE
+/foundation-v8.dts/1.1.1.2/Thu Nov 30 19:40:51 2017//Tnetbsd-10-1-RELEASE
+/foundation-v8.dtsi/1.1.1.5/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/fvp-base-revc.dts/1.1.1.3/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/juno-base.dtsi/1.1.1.10/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/juno-clocks.dtsi/1.1.1.2/Fri Jan  3 14:33:37 2020//Tnetbsd-10-1-RELEASE
+/juno-cs-r1r2.dtsi/1.1.1.4/Fri Jan  3 14:33:37 2020//Tnetbsd-10-1-RELEASE
+/juno-motherboard.dtsi/1.1.1.5/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/juno-r1.dts/1.1.1.7/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/juno-r2.dts/1.1.1.7/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/juno.dts/1.1.1.6/Sat May 25 11:29:15 2019//Tnetbsd-10-1-RELEASE
+/rtsm_ve-aemv8a.dts/1.1.1.5/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/rtsm_ve-motherboard-rs2.dtsi/1.1.1.2/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/rtsm_ve-motherboard.dtsi/1.1.1.7/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/vexpress-v2f-1xv7-ca53x2.dts/1.1.1.5/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/vexpress-v2m-rs1.dtsi/1.7/Sun Nov  7 16:57:38 2021//Tnetbsd-10-1-RELEASE
+D

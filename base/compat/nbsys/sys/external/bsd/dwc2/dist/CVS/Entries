@@ -1,0 +1,10 @@
+/dwc2_core.c/1.13/Wed Feb 24 22:17:54 2016//Tnetbsd-10-1-RELEASE
+/dwc2_core.h/1.9/Wed Aug  8 07:20:44 2018//Tnetbsd-10-1-RELEASE
+/dwc2_coreintr.c/1.11/Wed Feb 24 22:17:54 2016//Tnetbsd-10-1-RELEASE
+/dwc2_hcd.c/1.26/Tue Dec 21 09:51:22 2021//Tnetbsd-10-1-RELEASE
+/dwc2_hcd.h/1.15/Wed Aug  8 07:20:44 2018//Tnetbsd-10-1-RELEASE
+/dwc2_hcdddma.c/1.10/Tue Dec 21 09:51:22 2021//Tnetbsd-10-1-RELEASE
+/dwc2_hcdintr.c/1.15/Sun Aug 12 09:59:30 2018//Tnetbsd-10-1-RELEASE
+/dwc2_hcdqueue.c/1.16/Tue Dec 21 09:51:22 2021//Tnetbsd-10-1-RELEASE
+/dwc2_hw.h/1.4/Sun Feb 14 10:53:30 2016//Tnetbsd-10-1-RELEASE
+D

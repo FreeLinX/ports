@@ -1,0 +1,17 @@
+/asc.c/1.58/Thu Oct 12 09:48:53 2017//Tnetbsd-10-1-RELEASE
+/ascvar.h/1.8/Sat Oct 27 17:18:00 2012//Tnetbsd-10-1-RELEASE
+/esp.c/1.64/Mon Aug 15 12:16:25 2022//Tnetbsd-10-1-RELEASE
+/espvar.h/1.10/Mon Aug 15 12:16:25 2022//Tnetbsd-10-1-RELEASE
+/grf_obio.c/1.59/Fri Jul 26 10:48:44 2019//Tnetbsd-10-1-RELEASE
+/grf_obioreg.h/1.1/Fri Jul 26 10:48:44 2019//Tnetbsd-10-1-RELEASE
+/if_mc_obio.c/1.19/Sun Jan 24 05:20:23 2021//Tnetbsd-10-1-RELEASE
+/if_sn_obio.c/1.29/Sat Feb 20 09:36:30 2021//Tnetbsd-10-1-RELEASE
+/iwm.s/1.7/Fri Jan  2 15:50:28 2015//Tnetbsd-10-1-RELEASE
+/iwm_fd.c/1.61/Sat Aug  7 16:18:57 2021//Tnetbsd-10-1-RELEASE
+/iwm_fdvar.h/1.16/Mon Aug 10 10:59:33 2020//Tnetbsd-10-1-RELEASE
+/iwmreg.h/1.8/Sun Mar  4 06:00:09 2007//Tnetbsd-10-1-RELEASE
+/obio.c/1.27/Sat Aug  7 16:18:57 2021//Tnetbsd-10-1-RELEASE
+/obiovar.h/1.8/Mon Apr 28 20:23:27 2008//Tnetbsd-10-1-RELEASE
+/sbc_obio.c/1.25/Mon Nov 23 00:11:44 2009//Tnetbsd-10-1-RELEASE
+/wdc_obio.c/1.32/Sat Aug 20 20:02:22 2022//Tnetbsd-10-1-RELEASE
+D

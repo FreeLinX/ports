@@ -1,0 +1,8 @@
+/pchb.c/1.12/Sat Aug  7 16:19:03 2021//Tnetbsd-10-1-RELEASE
+/pci_machdep_common.c/1.25/Wed Dec  8 20:50:02 2021//Tnetbsd-10-1-RELEASE
+/pci_machdep_ofw.c/1.22/Thu Jun  1 02:45:07 2017//Tnetbsd-10-1-RELEASE
+/pci_module.c/1.2/Mon Jul  6 09:34:17 2020//Tnetbsd-10-1-RELEASE
+/pcib.c/1.11/Tue May 17 05:05:20 2022//Tnetbsd-10-1-RELEASE
+/pciconf_indirect.c/1.7/Wed Jan  6 08:17:46 2021//Tnetbsd-10-1-RELEASE
+/pciconf_ofmethod.c/1.7/Wed Jan  6 08:17:46 2021//Tnetbsd-10-1-RELEASE
+D

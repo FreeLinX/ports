@@ -1,0 +1,8 @@
+/Makefile/1.11/Tue May 10 19:38:29 2016//Tnetbsd-10-1-RELEASE
+/PCI.ioconf/1.1/Fri Apr  4 12:53:59 2014//Tnetbsd-10-1-RELEASE
+/pci_at_mainbus.c/1.11/Thu Mar 31 19:30:17 2022//Tnetbsd-10-1-RELEASE
+/pci_user.h/1.6/Thu Jul  7 06:55:43 2016//Tnetbsd-10-1-RELEASE
+/rumpdev_bus_dma.c/1.11/Sun Feb 13 19:20:41 2022//Tnetbsd-10-1-RELEASE
+/rumpdev_bus_space.c/1.10/Sun Jan 27 02:08:48 2019//Tnetbsd-10-1-RELEASE
+/rumpdev_pci.c/1.5/Sun May 17 13:51:31 2015//Tnetbsd-10-1-RELEASE
+D

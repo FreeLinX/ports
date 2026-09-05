@@ -1,0 +1,19 @@
+/Makefile/1.6/Tue Mar 22 08:25:22 2016//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.6/Wed Jun 13 16:03:44 2018//Tnetbsd-10-1-RELEASE
+/devopen.c/1.3/Wed Apr  5 21:30:29 2006//Tnetbsd-10-1-RELEASE
+/newvers_rm.sh/1.2/Wed Apr 30 13:10:59 2008//Tnetbsd-10-1-RELEASE
+/riscoscalls.S/1.12/Wed Jan 23 14:49:00 2019//Tnetbsd-10-1-RELEASE
+/riscoscalls.h/1.13/Wed Jan 23 14:49:00 2019//Tnetbsd-10-1-RELEASE
+/riscoscons.c/1.1/Sat Dec 28 23:57:38 2002//Tnetbsd-10-1-RELEASE
+/riscosdisk.c/1.4/Sun Jul 17 20:54:35 2011//Tnetbsd-10-1-RELEASE
+/riscosdisk.h/1.1/Sat Dec 28 23:57:39 2002//Tnetbsd-10-1-RELEASE
+/riscoserrors.c/1.1/Sat Dec 28 23:57:39 2002//Tnetbsd-10-1-RELEASE
+/riscosfile.c/1.4/Wed Jan 25 18:28:25 2006//Tnetbsd-10-1-RELEASE
+/riscosfile.h/1.3/Sun Dec 11 12:16:08 2005//Tnetbsd-10-1-RELEASE
+/riscospart.c/1.6/Tue Sep 29 02:58:52 2020//Tnetbsd-10-1-RELEASE
+/riscospart.h/1.1/Sat Apr  1 19:08:08 2006//Tnetbsd-10-1-RELEASE
+/rmreloc.c/1.3/Sun Mar  4 05:59:07 2007//Tnetbsd-10-1-RELEASE
+/srt0.S/1.4/Sun Dec 11 12:16:08 2005//Tnetbsd-10-1-RELEASE
+/srt0.h/1.2/Tue Mar 28 20:40:38 2006//Tnetbsd-10-1-RELEASE
+/srt1.c/1.6/Sat Mar 14 14:45:52 2009//Tnetbsd-10-1-RELEASE
+D

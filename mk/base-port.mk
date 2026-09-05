@@ -38,6 +38,16 @@ FLX_COMPAT?=$(FREELINX_PORTS_ROOT)/base/compat
 COMPAT_SRCS?=$(FLX_COMPAT)/getprogname.c
 PATCHES?=$(wildcard $(CURDIR)/patches/patch-*)
 
+# NetBSD kernel-source + public-header overlay (base/compat/nbsys).  Provided
+# with -idirafter so the musl sysroot wins on name clashes and the BSD kernel/
+# userland headers fill every gap (sys/audioio.h, sys/proc.h, db.h, rpc/...).
+FLX_NBSYS      := $(FLX_COMPAT)/nbsys
+FLX_NBSYS_FLAGS = -idirafter $(FLX_NBSYS)/sys -idirafter $(FLX_NBSYS)/include
+
+# Per-port pre-build generator hook (yacc/lex output, generated tables, ...).
+# Runs inside do-prepare after patching; failures abort the build.
+FLX_PREGEN?=
+
 NETBSD_MEMBERS?=
 # Source files maintained directly by a FreeLinX port.  This is for a small
 # Linux-native backend when an upstream BSD kernel ABI has no Linux analogue.
@@ -52,7 +62,7 @@ ALL_SRCS = $(addprefix $(SRC_DIR)/,$(PORT_SRCS)) $(COMPAT_SRCS)
 # the include path, and extracted upstream headers (src set include/) are
 # reachable as their own <fts.h>/<vis.h>.  A port extends FLX_CPPFLAGS with
 # the configuration it needs (-DSMALL, -DHAVE_NBTOOL_CONFIG_H=1, ...).
-FLX_CPPFLAGS+=-I$(FLX_COMPAT) -I$(SRC_DIR)/include -include flx_bsd.h
+FLX_CPPFLAGS+=-I$(FLX_COMPAT) -I$(SRC_DIR)/include -include flx_bsd.h $(FLX_NBSYS_FLAGS)
 
 # Static-link set, identical to shells/netbsd-sh: crt1.o + crti.o at the
 # front, crtn.o at the very end, -lc in between, and clang compiler-rt in
@@ -98,6 +108,10 @@ do-prepare:
 		for p in $(PATCHES); do \
 			patch -d "$(SRC_DIR)" -p1 < "$$p"; \
 		done; \
+		if [ -n "$(FLX_PREGEN)" ]; then \
+			printf '[FreeLinX/ports] running pre-generate\n'; \
+			sh -c '$(FLX_PREGEN)' || exit 2; \
+		fi; \
 		touch "$(SRC_DIR)/.flx-patched"; \
 	fi
 

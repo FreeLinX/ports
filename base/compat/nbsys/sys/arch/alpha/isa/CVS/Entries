@@ -1,0 +1,5 @@
+/isa_machdep.c/1.22/Fri May  7 16:58:33 2021//Tnetbsd-10-1-RELEASE
+/isadma_bounce.c/1.17/Sat Jan 22 15:10:30 2022//Tnetbsd-10-1-RELEASE
+/isapnp_machdep.c/1.9/Sun Jul  4 22:42:35 2021//Tnetbsd-10-1-RELEASE
+/mcclock_isa.c/1.21/Fri May  7 16:58:33 2021//Tnetbsd-10-1-RELEASE
+D

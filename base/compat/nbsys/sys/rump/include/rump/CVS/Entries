@@ -1,0 +1,17 @@
+/Makefile/1.10/Tue Feb  2 12:22:23 2016//Tnetbsd-10-1-RELEASE
+/makerumpdefs.sh/1.31/Tue Aug 21 11:45:23 2018//Tnetbsd-10-1-RELEASE
+/rump.h/1.73/Wed Nov  4 22:06:38 2020//Tnetbsd-10-1-RELEASE
+/rump_namei.h/1.48/Tue Jun 29 22:40:06 2021//Tnetbsd-10-1-RELEASE
+/rump_syscalls.h/1.126/Mon Nov  1 05:26:28 2021//Tnetbsd-10-1-RELEASE
+/rump_syscalls_compat.h/1.13/Thu Aug 15 21:29:04 2013//Tnetbsd-10-1-RELEASE
+/rump_syscallshotgun.h/1.1/Sun Jan 31 23:14:34 2016//Tnetbsd-10-1-RELEASE
+/rumpdefs.h/1.38/Tue Aug 21 11:47:37 2018//Tnetbsd-10-1-RELEASE
+/rumperr.h/1.8/Tue Aug 21 11:47:37 2018//Tnetbsd-10-1-RELEASE
+/rumperrno2host.h/1.5/Tue Aug 21 11:47:37 2018//Tnetbsd-10-1-RELEASE
+/rumpfs.h/1.1/Tue Feb  2 12:22:23 2016//Tnetbsd-10-1-RELEASE
+/rumpkern_if_pub.h/1.18/Tue Jan 26 23:25:40 2016//Tnetbsd-10-1-RELEASE
+/rumpnet_if_pub.h/1.6/Tue Jan 26 23:25:40 2016//Tnetbsd-10-1-RELEASE
+/rumpuser.h/1.116/Sun Mar 22 13:30:10 2020//Tnetbsd-10-1-RELEASE
+/rumpvfs_if_pub.h/1.15/Sun Feb 23 15:46:41 2020//Tnetbsd-10-1-RELEASE
+/rumpvnode_if.h/1.40.4.1/Wed Jun 21 16:52:28 2023//Tnetbsd-10-1-RELEASE
+D

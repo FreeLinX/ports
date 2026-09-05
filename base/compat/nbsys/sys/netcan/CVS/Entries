@@ -1,0 +1,11 @@
+/Makefile/1.2/Sat May 27 21:02:56 2017//Tnetbsd-10-1-RELEASE
+/can.c/1.13/Fri Nov  4 09:00:58 2022//Tnetbsd-10-1-RELEASE
+/can.h/1.3/Tue May 30 13:30:51 2017//Tnetbsd-10-1-RELEASE
+/can_link.h/1.2/Sat May 27 21:02:56 2017//Tnetbsd-10-1-RELEASE
+/can_pcb.c/1.8/Sat Jul 20 15:34:41 2019//Tnetbsd-10-1-RELEASE
+/can_pcb.h/1.2/Sat May 27 21:02:56 2017//Tnetbsd-10-1-RELEASE
+/can_proto.c/1.3/Sat Sep  3 02:07:32 2022//Tnetbsd-10-1-RELEASE
+/can_var.h/1.3/Sat Sep  3 02:07:32 2022//Tnetbsd-10-1-RELEASE
+/files.netcan/1.2/Sat May 27 21:02:56 2017//Tnetbsd-10-1-RELEASE
+/if_canloop.c/1.10/Sat Sep  3 02:48:00 2022//Tnetbsd-10-1-RELEASE
+D

@@ -1,0 +1,18 @@
+/Makefile.am/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/Makefile.in/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/android-arm.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/android-armv7-a.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/android-armv8-a.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/android-build.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/android-mips32.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/android-mips64.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/android-x86.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/android-x86_64.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/emscripten.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/ios.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/msys2-win32.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/msys2-win64.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/nativeclient-pnacl.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/nativeclient-x86.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/nativeclient-x86_64.sh/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+D

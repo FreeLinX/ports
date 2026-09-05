@@ -1,0 +1,14 @@
+/DD.h/1.1.1.2/Sat Feb 27 18:59:31 2016//Tnetbsd-10-1-RELEASE
+/divtc3.c/1.1.1.2/Sat Feb 27 18:59:31 2016//Tnetbsd-10-1-RELEASE
+/fixtfdi.c/1.1.1.2/Mon May 19 16:11:28 2014//Tnetbsd-10-1-RELEASE
+/fixunstfdi.c/1.1.1.1/Wed Feb 26 22:31:30 2014//Tnetbsd-10-1-RELEASE
+/floatditf.c/1.1.1.1/Wed Feb 26 22:31:30 2014//Tnetbsd-10-1-RELEASE
+/floatunditf.c/1.1.1.1/Wed Feb 26 22:31:30 2014//Tnetbsd-10-1-RELEASE
+/gcc_qadd.c/1.1.1.1/Wed Feb 26 22:31:30 2014//Tnetbsd-10-1-RELEASE
+/gcc_qdiv.c/1.1.1.1/Wed Feb 26 22:31:30 2014//Tnetbsd-10-1-RELEASE
+/gcc_qmul.c/1.1.1.1/Wed Feb 26 22:31:30 2014//Tnetbsd-10-1-RELEASE
+/gcc_qsub.c/1.1.1.1/Wed Feb 26 22:31:30 2014//Tnetbsd-10-1-RELEASE
+/multc3.c/1.1.1.2/Sat Feb 27 18:59:31 2016//Tnetbsd-10-1-RELEASE
+/restFP.S/1.1.1.1/Wed Feb 26 22:31:30 2014//Tnetbsd-10-1-RELEASE
+/saveFP.S/1.1.1.1/Wed Feb 26 22:31:30 2014//Tnetbsd-10-1-RELEASE
+D

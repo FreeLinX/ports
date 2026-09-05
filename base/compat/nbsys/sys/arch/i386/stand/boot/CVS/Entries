@@ -1,0 +1,9 @@
+/Makefile/1.8/Thu May 27 06:58:13 2010//Tnetbsd-10-1-RELEASE
+/Makefile.boot/1.75/Sun Sep  6 07:20:28 2020//Tnetbsd-10-1-RELEASE
+/biosboot.S/1.8/Wed Jan  5 23:13:01 2011//Tnetbsd-10-1-RELEASE
+/boot2.c/1.79/Wed Jun  8 21:43:45 2022//Tnetbsd-10-1-RELEASE
+/conf.c/1.6/Mon Jan 16 18:46:20 2012//Tnetbsd-10-1-RELEASE
+/devopen.c/1.10/Tue Dec 10 02:02:47 2019//Tnetbsd-10-1-RELEASE
+/devopen.h/1.5/Sun Aug 18 02:18:24 2019//Tnetbsd-10-1-RELEASE
+/version/1.17/Sat Oct  7 10:32:56 2017//Tnetbsd-10-1-RELEASE
+D/biosboot////

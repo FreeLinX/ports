@@ -1,0 +1,4 @@
+/crypto_secretbox.c/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/crypto_secretbox_easy.c/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+D/xchacha20poly1305////
+D/xsalsa20poly1305////

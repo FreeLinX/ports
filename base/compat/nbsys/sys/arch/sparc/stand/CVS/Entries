@@ -1,0 +1,9 @@
+/Makefile/1.22/Sun Dec 13 05:01:33 2009//Tnetbsd-10-1-RELEASE
+/Makefile.buildboot/1.32/Sat Oct  1 13:57:44 2016//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.14/Sat Oct  1 13:57:44 2016//Tnetbsd-10-1-RELEASE
+D/binstall////
+D/boot////
+D/bootblk////
+D/bootxx////
+D/common////
+D/ofwboot////

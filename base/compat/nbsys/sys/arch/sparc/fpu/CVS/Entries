@@ -1,0 +1,13 @@
+/fpu.c/1.29/Fri Mar  1 11:06:55 2019//Tnetbsd-10-1-RELEASE
+/fpu_add.c/1.7/Sun Aug 28 22:09:26 2022//Tnetbsd-10-1-RELEASE
+/fpu_arith.h/1.6/Sat Dec 24 20:07:32 2005//Tnetbsd-10-1-RELEASE
+/fpu_compare.c/1.7/Sun Aug 28 22:09:26 2022//Tnetbsd-10-1-RELEASE
+/fpu_div.c/1.6/Sun Aug 28 22:09:26 2022//Tnetbsd-10-1-RELEASE
+/fpu_emu.h/1.8/Sun Aug 28 22:09:26 2022//Tnetbsd-10-1-RELEASE
+/fpu_explode.c/1.13/Sun Aug 28 22:09:26 2022//Tnetbsd-10-1-RELEASE
+/fpu_extern.h/1.11/Tue Aug 30 01:48:09 2022//Tnetbsd-10-1-RELEASE
+/fpu_implode.c/1.14/Sun Aug 28 22:09:26 2022//Tnetbsd-10-1-RELEASE
+/fpu_mul.c/1.6/Sun Aug 28 22:09:26 2022//Tnetbsd-10-1-RELEASE
+/fpu_sqrt.c/1.7/Sun Aug 28 22:09:26 2022//Tnetbsd-10-1-RELEASE
+/fpu_subr.c/1.8/Tue Aug 30 01:48:09 2022//Tnetbsd-10-1-RELEASE
+D

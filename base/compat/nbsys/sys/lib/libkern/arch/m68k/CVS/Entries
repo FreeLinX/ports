@@ -1,0 +1,10 @@
+/DEFS.h/1.4/Thu Nov 11 01:32:10 1999//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.38/Sun May 31 11:43:37 2020//Tnetbsd-10-1-RELEASE
+/divsi3.S/1.4/Thu Apr 23 03:12:49 2020//Tnetbsd-10-1-RELEASE
+/modsi3.S/1.4/Thu Apr 23 03:12:49 2020//Tnetbsd-10-1-RELEASE
+/random.S/1.6/Tue Mar 18 18:20:43 2014//Tnetbsd-10-1-RELEASE
+/scanc.S/1.10/Tue Mar 18 18:20:43 2014//Tnetbsd-10-1-RELEASE
+/skpc.S/1.10/Tue Mar 18 18:20:43 2014//Tnetbsd-10-1-RELEASE
+/udivsi3.S/1.6/Thu Apr 23 03:12:49 2020//Tnetbsd-10-1-RELEASE
+/umodsi3.S/1.4/Thu Apr 23 03:12:49 2020//Tnetbsd-10-1-RELEASE
+D

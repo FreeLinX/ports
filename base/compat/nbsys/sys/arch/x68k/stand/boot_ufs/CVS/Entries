@@ -1,0 +1,11 @@
+/Makefile/1.38.4.1/Mon May 15 10:31:10 2023//Tnetbsd-10-1-RELEASE
+/boot.S/1.19/Tue Jan 28 11:57:22 2020//Tnetbsd-10-1-RELEASE
+/boot_ufs.h/1.6/Tue Jan 14 04:00:41 2020//Tnetbsd-10-1-RELEASE
+/boot_ufs.ldscript/1.8/Tue Jan 28 11:57:22 2020//Tnetbsd-10-1-RELEASE
+/bootmain.c/1.14/Fri Jun 14 14:17:58 2019//Tnetbsd-10-1-RELEASE
+/readufs.c/1.15/Tue Jan 22 09:39:14 2013//Tnetbsd-10-1-RELEASE
+/readufs.h/1.13/Fri Aug 21 15:33:04 2015//Tnetbsd-10-1-RELEASE
+/readufs_ffs.c/1.15/Thu Nov 17 06:40:39 2022//Tnetbsd-10-1-RELEASE
+/readufs_lfs.c/1.17/Fri Aug 21 15:33:04 2015//Tnetbsd-10-1-RELEASE
+/version/1.4/Sat Jan 18 05:07:34 2020//Tnetbsd-10-1-RELEASE
+D

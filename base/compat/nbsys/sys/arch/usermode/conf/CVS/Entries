@@ -1,0 +1,7 @@
+/GENERIC.common/1.29/Wed Jan 20 13:22:08 2021//Tnetbsd-10-1-RELEASE
+/Makefile.usermode/1.44/Sat Sep 22 12:24:03 2018//Tnetbsd-10-1-RELEASE
+/files.usermode/1.22/Sat Apr 24 23:36:50 2021//Tnetbsd-10-1-RELEASE
+/kern.ldscript/1.2/Fri Aug 17 20:16:07 2018//Tnetbsd-10-1-RELEASE
+/majors.usermode/1.5/Tue Dec 20 21:01:39 2011//Tnetbsd-10-1-RELEASE
+/std.usermode/1.11/Wed Jan  4 14:09:48 2012//Tnetbsd-10-1-RELEASE
+D

@@ -1,0 +1,98 @@
+/Kconfig/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/Makefile/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_agpsupport.c/1.13/Tue Jul 19 22:24:33 2022//Tnetbsd-10-1-RELEASE
+/drm_atomic.c/1.13/Thu Dec 23 17:11:41 2021//Tnetbsd-10-1-RELEASE
+/drm_atomic_helper.c/1.11/Mon Dec 20 00:27:42 2021//Tnetbsd-10-1-RELEASE
+/drm_atomic_state_helper.c/1.2/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_atomic_uapi.c/1.7/Sun Dec 19 10:45:49 2021//Tnetbsd-10-1-RELEASE
+/drm_auth.c/1.6/Sun Dec 19 12:30:04 2021//Tnetbsd-10-1-RELEASE
+/drm_blend.c/1.4/Sun Dec 19 00:50:01 2021//Tnetbsd-10-1-RELEASE
+/drm_bridge.c/1.5/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_bufs.c/1.16/Sun Dec 19 12:30:04 2021//Tnetbsd-10-1-RELEASE
+/drm_cache.c/1.4/Sun Dec 19 01:24:25 2021//Tnetbsd-10-1-RELEASE
+/drm_client_modeset.c/1.3/Sun Dec 19 02:00:03 2021//Tnetbsd-10-1-RELEASE
+/drm_color_mgmt.c/1.3/Sun Dec 19 09:43:05 2021//Tnetbsd-10-1-RELEASE
+/drm_connector.c/1.7/Sun Dec 19 12:32:01 2021//Tnetbsd-10-1-RELEASE
+/drm_context.c/1.9/Sun Dec 19 12:30:04 2021//Tnetbsd-10-1-RELEASE
+/drm_crtc.c/1.19/Sun Dec 19 00:56:18 2021//Tnetbsd-10-1-RELEASE
+/drm_crtc_helper.c/1.7/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_crtc_helper_internal.h/1.2/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_crtc_internal.h/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_damage_helper.c/1.2/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_debugfs.c/1.5/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_debugfs_crc.c/1.2/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_dma.c/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_dp_aux_dev.c/1.3/Sun Dec 19 11:06:54 2021//Tnetbsd-10-1-RELEASE
+/drm_dp_dual_mode_helper.c/1.4/Sun Dec 19 09:43:41 2021//Tnetbsd-10-1-RELEASE
+/drm_dp_helper.c/1.16.4.1/Fri Oct  4 11:40:48 2024//Tnetbsd-10-1-RELEASE
+/drm_dp_mst_topology.c/1.12/Mon Aug 22 18:30:50 2022//Tnetbsd-10-1-RELEASE
+/drm_drv.c/1.24/Sat Oct 15 15:19:28 2022//Tnetbsd-10-1-RELEASE
+/drm_dsc.c/1.3/Sun Dec 19 09:45:49 2021//Tnetbsd-10-1-RELEASE
+/drm_dumb_buffers.c/1.2/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_edid.c/1.15/Sun Dec 19 12:44:04 2021//Tnetbsd-10-1-RELEASE
+/drm_encoder.c/1.2/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_encoder_slave.c/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_fb_helper.c/1.26/Sun Dec 19 12:08:18 2021//Tnetbsd-10-1-RELEASE
+/drm_file.c/1.5/Sun Dec 19 11:21:03 2021//Tnetbsd-10-1-RELEASE
+/drm_flip_work.c/1.6/Sun Dec 19 12:32:01 2021//Tnetbsd-10-1-RELEASE
+/drm_fourcc.c/1.2/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_framebuffer.c/1.6/Sun Dec 19 09:47:44 2021//Tnetbsd-10-1-RELEASE
+/drm_gem.c/1.23.4.1/Fri Oct  4 11:40:48 2024//Tnetbsd-10-1-RELEASE
+/drm_hashtab.c/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_internal.h/1.11/Sun Dec 19 11:10:09 2021//Tnetbsd-10-1-RELEASE
+/drm_ioc32.c/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_ioctl.c/1.24/Sat Oct 15 15:19:28 2022//Tnetbsd-10-1-RELEASE
+/drm_irq.c/1.18/Sun Dec 19 12:05:08 2021//Tnetbsd-10-1-RELEASE
+/drm_kms_helper_common.c/1.2/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_legacy.h/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_legacy_misc.c/1.3/Sun Dec 19 12:30:04 2021//Tnetbsd-10-1-RELEASE
+/drm_lock.c/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_memory.c/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_mipi_dsi.c/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_mm.c/1.20/Thu Sep  1 11:48:59 2022//Tnetbsd-10-1-RELEASE
+/drm_mode_config.c/1.5/Sun Dec 19 12:32:01 2021//Tnetbsd-10-1-RELEASE
+/drm_mode_object.c/1.3/Sun Dec 19 11:06:54 2021//Tnetbsd-10-1-RELEASE
+/drm_modes.c/1.11/Sun Dec 19 01:13:59 2021//Tnetbsd-10-1-RELEASE
+/drm_modeset_helper.c/1.2/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_modeset_lock.c/1.5/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_panel.c/1.5/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_panel_orientation_quirks.c/1.2/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_pci.c/1.7/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_plane.c/1.4/Sun Dec 19 01:13:52 2021//Tnetbsd-10-1-RELEASE
+/drm_plane_helper.c/1.6/Sun Dec 19 09:49:56 2021//Tnetbsd-10-1-RELEASE
+/drm_prime.c/1.20/Wed Jul  6 01:12:45 2022//Tnetbsd-10-1-RELEASE
+/drm_print.c/1.16/Wed Dec 29 23:59:37 2021//Tnetbsd-10-1-RELEASE
+/drm_probe_helper.c/1.6/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_property.c/1.4/Sun Dec 19 09:50:27 2021//Tnetbsd-10-1-RELEASE
+/drm_rect.c/1.4/Sun Dec 19 01:15:00 2021//Tnetbsd-10-1-RELEASE
+/drm_scatter.c/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_scdc_helper.c/1.3/Sun Dec 19 01:15:07 2021//Tnetbsd-10-1-RELEASE
+/drm_self_refresh_helper.c/1.4/Sun Dec 19 10:39:20 2021//Tnetbsd-10-1-RELEASE
+/drm_syncobj.c/1.7/Sun Dec 19 12:35:45 2021//Tnetbsd-10-1-RELEASE
+/drm_trace_points.c/1.4/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_vblank.c/1.16/Sun Dec 26 21:00:14 2021//Tnetbsd-10-1-RELEASE
+/drm_vm.c/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+/drm_vma_manager.c/1.3/Sat Dec 18 23:44:57 2021//Tnetbsd-10-1-RELEASE
+D/amd////
+D/ast////
+D/i2c////
+D/i810////
+D/i915////
+D/lib////
+D/mga////
+D/nouveau////
+D/qxl////
+D/r128////
+D/radeon////
+D/savage////
+D/scheduler////
+D/selftests////
+D/sis////
+D/tdfx////
+D/ttm////
+D/vboxvideo////
+D/vgem////
+D/via////
+D/virtio////
+D/vmwgfx////
+D/xen////

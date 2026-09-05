@@ -1,0 +1,18 @@
+/GENERIC/1.247/Thu Sep 29 10:10:07 2022//Tnetbsd-10-1-RELEASE
+/INSTALL_TX3912/1.13/Fri Feb  6 18:50:27 2009//Tnetbsd-10-1-RELEASE
+/LCARD/1.17/Sun Aug 30 14:06:17 2015//Tnetbsd-10-1-RELEASE
+/LROUTER/1.57/Wed Aug  1 20:04:11 2018//Tnetbsd-10-1-RELEASE
+/MPC303/1.70/Wed Aug  1 20:04:11 2018//Tnetbsd-10-1-RELEASE
+/NULLCONF/1.24/Sun Aug 30 14:06:17 2015//Tnetbsd-10-1-RELEASE
+/RAMDISK/1.21/Tue Nov 23 11:13:59 2010//Tnetbsd-10-1-RELEASE
+/TX3912/1.89/Wed Aug  1 20:04:11 2018//Tnetbsd-10-1-RELEASE
+/TX3922/1.112/Tue Jun 29 10:22:35 2021//Tnetbsd-10-1-RELEASE
+/VR41XX/1.76/Tue Jun 29 10:22:35 2021//Tnetbsd-10-1-RELEASE
+/files.hpcmips/1.110/Mon May 23 21:46:12 2022//Tnetbsd-10-1-RELEASE
+/ioconf.incl.hpcmips/1.4/Thu Mar 23 15:56:02 2006//Tnetbsd-10-1-RELEASE
+/majors.hpcmips/1.36/Tue Jun 29 10:22:35 2021//Tnetbsd-10-1-RELEASE
+/std.hpcmips/1.21/Sat Jun 26 09:11:31 2021//Tnetbsd-10-1-RELEASE
+/std.hpcmips.tx39/1.3/Sun Dec 11 12:17:33 2005//Tnetbsd-10-1-RELEASE
+/std.hpcmips.vr41/1.12/Mon Jul 11 19:36:04 2016//Tnetbsd-10-1-RELEASE
+/std.lcard/1.9/Mon Jul 11 19:36:04 2016//Tnetbsd-10-1-RELEASE
+D

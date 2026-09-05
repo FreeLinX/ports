@@ -1,0 +1,13 @@
+/Makefile/1.1.1.1/Sun Nov  7 16:50:00 2021//Tnetbsd-10-1-RELEASE
+/loongson64-2k1000.dtsi/1.1.1.1/Sun Nov  7 16:50:00 2021//Tnetbsd-10-1-RELEASE
+/loongson64_2core_2k1000.dts/1.1.1.1/Sun Nov  7 16:50:00 2021//Tnetbsd-10-1-RELEASE
+/loongson64c-package.dtsi/1.1.1.1/Sun Nov  7 16:50:00 2021//Tnetbsd-10-1-RELEASE
+/loongson64c_4core_ls7a.dts/1.1.1.1/Sun Nov  7 16:50:00 2021//Tnetbsd-10-1-RELEASE
+/loongson64c_4core_rs780e.dts/1.1.1.1/Sun Nov  7 16:50:00 2021//Tnetbsd-10-1-RELEASE
+/loongson64c_8core_rs780e.dts/1.1.1.1/Sun Nov  7 16:50:00 2021//Tnetbsd-10-1-RELEASE
+/loongson64g-package.dtsi/1.1.1.1/Sun Nov  7 16:50:00 2021//Tnetbsd-10-1-RELEASE
+/loongson64g_4core_ls7a.dts/1.1.1.1/Sun Nov  7 16:50:00 2021//Tnetbsd-10-1-RELEASE
+/loongson64v_4core_virtio.dts/1.1.1.1/Sun Nov  7 16:50:00 2021//Tnetbsd-10-1-RELEASE
+/ls7a-pch.dtsi/1.1.1.1/Sun Nov  7 16:50:00 2021//Tnetbsd-10-1-RELEASE
+/rs780e-pch.dtsi/1.1.1.1/Sun Nov  7 16:50:00 2021//Tnetbsd-10-1-RELEASE
+D

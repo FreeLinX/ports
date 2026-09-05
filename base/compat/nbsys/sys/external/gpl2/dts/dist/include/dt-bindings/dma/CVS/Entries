@@ -1,0 +1,13 @@
+/at91.h/1.1.1.2/Fri Jan  3 14:33:03 2020//Tnetbsd-10-1-RELEASE
+/axi-dmac.h/1.1.1.1/Thu Jun 15 20:14:23 2017//Tnetbsd-10-1-RELEASE
+/dw-dmac.h/1.1.1.1/Sat May 25 11:29:13 2019//Tnetbsd-10-1-RELEASE
+/jz4775-dma.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/jz4780-dma.h/1.1.1.1/Wed Jun 27 16:27:08 2018//Tnetbsd-10-1-RELEASE
+/nbpfaxi.h/1.1.1.2/Fri Jan  3 14:33:03 2020//Tnetbsd-10-1-RELEASE
+/qcom-gpi.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/sun4i-a10.h/1.1.1.1/Thu Jun 15 20:14:23 2017//Tnetbsd-10-1-RELEASE
+/x1000-dma.h/1.1.1.1/Fri Jan  3 14:33:03 2020//Tnetbsd-10-1-RELEASE
+/x1830-dma.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/x2000-dma.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/xlnx-zynqmp-dpdma.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+D

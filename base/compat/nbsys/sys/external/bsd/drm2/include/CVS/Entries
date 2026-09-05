@@ -1,0 +1,16 @@
+/amdgpufb.h/1.2/Sun Dec 19 10:32:59 2021//Tnetbsd-10-1-RELEASE
+/drm_trace.h/1.5/Sun Dec 19 10:37:02 2021//Tnetbsd-10-1-RELEASE
+/gpu_sched_trace.h/1.1/Mon Aug 27 14:02:32 2018//Tnetbsd-10-1-RELEASE
+/i915_trace.h/1.23/Sun Dec 19 12:42:06 2021//Tnetbsd-10-1-RELEASE
+/radeon_trace.h/1.2/Mon Aug 27 07:51:37 2018//Tnetbsd-10-1-RELEASE
+D/acpi////
+D/asm////
+D/drm////
+D/linux////
+D/media////
+D/radeon////
+D/soc////
+D/sound////
+D/trace////
+D/uapi////
+D/video////

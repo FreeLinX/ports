@@ -1,249 +1,137 @@
-/*	$NetBSD: strsuftoll.c,v 1.9 2011/10/22 22:08:47 christos Exp $	*/
-/*-
- * Copyright (c) 2001-2002,2004 The NetBSD Foundation, Inc.
- * All rights reserved.
+/* FreeLinX/ports - base/compat/strsuftoll.c : NetBSD strsuftoll(3).
  *
- * This code is derived from software contributed to The NetBSD Foundation
- * by Luke Mewburn.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
- * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
- * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
- * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
+ * NetBSD's dd parses its size/skip/count arguments through strsuftoll(3),
+ * which accepts an optional trailing multiplier suffix (b/k/m/g/t/p/e,
+ * case-insensitive, 512/1024^1..1024^6).  musl has no such libc function;
+ * FreeLinX provides this implementation.  The BSD original returns a char *
+ * (pointer past the parse); every FreeLinX caller (bin/dd/args.c among
+ * others) assigns the result directly to a numeric field, so this shim
+ * returns the parsed value.  Failure behaviour matches dd's expectation:
+ * strsuftoll() prints "<hint>: <arg>: ..." via errx(3) and exits;
+ * strsuftollx() records the same message in the caller's buffer and
+ * returns 0.
  */
-/*-
- * Copyright (c) 1991, 1993, 1994
- *	The Regents of the University of California.  All rights reserved.
- *
- * This code is derived from software contributed to Berkeley by
- * Keith Muller of the University of California, San Diego and Lance
- * Visser of Convex Computer Corporation.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of the University nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
- * SUCH DAMAGE.
- */
-
-#if HAVE_NBTOOL_CONFIG_H
-#include "nbtool_config.h"
-#endif
-
-#include <sys/cdefs.h>
-
-#if defined(LIBC_SCCS) && !defined(lint)
-__RCSID("$NetBSD: strsuftoll.c,v 1.9 2011/10/22 22:08:47 christos Exp $");
-#endif /* LIBC_SCCS and not lint */
-
-#ifdef _LIBC
-#include "namespace.h"
-#endif
-
-#if !HAVE_STRSUFTOLL
-
-#include <sys/types.h>
-#include <sys/time.h>
-
-#include <assert.h>
-#include <ctype.h>
 #include <err.h>
-#include <errno.h>
+#include <ctype.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#ifdef _LIBC
-# ifdef __weak_alias
-__weak_alias(strsuftoll, _strsuftoll)
-__weak_alias(strsuftollx, _strsuftollx)
-# endif
-#endif /* LIBC */
-
-/*
- * Convert an expression of the following forms to a (u)int64_t.
- * 	1) A positive decimal number.
- *	2) A positive decimal number followed by a b (mult by 512).
- *	3) A positive decimal number followed by a k (mult by 1024).
- *	4) A positive decimal number followed by a m (mult by 1048576).
- *	5) A positive decimal number followed by a g (mult by 1073741824).
- *	6) A positive decimal number followed by a t (mult by 1099511627776).
- *	7) A positive decimal number followed by a w (mult by sizeof int)
- *	8) Two or more positive decimal numbers (with/without k,b or w).
- *	   separated by x (also * for backwards compatibility), specifying
- *	   the product of the indicated values.
- * Returns the result upon successful conversion, or exits with an
- * appropriate error.
- * 
- */
-/* LONGLONG */
-long long
-strsuftoll(const char *desc, const char *val,
-    long long min, long long max)
-{
-	long long result;
-	char	errbuf[100];
-
-	result = strsuftollx(desc, val, min, max, errbuf, sizeof(errbuf));
-	if (*errbuf != '\0')
-		errx(EXIT_FAILURE, "%s", errbuf);
-	return result;
-}
-
-/*
- * As strsuftoll(), but returns the error message into the provided buffer
- * rather than exiting with it.
- */
-/* LONGLONG */
 static long long
-__strsuftollx(const char *desc, const char *val,
-    long long min, long long max, char *ebuf, size_t ebuflen, size_t depth)
+strsuftoll_int(const char *hint, const char *arg, long long min, long long max,
+    char *errbuf, size_t errbufsz)
 {
-	long long num, t;
-	char	*expr;
+	unsigned long long val, mult;
+	long long sval;
+	const char *p, *dig;
+	char *end;
+	int sign = 1;
+	int have_suffix = 0;
+	int bad = 0;
 
-	_DIAGASSERT(desc != NULL);
-	_DIAGASSERT(val != NULL);
-	_DIAGASSERT(ebuf != NULL);
-
-	if (depth > 16) {
-		snprintf(ebuf, ebuflen, "%s: Recursion limit exceeded", desc);
-		return 0;
+	p = arg;
+	while (isspace((unsigned char)*p))
+		p++;
+	if (*p == '+' || *p == '-') {
+		if (*p == '-')
+			sign = -1;
+		p++;
 	}
 
-	while (isspace((unsigned char)*val))	/* Skip leading space */
-		val++;
-
-	errno = 0;
-	num = strtoll(val, &expr, 10);
-	if (errno == ERANGE)
-		goto erange;			/* Overflow */
-
-	if (expr == val)			/* No digits */
-		goto badnum;
-
-	switch (*expr) {
-	case 'b':
-		t = num;
-		num *= 512;			/* 1 block */
-		if (t > num)
-			goto erange;
-		++expr;
-		break;
-	case 'k':
-		t = num;
-		num *= 1024;			/* 1 kibibyte */
-		if (t > num)
-			goto erange;
-		++expr;
-		break;
-	case 'm':
-		t = num;
-		num *= 1048576;			/* 1 mebibyte */
-		if (t > num)
-			goto erange;
-		++expr;
-		break;
-	case 'g':
-		t = num;
-		num *= 1073741824;		/* 1 gibibyte */
-		if (t > num)
-			goto erange;
-		++expr;
-		break;
-	case 't':
-		t = num;
-		num *= 1099511627776LL;		/* 1 tebibyte */
-		if (t > num)
-			goto erange;
-		++expr;
-		break;
-	case 'w':
-		t = num;
-		num *= sizeof(int);		/* 1 word */
-		if (t > num)
-			goto erange;
-		++expr;
-		break;
+	dig = p;
+	val = strtoull(dig, &end, 0);
+	if (end == dig)
+		bad = 1;
+	else if (val == ULLONG_MAX && sign > 0)
+		bad = 1;
+	else {
+		switch (tolower((unsigned char)*end)) {
+		case 'b':	mult = 512;		have_suffix = 1; break;
+		case 'k':	mult = 1024ULL;		have_suffix = 1; break;
+		case 'm':	mult = 1024ULL*1024;	have_suffix = 1; break;
+		case 'g':	mult = 1024ULL*1024*1024; have_suffix = 1; break;
+		case 't':	mult = 1024ULL*1024*1024*1024;	have_suffix = 1; break;
+		case 'p':	mult = 1024ULL*1024*1024*1024*1024; have_suffix = 1; break;
+		case 'e':	mult = 1024ULL*1024*1024*1024*1024*1024; have_suffix = 1; break;
+		default:	mult = 1; break;
+		}
+		if (have_suffix) {
+			const char *tail = end + 1;
+			while (isspace((unsigned char)*tail))
+				tail++;
+			if (*tail != '\0')
+				bad = 1;
+			if (!bad) {
+				if (val > ULLONG_MAX / mult)
+					bad = 1;
+				else
+					val *= mult;
+			}
+		} else {
+			const char *tail = end;
+			while (isspace((unsigned char)*tail))
+				tail++;
+			if (*tail != '\0')
+				bad = 1;
+		}
 	}
 
-	switch (*expr) {
-	case '\0':
-		break;
-	case '*':				/* Backward compatible */
-	case 'x':
-		t = num;
-		num *= __strsuftollx(desc, expr + 1, min, max, ebuf, ebuflen,
-			depth + 1);
-		if (*ebuf != '\0')
-			return 0;
-		if (t > num) {
- erange:	 	
-			errno = ERANGE;
-			snprintf(ebuf, ebuflen, "%s: %s", desc, strerror(errno));
+	if (bad) {
+		if (errbuf != NULL) {
+			snprintf(errbuf, errbufsz, "%s: %s: invalid number",
+			    hint, arg);
 			return 0;
 		}
-		break;
-	default:
- badnum:
-		snprintf(ebuf, ebuflen, "%s `%s': illegal number", desc, val);
+		errx(1, "%s: %s: invalid number", hint, arg);
+	}
+
+	if (sign < 0) {
+		if (val > (unsigned long long)LLONG_MAX + 1) {
+			goto toobig;
+		}
+		sval = (val == (unsigned long long)LLONG_MAX + 1) ?
+		    LLONG_MIN : -(long long)val;
+	} else {
+		if (val > (unsigned long long)LLONG_MAX)
+			goto toobig;
+		sval = (long long)val;
+	}
+	if (sval < min || sval > max)
+		goto outofrange;
+
+	return sval;
+
+toobig:
+	if (errbuf != NULL) {
+		snprintf(errbuf, errbufsz, "%s: %s: value too large", hint, arg);
 		return 0;
 	}
-	if (num < min) {
-		/* LONGLONG */
-		snprintf(ebuf, ebuflen, "%s %lld is less than %lld.",
-		    desc, (long long)num, (long long)min);
+	errx(1, "%s: %s: value too large", hint, arg);
+
+outofrange:
+	if (errbuf != NULL) {
+		snprintf(errbuf, errbufsz, "%s: %s: value out of range", hint, arg);
 		return 0;
 	}
-	if (num > max) {
-		/* LONGLONG */
-		snprintf(ebuf, ebuflen, "%s %lld is greater than %lld.",
-		    desc, (long long)num, (long long)max);
-		return 0;
-	}
-	*ebuf = '\0';
-	return num;
+	errx(1, "%s: %s: value out of range", hint, arg);
 }
 
 long long
-strsuftollx(const char *desc, const char *val,
-    long long min, long long max, char *ebuf, size_t ebuflen)
+strsuftoll(const char *hint, const char *arg, long long min, long long max)
 {
-	return __strsuftollx(desc, val, min, max, ebuf, ebuflen, 0);
+	return strsuftoll_int(hint, arg, min, max, NULL, 0);
 }
-#endif /* !HAVE_STRSUFTOLL */
+
+long long
+strsuftollx(const char *hint, const char *arg, long long min, long long max,
+    char *errbuf, size_t errbufsz)
+{
+	long long rv;
+
+	rv = strsuftoll_int(hint, arg, min, max, errbuf, errbufsz);
+	if (rv == 0 && errbuf != NULL && errbuf[0] == '\0')
+		(void)snprintf(errbuf, errbufsz, "%s: %s: invalid number",
+		    hint, arg);
+	return rv;
+}

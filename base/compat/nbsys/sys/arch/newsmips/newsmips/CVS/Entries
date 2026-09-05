@@ -1,0 +1,14 @@
+/autoconf.c/1.39/Thu Jun 22 16:46:53 2017//Tnetbsd-10-1-RELEASE
+/bus.c/1.38/Tue Jul 26 20:08:56 2022//Tnetbsd-10-1-RELEASE
+/clock.c/1.16/Sun Feb 20 07:56:31 2011//Tnetbsd-10-1-RELEASE
+/cpu.c/1.13/Thu Mar  3 06:27:03 2022//Tnetbsd-10-1-RELEASE
+/cpu_cons.c/1.14/Sun Oct 14 00:10:11 2018//Tnetbsd-10-1-RELEASE
+/disksubr.c/1.29/Wed Apr  3 22:10:51 2019//Tnetbsd-10-1-RELEASE
+/locore_machdep.S/1.16/Sun Feb 20 07:56:31 2011//Tnetbsd-10-1-RELEASE
+/machdep.c/1.121/Fri Oct 19 13:40:33 2018//Tnetbsd-10-1-RELEASE
+/machid.h/1.7/Sun Oct 14 00:10:11 2018//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.13/Sat Aug  7 16:19:01 2021//Tnetbsd-10-1-RELEASE
+/news3400.c/1.25/Mon Nov 14 19:24:23 2016//Tnetbsd-10-1-RELEASE
+/news4000.c/1.1/Sun Oct 14 00:10:11 2018//Tnetbsd-10-1-RELEASE
+/news5000.c/1.22/Sun Oct 14 00:10:11 2018//Tnetbsd-10-1-RELEASE
+D

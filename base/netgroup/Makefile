@@ -20,3 +20,7 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/netgroup/netgroup.c
 
 PORT_SRCS = usr.bin/netgroup/netgroup.c
+
+# musl has no netgroup(3) lookup; compat/netgroup.c provides the
+# empty/always-no-match implementations (setnetgrent/getnetgrent/endnetgrent).
+COMPAT_SRCS = $(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/netgroup.c

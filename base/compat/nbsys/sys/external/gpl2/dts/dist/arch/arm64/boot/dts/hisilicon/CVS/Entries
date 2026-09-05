@@ -1,0 +1,22 @@
+/Makefile/1.1.1.4/Tue Jan 22 14:57:03 2019//Tnetbsd-10-1-RELEASE
+/hi3660-coresight.dtsi/1.1.1.2/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/hi3660-hikey960.dts/1.1.1.8/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/hi3660.dtsi/1.1.1.9/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/hi3670-hikey970.dts/1.1.1.4/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/hi3670.dtsi/1.1.1.4/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/hi3798cv200-poplar.dts/1.1.1.6/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/hi3798cv200.dtsi/1.1.1.5/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/hi6220-coresight.dtsi/1.1.1.4/Sun Nov  7 16:50:08 2021//Tnetbsd-10-1-RELEASE
+/hi6220-hikey.dts/1.1.1.9/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/hi6220.dtsi/1.1.1.9/Sun Nov  7 16:50:08 2021//Tnetbsd-10-1-RELEASE
+/hikey-pinctrl.dtsi/1.1.1.2/Thu Nov 30 19:40:51 2017//Tnetbsd-10-1-RELEASE
+/hikey960-pinctrl.dtsi/1.1.1.4/Sun Nov  7 16:50:08 2021//Tnetbsd-10-1-RELEASE
+/hikey970-pinctrl.dtsi/1.1.1.3/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/hip05-d02.dts/1.1.1.4/Sun Nov  7 16:50:08 2021//Tnetbsd-10-1-RELEASE
+/hip05.dtsi/1.1.1.4/Sun Nov  7 16:50:08 2021//Tnetbsd-10-1-RELEASE
+/hip06-d03.dts/1.1.1.5/Sun Nov  7 16:50:08 2021//Tnetbsd-10-1-RELEASE
+/hip06.dtsi/1.1.1.6/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/hip07-d05.dts/1.1.1.6/Sun Nov  7 16:50:08 2021//Tnetbsd-10-1-RELEASE
+/hip07.dtsi/1.1.1.9/Sun Nov  7 16:50:09 2021//Tnetbsd-10-1-RELEASE
+/poplar-pinctrl.dtsi/1.1.1.1/Wed Jun 27 16:27:08 2018//Tnetbsd-10-1-RELEASE
+D

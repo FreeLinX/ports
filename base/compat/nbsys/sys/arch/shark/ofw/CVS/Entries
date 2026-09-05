@@ -1,0 +1,17 @@
+/chipsfb_ofbus.c/1.5/Wed Jan 27 03:10:21 2021//Tnetbsd-10-1-RELEASE
+/com_ofisa_machdep.c/1.8/Sat Oct 27 17:18:11 2012//Tnetbsd-10-1-RELEASE
+/cpu_ofbus.c/1.8/Sun Jun  5 17:03:18 2011//Tnetbsd-10-1-RELEASE
+/if_cs_ofisa_machdep.c/1.14/Sun Nov 22 03:57:19 2020//Tnetbsd-10-1-RELEASE
+/igsfb_ofbus.c/1.20/Wed Jan 27 03:10:21 2021//Tnetbsd-10-1-RELEASE
+/igsfb_ofbusvar.h/1.4/Thu May  8 02:10:52 2008//Tnetbsd-10-1-RELEASE
+/lpt_ofisa_machdep.c/1.9/Sat Oct 27 17:18:11 2012//Tnetbsd-10-1-RELEASE
+/ofisa_machdep.c/1.10/Sat Oct 27 17:18:11 2012//Tnetbsd-10-1-RELEASE
+/ofisascr.c/1.13/Fri Jan 21 19:12:28 2022//Tnetbsd-10-1-RELEASE
+/ofrom.c/1.29/Wed Jan 27 03:10:21 2021//Tnetbsd-10-1-RELEASE
+/ofw.c/1.68/Mon Sep  3 16:29:27 2018//Tnetbsd-10-1-RELEASE
+/vga_ofbus.c/1.17/Wed Jan 27 03:10:21 2021//Tnetbsd-10-1-RELEASE
+/vga_ofbusvar.h/1.2/Sun Dec 11 12:19:05 2005//Tnetbsd-10-1-RELEASE
+/vlpci.c/1.13/Fri Jan 21 19:12:28 2022//Tnetbsd-10-1-RELEASE
+/vlpci.h/1.1/Tue Apr 18 14:11:42 2017//Tnetbsd-10-1-RELEASE
+/wdc_ofisa_machdep.c/1.8/Sat Oct 27 17:18:11 2012//Tnetbsd-10-1-RELEASE
+D

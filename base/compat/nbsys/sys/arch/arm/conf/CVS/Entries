@@ -1,0 +1,9 @@
+/Makefile.arm/1.55.20.1/Mon Sep 11 13:35:38 2023//Tnetbsd-10-1-RELEASE
+/files.arm/1.167/Fri Oct 28 07:16:34 2022//Tnetbsd-10-1-RELEASE
+/files.footbridge/1.13/Mon Dec  3 15:33:17 2007//Tnetbsd-10-1-RELEASE
+/files.sa11x0/1.6/Mon Jan  8 16:21:45 2007//Tnetbsd-10-1-RELEASE
+/kern.ldscript.head/1.5/Sun Aug 23 08:57:24 2015//Tnetbsd-10-1-RELEASE
+/kern.ldscript.tail/1.4/Thu Jan 30 15:36:43 2014//Tnetbsd-10-1-RELEASE
+/majors.arm32/1.42/Tue Jun 29 10:22:34 2021//Tnetbsd-10-1-RELEASE
+/std.arm/1.5/Mon Dec 18 15:53:38 2017//Tnetbsd-10-1-RELEASE
+D

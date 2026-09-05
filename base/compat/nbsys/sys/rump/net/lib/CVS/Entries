@@ -1,0 +1,29 @@
+/Makefile/1.2/Sun Dec  5 16:53:47 2010//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.8/Sun Sep  6 07:20:30 2020//Tnetbsd-10-1-RELEASE
+D/libagr////
+D/libaltq////
+D/libbpfjit////
+D/libbridge////
+D/libgif////
+D/libipsec////
+D/libl2tp////
+D/liblagg////
+D/liblocal////
+D/libnet////
+D/libnet80211////
+D/libnetbt////
+D/libnetcan////
+D/libnetinet////
+D/libnetinet6////
+D/libnetipsec////
+D/libnetmpls////
+D/libnpf////
+D/libpppoe////
+D/libshmif////
+D/libsockin////
+D/libtap////
+D/libtun////
+D/libvether////
+D/libvirtif////
+D/libvlan////
+D/libwg////

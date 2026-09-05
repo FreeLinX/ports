@@ -1,0 +1,12 @@
+/Makefile/1.5/Sun May  4 06:36:37 2003//Tnetbsd-10-1-RELEASE
+/config_hook.c/1.12/Sat Nov 21 21:08:32 2020//Tnetbsd-10-1-RELEASE
+/debug_subr.c/1.10/Wed Mar 18 10:22:28 2009//Tnetbsd-10-1-RELEASE
+/disksubr.c/1.22/Wed Apr  3 22:10:50 2019//Tnetbsd-10-1-RELEASE
+/platid.awk/1.1/Sun Jan 28 02:52:18 2001//Tnetbsd-10-1-RELEASE
+/platid.c/1.11/Wed May 10 06:24:02 2006//Tnetbsd-10-1-RELEASE
+/platid_copyright.awk/1.2/Sun Feb  4 05:19:14 2001//Tnetbsd-10-1-RELEASE
+/platid_mask.c/1.25/Wed May 18 12:11:46 2011//Tnetbsd-10-1-RELEASE
+/platid_name.c/1.25/Wed May 18 12:11:46 2011//Tnetbsd-10-1-RELEASE
+/platid_test.c/1.4/Wed Mar 18 16:00:11 2009//Tnetbsd-10-1-RELEASE
+/platid_test.canon/1.2/Mon Sep 24 14:29:31 2001//Tnetbsd-10-1-RELEASE
+D/platid_gen////

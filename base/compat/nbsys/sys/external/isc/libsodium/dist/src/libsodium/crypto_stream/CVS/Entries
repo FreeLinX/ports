@@ -1,0 +1,7 @@
+/crypto_stream.c/1.1.1.1/Thu Aug 20 21:17:06 2020//Tnetbsd-10-1-RELEASE
+D/chacha20////
+D/salsa20////
+D/salsa2012////
+D/salsa208////
+D/xchacha20////
+D/xsalsa20////

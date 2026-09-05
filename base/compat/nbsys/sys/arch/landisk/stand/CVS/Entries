@@ -1,0 +1,6 @@
+/Makefile/1.1/Fri Sep  1 21:26:18 2006//Tnetbsd-10-1-RELEASE
+/Makefile.bootprogs/1.6/Sun Jan 12 15:26:29 2014//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.2/Sun Aug 28 08:51:52 2016//Tnetbsd-10-1-RELEASE
+D/boot////
+D/bootxx////
+D/mbr////

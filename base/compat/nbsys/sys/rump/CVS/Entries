@@ -1,0 +1,19 @@
+/Makefile/1.7/Sun Nov  9 17:39:37 2014//Tnetbsd-10-1-RELEASE
+/Makefile.rump/1.134/Tue May  3 08:34:00 2022//Tnetbsd-10-1-RELEASE
+/README.compileopts/1.16/Sat Jul  9 20:11:00 2022//Tnetbsd-10-1-RELEASE
+/README.dirs/1.12/Tue Jan  8 13:12:26 2013//Tnetbsd-10-1-RELEASE
+/TODO/1.12/Tue Sep  8 12:14:20 2015//Tnetbsd-10-1-RELEASE
+/ldscript.rump/1.4/Sat Mar 21 04:48:38 2020//Tnetbsd-10-1-RELEASE
+/ldscript_sun.rump/1.1/Fri Mar 15 12:13:07 2013//Tnetbsd-10-1-RELEASE
+/linksyms_sun.c/1.1/Fri Mar 15 12:13:07 2013//Tnetbsd-10-1-RELEASE
+/listsrcdirs/1.50/Sat Apr 25 15:42:14 2020//Tnetbsd-10-1-RELEASE
+/makerumpsyscalls.sh/1.3/Tue Jan 26 23:24:55 2016//Tnetbsd-10-1-RELEASE
+/rump.sysmap/1.9/Mon Nov  2 18:56:16 2020//Tnetbsd-10-1-RELEASE
+/sunldgen.sh/1.1/Fri Mar 15 12:12:16 2013//Tnetbsd-10-1-RELEASE
+D/dev////
+D/fs////
+D/include////
+D/kern////
+D/librump////
+D/net////
+D/share////

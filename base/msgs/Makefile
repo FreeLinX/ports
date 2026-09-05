@@ -21,3 +21,9 @@ NETBSD_MEMBERS = usr/src/usr.bin/msgs/msgs.c \
 	usr/src/usr.bin/msgs/pathnames.h
 
 PORT_SRCS = usr.bin/msgs/msgs.c
+
+# msgs sizes its prompt via termcap (tgetent/tgetnum) - no-op stubs on
+# FreeLinX (no terminfo DB; msgs falls back to its defaults) - and calls
+# sigsetmask(3) (compat/sigstub.c).  musl lacks all three.
+COMPAT_SRCS = $(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/sigstub.c \
+	$(FLX_COMPAT)/termcap_stub.c

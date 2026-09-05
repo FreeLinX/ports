@@ -1,0 +1,17 @@
+/dsargs.c/1.1.1.13/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dscontrol.c/1.15/Sat Aug 27 14:04:57 2022//Tnetbsd-10-1-RELEASE
+/dsdebug.c/1.1.1.10/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dsfield.c/1.1.1.19/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dsinit.c/1.1.1.14/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dsmethod.c/1.1.1.17/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dsmthdat.c/1.1.1.13/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dsobject.c/1.1.1.18/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dsopcode.c/1.18/Sat Aug 27 14:04:57 2022//Tnetbsd-10-1-RELEASE
+/dspkginit.c/1.7/Sat Aug 27 14:04:57 2022//Tnetbsd-10-1-RELEASE
+/dsutils.c/1.16/Sat Aug 27 14:04:57 2022//Tnetbsd-10-1-RELEASE
+/dswexec.c/1.2/Fri Sep 16 08:08:01 2022//Tnetbsd-10-1-RELEASE
+/dswload.c/1.1.1.18/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dswload2.c/1.1.1.18/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dswscope.c/1.1.1.13/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dswstate.c/1.1.1.13/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+D

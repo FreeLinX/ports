@@ -1,0 +1,7 @@
+/xenbus_client.c/1.17/Tue Apr  7 15:16:52 2020//Tnetbsd-10-1-RELEASE
+/xenbus_comms.c/1.24.20.1/Mon Jul 31 15:23:02 2023//Tnetbsd-10-1-RELEASE
+/xenbus_comms.h/1.8/Wed May 13 13:19:38 2020//Tnetbsd-10-1-RELEASE
+/xenbus_dev.c/1.18/Sat Apr 25 15:26:18 2020//Tnetbsd-10-1-RELEASE
+/xenbus_probe.c/1.58.6.1/Wed Oct 18 15:16:09 2023//Tnetbsd-10-1-RELEASE
+/xenbus_xs.c/1.28/Thu Sep  1 16:25:18 2022//Tnetbsd-10-1-RELEASE
+D

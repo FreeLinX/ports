@@ -1,0 +1,10 @@
+/atppc_pioc.c/1.6/Tue Jul 19 15:59:53 2011//Tnetbsd-10-1-RELEASE
+/com_pioc.c/1.17/Sat Dec  8 17:46:09 2018//Tnetbsd-10-1-RELEASE
+/fd.c/1.64/Sat Aug  7 16:18:40 2021//Tnetbsd-10-1-RELEASE
+/fdreg.h/1.5/Thu Jun 30 20:09:17 2011//Tnetbsd-10-1-RELEASE
+/lpt_pioc.c/1.13/Fri Dec 27 09:28:41 2019//Tnetbsd-10-1-RELEASE
+/pioc.c/1.20/Sat Aug  7 16:18:40 2021//Tnetbsd-10-1-RELEASE
+/piocreg.h/1.1/Fri Oct  5 22:27:53 2001//Tnetbsd-10-1-RELEASE
+/piocvar.h/1.2/Tue Jul 19 15:59:53 2011//Tnetbsd-10-1-RELEASE
+/wdc_pioc.c/1.30/Fri Oct 20 07:06:06 2017//Tnetbsd-10-1-RELEASE
+D

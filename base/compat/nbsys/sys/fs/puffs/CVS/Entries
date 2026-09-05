@@ -1,0 +1,12 @@
+/Makefile/1.1/Sun Oct 22 22:43:23 2006//Tnetbsd-10-1-RELEASE
+/TODO/1.1/Mon May 18 15:47:28 2009//Tnetbsd-10-1-RELEASE
+/files.puffs/1.10/Tue Feb  5 00:22:36 2019//Tnetbsd-10-1-RELEASE
+/puffs_compat.c/1.8/Thu Dec 12 02:15:43 2019//Tnetbsd-10-1-RELEASE
+/puffs_msgif.c/1.106/Fri May 15 19:28:10 2020//Tnetbsd-10-1-RELEASE
+/puffs_msgif.h/1.87/Fri Dec  3 13:08:10 2021//Tnetbsd-10-1-RELEASE
+/puffs_node.c/1.38/Thu Feb  8 09:05:20 2018//Tnetbsd-10-1-RELEASE
+/puffs_subr.c/1.67/Mon Nov 10 18:46:33 2014//Tnetbsd-10-1-RELEASE
+/puffs_sys.h/1.91/Sun Jan 27 02:08:43 2019//Tnetbsd-10-1-RELEASE
+/puffs_vfsops.c/1.126/Thu Apr  1 19:00:33 2021//Tnetbsd-10-1-RELEASE
+/puffs_vnops.c/1.225/Wed Feb 23 21:54:41 2022//Tnetbsd-10-1-RELEASE
+D

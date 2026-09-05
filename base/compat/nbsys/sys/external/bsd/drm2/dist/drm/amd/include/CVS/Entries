@@ -1,0 +1,34 @@
+/amd_acpi.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/amd_pcie.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/amd_pcie_helpers.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/amd_shared.h/1.4/Sun Dec 19 10:59:02 2021//Tnetbsd-10-1-RELEASE
+/arct_ip_offset.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/atom-bits.h/1.3/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/atom-names.h/1.4/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/atom-types.h/1.3/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/atombios.h/1.3/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/atomfirmware.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/atomfirmwareid.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/cgs_common.h/1.3/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/cik_structs.h/1.3/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/discovery.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/displayobject.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/dm_pp_interface.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/kgd_kfd_interface.h/1.4/Sun Dec 19 10:59:02 2021//Tnetbsd-10-1-RELEASE
+/kgd_pp_interface.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/navi10_enum.h/1.3/Sun Dec 19 10:59:02 2021//Tnetbsd-10-1-RELEASE
+/navi10_ip_offset.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/navi12_ip_offset.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/navi14_ip_offset.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/pptable.h/1.3/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/renoir_ip_offset.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/soc15_hw_ip.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/soc15_ih_clientid.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/v10_structs.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/v9_structs.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/vega10_enum.h/1.3/Sun Dec 19 10:59:02 2021//Tnetbsd-10-1-RELEASE
+/vega10_ip_offset.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/vega20_ip_offset.h/1.2/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+/vi_structs.h/1.3/Sat Dec 18 23:45:08 2021//Tnetbsd-10-1-RELEASE
+D/asic_reg////
+D/ivsrcid////

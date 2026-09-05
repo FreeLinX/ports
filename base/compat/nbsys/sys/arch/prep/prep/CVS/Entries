@@ -1,0 +1,10 @@
+/autoconf.c/1.29/Sun May 22 11:27:34 2022//Tnetbsd-10-1-RELEASE
+/consinit.c/1.8/Sat Oct 13 17:58:53 2012//Tnetbsd-10-1-RELEASE
+/cpu.c/1.18/Fri Jul  1 20:52:02 2011//Tnetbsd-10-1-RELEASE
+/ibm_machdep.c/1.16/Wed Mar 26 16:01:43 2014//Tnetbsd-10-1-RELEASE
+/locore.S/1.21/Fri Feb 26 02:18:56 2021//Tnetbsd-10-1-RELEASE
+/machdep.c/1.77/Sat Feb 27 01:31:24 2021//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.40/Sat Aug  7 16:19:03 2021//Tnetbsd-10-1-RELEASE
+/platform.c/1.28/Thu Apr  3 23:49:47 2014//Tnetbsd-10-1-RELEASE
+/residual.c/1.18/Thu Mar 27 18:22:56 2014//Tnetbsd-10-1-RELEASE
+D

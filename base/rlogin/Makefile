@@ -17,6 +17,11 @@ SRC_DIR  = $(FREELINX_BUILD_DIR)/work/$(NAME)
 OBJ_DIR  = $(FREELINX_BUILD_DIR)/obj/$(NAME)
 BUILD_BIN = $(SRC_DIR)/$(NAME)
 
-NETBSD_MEMBERS = usr/src/usr.bin/rlogin/rlogin.c
+NETBSD_MEMBERS = usr/src/usr.bin/rlogin/rlogin.c \
+	usr/src/usr.bin/rsh/getport.c \
+	usr/src/usr.bin/rsh/getport.h
 
-PORT_SRCS = usr.bin/rlogin/rlogin.c
+PORT_SRCS = usr.bin/rlogin/rlogin.c \
+	usr.bin/rsh/getport.c
+
+FLX_CPPFLAGS+= -I$(SRC_DIR)/usr.bin/rsh

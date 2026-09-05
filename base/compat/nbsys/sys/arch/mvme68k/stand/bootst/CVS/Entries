@@ -1,0 +1,9 @@
+/Makefile/1.15/Sun Jan  2 05:30:11 2011//Tnetbsd-10-1-RELEASE
+/boot.c/1.10/Sat Jun 11 06:20:11 2016//Tnetbsd-10-1-RELEASE
+/conf.c/1.4/Sun Dec 11 12:18:19 2005//Tnetbsd-10-1-RELEASE
+/dev_tape.c/1.13/Sun Mar 30 15:20:54 2014//Tnetbsd-10-1-RELEASE
+/dev_tape.h/1.4/Sat Jan 12 09:54:30 2008//Tnetbsd-10-1-RELEASE
+/rawfs.c/1.11/Wed Oct 21 23:12:09 2009//Tnetbsd-10-1-RELEASE
+/rawfs.h/1.4/Sat Jan 12 09:54:30 2008//Tnetbsd-10-1-RELEASE
+/version/1.6/Sun Jan  2 05:30:11 2011//Tnetbsd-10-1-RELEASE
+D

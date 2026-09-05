@@ -1,0 +1,17 @@
+/cons.c/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/ct.c/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/dev_hppa.c/1.2/Wed Mar 26 17:57:17 2014//Tnetbsd-10-1-RELEASE
+/dev_hppa.h/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/dk.c/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/exec_hppa.c/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/exec_som.c/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/itecons.c/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/lf.c/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/libsa.h/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/lif.c/1.2/Tue Sep  4 15:08:30 2018//Tnetbsd-10-1-RELEASE
+/machdep.c/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/milli_tiny.S/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/pdc.c/1.4/Tue Jan  8 19:14:08 2019//Tnetbsd-10-1-RELEASE
+/srt0.S/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/time.c/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+D

@@ -1,0 +1,12 @@
+/Makefile/1.16/Thu Oct 24 18:46:21 2019//Tnetbsd-10-1-RELEASE
+/args_prep.c/1.4/Sun Dec 10 02:26:41 2017//Tnetbsd-10-1-RELEASE
+/boot_prep.c/1.3/Sat Feb 23 16:22:39 2013//Tnetbsd-10-1-RELEASE
+/bootimx23.bd/1.4/Mon Oct  7 17:36:40 2013//Tnetbsd-10-1-RELEASE
+/bootimx23.c/1.1/Mon Oct  7 17:36:40 2013//Tnetbsd-10-1-RELEASE
+/clock_prep.c/1.3/Mon Oct  7 17:36:40 2013//Tnetbsd-10-1-RELEASE
+/common.c/1.4/Mon Oct  7 17:36:40 2013//Tnetbsd-10-1-RELEASE
+/common.h/1.4/Mon Oct  7 17:36:40 2013//Tnetbsd-10-1-RELEASE
+/emi_prep.c/1.3/Mon Oct  7 17:36:40 2013//Tnetbsd-10-1-RELEASE
+/pinctrl_prep.c/1.4/Mon Oct  7 17:36:40 2013//Tnetbsd-10-1-RELEASE
+/power_prep.c/1.5/Wed Aug 17 22:04:51 2016//Tnetbsd-10-1-RELEASE
+D

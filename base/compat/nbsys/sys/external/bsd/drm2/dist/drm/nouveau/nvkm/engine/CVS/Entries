@@ -1,0 +1,24 @@
+/Kbuild/1.3/Sat Dec 18 23:45:34 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvkm_engine_falcon.c/1.3/Sat Dec 18 23:45:34 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvkm_engine_xtensa.c/1.3/Sat Dec 18 23:45:34 2021//Tnetbsd-10-1-RELEASE
+D/bsp////
+D/ce////
+D/cipher////
+D/device////
+D/disp////
+D/dma////
+D/fifo////
+D/gr////
+D/mpeg////
+D/msenc////
+D/mspdec////
+D/msppp////
+D/msvld////
+D/nvdec////
+D/nvenc////
+D/pm////
+D/sec////
+D/sec2////
+D/sw////
+D/vic////
+D/vp////

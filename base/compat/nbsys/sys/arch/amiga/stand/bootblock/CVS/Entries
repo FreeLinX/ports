@@ -1,0 +1,9 @@
+/Makefile/1.6/Thu May  6 13:07:00 2021//Tnetbsd-10-1-RELEASE
+/Makefile.booters/1.9/Sat Sep 17 18:08:02 2016//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.6/Sun Dec 11 12:16:36 2005//Tnetbsd-10-1-RELEASE
+D/boot////
+D/bootxx_ffs////
+D/bootxx_ffsv2////
+D/elf2bb////
+D/ppcboot////
+D/txlt////

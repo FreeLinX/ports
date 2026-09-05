@@ -1,0 +1,25 @@
+/Makefile/1.1.1.3/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/crt0-efi-aarch64.S/1.1.1.2/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/crt0-efi-arm.S/1.1.1.2/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/crt0-efi-ia32.S/1.1.1.2/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/crt0-efi-ia64.S/1.1.1.2/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/crt0-efi-mips64el.S/1.1.1.2/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/crt0-efi-riscv64.S/1.1.1.1/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/crt0-efi-x86_64.S/1.1.1.2/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/elf_aarch64_efi.lds/1.3/Sun Apr 26 06:56:46 2020//Tnetbsd-10-1-RELEASE
+/elf_arm_efi.lds/1.1.1.1/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/elf_ia32_efi.lds/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/elf_ia32_fbsd_efi.lds/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/elf_ia64_efi.lds/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/elf_mips64el_efi.lds/1.1.1.1/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/elf_riscv64_efi.lds/1.1.1.1/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/elf_x86_64_efi.lds/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/elf_x86_64_fbsd_efi.lds/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/reloc_aarch64.c/1.2/Mon Aug 20 09:50:18 2018//Tnetbsd-10-1-RELEASE
+/reloc_arm.c/1.2/Sat Mar 30 12:46:16 2019//Tnetbsd-10-1-RELEASE
+/reloc_ia32.c/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/reloc_ia64.S/1.1.1.1/Tue Apr  1 16:16:08 2014//Tnetbsd-10-1-RELEASE
+/reloc_mips64el.c/1.1.1.1/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/reloc_riscv64.c/1.2/Thu Sep 30 19:09:10 2021//Tnetbsd-10-1-RELEASE
+/reloc_x86_64.c/1.2/Fri Oct  8 23:08:06 2021//Tnetbsd-10-1-RELEASE
+D

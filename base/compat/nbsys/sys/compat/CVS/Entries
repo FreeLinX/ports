@@ -1,0 +1,17 @@
+/Makefile/1.7/Mon Mar 25 19:24:30 2019//Tnetbsd-10-1-RELEASE
+/Makefile.syscall/1.4/Mon Mar 25 19:24:30 2019//Tnetbsd-10-1-RELEASE
+D/aoutm68k////
+D/common////
+D/freebsd////
+D/linux////
+D/linux32////
+D/m68k4k////
+D/net////
+D/netbsd32////
+D/netinet6////
+D/ossaudio////
+D/sunos////
+D/sunos32////
+D/sys////
+D/ultrix////
+D/vax1k////

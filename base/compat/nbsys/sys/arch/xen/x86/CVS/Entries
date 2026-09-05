@@ -1,0 +1,15 @@
+/autoconf.c/1.25.20.1/Wed Oct 18 16:53:03 2023//Tnetbsd-10-1-RELEASE
+/consinit.c/1.16.68.1/Wed Oct 18 16:53:03 2023//Tnetbsd-10-1-RELEASE
+/cpu.c/1.142.4.1/Mon Jul 31 15:23:02 2023//Tnetbsd-10-1-RELEASE
+/hypervisor_machdep.c/1.45.4.1/Mon Jul 31 15:36:10 2023//Tnetbsd-10-1-RELEASE
+/pintr.c/1.24/Thu May 26 11:06:14 2022//Tnetbsd-10-1-RELEASE
+/pvh_consinit.c/1.2.20.2/Wed Oct 18 16:53:03 2023//Tnetbsd-10-1-RELEASE
+/x86_xpmap.c/1.92/Sat Aug 20 23:48:51 2022//Tnetbsd-10-1-RELEASE
+/xen_bus_dma.c/1.33/Sat Aug 20 23:48:51 2022//Tnetbsd-10-1-RELEASE
+/xen_intr.c/1.30.4.1/Mon Jul 31 14:54:21 2023//Tnetbsd-10-1-RELEASE
+/xen_ipi.c/1.40.4.2/Thu Dec 14 17:39:35 2023//Tnetbsd-10-1-RELEASE
+/xen_mainbus.c/1.10/Sat Aug  7 16:19:08 2021//Tnetbsd-10-1-RELEASE
+/xen_pmap.c/1.40/Sat Aug 20 23:48:51 2022//Tnetbsd-10-1-RELEASE
+/xen_shm_machdep.c/1.18/Thu Sep  1 12:29:00 2022//Tnetbsd-10-1-RELEASE
+/xenfunc.c/1.29/Sat Aug 20 23:48:51 2022//Tnetbsd-10-1-RELEASE
+D

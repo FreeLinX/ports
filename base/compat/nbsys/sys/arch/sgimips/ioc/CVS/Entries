@@ -1,0 +1,10 @@
+/files.ioc/1.4/Fri Feb 13 23:55:33 2009//Tnetbsd-10-1-RELEASE
+/if_le_oioc.c/1.6/Sat Feb 12 03:24:34 2022//Tnetbsd-10-1-RELEASE
+/ioc.c/1.13/Sat Aug  7 16:19:04 2021//Tnetbsd-10-1-RELEASE
+/iocreg.h/1.2/Sun Dec 11 12:18:53 2005//Tnetbsd-10-1-RELEASE
+/iocvar.h/1.2/Sun Dec 11 12:18:53 2005//Tnetbsd-10-1-RELEASE
+/oioc.c/1.6/Sat Aug  7 16:19:04 2021//Tnetbsd-10-1-RELEASE
+/oiocreg.h/1.1/Tue Feb 10 06:04:56 2009//Tnetbsd-10-1-RELEASE
+/oiocsc.c/1.4/Fri Dec 27 09:41:50 2019//Tnetbsd-10-1-RELEASE
+/oiocvar.h/1.2/Fri Jul  1 18:53:47 2011//Tnetbsd-10-1-RELEASE
+D

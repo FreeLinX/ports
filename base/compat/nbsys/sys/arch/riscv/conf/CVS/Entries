@@ -1,0 +1,10 @@
+/GENERIC/1.21/Fri Nov 25 12:35:44 2022//Tnetbsd-10-1-RELEASE
+/INSTALL/1.1/Sat Mar 28 16:13:56 2015//Tnetbsd-10-1-RELEASE
+/INSTALL.config/1.1/Sat Mar 28 16:13:56 2015//Tnetbsd-10-1-RELEASE
+/Makefile.riscv/1.8.4.1/Mon Sep 11 13:35:38 2023//Tnetbsd-10-1-RELEASE
+/files.riscv/1.11/Fri Oct 14 07:58:30 2022//Tnetbsd-10-1-RELEASE
+/kern.ldscript/1.8/Sat May  1 07:13:21 2021//Tnetbsd-10-1-RELEASE
+/majors.riscv/1.8/Sat Mar 14 16:12:15 2020//Tnetbsd-10-1-RELEASE
+/std.riscv/1.1/Sat Mar 28 16:13:56 2015//Tnetbsd-10-1-RELEASE
+/std.riscv64/1.2/Thu Apr 11 14:38:06 2019//Tnetbsd-10-1-RELEASE
+D

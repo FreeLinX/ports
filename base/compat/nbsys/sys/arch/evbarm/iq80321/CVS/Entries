@@ -1,0 +1,12 @@
+/com_obio.c/1.14/Sat Dec  8 17:46:10 2018//Tnetbsd-10-1-RELEASE
+/i80321_mainbus.c/1.18/Sun Feb 12 16:31:01 2012//Tnetbsd-10-1-RELEASE
+/iq80321_7seg.c/1.7/Fri Jul  1 20:41:16 2011//Tnetbsd-10-1-RELEASE
+/iq80321_machdep.c/1.64.4.1/Sat Oct 14 06:52:16 2023//Tnetbsd-10-1-RELEASE
+/iq80321_pci.c/1.10/Fri Nov 16 15:06:23 2018//Tnetbsd-10-1-RELEASE
+/iq80321_start.S/1.5/Mon Jan 31 06:28:03 2011//Tnetbsd-10-1-RELEASE
+/iq80321reg.h/1.6/Wed Oct 17 19:54:12 2007//Tnetbsd-10-1-RELEASE
+/iq80321var.h/1.1/Wed Mar 27 21:51:30 2002//Tnetbsd-10-1-RELEASE
+/obio.c/1.18/Sat Aug  7 16:18:49 2021//Tnetbsd-10-1-RELEASE
+/obio_space.c/1.13/Fri Mar 16 17:56:33 2018//Tnetbsd-10-1-RELEASE
+/obiovar.h/1.4/Mon Jun 16 17:40:53 2003//Tnetbsd-10-1-RELEASE
+D

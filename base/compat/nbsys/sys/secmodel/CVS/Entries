@@ -1,0 +1,9 @@
+/files.secmodel/1.5/Sun Dec  4 19:24:59 2011//Tnetbsd-10-1-RELEASE
+/secmodel.c/1.2/Tue Nov  4 16:01:58 2014//Tnetbsd-10-1-RELEASE
+/secmodel.h/1.5/Fri Feb 14 04:36:33 2020//Tnetbsd-10-1-RELEASE
+D/bsd44////
+D/extensions////
+D/keylock////
+D/overlay////
+D/securelevel////
+D/suser////

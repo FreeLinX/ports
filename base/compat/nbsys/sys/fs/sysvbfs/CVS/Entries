@@ -1,0 +1,11 @@
+/Makefile/1.2/Thu Sep  4 12:07:30 2008//Tnetbsd-10-1-RELEASE
+/bfs.c/1.19/Sun Nov 10 21:16:38 2019//Tnetbsd-10-1-RELEASE
+/bfs.h/1.8/Thu Jan  9 13:23:57 2014//Tnetbsd-10-1-RELEASE
+/bfs_sysvbfs.c/1.11/Sat Mar 28 19:24:05 2015//Tnetbsd-10-1-RELEASE
+/files.sysvbfs/1.2/Sat Oct 11 06:42:19 2014//Tnetbsd-10-1-RELEASE
+/sysvbfs.c/1.19/Tue Jun 29 22:34:07 2021//Tnetbsd-10-1-RELEASE
+/sysvbfs.h/1.10/Fri Dec 26 15:23:21 2014//Tnetbsd-10-1-RELEASE
+/sysvbfs_args.h/1.1/Thu Sep  4 12:07:30 2008//Tnetbsd-10-1-RELEASE
+/sysvbfs_vfsops.c/1.48/Tue May  3 07:34:38 2022//Tnetbsd-10-1-RELEASE
+/sysvbfs_vnops.c/1.69/Sun Jul 31 13:08:18 2022//Tnetbsd-10-1-RELEASE
+D

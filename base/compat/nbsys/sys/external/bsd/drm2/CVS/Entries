@@ -1,0 +1,15 @@
+/README/1.2/Mon Aug 27 14:05:27 2018//Tnetbsd-10-1-RELEASE
+/prepare-import.sh/1.2/Sun Dec 19 10:20:38 2021//Tnetbsd-10-1-RELEASE
+D/amdgpu////
+D/dist////
+D/drm////
+D/i2c////
+D/i915drm////
+D/include////
+D/linux////
+D/nouveau////
+D/pci////
+D/radeon////
+D/ttm////
+D/via////
+D/vmwgfx////

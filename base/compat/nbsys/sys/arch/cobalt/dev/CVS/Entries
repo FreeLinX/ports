@@ -1,0 +1,11 @@
+/com_mainbus.c/1.22/Sat Dec  8 17:46:10 2018//Tnetbsd-10-1-RELEASE
+/com_mainbusvar.h/1.2/Sun Dec 11 12:17:06 2005//Tnetbsd-10-1-RELEASE
+/gt.c/1.34/Sat Aug  7 16:18:47 2021//Tnetbsd-10-1-RELEASE
+/gt_io_space.c/1.1/Sat Jan 20 13:56:09 2018//Tnetbsd-10-1-RELEASE
+/gt_mem_space.c/1.1/Sat Jan 20 13:56:09 2018//Tnetbsd-10-1-RELEASE
+/gtreg.h/1.4/Wed May 17 17:31:55 2006//Tnetbsd-10-1-RELEASE
+/gtvar.h/1.1/Sat Jan 20 13:56:09 2018//Tnetbsd-10-1-RELEASE
+/lcdpanel.c/1.1/Mon Apr  9 20:16:16 2018//Tnetbsd-10-1-RELEASE
+/mcclock.c/1.5/Fri Jul  1 20:36:42 2011//Tnetbsd-10-1-RELEASE
+/zs.c/1.7/Sat Sep 11 20:28:03 2021//Tnetbsd-10-1-RELEASE
+D

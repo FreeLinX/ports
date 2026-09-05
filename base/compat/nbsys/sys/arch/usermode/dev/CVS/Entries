@@ -1,0 +1,11 @@
+/clock.c/1.27/Fri May 29 12:30:41 2020//Tnetbsd-10-1-RELEASE
+/cpu.c/1.83/Tue Dec  3 15:20:59 2019//Tnetbsd-10-1-RELEASE
+/if_veth.c/1.16/Sun Sep 18 13:36:53 2022//Tnetbsd-10-1-RELEASE
+/ld_thunkbus.c/1.33/Mon Jun  4 20:06:52 2018//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.12/Sat Aug  7 16:19:07 2021//Tnetbsd-10-1-RELEASE
+/ttycons.c/1.20/Fri Jul 25 08:10:35 2014//Tnetbsd-10-1-RELEASE
+/vatapi.c/1.4/Sat Aug  7 16:19:07 2021//Tnetbsd-10-1-RELEASE
+/vaudio.c/1.5/Wed May  8 13:40:16 2019//Tnetbsd-10-1-RELEASE
+/vncfb.c/1.14/Sat Aug  7 16:19:07 2021//Tnetbsd-10-1-RELEASE
+/vnckbdmap.c/1.2/Fri Dec 30 12:14:44 2011//Tnetbsd-10-1-RELEASE
+D

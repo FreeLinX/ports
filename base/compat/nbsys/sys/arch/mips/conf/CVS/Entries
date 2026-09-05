@@ -1,0 +1,15 @@
+/Makefile.mips/1.72.14.1/Mon Sep 11 13:35:37 2023//Tnetbsd-10-1-RELEASE
+/files.adm5120/1.4/Sat Apr 23 10:15:29 2016//Tnetbsd-10-1-RELEASE
+/files.alchemy/1.14/Wed May  8 13:40:15 2019//Tnetbsd-10-1-RELEASE
+/files.atheros/1.10/Sun Jul 10 23:13:22 2011//Tnetbsd-10-1-RELEASE
+/files.bonito/1.1/Sat Aug  1 22:58:36 2009//Tnetbsd-10-1-RELEASE
+/files.ingenic/1.10/Sun May 21 06:49:13 2017//Tnetbsd-10-1-RELEASE
+/files.mips/1.84/Tue May 25 09:19:28 2021//Tnetbsd-10-1-RELEASE
+/files.octeon/1.12/Thu Jul 16 21:34:52 2020//Tnetbsd-10-1-RELEASE
+/files.ralink/1.4/Mon Apr 28 22:59:49 2014//Tnetbsd-10-1-RELEASE
+/files.rmixl/1.4/Fri Mar 18 02:13:46 2011//Tnetbsd-10-1-RELEASE
+/files.sibyte/1.8/Mon Jul 24 09:56:45 2017//Tnetbsd-10-1-RELEASE
+/kern.ldscript/1.12/Fri Apr 23 08:42:25 2021//Tnetbsd-10-1-RELEASE
+/stand.ldscript/1.8/Fri Apr 23 08:42:25 2021//Tnetbsd-10-1-RELEASE
+/std.octeon/1.6/Tue May 11 09:21:24 2021//Tnetbsd-10-1-RELEASE
+D

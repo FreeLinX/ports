@@ -1,0 +1,12 @@
+/Makefile/1.7/Thu May  6 13:23:36 2021//Tnetbsd-10-1-RELEASE
+/Makefile.booters/1.28/Thu May  6 13:23:36 2021//Tnetbsd-10-1-RELEASE
+D/bootsd////
+D/bootst////
+D/bootxx////
+D/installboot////
+D/libbug////
+D/libsa////
+D/netboot////
+D/prtvid////
+D/sboot////
+D/wrtvid////

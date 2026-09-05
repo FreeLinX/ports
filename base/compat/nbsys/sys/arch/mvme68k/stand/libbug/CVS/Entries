@@ -1,0 +1,16 @@
+/Makefile/1.18/Fri Nov 21 20:21:08 2014//Tnetbsd-10-1-RELEASE
+/bugcrt.c/1.5/Sat Jan 12 09:54:30 2008//Tnetbsd-10-1-RELEASE
+/bugstart.S/1.1/Fri Nov 21 20:10:28 2014//Tnetbsd-10-1-RELEASE
+/delay.c/1.3/Sat Jan 12 09:54:30 2008//Tnetbsd-10-1-RELEASE
+/diskrd.c/1.3/Sat Jan 12 09:54:31 2008//Tnetbsd-10-1-RELEASE
+/diskwr.c/1.3/Sat Jan 12 09:54:31 2008//Tnetbsd-10-1-RELEASE
+/getbrdid.c/1.3/Sat Jan 12 09:54:31 2008//Tnetbsd-10-1-RELEASE
+/inchr.c/1.4/Sat Jan 12 09:54:31 2008//Tnetbsd-10-1-RELEASE
+/instat.c/1.3/Sat Jan 12 09:54:31 2008//Tnetbsd-10-1-RELEASE
+/libbug.h/1.4/Sat Jan 12 09:54:31 2008//Tnetbsd-10-1-RELEASE
+/outln.c/1.4/Mon Sep 23 01:39:27 2013//Tnetbsd-10-1-RELEASE
+/outstr.c/1.4/Mon Sep 23 01:39:27 2013//Tnetbsd-10-1-RELEASE
+/putchar.c/1.2/Sat Jan 12 09:54:31 2008//Tnetbsd-10-1-RELEASE
+/return.c/1.3/Sat Jan 12 09:54:31 2008//Tnetbsd-10-1-RELEASE
+/rtc_rd.c/1.3/Sat Jan 12 09:54:31 2008//Tnetbsd-10-1-RELEASE
+D

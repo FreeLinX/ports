@@ -1,0 +1,13 @@
+/bcm-pmb.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/bcm2835-pm.h/1.1.1.1/Sat May 25 11:29:13 2019//Tnetbsd-10-1-RELEASE
+/bcm6318-pm.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/bcm63268-pm.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/bcm6328-pm.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/bcm6362-pm.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/qcom,apr.h/1.1.1.1/Wed Jun 27 16:27:08 2018//Tnetbsd-10-1-RELEASE
+/qcom,gsbi.h/1.1.1.2/Fri Jan  3 14:33:03 2020//Tnetbsd-10-1-RELEASE
+/qcom,rpmh-rsc.h/1.1.1.1/Tue Jan 22 14:57:01 2019//Tnetbsd-10-1-RELEASE
+/rockchip,boot-mode.h/1.1.1.2/Thu Nov 30 19:40:51 2017//Tnetbsd-10-1-RELEASE
+/tegra-pmc.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/ti,sci_pm_domain.h/1.1.1.1/Fri Jan  3 14:33:03 2020//Tnetbsd-10-1-RELEASE
+D

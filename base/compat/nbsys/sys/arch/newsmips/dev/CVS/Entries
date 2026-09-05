@@ -1,0 +1,15 @@
+/dmac_0448.h/1.6.122.1/Sun Nov 26 11:54:31 2023//Tnetbsd-10-1-RELEASE
+/fb.c/1.29.6.1/Sun Nov  5 17:43:58 2023//Tnetbsd-10-1-RELEASE
+/hb.c/1.23/Sat Aug  7 16:19:01 2021//Tnetbsd-10-1-RELEASE
+/hbvar.h/1.3/Wed May 14 13:29:28 2008//Tnetbsd-10-1-RELEASE
+/if_le.c/1.18/Tue Jan 19 22:06:22 2010//Tnetbsd-10-1-RELEASE
+/kb_hb.c/1.15/Sat Aug  7 16:19:01 2021//Tnetbsd-10-1-RELEASE
+/mkclock_hb.c/1.8/Mon Apr 28 20:23:30 2008//Tnetbsd-10-1-RELEASE
+/ms_hb.c/1.16/Sat Aug  7 16:19:01 2021//Tnetbsd-10-1-RELEASE
+/sc_wrap.c/1.33/Sat Aug  7 16:19:01 2021//Tnetbsd-10-1-RELEASE
+/screg_1185.h/1.7/Wed Apr  9 15:40:30 2008//Tnetbsd-10-1-RELEASE
+/scsi_1185.c/1.23.46.1/Sun Nov 26 11:54:31 2023//Tnetbsd-10-1-RELEASE
+/scsireg.h/1.14/Sun Jun 12 16:22:37 2022//Tnetbsd-10-1-RELEASE
+/zs.c/1.28/Sat Sep 11 20:28:04 2021//Tnetbsd-10-1-RELEASE
+/zs_hb.c/1.29.6.1/Sun Nov  5 17:06:14 2023//Tnetbsd-10-1-RELEASE
+D

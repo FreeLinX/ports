@@ -1,0 +1,13 @@
+/autoconf.c/1.28/Thu Jun 22 16:46:53 2017//Tnetbsd-10-1-RELEASE
+/bus_dma.c/1.31/Tue Jul 26 20:08:55 2022//Tnetbsd-10-1-RELEASE
+/bus_space.c/1.12/Fri Jan 27 18:52:59 2012//Tnetbsd-10-1-RELEASE
+/clock.c/1.10/Tue Feb  8 20:20:19 2011//Tnetbsd-10-1-RELEASE
+/cpu.c/1.12/Thu Mar  3 06:27:03 2022//Tnetbsd-10-1-RELEASE
+/disksubr.c/1.29/Tue May 24 06:28:00 2022//Tnetbsd-10-1-RELEASE
+/interrupt.c/1.11/Sun Feb 20 07:56:16 2011//Tnetbsd-10-1-RELEASE
+/locore_machdep.S/1.7/Mon Apr 28 20:23:28 2008//Tnetbsd-10-1-RELEASE
+/machdep.c/1.80/Thu Dec 22 14:47:58 2016//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.12/Sat Aug  7 16:19:00 2021//Tnetbsd-10-1-RELEASE
+/mips_3x30.c/1.18/Mon Nov 14 19:24:23 2016//Tnetbsd-10-1-RELEASE
+/prom.c/1.6/Mon Apr 28 20:23:28 2008//Tnetbsd-10-1-RELEASE
+D

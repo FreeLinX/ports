@@ -1,0 +1,11 @@
+/autoconf.c/1.32/Sat Aug  7 16:19:06 2021//Tnetbsd-10-1-RELEASE
+/bus.c/1.25/Tue Jul 26 20:08:56 2022//Tnetbsd-10-1-RELEASE
+/control.h/1.5/Mon Apr 28 20:23:39 2008//Tnetbsd-10-1-RELEASE
+/ctrlsp.S/1.2/Mon Apr 28 20:23:39 2008//Tnetbsd-10-1-RELEASE
+/isr.c/1.27/Fri Sep  2 23:48:10 2022//Tnetbsd-10-1-RELEASE
+/stub.c/1.6/Mon Apr 28 20:23:39 2008//Tnetbsd-10-1-RELEASE
+/vector.c/1.7/Mon Apr 28 20:23:39 2008//Tnetbsd-10-1-RELEASE
+/vector.h/1.4/Mon Apr 28 20:23:39 2008//Tnetbsd-10-1-RELEASE
+/vme_sun68k.c/1.19/Sat Aug  7 16:19:06 2021//Tnetbsd-10-1-RELEASE
+/vme_sun68k.h/1.4/Mon Apr 28 20:23:39 2008//Tnetbsd-10-1-RELEASE
+D

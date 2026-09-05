@@ -1,0 +1,8 @@
+/Makefile/1.1/Wed Nov  7 07:43:08 2018//Tnetbsd-10-1-RELEASE
+/nvmm_x86.c/1.23/Thu Oct  6 00:22:16 2022//Tnetbsd-10-1-RELEASE
+/nvmm_x86.h/1.21/Fri Mar 26 15:59:53 2021//Tnetbsd-10-1-RELEASE
+/nvmm_x86_svm.c/1.84.4.1/Tue Jul 25 15:30:27 2023//Tnetbsd-10-1-RELEASE
+/nvmm_x86_svmfunc.S/1.6/Sat Sep  5 07:22:26 2020//Tnetbsd-10-1-RELEASE
+/nvmm_x86_vmx.c/1.85.4.1/Thu Dec 14 17:39:35 2023//Tnetbsd-10-1-RELEASE
+/nvmm_x86_vmxfunc.S/1.6/Sat Sep  5 07:22:26 2020//Tnetbsd-10-1-RELEASE
+D

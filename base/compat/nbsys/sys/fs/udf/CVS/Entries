@@ -1,0 +1,20 @@
+/Makefile/1.1/Thu Feb  2 15:19:15 2006//Tnetbsd-10-1-RELEASE
+/ecma167-udf.h/1.17/Fri Mar 18 16:06:18 2022//Tnetbsd-10-1-RELEASE
+/files.udf/1.6/Sat Oct 11 06:42:19 2014//Tnetbsd-10-1-RELEASE
+/udf.h/1.54/Sun Aug  7 11:06:19 2022//Tnetbsd-10-1-RELEASE
+/udf_allocation.c/1.47/Sun May 22 11:27:36 2022//Tnetbsd-10-1-RELEASE
+/udf_bswap.h/1.8/Thu Oct 22 21:50:01 2009//Tnetbsd-10-1-RELEASE
+/udf_mount.h/1.4/Wed Oct 16 21:52:22 2019//Tnetbsd-10-1-RELEASE
+/udf_osta.c/1.11/Fri Feb 11 16:33:18 2022//Tnetbsd-10-1-RELEASE
+/udf_osta.h/1.4/Wed May 14 16:49:48 2008//Tnetbsd-10-1-RELEASE
+/udf_readwrite.c/1.13/Sun Dec  5 04:32:36 2021//Tnetbsd-10-1-RELEASE
+/udf_rename.c/1.14/Wed Oct 20 03:08:17 2021//Tnetbsd-10-1-RELEASE
+/udf_strat_bootstrap.c/1.5/Tue May 24 09:55:57 2016//Tnetbsd-10-1-RELEASE
+/udf_strat_direct.c/1.15/Sat Jan 15 10:55:53 2022//Tnetbsd-10-1-RELEASE
+/udf_strat_rmw.c/1.30/Sat Jan 15 10:55:53 2022//Tnetbsd-10-1-RELEASE
+/udf_strat_sequential.c/1.19/Sat Aug 27 05:32:41 2022//Tnetbsd-10-1-RELEASE
+/udf_subr.c/1.172/Mon Oct 31 21:22:06 2022//Tnetbsd-10-1-RELEASE
+/udf_subr.h/1.21/Fri Jan 17 20:08:08 2020//Tnetbsd-10-1-RELEASE
+/udf_vfsops.c/1.85/Tue May  3 07:33:07 2022//Tnetbsd-10-1-RELEASE
+/udf_vnops.c/1.126/Sat May 28 21:14:57 2022//Tnetbsd-10-1-RELEASE
+D

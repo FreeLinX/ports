@@ -1,0 +1,12 @@
+/adc.c/1.15/Sat Aug  7 16:19:05 2021//Tnetbsd-10-1-RELEASE
+/adcvar.h/1.2/Sun Dec 11 12:18:58 2005//Tnetbsd-10-1-RELEASE
+/rtc.c/1.10/Thu Nov 20 16:34:26 2014//Tnetbsd-10-1-RELEASE
+/sci.c/1.63/Sat Nov 21 17:25:52 2020//Tnetbsd-10-1-RELEASE
+/scif.c/1.68/Sat Nov 21 17:25:52 2020//Tnetbsd-10-1-RELEASE
+/scifvar.h/1.2/Sat Mar  2 22:26:27 2002//Tnetbsd-10-1-RELEASE
+/scivar.h/1.1/Thu Feb 24 16:42:54 2000//Tnetbsd-10-1-RELEASE
+/shb.c/1.16/Sat Aug  7 16:19:05 2021//Tnetbsd-10-1-RELEASE
+/shpcic.c/1.22/Sat Aug  7 16:19:05 2021//Tnetbsd-10-1-RELEASE
+/shpcicvar.h/1.9/Sat Jan 21 19:44:30 2012//Tnetbsd-10-1-RELEASE
+/wdog.c/1.18/Fri Jul 25 08:10:34 2014//Tnetbsd-10-1-RELEASE
+D

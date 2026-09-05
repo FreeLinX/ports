@@ -1,0 +1,8 @@
+/amdgpu2netbsd/1.4/Sun Dec 19 10:20:31 2021//Tnetbsd-10-1-RELEASE
+/amdgpu_module.c/1.11/Sat Jul 23 12:52:09 2022//Tnetbsd-10-1-RELEASE
+/amdgpu_pci.c/1.11.4.1/Fri Aug 11 14:48:34 2023//Tnetbsd-10-1-RELEASE
+/amdgpu_task.h/1.2/Mon Jul 18 23:34:02 2022//Tnetbsd-10-1-RELEASE
+/amdgpu_xgmi.c/1.1/Sun Dec 19 12:22:48 2021//Tnetbsd-10-1-RELEASE
+/amdgpufb.c/1.5/Mon Jul 18 23:34:02 2022//Tnetbsd-10-1-RELEASE
+/files.amdgpu/1.29.4.2/Fri Oct  4 11:40:54 2024//Tnetbsd-10-1-RELEASE
+D

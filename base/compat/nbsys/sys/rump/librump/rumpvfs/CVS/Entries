@@ -1,0 +1,18 @@
+/Makefile/1.1/Wed Nov 19 14:10:49 2008//Tnetbsd-10-1-RELEASE
+/Makefile.rumpvfs/1.50/Sat May 16 18:31:52 2020//Tnetbsd-10-1-RELEASE
+/devnodes.c/1.13/Tue Jun 18 22:34:26 2019//Tnetbsd-10-1-RELEASE
+/devnull.c/1.8/Mon Sep  3 16:29:37 2018//Tnetbsd-10-1-RELEASE
+/rump_etfs.3/1.4/Fri Jun 12 17:50:01 2015//Tnetbsd-10-1-RELEASE
+/rump_vfs.c/1.94/Wed Oct 26 23:39:10 2022//Tnetbsd-10-1-RELEASE
+/rump_vfs_private.h/1.20/Tue Jan 26 23:12:18 2016//Tnetbsd-10-1-RELEASE
+/rumpblk.c/1.64/Thu Jul  7 06:55:44 2016//Tnetbsd-10-1-RELEASE
+/rumpfs.4/1.1/Sun Nov  9 17:39:38 2014//Tnetbsd-10-1-RELEASE
+/rumpfs.c/1.166/Wed Oct 20 03:08:18 2021//Tnetbsd-10-1-RELEASE
+/rumpvfs.ifspec/1.12/Sun Feb 23 15:46:42 2020//Tnetbsd-10-1-RELEASE
+/rumpvfs_compat50.c/1.2/Tue Jan 26 23:12:18 2016//Tnetbsd-10-1-RELEASE
+/rumpvfs_if_priv.h/1.14/Tue Jan 26 23:12:18 2016//Tnetbsd-10-1-RELEASE
+/rumpvfs_if_wrappers.c/1.16/Sun Feb 23 15:46:42 2020//Tnetbsd-10-1-RELEASE
+/rumpvfs_syscalls.c/1.8/Wed May 27 18:26:29 2020//Tnetbsd-10-1-RELEASE
+/rumpvnode_if.c/1.40.4.1/Wed Jun 21 16:52:28 2023//Tnetbsd-10-1-RELEASE
+/vm_vfs.c/1.41/Wed Dec  9 00:03:32 2020//Tnetbsd-10-1-RELEASE
+D

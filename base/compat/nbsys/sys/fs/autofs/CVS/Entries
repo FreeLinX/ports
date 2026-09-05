@@ -1,0 +1,9 @@
+/Makefile/1.1/Tue Jan  9 03:31:14 2018//Tnetbsd-10-1-RELEASE
+/autofs.c/1.6/Sat May 23 23:42:43 2020//Tnetbsd-10-1-RELEASE
+/autofs.h/1.4/Sat Nov 23 17:13:46 2019//Tnetbsd-10-1-RELEASE
+/autofs_ioctl.h/1.1/Tue Jan  9 03:31:14 2018//Tnetbsd-10-1-RELEASE
+/autofs_mount.h/1.3/Sat Nov 23 08:30:39 2019//Tnetbsd-10-1-RELEASE
+/autofs_vfsops.c/1.12/Mon Mar 28 12:33:22 2022//Tnetbsd-10-1-RELEASE
+/autofs_vnops.c/1.8/Sun Dec 11 11:31:55 2022//Tnetbsd-10-1-RELEASE
+/files.autofs/1.1/Tue Jan  9 03:31:14 2018//Tnetbsd-10-1-RELEASE
+D

@@ -1,0 +1,14 @@
+/Kbuild/1.3/Sat Dec 18 23:45:33 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvif_client.c/1.3/Sat Dec 18 23:45:33 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvif_device.c/1.3/Sat Dec 18 23:45:33 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvif_disp.c/1.2/Sat Dec 18 23:45:33 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvif_driver.c/1.2/Sat Dec 18 23:45:33 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvif_fifo.c/1.2/Sat Dec 18 23:45:33 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvif_mem.c/1.2/Sat Dec 18 23:45:33 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvif_mmu.c/1.2/Sat Dec 18 23:45:33 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvif_notify.c/1.5/Sun Dec 19 10:51:57 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvif_object.c/1.8/Sun Dec 19 11:07:35 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvif_user.c/1.2/Sat Dec 18 23:45:33 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvif_userc361.c/1.2/Sat Dec 18 23:45:33 2021//Tnetbsd-10-1-RELEASE
+/nouveau_nvif_vmm.c/1.2/Sat Dec 18 23:45:33 2021//Tnetbsd-10-1-RELEASE
+D

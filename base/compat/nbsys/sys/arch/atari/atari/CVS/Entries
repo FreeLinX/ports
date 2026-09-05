@@ -1,0 +1,22 @@
+/atari_init.c/1.106/Sun Jul  3 16:03:08 2022//Tnetbsd-10-1-RELEASE
+/autoconf.c/1.73/Sat Jul  2 13:47:53 2022//Tnetbsd-10-1-RELEASE
+/be_bus.c/1.17/Sun Jan  3 17:42:10 2021//Tnetbsd-10-1-RELEASE
+/bus.c/1.67/Tue Jul 26 20:08:55 2022//Tnetbsd-10-1-RELEASE
+/conf.c/1.59/Sun Dec 11 12:16:54 2005//Tnetbsd-10-1-RELEASE
+/device.h/1.8/Sat Aug  7 16:18:46 2021//Tnetbsd-10-1-RELEASE
+/disksubr.c/1.45/Tue May 24 06:28:00 2022//Tnetbsd-10-1-RELEASE
+/dkbad.c/1.8/Sat Mar 14 21:04:06 2009//Tnetbsd-10-1-RELEASE
+/fpu_machdep.c/1.2/Sat Jul  2 08:35:49 2022//Tnetbsd-10-1-RELEASE
+/genassym.cf/1.35/Thu Feb 20 08:27:38 2020//Tnetbsd-10-1-RELEASE
+/intr.c/1.30/Sat Jul  2 08:25:21 2022//Tnetbsd-10-1-RELEASE
+/intrcnt.h/1.5/Mon Apr 28 20:23:14 2008//Tnetbsd-10-1-RELEASE
+/le_bus.c/1.22/Thu Sep 16 20:17:47 2021//Tnetbsd-10-1-RELEASE
+/locore.s/1.116.4.1/Thu Jun 27 19:27:28 2024//Tnetbsd-10-1-RELEASE
+/machdep.c/1.188/Sun Jul  3 16:03:08 2022//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.13/Sun Jan  3 17:42:10 2021//Tnetbsd-10-1-RELEASE
+/pmap_bootstrap.c/1.9/Sat Mar 10 02:48:51 2018//Tnetbsd-10-1-RELEASE
+/stalloc.c/1.18/Sat Jul  2 08:43:28 2022//Tnetbsd-10-1-RELEASE
+/stalloc.h/1.6/Fri Jan  3 07:14:20 2014//Tnetbsd-10-1-RELEASE
+/trap.c/1.117/Sat Sep 25 19:16:31 2021//Tnetbsd-10-1-RELEASE
+/vectors.s/1.23/Tue Feb  8 20:20:09 2011//Tnetbsd-10-1-RELEASE
+D

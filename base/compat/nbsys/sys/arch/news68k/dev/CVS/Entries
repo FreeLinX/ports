@@ -1,0 +1,22 @@
+/dmac_0266.h/1.6/Wed May 14 13:29:28 2008//Tnetbsd-10-1-RELEASE
+/hb.c/1.21/Sat Aug  7 16:19:00 2021//Tnetbsd-10-1-RELEASE
+/hbvar.h/1.6/Wed May 14 13:29:28 2008//Tnetbsd-10-1-RELEASE
+/if_le.c/1.19/Sun Nov 20 15:38:00 2011//Tnetbsd-10-1-RELEASE
+/kb.c/1.9/Wed May 14 13:29:28 2008//Tnetbsd-10-1-RELEASE
+/kb_hb.c/1.15/Sat Aug  7 16:19:00 2021//Tnetbsd-10-1-RELEASE
+/kb_hbreg.h/1.3/Mon Oct 31 20:30:23 2022//Tnetbsd-10-1-RELEASE
+/kb_kbc.c/1.12/Sat Aug  7 16:19:00 2021//Tnetbsd-10-1-RELEASE
+/kbc.c/1.15/Sat Aug  7 16:19:00 2021//Tnetbsd-10-1-RELEASE
+/kbcreg.h/1.3/Mon Oct 31 20:30:23 2022//Tnetbsd-10-1-RELEASE
+/kbcvar.h/1.3/Wed May 14 13:29:28 2008//Tnetbsd-10-1-RELEASE
+/kbvar.h/1.3/Wed May 14 13:29:28 2008//Tnetbsd-10-1-RELEASE
+/mkclock_hb.c/1.15/Mon Apr 28 20:23:30 2008//Tnetbsd-10-1-RELEASE
+/ms.c/1.6/Wed May 14 13:29:28 2008//Tnetbsd-10-1-RELEASE
+/ms_hb.c/1.16/Sat Aug  7 16:19:00 2021//Tnetbsd-10-1-RELEASE
+/ms_hbreg.h/1.3/Mon Oct 31 20:30:23 2022//Tnetbsd-10-1-RELEASE
+/ms_kbc.c/1.14/Sat Aug  7 16:19:00 2021//Tnetbsd-10-1-RELEASE
+/msvar.h/1.2/Fri Mar 28 18:19:56 2008//Tnetbsd-10-1-RELEASE
+/si.c/1.26/Sun Nov 20 15:38:00 2011//Tnetbsd-10-1-RELEASE
+/timer_hb.c/1.19/Tue Nov 22 14:31:02 2011//Tnetbsd-10-1-RELEASE
+/zs.c/1.34/Sat Sep 11 20:28:04 2021//Tnetbsd-10-1-RELEASE
+D

@@ -1,0 +1,13 @@
+/Makefile/1.3/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/ttm_agp_backend.c/1.3/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/ttm_bo.c/1.31/Mon Feb 14 09:25:39 2022//Tnetbsd-10-1-RELEASE
+/ttm_bo_manager.c/1.6/Sun Dec 19 12:37:43 2021//Tnetbsd-10-1-RELEASE
+/ttm_bo_util.c/1.28/Sun Dec 19 11:34:29 2021//Tnetbsd-10-1-RELEASE
+/ttm_bo_vm.c/1.3/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/ttm_execbuf_util.c/1.6/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/ttm_memory.c/1.9/Sun Dec 19 11:07:20 2021//Tnetbsd-10-1-RELEASE
+/ttm_module.c/1.3/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/ttm_page_alloc.c/1.3/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/ttm_page_alloc_dma.c/1.3/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/ttm_tt.c/1.19/Sun Jun 26 17:53:06 2022//Tnetbsd-10-1-RELEASE
+D
