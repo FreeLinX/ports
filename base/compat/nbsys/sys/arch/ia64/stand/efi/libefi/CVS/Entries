@@ -1,0 +1,18 @@
+/Makefile/1.6/Thu Aug  4 16:22:40 2016//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.7/Wed Jun 13 16:04:55 2018//Tnetbsd-10-1-RELEASE
+/bootinfo.c/1.5/Thu Aug  4 18:07:43 2016//Tnetbsd-10-1-RELEASE
+/copy.c/1.5/Thu Aug  4 18:07:43 2016//Tnetbsd-10-1-RELEASE
+/delay.c/1.2/Sat Apr 22 07:58:53 2006//Tnetbsd-10-1-RELEASE
+/devicename.c/1.9/Mon Aug 15 09:00:52 2016//Tnetbsd-10-1-RELEASE
+/efi.c/1.5/Thu Aug  4 18:07:43 2016//Tnetbsd-10-1-RELEASE
+/efi_console.c/1.4/Mon Jul 20 04:59:03 2009//Tnetbsd-10-1-RELEASE
+/efiboot.h/1.4/Sun Jan 26 10:12:29 2020//Tnetbsd-10-1-RELEASE
+/efifpswa.c/1.5/Thu Aug  4 18:07:43 2016//Tnetbsd-10-1-RELEASE
+/efifs.c/1.6/Tue Mar 25 18:35:33 2014//Tnetbsd-10-1-RELEASE
+/efifs_ls.c/1.2/Sat Apr 22 07:58:53 2006//Tnetbsd-10-1-RELEASE
+/efifsdev.h/1.2/Thu Dec 27 20:21:51 2012//Tnetbsd-10-1-RELEASE
+/efinet.c/1.8/Sat Aug 18 15:55:19 2018//Tnetbsd-10-1-RELEASE
+/exec.c/1.8/Tue May  7 02:05:17 2019//Tnetbsd-10-1-RELEASE
+/module.c/1.2/Sat Apr 22 07:58:53 2006//Tnetbsd-10-1-RELEASE
+/time.c/1.4/Thu Aug  4 18:07:43 2016//Tnetbsd-10-1-RELEASE
+D

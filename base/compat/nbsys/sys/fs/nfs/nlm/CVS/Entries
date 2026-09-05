@@ -1,0 +1,11 @@
+/nlm.h/1.2/Thu Jul  7 06:55:42 2016//Tnetbsd-10-1-RELEASE
+/nlm_advlock.c/1.2/Tue Dec 13 21:58:17 2016//Tnetbsd-10-1-RELEASE
+/nlm_prot.h/1.1.1.1/Mon Sep 30 07:19:46 2013//Tnetbsd-10-1-RELEASE
+/nlm_prot_clnt.c/1.2/Tue Dec 13 21:58:17 2016//Tnetbsd-10-1-RELEASE
+/nlm_prot_impl.c/1.4/Tue Dec 13 21:58:17 2016//Tnetbsd-10-1-RELEASE
+/nlm_prot_server.c/1.2/Tue Dec 13 21:58:17 2016//Tnetbsd-10-1-RELEASE
+/nlm_prot_svc.c/1.2/Tue Dec 13 21:58:17 2016//Tnetbsd-10-1-RELEASE
+/nlm_prot_xdr.c/1.2/Tue Dec 13 21:58:17 2016//Tnetbsd-10-1-RELEASE
+/sm_inter.h/1.1.1.1/Mon Sep 30 07:19:46 2013//Tnetbsd-10-1-RELEASE
+/sm_inter_xdr.c/1.2/Tue Dec 13 21:58:17 2016//Tnetbsd-10-1-RELEASE
+D

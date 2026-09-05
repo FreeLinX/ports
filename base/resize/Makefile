@@ -21,3 +21,5 @@ NETBSD_MEMBERS = usr/src/usr.bin/resize/resize.c \
 	usr/src/usr.bin/resize/resize.h
 
 PORT_SRCS = usr.bin/resize/resize.c
+
+FLX_CPPFLAGS+= -DRESIZE_ONLY

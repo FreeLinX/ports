@@ -1,0 +1,6 @@
+/create_bsd_pci_lists.sh/1.1.1.1/Sat Jul 19 05:30:38 2008//Tnetbsd-10-1-RELEASE
+/create_linux_pci_lists.sh/1.1.1.1/Sat Jul 19 05:30:38 2008//Tnetbsd-10-1-RELEASE
+/create_lk_drm.sh/1.2/Tue Jul 10 17:01:43 2018//Tnetbsd-10-1-RELEASE
+/create_lk_gpu.sh/1.2/Tue Jul 10 17:01:43 2018//Tnetbsd-10-1-RELEASE
+/drm-scripts-gentree.pl/1.1.1.1/Sat Jul 19 05:30:38 2008//Tnetbsd-10-1-RELEASE
+D

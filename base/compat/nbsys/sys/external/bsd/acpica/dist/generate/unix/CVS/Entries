@@ -1,0 +1,13 @@
+/Makefile/1.1.1.3/Fri Dec 27 18:45:57 2013//Tnetbsd-10-1-RELEASE
+/Makefile.common/1.1.1.4/Fri Sep 15 16:50:43 2017//Tnetbsd-10-1-RELEASE
+/Makefile.config/1.1.1.15/Sat Dec 10 16:34:37 2022//Tnetbsd-10-1-RELEASE
+/Makefile.rules/1.1.1.3/Fri Sep 15 16:50:43 2017//Tnetbsd-10-1-RELEASE
+/readme.txt/1.1.1.2/Tue Jun 28 09:02:03 2011//Tnetbsd-10-1-RELEASE
+D/acpibin////
+D/acpidump////
+D/acpiexamples////
+D/acpiexec////
+D/acpihelp////
+D/acpisrc////
+D/acpixtract////
+D/iasl////

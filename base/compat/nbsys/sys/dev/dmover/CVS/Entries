@@ -1,0 +1,12 @@
+/Makefile/1.2/Tue Nov 26 23:30:30 2002//Tnetbsd-10-1-RELEASE
+/dmover_backend.c/1.9/Sat May 14 18:24:47 2011//Tnetbsd-10-1-RELEASE
+/dmover_io.c/1.46/Sun Feb 10 17:13:33 2019//Tnetbsd-10-1-RELEASE
+/dmover_io.h/1.4/Sat Oct 28 06:27:32 2017//Tnetbsd-10-1-RELEASE
+/dmover_process.c/1.5/Sat May 14 14:49:19 2011//Tnetbsd-10-1-RELEASE
+/dmover_request.c/1.8/Sat May 14 18:24:47 2011//Tnetbsd-10-1-RELEASE
+/dmover_session.c/1.6/Sat May 14 18:24:47 2011//Tnetbsd-10-1-RELEASE
+/dmover_util.c/1.5/Sun Dec 11 12:21:20 2005//Tnetbsd-10-1-RELEASE
+/dmovervar.h/1.10/Sat Dec 24 20:27:29 2005//Tnetbsd-10-1-RELEASE
+/files.dmover/1.1/Fri Aug  2 00:30:40 2002//Tnetbsd-10-1-RELEASE
+/swdmover.c/1.14/Sat Jan  7 21:11:14 2017//Tnetbsd-10-1-RELEASE
+D

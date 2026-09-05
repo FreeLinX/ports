@@ -1,0 +1,19 @@
+/Kconfig/1.1.1.1/Sat Dec 18 20:15:53 2021//Tnetbsd-10-1-RELEASE
+/Makefile/1.1.1.1/Sat Dec 18 20:15:53 2021//Tnetbsd-10-1-RELEASE
+/hgsmi_base.c/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/hgsmi_ch_setup.h/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/hgsmi_channels.h/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/hgsmi_defs.h/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/modesetting.c/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/vbox_drv.c/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/vbox_drv.h/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/vbox_hgsmi.c/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/vbox_irq.c/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/vbox_main.c/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/vbox_mode.c/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/vbox_ttm.c/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/vboxvideo.h/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/vboxvideo_guest.h/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/vboxvideo_vbe.h/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+/vbva_base.c/1.2/Sat Dec 18 23:45:44 2021//Tnetbsd-10-1-RELEASE
+D

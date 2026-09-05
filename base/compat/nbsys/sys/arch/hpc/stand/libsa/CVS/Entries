@@ -1,0 +1,16 @@
+/alloc.c/1.4/Sun Feb 19 14:44:00 2006//Tnetbsd-10-1-RELEASE
+/compat.h/1.4/Mon Aug 10 10:59:33 2020//Tnetbsd-10-1-RELEASE
+/diskio.h/1.3/Sun Dec 11 12:17:30 2005//Tnetbsd-10-1-RELEASE
+/dkcksum.c/1.1/Fri Sep 23 16:00:15 2011//Tnetbsd-10-1-RELEASE
+/libsa.config/1.7/Fri Sep 23 16:00:15 2011//Tnetbsd-10-1-RELEASE
+/libsa_string.h/1.3/Mon Apr 28 20:23:21 2008//Tnetbsd-10-1-RELEASE
+/panic.c/1.3/Wed Mar 18 10:22:28 2009//Tnetbsd-10-1-RELEASE
+/stand.h/1.5/Fri Sep 23 16:00:15 2011//Tnetbsd-10-1-RELEASE
+/stricmp.cpp/1.4/Fri Sep 23 16:00:15 2011//Tnetbsd-10-1-RELEASE
+/strtok.cpp/1.3/Fri Sep 23 16:00:15 2011//Tnetbsd-10-1-RELEASE
+/tolower.cpp/1.4/Fri Sep 23 16:00:15 2011//Tnetbsd-10-1-RELEASE
+/ufs.c/1.1/Fri Sep 23 16:00:15 2011//Tnetbsd-10-1-RELEASE
+/winblk.c/1.7/Fri Sep 23 16:00:15 2011//Tnetbsd-10-1-RELEASE
+/winblk.h/1.1/Fri Feb  9 18:35:38 2001//Tnetbsd-10-1-RELEASE
+/winprintf.c/1.4/Wed Jan 18 01:06:37 2006//Tnetbsd-10-1-RELEASE
+D

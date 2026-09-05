@@ -1,0 +1,11 @@
+/Makefile/1.10/Wed May  6 15:57:08 2015//Tnetbsd-10-1-RELEASE
+D/deadfs////
+D/fdesc////
+D/fifofs////
+D/genfs////
+D/kernfs////
+D/nullfs////
+D/overlay////
+D/procfs////
+D/specfs////
+D/umapfs////

@@ -1,0 +1,20 @@
+/Makefile/1.22/Sat Apr  4 15:43:21 2020//Tnetbsd-10-1-RELEASE
+/unicode.h/1.7/Sun Apr  6 19:25:22 2014//Tnetbsd-10-1-RELEASE
+D/adosfs////
+D/autofs////
+D/cd9660////
+D/efs////
+D/filecorefs////
+D/hfs////
+D/msdosfs////
+D/nfs////
+D/nilfs////
+D/ntfs////
+D/ptyfs////
+D/puffs////
+D/sysvbfs////
+D/tmpfs////
+D/udf////
+D/union////
+D/unionfs////
+D/v7fs////

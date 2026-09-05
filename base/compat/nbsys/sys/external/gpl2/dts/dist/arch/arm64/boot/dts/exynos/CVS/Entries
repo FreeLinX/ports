@@ -1,0 +1,13 @@
+/Makefile/1.1.1.2/Thu Nov 30 19:40:51 2017//Tnetbsd-10-1-RELEASE
+/exynos5433-bus.dtsi/1.1.1.4/Sun Nov  7 16:50:07 2021//Tnetbsd-10-1-RELEASE
+/exynos5433-pinctrl.dtsi/1.1.1.3/Sun Nov  7 16:50:07 2021//Tnetbsd-10-1-RELEASE
+/exynos5433-tm2-common.dtsi/1.1.1.8/Sun Nov  7 16:50:07 2021//Tnetbsd-10-1-RELEASE
+/exynos5433-tm2.dts/1.1.1.6/Sun Nov  7 16:50:07 2021//Tnetbsd-10-1-RELEASE
+/exynos5433-tm2e.dts/1.1.1.4/Sun Nov  7 16:50:07 2021//Tnetbsd-10-1-RELEASE
+/exynos5433-tmu.dtsi/1.1.1.3/Sat May 25 11:29:15 2019//Tnetbsd-10-1-RELEASE
+/exynos5433.dtsi/1.1.1.9/Sun Nov  7 16:50:07 2021//Tnetbsd-10-1-RELEASE
+/exynos7-espresso.dts/1.1.1.5/Sun Nov  7 16:50:07 2021//Tnetbsd-10-1-RELEASE
+/exynos7-pinctrl.dtsi/1.1.1.2/Sat Apr 28 18:25:53 2018//Tnetbsd-10-1-RELEASE
+/exynos7-trip-points.dtsi/1.1.1.2/Sat Apr 28 18:25:53 2018//Tnetbsd-10-1-RELEASE
+/exynos7.dtsi/1.1.1.7/Sun Nov  7 16:50:07 2021//Tnetbsd-10-1-RELEASE
+D

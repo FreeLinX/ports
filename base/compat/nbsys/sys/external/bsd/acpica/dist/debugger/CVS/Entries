@@ -1,0 +1,15 @@
+/dbcmds.c/1.16/Sat Aug 27 14:04:57 2022//Tnetbsd-10-1-RELEASE
+/dbconvert.c/1.1.1.15/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dbdisply.c/1.20/Sat Aug 27 14:04:57 2022//Tnetbsd-10-1-RELEASE
+/dbexec.c/1.20/Sat Aug 27 14:04:57 2022//Tnetbsd-10-1-RELEASE
+/dbfileio.c/1.1.1.15/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dbhistry.c/1.1.1.15/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dbinput.c/1.25/Sat Aug 27 14:04:57 2022//Tnetbsd-10-1-RELEASE
+/dbmethod.c/1.18/Sat Aug 27 14:04:57 2022//Tnetbsd-10-1-RELEASE
+/dbnames.c/1.16/Sat Aug 27 14:04:57 2022//Tnetbsd-10-1-RELEASE
+/dbobject.c/1.1.1.13/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dbstats.c/1.1.1.13/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+/dbtest.c/1.12/Sat Aug 27 14:04:57 2022//Tnetbsd-10-1-RELEASE
+/dbutils.c/1.16/Sat Aug 27 14:04:57 2022//Tnetbsd-10-1-RELEASE
+/dbxface.c/1.1.1.18/Sat Aug 27 14:02:03 2022//Tnetbsd-10-1-RELEASE
+D

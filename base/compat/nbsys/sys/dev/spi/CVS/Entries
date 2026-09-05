@@ -1,0 +1,17 @@
+/Makefile/1.1/Sat Feb 23 10:43:25 2019//Tnetbsd-10-1-RELEASE
+/bmx280thpspi.c/1.1/Sat Dec  3 01:04:43 2022//Tnetbsd-10-1-RELEASE
+/files.spi/1.10/Sat Dec  3 01:04:43 2022//Tnetbsd-10-1-RELEASE
+/m25p.c/1.20/Wed Jan 19 05:21:44 2022//Tnetbsd-10-1-RELEASE
+/mcp23xxxgpio_spi.c/1.4/Wed Jan 19 05:21:44 2022//Tnetbsd-10-1-RELEASE
+/mcp3k.c/1.4/Wed Jan 19 05:21:44 2022//Tnetbsd-10-1-RELEASE
+/mcp48x1.c/1.3/Wed Jan 19 05:21:44 2022//Tnetbsd-10-1-RELEASE
+/oj6sh.c/1.11/Wed Jan 19 05:21:44 2022//Tnetbsd-10-1-RELEASE
+/scmdspi.c/1.3/Wed Jan 19 05:21:44 2022//Tnetbsd-10-1-RELEASE
+/spi.c/1.26/Tue May 17 05:05:20 2022//Tnetbsd-10-1-RELEASE
+/spi_io.h/1.1/Sat Feb 23 10:43:25 2019//Tnetbsd-10-1-RELEASE
+/spiflash.c/1.27/Wed Oct 26 21:56:19 2022//Tnetbsd-10-1-RELEASE
+/spiflash.h/1.4/Tue May 12 14:45:08 2009//Tnetbsd-10-1-RELEASE
+/spivar.h/1.12.4.1/Wed Sep 11 16:42:34 2024//Tnetbsd-10-1-RELEASE
+/ssdfb_spi.c/1.14/Wed Jan 19 13:33:49 2022//Tnetbsd-10-1-RELEASE
+/tmp121.c/1.7/Wed Jan 19 05:21:44 2022//Tnetbsd-10-1-RELEASE
+D

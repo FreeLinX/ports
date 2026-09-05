@@ -1,0 +1,27 @@
+/Makefile/1.1/Mon Jun 19 15:44:45 2006//Tnetbsd-10-1-RELEASE
+/bluetooth.h/1.12/Sun May 18 14:46:16 2014//Tnetbsd-10-1-RELEASE
+/bt_proto.c/1.16.48.1/Fri Aug 23 15:29:32 2024//Tnetbsd-10-1-RELEASE
+/bt_sysctl.c/1.3/Tue Feb 25 18:30:12 2014//Tnetbsd-10-1-RELEASE
+/files.netbt/1.5/Fri Mar 26 18:15:15 2010//Tnetbsd-10-1-RELEASE
+/hci.h/1.46/Sat Sep 28 07:06:33 2019//Tnetbsd-10-1-RELEASE
+/hci_event.c/1.26/Sat Sep 28 07:06:33 2019//Tnetbsd-10-1-RELEASE
+/hci_ioctl.c/1.15/Tue Sep 21 15:03:08 2021//Tnetbsd-10-1-RELEASE
+/hci_link.c/1.26/Sat Dec  4 13:23:04 2021//Tnetbsd-10-1-RELEASE
+/hci_misc.c/1.4/Mon Nov 22 05:33:57 2021//Tnetbsd-10-1-RELEASE
+/hci_socket.c/1.47/Sat Sep 28 07:10:55 2019//Tnetbsd-10-1-RELEASE
+/hci_unit.c/1.16/Sat Aug  7 16:19:18 2021//Tnetbsd-10-1-RELEASE
+/l2cap.h/1.19/Sat Nov 28 07:50:37 2015//Tnetbsd-10-1-RELEASE
+/l2cap_lower.c/1.10/Tue Aug  5 07:55:31 2014//Tnetbsd-10-1-RELEASE
+/l2cap_misc.c/1.7/Sun Sep 13 18:45:11 2009//Tnetbsd-10-1-RELEASE
+/l2cap_signal.c/1.21/Sun Mar 13 17:50:55 2022//Tnetbsd-10-1-RELEASE
+/l2cap_socket.c/1.36/Mon Jan 28 12:53:01 2019//Tnetbsd-10-1-RELEASE
+/l2cap_upper.c/1.19/Mon Dec 12 15:58:45 2016//Tnetbsd-10-1-RELEASE
+/rfcomm.h/1.19/Sat May 28 21:14:57 2022//Tnetbsd-10-1-RELEASE
+/rfcomm_dlc.c/1.9/Mon Sep  3 16:29:36 2018//Tnetbsd-10-1-RELEASE
+/rfcomm_session.c/1.28/Sun Dec  5 04:35:38 2021//Tnetbsd-10-1-RELEASE
+/rfcomm_socket.c/1.38/Mon Jan 28 12:53:01 2019//Tnetbsd-10-1-RELEASE
+/rfcomm_upper.c/1.23/Mon Sep  3 16:29:36 2018//Tnetbsd-10-1-RELEASE
+/sco.h/1.11/Tue Aug  5 07:55:32 2014//Tnetbsd-10-1-RELEASE
+/sco_socket.c/1.38/Mon Jan 28 12:53:01 2019//Tnetbsd-10-1-RELEASE
+/sco_upper.c/1.16/Tue Aug  5 07:55:32 2014//Tnetbsd-10-1-RELEASE
+D

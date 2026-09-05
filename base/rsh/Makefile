@@ -24,3 +24,6 @@ NETBSD_MEMBERS = usr/src/usr.bin/rsh/getport.c \
 
 PORT_SRCS = usr.bin/rsh/getport.c \
 	usr.bin/rsh/rsh.c
+
+COMPAT_SRCS = $(FLX_COMPAT)/getprogname.c \
+	$(FLX_COMPAT)/rcmd.c

@@ -1,0 +1,26 @@
+/Makefile/1.33/Fri Feb  2 01:02:41 2018//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.7/Mon Jan 11 22:01:14 2021//Tnetbsd-10-1-RELEASE
+/SRT0.S/1.2/Sun May  4 00:18:16 2008//Tnetbsd-10-1-RELEASE
+/SRT1.c/1.8/Mon Jan 12 07:00:59 2009//Tnetbsd-10-1-RELEASE
+/clock.c/1.4/Mon Jan 12 11:32:45 2009//Tnetbsd-10-1-RELEASE
+/dev_disk.c/1.5/Sun Jul 17 20:54:48 2011//Tnetbsd-10-1-RELEASE
+/dev_disk.h/1.3/Sun Dec 11 12:19:29 2005//Tnetbsd-10-1-RELEASE
+/devopen.c/1.3/Sun Dec 11 12:19:29 2005//Tnetbsd-10-1-RELEASE
+/dvma.h/1.4/Mon Apr 28 20:23:39 2008//Tnetbsd-10-1-RELEASE
+/gets.c/1.5/Sat Jun 11 06:49:46 2016//Tnetbsd-10-1-RELEASE
+/idprom.c/1.8/Sat Jun 20 18:44:17 2020//Tnetbsd-10-1-RELEASE
+/libsa.h/1.7/Mon Jan 12 11:32:45 2009//Tnetbsd-10-1-RELEASE
+/netif.h/1.4/Mon Jan 12 11:32:45 2009//Tnetbsd-10-1-RELEASE
+/netif_sun.c/1.11/Mon Apr 12 09:19:10 2021//Tnetbsd-10-1-RELEASE
+/panic.c/1.4/Sun Jul 17 20:54:48 2011//Tnetbsd-10-1-RELEASE
+/promboot.c/1.4/Sun Dec 11 12:19:29 2005//Tnetbsd-10-1-RELEASE
+/promcons.c/1.4/Mon Jan 12 07:00:59 2009//Tnetbsd-10-1-RELEASE
+/promdev.c/1.7/Wed Feb  1 18:24:22 2017//Tnetbsd-10-1-RELEASE
+/putstr.c/1.2/Mon Jan 12 07:00:59 2009//Tnetbsd-10-1-RELEASE
+/saio.h/1.3/Mon Jan 12 07:00:59 2009//Tnetbsd-10-1-RELEASE
+/sun2.c/1.13/Sat Jun 20 18:45:06 2020//Tnetbsd-10-1-RELEASE
+/sun3.c/1.11/Sat Jun 20 18:46:14 2020//Tnetbsd-10-1-RELEASE
+/sun3x.c/1.14/Sat Jun 20 18:46:14 2020//Tnetbsd-10-1-RELEASE
+/version/1.6/Fri Mar 20 11:42:25 2009//Tnetbsd-10-1-RELEASE
+/xxboot.c/1.7/Sat Jun 11 06:49:46 2016//Tnetbsd-10-1-RELEASE
+D

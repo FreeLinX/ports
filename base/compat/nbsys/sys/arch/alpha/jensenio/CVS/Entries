@@ -1,0 +1,13 @@
+/com_jensenio.c/1.19/Fri May  7 16:58:34 2021//Tnetbsd-10-1-RELEASE
+/jensenio.c/1.22/Sat Aug  7 16:18:40 2021//Tnetbsd-10-1-RELEASE
+/jensenio_bus_intio.c/1.6/Sun Jul  4 22:42:35 2021//Tnetbsd-10-1-RELEASE
+/jensenio_bus_io.c/1.4/Sun Jul  4 22:42:35 2021//Tnetbsd-10-1-RELEASE
+/jensenio_bus_mem.c/1.4/Sun Jul  4 22:42:35 2021//Tnetbsd-10-1-RELEASE
+/jensenio_dma.c/1.10/Tue Aug 17 22:00:27 2021//Tnetbsd-10-1-RELEASE
+/jensenio_intr.c/1.18/Thu Jul 15 01:43:54 2021//Tnetbsd-10-1-RELEASE
+/jensenioreg.h/1.4/Mon Feb  6 02:14:14 2012//Tnetbsd-10-1-RELEASE
+/jenseniovar.h/1.6/Wed Oct 14 00:59:50 2020//Tnetbsd-10-1-RELEASE
+/lpt_jensenio.c/1.14/Fri May  7 16:58:34 2021//Tnetbsd-10-1-RELEASE
+/mcclock_jensenio.c/1.11/Fri May  7 16:58:34 2021//Tnetbsd-10-1-RELEASE
+/pckbc_jensenio.c/1.16/Fri May  7 16:58:34 2021//Tnetbsd-10-1-RELEASE
+D

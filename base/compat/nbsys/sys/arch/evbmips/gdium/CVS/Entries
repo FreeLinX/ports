@@ -1,0 +1,12 @@
+/autoconf.c/1.6/Sat Oct 27 17:17:50 2012//Tnetbsd-10-1-RELEASE
+/bonito_mainbus.c/1.6/Thu Mar  3 06:27:20 2022//Tnetbsd-10-1-RELEASE
+/gdium_bus_io.c/1.2/Sun Jul 10 00:03:53 2011//Tnetbsd-10-1-RELEASE
+/gdium_bus_mem.c/1.2/Sun Jul 10 00:03:53 2011//Tnetbsd-10-1-RELEASE
+/gdium_dma.c/1.5/Sun Jul 10 00:03:53 2011//Tnetbsd-10-1-RELEASE
+/gdium_genfb.c/1.6/Sun Jul 10 00:03:53 2011//Tnetbsd-10-1-RELEASE
+/gdium_intr.c/1.10/Sat Nov 21 15:36:36 2020//Tnetbsd-10-1-RELEASE
+/gdiumreg.h/1.2/Fri Jul 22 20:41:37 2011//Tnetbsd-10-1-RELEASE
+/gdiumvar.h/1.2/Fri Jul  1 18:45:36 2011//Tnetbsd-10-1-RELEASE
+/machdep.c/1.21/Mon Aug 17 07:50:42 2020//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.9/Sat Aug  7 16:18:51 2021//Tnetbsd-10-1-RELEASE
+D

@@ -1,0 +1,18 @@
+/button.c/1.1/Mon Apr  9 20:07:22 2018//Tnetbsd-10-1-RELEASE
+/files.hpc/1.17/Wed May  8 13:40:16 2019//Tnetbsd-10-1-RELEASE
+/haltwo.c/1.26/Sat May 25 04:41:53 2019//Tnetbsd-10-1-RELEASE
+/haltworeg.h/1.2/Sun Dec 11 12:18:53 2005//Tnetbsd-10-1-RELEASE
+/haltwovar.h/1.8/Wed Nov 23 23:07:30 2011//Tnetbsd-10-1-RELEASE
+/hpc.c/1.73/Sat Aug  7 16:19:04 2021//Tnetbsd-10-1-RELEASE
+/hpcdma.c/1.21/Fri Jul  1 18:53:46 2011//Tnetbsd-10-1-RELEASE
+/hpcdma.h/1.12/Fri Dec 27 09:41:49 2019//Tnetbsd-10-1-RELEASE
+/hpcreg.h/1.20/Tue Jan 25 12:21:04 2011//Tnetbsd-10-1-RELEASE
+/hpcvar.h/1.12/Tue Jan 25 12:21:04 2011//Tnetbsd-10-1-RELEASE
+/if_sq.c/1.55/Sun Sep 18 13:23:53 2022//Tnetbsd-10-1-RELEASE
+/pckbc_hpc.c/1.11/Sat Nov 21 17:18:31 2020//Tnetbsd-10-1-RELEASE
+/pi1ppc.c/1.17/Tue Nov  1 19:45:35 2022//Tnetbsd-10-1-RELEASE
+/pi1ppcreg.h/1.2/Thu Mar  5 01:38:12 2009//Tnetbsd-10-1-RELEASE
+/pi1ppcvar.h/1.7/Fri Dec  3 13:27:38 2021//Tnetbsd-10-1-RELEASE
+/sqvar.h/1.15/Mon Apr 13 21:18:42 2015//Tnetbsd-10-1-RELEASE
+/wdsc.c/1.35/Sun Sep  2 16:18:50 2018//Tnetbsd-10-1-RELEASE
+D

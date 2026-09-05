@@ -1,0 +1,11 @@
+/dm_op.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/e820.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/hvm_info_table.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/hvm_op.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/hvm_vcpu.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/hvm_xs_strings.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/ioreq.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/params.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/pvdrivers.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/save.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+D

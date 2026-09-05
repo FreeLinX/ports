@@ -1,0 +1,15 @@
+/g42xxeb_kmkbd.c/1.16/Sat Aug  7 16:18:49 2021//Tnetbsd-10-1-RELEASE
+/g42xxeb_lcd.c/1.18/Sat Aug  7 16:18:49 2021//Tnetbsd-10-1-RELEASE
+/g42xxeb_machdep.c/1.39.4.1/Sat Oct 14 06:52:16 2023//Tnetbsd-10-1-RELEASE
+/g42xxeb_mci.c/1.3/Sat Jan 21 19:44:28 2012//Tnetbsd-10-1-RELEASE
+/g42xxeb_reg.h/1.2/Thu Mar 17 16:22:57 2005//Tnetbsd-10-1-RELEASE
+/g42xxeb_start.S/1.3/Mon Jan 31 06:28:02 2011//Tnetbsd-10-1-RELEASE
+/g42xxeb_var.h/1.5/Fri Jul  1 20:38:17 2011//Tnetbsd-10-1-RELEASE
+/gb225.c/1.12/Sat Aug  7 16:18:49 2021//Tnetbsd-10-1-RELEASE
+/gb225_pcic.c/1.15/Sat Aug  7 16:18:49 2021//Tnetbsd-10-1-RELEASE
+/gb225_slhci.c/1.8/Mon Nov 12 18:00:38 2012//Tnetbsd-10-1-RELEASE
+/gb225reg.h/1.2/Sun Dec 11 12:17:08 2005//Tnetbsd-10-1-RELEASE
+/gb225var.h/1.4/Wed Feb 16 20:31:43 2022//Tnetbsd-10-1-RELEASE
+/if_ne_obio.c/1.8/Sat Oct 27 17:17:47 2012//Tnetbsd-10-1-RELEASE
+/obio.c/1.13.6.1/Wed Aug  9 17:42:05 2023//Tnetbsd-10-1-RELEASE
+D

@@ -1,0 +1,14 @@
+/arcemu.c/1.24/Thu Nov  8 06:43:52 2018//Tnetbsd-10-1-RELEASE
+/arcemu.h/1.13/Thu Jul  7 06:55:38 2016//Tnetbsd-10-1-RELEASE
+/autoconf.c/1.45/Mon Dec 16 15:45:29 2013//Tnetbsd-10-1-RELEASE
+/bus.c/1.69/Wed Nov 16 19:39:38 2016//Tnetbsd-10-1-RELEASE
+/clock.c/1.24/Sun Feb 20 07:59:51 2011//Tnetbsd-10-1-RELEASE
+/clockvar.h/1.4/Tue Sep  5 01:38:59 2006//Tnetbsd-10-1-RELEASE
+/console.c/1.45/Wed Sep 30 19:46:27 2015//Tnetbsd-10-1-RELEASE
+/cpu.c/1.28/Thu Mar  3 06:27:03 2022//Tnetbsd-10-1-RELEASE
+/disksubr.c/1.24/Wed Apr  3 22:10:51 2019//Tnetbsd-10-1-RELEASE
+/ip22_cache.S/1.5/Sun Dec 11 12:18:58 2005//Tnetbsd-10-1-RELEASE
+/locore_machdep.S/1.5/Fri Apr 28 01:12:51 2006//Tnetbsd-10-1-RELEASE
+/machdep.c/1.152.4.1/Mon Jun 17 18:05:30 2024//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.22/Sat Aug  7 16:19:05 2021//Tnetbsd-10-1-RELEASE
+D

@@ -1,0 +1,13 @@
+/.gitignore/1.1.1.1/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/ChangeLog/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/Make.defaults/1.1.1.3/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/Make.rules/1.1.1.3/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/Makefile/1.1.1.3/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/README.efilib/1.1.1.1/Tue Apr  1 16:16:05 2014//Tnetbsd-10-1-RELEASE
+/README.elilo/1.1.1.1/Tue Apr  1 16:16:05 2014//Tnetbsd-10-1-RELEASE
+/README.git/1.1.1.1/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/README.gnuefi/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+D/apps////
+D/gnuefi////
+D/inc////
+D/lib////

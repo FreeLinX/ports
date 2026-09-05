@@ -1,0 +1,21 @@
+/files.ppbus/1.8/Tue Apr 29 14:07:36 2008//Tnetbsd-10-1-RELEASE
+/if_plip.c/1.38/Sun Sep  4 15:59:08 2022//Tnetbsd-10-1-RELEASE
+/lpt.c/1.32/Fri Dec 27 09:28:41 2019//Tnetbsd-10-1-RELEASE
+/lptio.h/1.9/Sun Sep  6 06:01:00 2015//Tnetbsd-10-1-RELEASE
+/lptreg.h/1.6/Sun Dec 11 12:23:28 2005//Tnetbsd-10-1-RELEASE
+/lptvar.h/1.10/Mon Apr 28 20:23:56 2008//Tnetbsd-10-1-RELEASE
+/ppbus_1284.c/1.14/Sun Nov 14 20:51:57 2021//Tnetbsd-10-1-RELEASE
+/ppbus_1284.h/1.8/Sun Apr  5 09:56:16 2009//Tnetbsd-10-1-RELEASE
+/ppbus_base.c/1.21/Tue Sep 29 02:58:52 2020//Tnetbsd-10-1-RELEASE
+/ppbus_base.h/1.8/Tue Apr 15 15:02:29 2008//Tnetbsd-10-1-RELEASE
+/ppbus_conf.c/1.23/Sat Aug  7 16:19:15 2021//Tnetbsd-10-1-RELEASE
+/ppbus_conf.h/1.12/Fri Feb 18 21:38:17 2011//Tnetbsd-10-1-RELEASE
+/ppbus_device.h/1.6/Tue Apr 15 15:02:29 2008//Tnetbsd-10-1-RELEASE
+/ppbus_gpio.c/1.3/Sat Aug  7 16:19:15 2021//Tnetbsd-10-1-RELEASE
+/ppbus_io.h/1.6/Sun Dec 11 12:23:28 2005//Tnetbsd-10-1-RELEASE
+/ppbus_msq.c/1.12/Tue May 31 08:43:16 2022//Tnetbsd-10-1-RELEASE
+/ppbus_msq.h/1.7/Tue Apr 15 15:02:29 2008//Tnetbsd-10-1-RELEASE
+/ppbus_var.h/1.5/Sun Dec 11 12:23:28 2005//Tnetbsd-10-1-RELEASE
+/ppbusdevices.config/1.1/Tue Feb  4 21:09:03 2020//Tnetbsd-10-1-RELEASE
+/pps_ppbus.c/1.16/Fri Jul 25 08:10:38 2014//Tnetbsd-10-1-RELEASE
+D

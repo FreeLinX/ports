@@ -1,0 +1,13 @@
+/autoconf.c/1.15/Sat Jan 11 08:07:16 2014//Tnetbsd-10-1-RELEASE
+/clock.c/1.9/Sat Jan 26 15:46:24 2013//Tnetbsd-10-1-RELEASE
+/disksubr.c/1.33/Sat Apr 16 18:15:21 2022//Tnetbsd-10-1-RELEASE
+/genassym.cf/1.23/Thu Feb 20 08:27:39 2020//Tnetbsd-10-1-RELEASE
+/isr.c/1.25/Fri Apr  2 12:11:41 2021//Tnetbsd-10-1-RELEASE
+/isr.h/1.4/Sat Mar 14 14:46:01 2009//Tnetbsd-10-1-RELEASE
+/locore.s/1.68.4.1/Thu Jun 27 19:27:29 2024//Tnetbsd-10-1-RELEASE
+/machdep.c/1.108/Sat Oct  9 20:00:41 2021//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.18.4.1/Wed Apr 19 16:40:19 2023//Tnetbsd-10-1-RELEASE
+/pmap_bootstrap.c/1.37/Thu Dec 22 16:05:15 2016//Tnetbsd-10-1-RELEASE
+/trap.c/1.73/Sat Sep 25 19:16:31 2021//Tnetbsd-10-1-RELEASE
+/vectors.s/1.4/Mon Sep 23 17:02:18 2013//Tnetbsd-10-1-RELEASE
+D

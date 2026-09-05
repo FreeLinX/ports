@@ -1,0 +1,23 @@
+/boot.c/1.19/Sat Jan 22 19:19:21 2011//Tnetbsd-10-1-RELEASE
+/bootinfo.c/1.9/Tue Jan 11 16:19:38 2011//Tnetbsd-10-1-RELEASE
+/bootinfo.h/1.4/Sat Mar 14 14:46:04 2009//Tnetbsd-10-1-RELEASE
+/bootinit.S/1.8/Sat Mar 26 15:49:26 2011//Tnetbsd-10-1-RELEASE
+/bootread.S/1.8/Sat Mar 26 15:49:26 2011//Tnetbsd-10-1-RELEASE
+/bootxx.c/1.33/Sat Mar 14 21:04:14 2009//Tnetbsd-10-1-RELEASE
+/callvec.c/1.19/Sat Jun 11 19:11:20 2016//Tnetbsd-10-1-RELEASE
+/checksize.sh/1.1/Sat Nov 27 06:55:04 1999//Tnetbsd-10-1-RELEASE
+/clear_cache.S/1.9/Sat Mar 26 15:49:26 2011//Tnetbsd-10-1-RELEASE
+/clock.c/1.4/Wed Mar 18 10:22:34 2009//Tnetbsd-10-1-RELEASE
+/common.h/1.11/Sat Jan 22 19:19:21 2011//Tnetbsd-10-1-RELEASE
+/conf.c/1.25/Tue Apr 21 16:08:40 2009//Tnetbsd-10-1-RELEASE
+/dev_net.c/1.1/Sat Feb 23 21:43:59 2002//Tnetbsd-10-1-RELEASE
+/devopen.c/1.17/Sat Mar 14 21:04:14 2009//Tnetbsd-10-1-RELEASE
+/getchar.S/1.5/Sat Mar 26 15:49:26 2011//Tnetbsd-10-1-RELEASE
+/if_prom.c/1.11/Wed Jan 12 15:32:43 2011//Tnetbsd-10-1-RELEASE
+/printf.S/1.9/Sat Mar 26 15:49:26 2011//Tnetbsd-10-1-RELEASE
+/putchar.c/1.6/Sat Mar 14 21:04:14 2009//Tnetbsd-10-1-RELEASE
+/rz.c/1.28/Sat Jul 24 21:31:34 2021//Tnetbsd-10-1-RELEASE
+/rz.h/1.4/Tue Mar 17 00:45:46 2009//Tnetbsd-10-1-RELEASE
+/start.S/1.23/Sat Mar 26 15:49:26 2011//Tnetbsd-10-1-RELEASE
+/startprog.S/1.8/Mon Jan 10 15:25:44 2011//Tnetbsd-10-1-RELEASE
+D

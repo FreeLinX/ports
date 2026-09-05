@@ -1,0 +1,22 @@
+/Makefile/1.2/Sun Dec 11 12:23:22 2005//Tnetbsd-10-1-RELEASE
+/alps.c/1.15/Mon Aug  2 12:56:24 2021//Tnetbsd-10-1-RELEASE
+/alpsreg.h/1.2/Tue May 28 08:59:35 2019//Tnetbsd-10-1-RELEASE
+/alpsvar.h/1.1/Sun Aug 13 08:49:27 2017//Tnetbsd-10-1-RELEASE
+/elantech.c/1.6/Tue Feb 25 18:30:10 2014//Tnetbsd-10-1-RELEASE
+/elantechreg.h/1.1/Sun Dec 14 00:42:33 2008//Tnetbsd-10-1-RELEASE
+/elantechvar.h/1.2/Sat Jan  7 10:27:58 2012//Tnetbsd-10-1-RELEASE
+/files.pckbport/1.10/Mon Jul 22 09:58:39 2019//Tnetbsd-10-1-RELEASE
+/pckbd.c/1.37/Fri Oct 28 23:40:37 2022//Tnetbsd-10-1-RELEASE
+/pckbdreg.h/1.3/Wed Mar  6 03:26:17 2013//Tnetbsd-10-1-RELEASE
+/pckbdvar.h/1.4/Thu Jan 10 07:58:39 2008//Tnetbsd-10-1-RELEASE
+/pckbport.c/1.20/Sat Aug  7 16:19:15 2021//Tnetbsd-10-1-RELEASE
+/pckbportvar.h/1.9/Fri Sep  9 14:00:01 2011//Tnetbsd-10-1-RELEASE
+/pms.c/1.40/Fri Oct 28 23:40:37 2022//Tnetbsd-10-1-RELEASE
+/pmsreg.h/1.3/Tue Feb  8 07:32:47 2011//Tnetbsd-10-1-RELEASE
+/pmsvar.h/1.12/Sun Aug 13 08:49:27 2017//Tnetbsd-10-1-RELEASE
+/synaptics.c/1.81.4.1/Sat Jun 22 10:02:05 2024//Tnetbsd-10-1-RELEASE
+/synapticsreg.h/1.13/Thu Mar  3 21:03:14 2022//Tnetbsd-10-1-RELEASE
+/synapticsvar.h/1.14/Fri Apr  1 06:31:29 2022//Tnetbsd-10-1-RELEASE
+/wskbdmap_mfii.c/1.35/Wed Sep 22 17:37:31 2021//Tnetbsd-10-1-RELEASE
+/wskbdmap_mfii.h/1.3/Mon Apr 28 20:23:56 2008//Tnetbsd-10-1-RELEASE
+D

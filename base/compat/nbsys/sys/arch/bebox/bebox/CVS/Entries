@@ -1,0 +1,8 @@
+/autoconf.c/1.27/Sun Dec 13 19:38:09 2015//Tnetbsd-10-1-RELEASE
+/cpu.c/1.12/Sat Oct 20 14:53:37 2012//Tnetbsd-10-1-RELEASE
+/ipi_bebox.c/1.1/Sat Oct 20 14:53:37 2012//Tnetbsd-10-1-RELEASE
+/locore.S/1.30/Fri Feb 26 02:18:55 2021//Tnetbsd-10-1-RELEASE
+/machdep.c/1.109/Sat Feb 27 01:31:24 2021//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.35/Sat Aug  7 16:18:47 2021//Tnetbsd-10-1-RELEASE
+/pic_bebox.c/1.12/Wed Nov 18 03:46:25 2020//Tnetbsd-10-1-RELEASE
+D

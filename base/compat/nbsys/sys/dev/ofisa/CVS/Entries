@@ -1,0 +1,14 @@
+/atppc_ofisa.c/1.14/Wed Jan 27 03:10:21 2021//Tnetbsd-10-1-RELEASE
+/com_ofisa.c/1.20/Wed Jan 27 03:10:21 2021//Tnetbsd-10-1-RELEASE
+/ess_ofisa.c/1.32/Wed Jan 27 03:10:21 2021//Tnetbsd-10-1-RELEASE
+/files.ofisa/1.16/Fri Apr 30 02:13:15 2021//Tnetbsd-10-1-RELEASE
+/if_cs_ofisa.c/1.32/Wed Apr 28 03:34:02 2021//Tnetbsd-10-1-RELEASE
+/joy_ofisa.c/1.20/Wed Jan 27 03:10:21 2021//Tnetbsd-10-1-RELEASE
+/lpt_ofisa.c/1.19/Wed Jan 27 03:10:21 2021//Tnetbsd-10-1-RELEASE
+/mcclock_ofisa.c/1.1/Tue Apr 27 21:39:39 2021//Tnetbsd-10-1-RELEASE
+/ofisa.c/1.35/Sat Jan 22 11:49:17 2022//Tnetbsd-10-1-RELEASE
+/ofisavar.h/1.8/Fri Apr 30 02:13:15 2021//Tnetbsd-10-1-RELEASE
+/pckbc_ofisa.c/1.20/Sun Sep 25 17:29:33 2022//Tnetbsd-10-1-RELEASE
+/sb_ofisa.c/1.23.18.1/Tue Aug  1 14:57:27 2023//Tnetbsd-10-1-RELEASE
+/wdc_ofisa.c/1.41/Sun Sep 25 17:29:22 2022//Tnetbsd-10-1-RELEASE
+D

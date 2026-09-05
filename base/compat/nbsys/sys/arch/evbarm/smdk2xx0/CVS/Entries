@@ -1,0 +1,10 @@
+/if_cs_smdk24x0.c/1.8/Thu Apr 25 05:42:43 2019//Tnetbsd-10-1-RELEASE
+/smdk2410_kbd.c/1.12/Wed Jan 26 11:48:53 2022//Tnetbsd-10-1-RELEASE
+/smdk2410_lcd.c/1.12/Sat Aug  7 16:18:50 2021//Tnetbsd-10-1-RELEASE
+/smdk2410_machdep.c/1.45/Tue Aug 17 22:00:29 2021//Tnetbsd-10-1-RELEASE
+/smdk2410_start.S/1.6/Mon Jan 31 06:28:05 2011//Tnetbsd-10-1-RELEASE
+/smdk2800_machdep.c/1.50/Tue Aug 17 22:00:29 2021//Tnetbsd-10-1-RELEASE
+/smdk2800_pci.c/1.6/Wed Jun 17 07:02:31 2020//Tnetbsd-10-1-RELEASE
+/smdk2800_start.S/1.8/Mon Jan 31 06:28:05 2011//Tnetbsd-10-1-RELEASE
+/smdk2800var.h/1.2/Wed Mar 16 05:02:12 2005//Tnetbsd-10-1-RELEASE
+D

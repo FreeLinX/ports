@@ -1,0 +1,14 @@
+/autoconf.h/1.1/Wed Apr 29 08:32:00 2015//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.10/Mon Sep  6 14:03:18 2021//Tnetbsd-10-1-RELEASE
+/mainbus_octeon1p.c/1.2/Mon Jun  1 22:55:12 2015//Tnetbsd-10-1-RELEASE
+/octeon1p_iobus.c/1.6/Mon Aug 17 21:25:12 2020//Tnetbsd-10-1-RELEASE
+/octeon_bootbus.c/1.3/Sat Aug  7 16:18:59 2021//Tnetbsd-10-1-RELEASE
+/octeon_cpunode.c/1.22/Thu Mar  3 06:27:41 2022//Tnetbsd-10-1-RELEASE
+/octeon_dma.c/1.3/Sun Dec 15 16:48:26 2019//Tnetbsd-10-1-RELEASE
+/octeon_intr.c/1.27/Sat Apr  9 23:34:40 2022//Tnetbsd-10-1-RELEASE
+/octeon_iobus.c/1.7/Sat Aug  7 16:18:59 2021//Tnetbsd-10-1-RELEASE
+/octeon_misc.c/1.2/Sun Feb  6 20:20:19 2022//Tnetbsd-10-1-RELEASE
+/octeonreg.h/1.2/Thu Jun 18 13:52:08 2020//Tnetbsd-10-1-RELEASE
+/octeonvar.h/1.18/Wed Jan 26 11:48:54 2022//Tnetbsd-10-1-RELEASE
+D/dev////
+D/include////

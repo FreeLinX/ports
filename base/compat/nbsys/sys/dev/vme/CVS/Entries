@@ -1,0 +1,18 @@
+/Makefile/1.3/Wed Apr 11 19:07:38 2001//Tnetbsd-10-1-RELEASE
+/files.vme/1.10/Tue Jan  9 23:51:30 2007//Tnetbsd-10-1-RELEASE
+/if_ie_vme.c/1.35/Tue Jul 12 02:10:16 2022//Tnetbsd-10-1-RELEASE
+/sc_vme.c/1.18/Sun Nov 10 21:16:38 2019//Tnetbsd-10-1-RELEASE
+/screg.h/1.2/Mon Apr 28 20:24:01 2008//Tnetbsd-10-1-RELEASE
+/si.c/1.24/Sun Nov 10 21:16:38 2019//Tnetbsd-10-1-RELEASE
+/sireg.h/1.3/Mon Apr 28 20:24:01 2008//Tnetbsd-10-1-RELEASE
+/vme.c/1.29/Sat Aug  7 16:19:17 2021//Tnetbsd-10-1-RELEASE
+/vmereg.h/1.3/Sun Dec 11 12:24:07 2005//Tnetbsd-10-1-RELEASE
+/vmevar.h/1.14/Sat Oct 27 17:18:38 2012//Tnetbsd-10-1-RELEASE
+/xd.c/1.98/Sat Aug  7 16:19:17 2021//Tnetbsd-10-1-RELEASE
+/xdreg.h/1.8/Sun Oct 24 20:00:12 2021//Tnetbsd-10-1-RELEASE
+/xdvar.h/1.13/Sat Oct 27 17:18:38 2012//Tnetbsd-10-1-RELEASE
+/xio.h/1.6/Sun Sep  6 06:01:01 2015//Tnetbsd-10-1-RELEASE
+/xy.c/1.102/Sat Aug  7 16:19:17 2021//Tnetbsd-10-1-RELEASE
+/xyreg.h/1.7/Tue Feb  1 19:36:24 2011//Tnetbsd-10-1-RELEASE
+/xyvar.h/1.14/Sat Oct 27 17:18:39 2012//Tnetbsd-10-1-RELEASE
+D

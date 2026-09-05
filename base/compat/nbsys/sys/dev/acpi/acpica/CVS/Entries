@@ -1,0 +1,12 @@
+/OsdEnvironment.c/1.7/Sat Aug 21 23:00:31 2021//Tnetbsd-10-1-RELEASE
+/OsdHardware.c/1.14/Tue May 31 20:28:57 2022//Tnetbsd-10-1-RELEASE
+/OsdInterrupt.c/1.9/Tue Mar 20 12:14:52 2018//Tnetbsd-10-1-RELEASE
+/OsdMemory.c/1.5/Sun Apr 22 06:33:04 2012//Tnetbsd-10-1-RELEASE
+/OsdMisc.c/1.16/Wed Jan 25 13:38:40 2017//Tnetbsd-10-1-RELEASE
+/OsdSchedule.c/1.20/Fri Dec 31 14:22:26 2021//Tnetbsd-10-1-RELEASE
+/OsdStream.c/1.1/Thu Mar 23 13:41:13 2006//Tnetbsd-10-1-RELEASE
+/OsdSynch.c/1.13/Tue Aug 18 16:41:02 2009//Tnetbsd-10-1-RELEASE
+/README/1.6/Sat Jan 18 09:51:08 2014//Tnetbsd-10-1-RELEASE
+/acpi_func.h/1.6.30.1/Tue Aug  1 15:35:38 2023//Tnetbsd-10-1-RELEASE
+/files.acpica/1.15/Thu Feb 17 07:34:42 2011//Tnetbsd-10-1-RELEASE
+D

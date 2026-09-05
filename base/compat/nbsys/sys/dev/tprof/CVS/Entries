@@ -1,0 +1,13 @@
+/files.tprof/1.1/Tue Jan  1 21:28:37 2008//Tnetbsd-10-1-RELEASE
+/tprof.c/1.21.2.2/Wed Jun 21 22:34:51 2023//Tnetbsd-10-1-RELEASE
+/tprof.h/1.7/Thu Dec  1 00:32:52 2022//Tnetbsd-10-1-RELEASE
+/tprof_armv7.c/1.11.2.2/Wed Jun 21 22:34:51 2023//Tnetbsd-10-1-RELEASE
+/tprof_armv7.h/1.1/Sun Jul 15 23:47:29 2018//Tnetbsd-10-1-RELEASE
+/tprof_armv8.c/1.18.2.2/Wed Jun 21 22:34:51 2023//Tnetbsd-10-1-RELEASE
+/tprof_armv8.h/1.2/Mon May 16 09:42:32 2022//Tnetbsd-10-1-RELEASE
+/tprof_ioctl.h/1.5/Thu Dec  1 00:32:52 2022//Tnetbsd-10-1-RELEASE
+/tprof_types.h/1.6.2.1/Wed Jun 21 22:34:51 2023//Tnetbsd-10-1-RELEASE
+/tprof_x86.c/1.2/Thu Dec  1 00:32:52 2022//Tnetbsd-10-1-RELEASE
+/tprof_x86_amd.c/1.7.2.1/Wed Jun 21 22:34:51 2023//Tnetbsd-10-1-RELEASE
+/tprof_x86_intel.c/1.5.2.1/Wed Jun 21 22:34:51 2023//Tnetbsd-10-1-RELEASE
+D

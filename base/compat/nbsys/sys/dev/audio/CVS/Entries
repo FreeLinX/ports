@@ -1,0 +1,14 @@
+/alaw.c/1.4/Wed Jul 21 06:35:44 2021//Tnetbsd-10-1-RELEASE
+/audio.c/1.136.4.1/Tue Mar 26 18:09:21 2024//Tnetbsd-10-1-RELEASE
+/audio_dai.h/1.2/Wed May  8 13:40:17 2019//Tnetbsd-10-1-RELEASE
+/audio_if.h/1.3/Sun Sep 13 04:14:48 2020//Tnetbsd-10-1-RELEASE
+/audiobell.c/1.5/Wed Jul 21 06:35:44 2021//Tnetbsd-10-1-RELEASE
+/audiobellvar.h/1.2/Wed May  8 13:40:17 2019//Tnetbsd-10-1-RELEASE
+/audiodef.h/1.20/Sat Aug 13 06:47:41 2022//Tnetbsd-10-1-RELEASE
+/audiofil.h/1.2/Wed May  8 13:40:17 2019//Tnetbsd-10-1-RELEASE
+/audiovar.h/1.12/Fri May 29 03:09:14 2020//Tnetbsd-10-1-RELEASE
+/linear.c/1.4/Wed Jul 21 06:35:44 2021//Tnetbsd-10-1-RELEASE
+/linear.h/1.2/Wed May  8 13:40:17 2019//Tnetbsd-10-1-RELEASE
+/mulaw.c/1.5/Wed Jul 21 06:35:44 2021//Tnetbsd-10-1-RELEASE
+/mulaw.h/1.2/Wed May  8 13:40:17 2019//Tnetbsd-10-1-RELEASE
+D

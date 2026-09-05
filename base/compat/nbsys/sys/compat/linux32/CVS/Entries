@@ -1,0 +1,9 @@
+/Makefile/1.1/Mon Jan 16 17:39:59 2017//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.4/Mon Jan 16 17:39:59 2017//Tnetbsd-10-1-RELEASE
+/files.linux32/1.7/Sun Jan 27 02:08:40 2019//Tnetbsd-10-1-RELEASE
+/linux32_syscall.h/1.2/Thu Nov 25 03:08:05 2021//Tnetbsd-10-1-RELEASE
+/linux32_syscallargs.h/1.2/Thu Nov 25 03:08:05 2021//Tnetbsd-10-1-RELEASE
+/linux32_syscalls.c/1.2/Thu Nov 25 03:08:05 2021//Tnetbsd-10-1-RELEASE
+/linux32_systrace_args.c/1.2/Thu Nov 25 03:08:05 2021//Tnetbsd-10-1-RELEASE
+D/arch////
+D/common////

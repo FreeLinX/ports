@@ -1,0 +1,13 @@
+/Makefile/1.1/Mon Dec 23 17:30:40 2002//Tnetbsd-10-1-RELEASE
+/filecore.h/1.5/Tue Dec 25 18:33:43 2007//Tnetbsd-10-1-RELEASE
+/filecore_bmap.c/1.11/Sat Mar 28 19:24:05 2015//Tnetbsd-10-1-RELEASE
+/filecore_extern.h/1.22/Sun Jun 23 07:28:36 2013//Tnetbsd-10-1-RELEASE
+/filecore_lookup.c/1.22/Sat Aug  6 18:26:42 2022//Tnetbsd-10-1-RELEASE
+/filecore_mount.h/1.6/Sat Dec  3 17:34:43 2005//Tnetbsd-10-1-RELEASE
+/filecore_node.c/1.31/Fri May 26 14:34:19 2017//Tnetbsd-10-1-RELEASE
+/filecore_node.h/1.8/Sun Mar 27 17:10:55 2022//Tnetbsd-10-1-RELEASE
+/filecore_utils.c/1.12/Tue Sep 29 02:58:52 2020//Tnetbsd-10-1-RELEASE
+/filecore_vfsops.c/1.83/Mon Mar 16 21:20:10 2020//Tnetbsd-10-1-RELEASE
+/filecore_vnops.c/1.50/Sun Mar 27 17:10:55 2022//Tnetbsd-10-1-RELEASE
+/files.filecorefs/1.4/Sat Oct 11 06:42:18 2014//Tnetbsd-10-1-RELEASE
+D

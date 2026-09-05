@@ -1,0 +1,8 @@
+/Makefile/1.8/Tue Jan 26 23:12:19 2016//Tnetbsd-10-1-RELEASE
+/if_shmem.c/1.84.4.3/Thu Oct  3 16:19:59 2024//Tnetbsd-10-1-RELEASE
+/shmif_busops.c/1.12/Wed Sep 17 04:20:58 2014//Tnetbsd-10-1-RELEASE
+/shmif_component.c/1.2/Tue Jan 26 23:12:19 2016//Tnetbsd-10-1-RELEASE
+/shmif_user.c/1.5/Tue Mar 26 08:56:17 2019//Tnetbsd-10-1-RELEASE
+/shmif_user.h/1.1/Thu Mar 13 01:42:59 2014//Tnetbsd-10-1-RELEASE
+/shmifvar.h/1.11.22.1/Thu Sep  5 09:22:44 2024//Tnetbsd-10-1-RELEASE
+D

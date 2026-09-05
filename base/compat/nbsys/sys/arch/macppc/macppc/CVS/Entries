@@ -1,0 +1,16 @@
+/cpu.c/1.72/Sat Feb 15 07:20:41 2020//Tnetbsd-10-1-RELEASE
+/disksubr.c/1.50/Sat Aug 13 09:34:47 2022//Tnetbsd-10-1-RELEASE
+/failsafe.c/1.3/Mon Oct 29 12:52:43 2012//Tnetbsd-10-1-RELEASE
+/interrupts.c/1.8/Tue Jan 26 14:49:41 2021//Tnetbsd-10-1-RELEASE
+/ipi_hammerhead.c/1.6/Fri Mar  5 07:15:53 2021//Tnetbsd-10-1-RELEASE
+/locore.S/1.80/Wed Dec 14 13:04:24 2022//Tnetbsd-10-1-RELEASE
+/machdep.c/1.175.4.1/Thu Sep 12 19:56:08 2024//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.25.4.1/Thu Jun 20 18:11:53 2024//Tnetbsd-10-1-RELEASE
+/memory.c/1.9/Sat Aug  7 16:18:58 2021//Tnetbsd-10-1-RELEASE
+/pic_heathrow.c/1.12/Tue Jan 26 14:49:41 2021//Tnetbsd-10-1-RELEASE
+/pic_ohare.c/1.17/Fri Mar  5 07:15:53 2021//Tnetbsd-10-1-RELEASE
+/pic_u3_ht.c/1.12/Sat Mar  6 07:29:05 2021//Tnetbsd-10-1-RELEASE
+/rbus_machdep.c/1.18.84.1/Sun Dec 31 12:19:23 2023//Tnetbsd-10-1-RELEASE
+/static_edid.c/1.3/Mon Jan 28 02:45:13 2019//Tnetbsd-10-1-RELEASE
+/static_edid.h/1.2/Mon Jan 28 02:25:01 2019//Tnetbsd-10-1-RELEASE
+D

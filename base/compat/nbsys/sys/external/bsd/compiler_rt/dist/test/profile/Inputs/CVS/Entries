@@ -1,0 +1,15 @@
+/gcc-flag-compatibility.c/1.1.1.1/Sat Feb 27 18:59:42 2016//Tnetbsd-10-1-RELEASE
+/instrprof-comdat-1.cpp/1.1.1.1/Sat Feb 27 18:59:42 2016//Tnetbsd-10-1-RELEASE
+/instrprof-comdat-2.cpp/1.1.1.1/Sat Feb 27 18:59:42 2016//Tnetbsd-10-1-RELEASE
+/instrprof-comdat.h/1.1.1.1/Sat Feb 27 18:59:42 2016//Tnetbsd-10-1-RELEASE
+/instrprof-dlopen-func.c/1.1.1.1/Mon May 19 16:11:35 2014//Tnetbsd-10-1-RELEASE
+/instrprof-dlopen-func2.c/1.1.1.1/Mon May 19 16:11:35 2014//Tnetbsd-10-1-RELEASE
+/instrprof-dlopen-main.c/1.1.1.1/Mon May 19 16:11:35 2014//Tnetbsd-10-1-RELEASE
+/instrprof-dynamic-a.cpp/1.1.1.2/Sat Feb 27 18:59:42 2016//Tnetbsd-10-1-RELEASE
+/instrprof-dynamic-b.cpp/1.1.1.2/Sat Feb 27 18:59:42 2016//Tnetbsd-10-1-RELEASE
+/instrprof-dynamic-header.h/1.1.1.2/Sat Feb 27 18:59:42 2016//Tnetbsd-10-1-RELEASE
+/instrprof-dynamic-main.cpp/1.1.1.2/Sat Feb 27 18:59:42 2016//Tnetbsd-10-1-RELEASE
+/instrprof-shared-lib.c/1.1.1.1/Sat Feb 27 18:59:42 2016//Tnetbsd-10-1-RELEASE
+/instrprof-shared-main.c/1.1.1.1/Sat Feb 27 18:59:42 2016//Tnetbsd-10-1-RELEASE
+/instrprof-value-prof-real.c/1.1.1.1/Sat Feb 27 18:59:42 2016//Tnetbsd-10-1-RELEASE
+D

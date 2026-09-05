@@ -1,0 +1,18 @@
+/Makefile/1.6/Tue Jan 14 18:51:25 2014//Tnetbsd-10-1-RELEASE
+/files.ultrix/1.7/Sun Jan 27 02:08:41 2019//Tnetbsd-10-1-RELEASE
+/syscalls.conf/1.4/Fri Nov  1 21:24:19 2002//Tnetbsd-10-1-RELEASE
+/syscalls.master/1.58/Sun Mar  3 22:26:30 2019//Tnetbsd-10-1-RELEASE
+/ultrix_exec.h/1.7/Sun Dec 15 16:48:27 2019//Tnetbsd-10-1-RELEASE
+/ultrix_exec_ecoff.c/1.9/Sun Dec 11 12:20:30 2005//Tnetbsd-10-1-RELEASE
+/ultrix_flock.h/1.2/Mon Dec 14 00:47:11 2009//Tnetbsd-10-1-RELEASE
+/ultrix_fs.c/1.60/Tue Jul  5 19:21:26 2022//Tnetbsd-10-1-RELEASE
+/ultrix_ioctl.c/1.40/Wed Feb  9 22:30:27 2022//Tnetbsd-10-1-RELEASE
+/ultrix_misc.c/1.126/Tue Sep  7 11:43:05 2021//Tnetbsd-10-1-RELEASE
+/ultrix_mod.c/1.6/Sun Mar  3 22:25:00 2019//Tnetbsd-10-1-RELEASE
+/ultrix_pathname.c/1.40/Wed Oct 12 20:50:43 2022//Tnetbsd-10-1-RELEASE
+/ultrix_syscall.h/1.75/Sun Mar  3 22:26:58 2019//Tnetbsd-10-1-RELEASE
+/ultrix_syscallargs.h/1.70/Sun Mar  3 22:26:58 2019//Tnetbsd-10-1-RELEASE
+/ultrix_syscalls.c/1.74/Sun Mar  3 22:26:58 2019//Tnetbsd-10-1-RELEASE
+/ultrix_sysent.c/1.77/Sun Mar  3 22:26:58 2019//Tnetbsd-10-1-RELEASE
+/ultrix_tty.h/1.4/Sun Sep  6 06:00:59 2015//Tnetbsd-10-1-RELEASE
+D

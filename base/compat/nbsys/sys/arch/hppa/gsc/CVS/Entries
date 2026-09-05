@@ -1,0 +1,16 @@
+/com_gsc.c/1.2/Sat Dec  8 17:46:11 2018//Tnetbsd-10-1-RELEASE
+/fdc_gsc.c/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/gscbus.c/1.4/Thu Sep 29 06:39:58 2022//Tnetbsd-10-1-RELEASE
+/gscbusvar.h/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/gsckbc.c/1.3/Mon Jun 13 17:26:34 2022//Tnetbsd-10-1-RELEASE
+/harmony.c/1.11/Sun May 15 00:25:15 2022//Tnetbsd-10-1-RELEASE
+/harmonyreg.h/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/harmonyvar.h/1.2/Wed May  8 13:40:15 2019//Tnetbsd-10-1-RELEASE
+/hil_gsc.c/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/if_ie_gsc.c/1.5/Wed Apr 15 15:50:15 2020//Tnetbsd-10-1-RELEASE
+/if_iee_gsc.c/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+/lpt_gsc.c/1.2/Fri Dec 27 09:28:41 2019//Tnetbsd-10-1-RELEASE
+/oosiop_gsc.c/1.2/Thu Sep 29 06:39:58 2022//Tnetbsd-10-1-RELEASE
+/osiop_gsc.c/1.2/Thu Sep 29 06:39:58 2022//Tnetbsd-10-1-RELEASE
+/siop_gsc.c/1.1/Mon Feb 24 07:23:43 2014//Tnetbsd-10-1-RELEASE
+D

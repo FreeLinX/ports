@@ -1,0 +1,14 @@
+/Makefile/1.7/Tue Jan 14 18:51:24 2014//Tnetbsd-10-1-RELEASE
+/aoutm68k_exec.c/1.30/Fri Aug 10 21:44:58 2018//Tnetbsd-10-1-RELEASE
+/aoutm68k_mod.c/1.3/Fri Mar  7 01:33:43 2014//Tnetbsd-10-1-RELEASE
+/aoutm68k_stat.c/1.24/Mon Apr 28 20:23:41 2008//Tnetbsd-10-1-RELEASE
+/aoutm68k_stat.h/1.8/Sun Jan 11 22:54:16 2009//Tnetbsd-10-1-RELEASE
+/aoutm68k_syscall.h/1.55/Tue Jun 18 01:39:09 2019//Tnetbsd-10-1-RELEASE
+/aoutm68k_syscallargs.h/1.53/Tue Jun 18 01:39:09 2019//Tnetbsd-10-1-RELEASE
+/aoutm68k_syscalls.c/1.52/Tue Jun 18 01:39:09 2019//Tnetbsd-10-1-RELEASE
+/aoutm68k_sysent.c/1.57/Tue Jun 18 01:39:09 2019//Tnetbsd-10-1-RELEASE
+/aoutm68k_util.h/1.2/Mon Apr 28 20:23:41 2008//Tnetbsd-10-1-RELEASE
+/files.aoutm68k/1.8/Sun Jan 27 02:08:39 2019//Tnetbsd-10-1-RELEASE
+/syscalls.conf/1.2/Fri Nov  1 20:39:17 2002//Tnetbsd-10-1-RELEASE
+/syscalls.master/1.44/Tue Jun 18 01:39:01 2019//Tnetbsd-10-1-RELEASE
+D

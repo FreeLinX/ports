@@ -1,0 +1,13 @@
+/au1000.c/1.12/Thu Apr 11 14:38:06 2019//Tnetbsd-10-1-RELEASE
+/au1100.c/1.11/Tue Jun  9 22:50:50 2015//Tnetbsd-10-1-RELEASE
+/au1500.c/1.12/Tue Jun  9 22:50:50 2015//Tnetbsd-10-1-RELEASE
+/au1550.c/1.15/Tue Jun  9 22:50:50 2015//Tnetbsd-10-1-RELEASE
+/au_chipdep.c/1.5/Tue Jun  9 22:50:50 2015//Tnetbsd-10-1-RELEASE
+/au_cpureg_mem.c/1.6/Fri Jul  1 18:39:29 2011//Tnetbsd-10-1-RELEASE
+/au_himem_space.c/1.16/Mon Jan  4 17:35:12 2021//Tnetbsd-10-1-RELEASE
+/au_icu.c/1.31/Mon Jan  4 17:35:12 2021//Tnetbsd-10-1-RELEASE
+/au_timer.c/1.11/Fri Jul  1 18:39:29 2011//Tnetbsd-10-1-RELEASE
+/au_wired_space.c/1.11/Mon Jan  4 17:35:12 2021//Tnetbsd-10-1-RELEASE
+/aubus.c/1.27/Thu Sep 29 07:00:46 2022//Tnetbsd-10-1-RELEASE
+D/dev////
+D/include////

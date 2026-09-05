@@ -1,0 +1,19 @@
+/bbinfo.h/1.1/Sat Nov  9 06:20:39 2002//Tnetbsd-10-1-RELEASE
+/blkdev.c/1.7/Fri Dec 27 09:41:49 2019//Tnetbsd-10-1-RELEASE
+/blkdev.h/1.3/Mon Mar 16 23:46:12 2009//Tnetbsd-10-1-RELEASE
+/boot.c/1.7/Sat Jun 11 06:41:12 2016//Tnetbsd-10-1-RELEASE
+/boot.ldscript/1.2/Fri Jan 20 18:25:30 2012//Tnetbsd-10-1-RELEASE
+/booted_dev.c/1.2/Fri Feb  7 17:52:08 2003//Tnetbsd-10-1-RELEASE
+/bootxx.c/1.3/Sun Dec 11 12:18:51 2005//Tnetbsd-10-1-RELEASE
+/cfe.c/1.3/Wed Mar 18 10:22:35 2009//Tnetbsd-10-1-RELEASE
+/cfe_api.c/1.1/Sat Nov  9 06:20:40 2002//Tnetbsd-10-1-RELEASE
+/cfe_api.h/1.1/Sat Nov  9 06:20:40 2002//Tnetbsd-10-1-RELEASE
+/cfe_api_int.h/1.1/Sat Nov  9 06:20:40 2002//Tnetbsd-10-1-RELEASE
+/cfe_error.h/1.1/Sat Nov  9 06:20:40 2002//Tnetbsd-10-1-RELEASE
+/cfe_ioctl.h/1.2/Fri Feb  7 17:52:08 2003//Tnetbsd-10-1-RELEASE
+/checksize.sh/1.1/Sat Nov  9 06:20:40 2002//Tnetbsd-10-1-RELEASE
+/common.h/1.3/Sat Jan 22 19:19:22 2011//Tnetbsd-10-1-RELEASE
+/panic_putstr.c/1.1/Sat Nov  9 06:20:40 2002//Tnetbsd-10-1-RELEASE
+/putstr.c/1.1/Sat Nov  9 06:20:41 2002//Tnetbsd-10-1-RELEASE
+/start.S/1.2/Fri Feb  7 17:52:08 2003//Tnetbsd-10-1-RELEASE
+D

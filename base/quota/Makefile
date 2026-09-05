@@ -26,3 +26,9 @@ NETBSD_MEMBERS = usr/src/usr.bin/quota/printquota.c \
 PORT_SRCS = usr.bin/quota/printquota.c \
 	usr.bin/quota/quota.c \
 	usr.bin/quota/quotautil.c
+
+# quota uses libutil dehumanize_number(3) and revoke(2), BSD quota
+# arithmetic macros in flx_bsd.h, and the BSD getfsspec(3)/getfsfile(3)
+# mount-table family (musl has no fstab.h) - all in compat/.
+COMPAT_SRCS = $(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/sigstub.c \
+	$(FLX_COMPAT)/fstab.c

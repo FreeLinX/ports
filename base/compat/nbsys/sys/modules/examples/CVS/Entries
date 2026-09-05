@@ -1,0 +1,19 @@
+/Makefile/1.12/Sun Aug  8 20:55:33 2021//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.1/Wed May 13 07:07:36 2015//Tnetbsd-10-1-RELEASE
+/README/1.15/Thu Apr 30 00:48:10 2020//Tnetbsd-10-1-RELEASE
+D/current_time////
+D/ddbping////
+D/executor////
+D/fopsmapper////
+D/hello////
+D/luahello////
+D/luareadhappy////
+D/mapper////
+D/panic_string////
+D/ping////
+D/ping_block////
+D/pollpal////
+D/properties////
+D/readhappy////
+D/readhappy_mpsafe////
+D/sysctl////

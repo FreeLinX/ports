@@ -11,10 +11,20 @@
 #ifndef _FREELINX_FLX_BSD_H_
 #define _FREELINX_FLX_BSD_H_
 
+/* -include flx_bsd.h happens before any port source, so gates defined here
+ * land before the first <stdio.h> in every TU.  musl exposes several
+ * declarations the NetBSD base set uses - fopencookie(3)/cookie functions
+ * (used by compat/funopen.c for compress(1)), strcasestr - only under
+ * _GNU_SOURCE.  musl's _GNU_SOURCE changes no struct layouts. */
+#if !defined(_GNU_SOURCE)
+#define	_GNU_SOURCE	1
+#endif
+
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/uio.h>
 #include <sys/socket.h>
+#include <sys/queue.h>
 #include <netinet/in.h>
 #include <signal.h>
 #include <stdio.h>
@@ -27,6 +37,7 @@
 #include <endian.h>
 #include <pwd.h>
 #include <time.h>
+#include <limits.h>
 
 /* BSD __unused is a statement attribute; musl never defines it.  But musl's
  * <bits/stat.h> (x86_64) has struct-stat members literally named `__unused[3]`,
@@ -338,4 +349,202 @@ typedef long	daddr_t;
 #ifndef MAXHOSTNAMELEN
 #define	MAXHOSTNAMELEN	256
 #endif
+
+/* musl lacks the BSD SA_NOKERNINFO sigaction(2) flag (ping).  Linux ignores
+ * it; 0 keeps the flag OR-chain no-op. */
+#ifndef SA_NOKERNINFO
+#define	SA_NOKERNINFO	0
+#endif
+
+/* BSD <stdint.h> uquad max (quota). */
+#ifndef UQUAD_MAX
+#define	UQUAD_MAX	ULLONG_MAX
+#endif
+
+/* dd: NetBSD open(2) O_* flags musl lacks.  The four without a Linux
+ * analogue map to 0 so dd accepts the option names; Linux open(2) rejects
+ * unknown flag bits, so a real mapping could only fail anyway. */
+#ifndef O_EXLOCK
+#define	O_EXLOCK	0
+#endif
+#ifndef O_SHLOCK
+#define	O_SHLOCK	0
+#endif
+#ifndef O_NOSIGPIPE
+#define	O_NOSIGPIPE	0
+#endif
+#ifndef O_ALT_IO
+#define	O_ALT_IO	0
+#endif
+
+/* Disk geometry as <sys/param.h> exports (quota): 512-byte blocks with the
+ * NetBSD byte<->block conversion macros. */
+#ifndef DEV_BSHIFT
+#define	DEV_BSHIFT	9
+#endif
+#ifndef DEV_BSIZE
+#define	DEV_BSIZE	(1 << DEV_BSHIFT)
+#endif
+#ifndef dbtob
+#define	dbtob(x)	((x) << DEV_BSHIFT)
+#endif
+#ifndef btodb
+#define	btodb(x)	((x) >> DEV_BSHIFT)
+#endif
+
+/* libutil dehumanize_number(3) (sigstub.c). */
+int	dehumanize_number(const char *, int64_t *);
+/* humanize_number(3) + HN_* flags come from compat/sys/cdefs.h (NetBSD
+ * <stdlib.h> surface); do not redefine them here. */
+
+/* BSD revoke(2) (quota): close all open references to path.  No Linux
+ * analogue; a stub returning EOPNOTSUPP (sigstub.c). */
+int	revoke(const char *);
+
+/* BSD funopen(3), provided by compat/funopen.c on musl fopencookie(3)
+ * (compress/zopen.c).  The seek callback signature is the BSD one; the
+ * opaque cookie is the pointer compress passes in. */
+FILE *	funopen(const void *,
+	    int (*)(void *, char *, int),
+	    int (*)(void *, const char *, int),
+	    off_t (*)(void *, off_t, int),
+	    int (*)(void *));
+
+/* ---- Sweep-A additions: NetBSD spellings the tools import directly ---- */
+
+/* NetBSD <sys/cdefs.h> "const" marker (elf2aout, login's <ttyent.h>). */
+#ifndef __aconst
+#define	__aconst	const
+#endif
+
+/* NetBSD <time.h> (ruptime). */
+#ifndef MINSPERHOUR
+#define	MINSPERHOUR	60
+#endif
+
+/* NetBSD <poll.h> INFINITE timeout (rsh). */
+#ifndef INFTIM
+#define	INFTIM		(-1)
+#endif
+
+/* NetBSD <machine/audioio.h>-adjacent device paths (mixerctl, videoctl). */
+#ifndef _PATH_MIXER
+#define	_PATH_MIXER	"/dev/mixer"
+#endif
+#ifndef _PATH_AUDIO0
+#define	_PATH_AUDIO0	"/dev/audio"
+#endif
+#ifndef _PATH_VIDEO0
+#define	_PATH_VIDEO0	"/dev/video0"
+#endif
+
+/* NetBSD struct utmpx record-name sizes (w).  musl's <utmpx.h> does not
+ * expose the BSD UTX_* spelling. */
+#ifndef UTX_USERSIZE
+#define	UTX_USERSIZE	32
+#endif
+#ifndef UTX_LINESIZE
+#define	UTX_LINESIZE	32
+#endif
+#ifndef UTX_HOSTSIZE
+#define	UTX_HOSTSIZE	256
+#endif
+
+/* NetBSD <quota.h> idtype constants (quota, edquota). */
+#ifndef QUOTA_IDTYPE_USER
+#define	QUOTA_IDTYPE_USER	1
+#endif
+#ifndef QUOTA_IDTYPE_GROUP
+#define	QUOTA_IDTYPE_GROUP	2
+#endif
+
+/* BSD control-key macro (tip, others). */
+#ifndef CTRL
+#define	CTRL(x)		((x)&037)
+#endif
+
+/* NetBSD PT_DUMPCORE (gcore): ask the kernel to dump a process core.  Linux
+ * ptrace(2) has no analogue; the constant passes through the generic musl
+ * wrapper and the call simply fails at runtime. */
+#ifndef PT_DUMPCORE
+#define	PT_DUMPCORE	0x404
+#endif
+
+/* NetBSD closefrom(2): close every fd >= given (tip, rsh).  Implemented in
+ * compat/sigstub.c over close(2). */
+int	closefrom(int);
+
+/* NetBSD __pid_t (network headers use the OpenBSD spelling; musl defines
+ * pid_t directly and no __pid_t). */
+#ifndef __pid_t
+typedef int	__pid_t;
+#endif
+
+/* NetBSD rcmd(3) family (rsh, rdist, telnet).  Implemented in compat/rcmd.c;
+ * Linux has no privileged-source-port resolver, the connect is performed
+ * unprivileged. */
+int	rcmd(char **, unsigned short, const char *, const char *,
+	    const char *, int *);
+int	rcmd_af(char **, unsigned short, const char *, const char *,
+	    const char *, int *, int);
+int	iruserok(unsigned long, int, const char *, const char *);
+int	ruserok(const char *, int, const char *, const char *);
+
+/* NetBSD snprintb(3): bit-field printer (videoctl).  Implemented in
+ * compat/sigstub.c. */
+char *	snprintb(char *, size_t, const char *, uint64_t);
+
+/* NetBSD warnc(3): warn(3) with an explicit code instead of errno (scmdctl).
+ * Implemented in compat/sigstub.c. */
+void	warnc(int, const char *, ...);
+
+/* NetBSD extattr(2) family (usr.bin/extattr, videoctl).  musl additionally
+ * has no EXTATTR_NAMESPACE_*; the FreeLinX backends map the user namespace
+ * onto Linux extended attributes (sigstub.c). */
+#ifndef EXTATTR_NAMESPACE_USER
+#define	EXTATTR_NAMESPACE_USER	1
+#endif
+#ifndef EXTATTR_NAMESPACE_SYSTEM
+#define	EXTATTR_NAMESPACE_SYSTEM	2
+#endif
+int	extattr_namespace_to_string(int, char *, size_t);
+int	extattr_string_to_namespace(const char *, int *);
+ssize_t	extattr_list_fd(int, int, void *, size_t);
+ssize_t	extattr_list_file(const char *, int, void *, size_t);
+ssize_t	extattr_list_link(const char *, int, void *, size_t);
+ssize_t	extattr_get_fd(int, int, const char *, void *, size_t);
+ssize_t	extattr_get_file(const char *, int, const char *, void *, size_t);
+ssize_t	extattr_get_link(const char *, int, const char *, void *, size_t);
+int	extattr_set_fd(int, int, const char *, const void *, size_t);
+int	extattr_set_file(const char *, int, const char *, const void *, size_t);
+int	extattr_set_link(const char *, int, const char *, const void *, size_t);
+int	extattr_delete_fd(int, int, const char *);
+int	extattr_delete_file(const char *, int, const char *);
+int	extattr_delete_link(const char *, int, const char *);
+
+/* NetBSD sysctl(3) "go away, you fool" guard (pmap) needs nothing here. */
+
+/* NetBSD <sys/param.h> bits the nfs stat tools need (nfsstat). */
+#ifndef NBBY
+#define	NBBY		8
+#endif
+
+/* NetBSD struct uucred (nfs/common nfs.h uses it as a value member; the
+ * kernel <nfs/nfs.h> overlay has the field decl but no type). */
+#ifndef _SYS_UUCRED_H_
+#define _SYS_UUCRED_H_
+struct uucred {
+	uid_t	cr_uid;
+	gid_t	cr_gid;
+	int		cr_ngroups;
+	gid_t	cr_groups[NGROUPS_MAX];
+};
+#endif
+
+/* NetBSD errno EJUSTRETURN (rcmd chain) - never returned by Linux glibc-isms,
+ * but a bare constant the rcmd code demands. */
+#ifndef EJUSTRETURN
+#define	EJUSTRETURN	EINPROGRESS
+#endif
+
 #endif /* !_FREELINX_FLX_BSD_H_ */

@@ -1,0 +1,24 @@
+/bus_dma_hacks.h/1.25/Tue Jul 19 23:19:44 2022//Tnetbsd-10-1-RELEASE
+/drm_agp_netbsd.h/1.8/Tue Aug 28 03:41:39 2018//Tnetbsd-10-1-RELEASE
+/drm_client.h/1.2/Sun Dec 19 12:04:59 2021//Tnetbsd-10-1-RELEASE
+/drm_dp_mst_topology_internal.h/1.1/Sun Dec 19 01:53:29 2021//Tnetbsd-10-1-RELEASE
+/drm_encoder_slave.h/1.3/Sun Dec 19 10:48:15 2021//Tnetbsd-10-1-RELEASE
+/drm_gem_cma_helper.h/1.4/Sat Jul  2 04:37:15 2022//Tnetbsd-10-1-RELEASE
+/drm_iomap_netbsd.h/1.1/Mon Aug 27 05:34:49 2018//Tnetbsd-10-1-RELEASE
+/drm_irq_netbsd.h/1.7/Tue Oct 25 23:36:09 2022//Tnetbsd-10-1-RELEASE
+/drm_lease.h/1.3/Sun Dec 19 01:08:07 2021//Tnetbsd-10-1-RELEASE
+/drm_mem_util.h/1.2/Tue Mar 18 18:20:43 2014//Tnetbsd-10-1-RELEASE
+/drm_mipi_dsi.h/1.3/Sun Dec 19 11:49:12 2021//Tnetbsd-10-1-RELEASE
+/drm_sysctl.h/1.2/Wed Nov 12 03:14:00 2014//Tnetbsd-10-1-RELEASE
+/drm_sysfs.h/1.1/Sun Dec 19 10:35:52 2021//Tnetbsd-10-1-RELEASE
+/drm_trace_netbsd.h/1.2/Sun Dec 19 12:42:06 2021//Tnetbsd-10-1-RELEASE
+/drm_vma_manager.h/1.7/Sun Dec 19 11:57:27 2021//Tnetbsd-10-1-RELEASE
+/drm_wait_netbsd.h/1.19/Sun Dec 19 12:41:15 2021//Tnetbsd-10-1-RELEASE
+/drm_writeback.h/1.6/Sun Dec 19 10:46:03 2021//Tnetbsd-10-1-RELEASE
+/drmfb.h/1.3/Sun Dec 19 12:21:30 2021//Tnetbsd-10-1-RELEASE
+/drmfb_pci.h/1.2/Thu Mar  5 17:56:39 2015//Tnetbsd-10-1-RELEASE
+/i915_mei_hdcp_interface.h/1.2/Sun Dec 19 11:49:12 2021//Tnetbsd-10-1-RELEASE
+/intel-gtt.h/1.10/Sun Dec 19 12:37:36 2021//Tnetbsd-10-1-RELEASE
+/io-mapping.h/1.1/Sun Dec 19 10:28:52 2021//Tnetbsd-10-1-RELEASE
+/task_barrier.h/1.1/Sun Dec 19 10:58:29 2021//Tnetbsd-10-1-RELEASE
+D/ttm////

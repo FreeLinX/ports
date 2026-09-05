@@ -1,0 +1,10 @@
+--- a/usr.bin/msgs/msgs.c
++++ b/usr.bin/msgs/msgs.c
+@@ -284,7 +284,7 @@
+ 			if (dp->d_ino == 0)
+ 				continue;
+ #ifndef __SVR4
+-			if (dp->d_namlen == 0)
++			if (dp->d_name[0] == '\0')
+ 				continue;
+ #endif

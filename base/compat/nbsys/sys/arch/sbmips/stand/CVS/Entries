@@ -1,0 +1,10 @@
+/Makefile/1.2/Sun Feb 20 07:47:39 2011//Tnetbsd-10-1-RELEASE
+/Makefile.bootprogs/1.15/Sat May 28 22:16:43 2022//Tnetbsd-10-1-RELEASE
+/Makefile.bootxx/1.4/Thu Jul 21 17:45:00 2016//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.1/Sat Nov  9 06:20:37 2002//Tnetbsd-10-1-RELEASE
+D/boot////
+D/bootxx_cd9660////
+D/bootxx_ffs////
+D/bootxx_lfs////
+D/common////
+D/netboot////

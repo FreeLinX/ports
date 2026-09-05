@@ -1,0 +1,17 @@
+/README/1.4/Wed Mar 12 00:14:40 2003//Tnetbsd-10-1-RELEASE
+/TODO/1.7/Wed Mar 12 00:24:41 2003//Tnetbsd-10-1-RELEASE
+/bktr2netbsd/1.6/Wed Apr 30 13:10:59 2008//Tnetbsd-10-1-RELEASE
+/bktr_audio.c/1.20/Sun Dec 19 22:03:41 2021//Tnetbsd-10-1-RELEASE
+/bktr_audio.h/1.4/Sun Dec 11 12:23:22 2005//Tnetbsd-10-1-RELEASE
+/bktr_card.c/1.25/Wed Oct 16 18:20:16 2013//Tnetbsd-10-1-RELEASE
+/bktr_card.h/1.6/Fri Aug 24 09:01:23 2012//Tnetbsd-10-1-RELEASE
+/bktr_core.c/1.59/Sun Dec 19 22:03:41 2021//Tnetbsd-10-1-RELEASE
+/bktr_core.h/1.12/Sun May 22 11:27:35 2022//Tnetbsd-10-1-RELEASE
+/bktr_mem.c/1.5/Wed Mar 18 16:00:19 2009//Tnetbsd-10-1-RELEASE
+/bktr_mem.h/1.2/Wed Mar 12 00:14:41 2003//Tnetbsd-10-1-RELEASE
+/bktr_os.c/1.69/Mon May 23 13:53:37 2022//Tnetbsd-10-1-RELEASE
+/bktr_os.h/1.7/Thu Jun 30 20:09:40 2011//Tnetbsd-10-1-RELEASE
+/bktr_reg.h/1.22/Sat Oct 27 17:18:36 2012//Tnetbsd-10-1-RELEASE
+/bktr_tuner.c/1.13/Sun Dec 19 22:03:41 2021//Tnetbsd-10-1-RELEASE
+/bktr_tuner.h/1.2/Wed Mar 12 00:14:41 2003//Tnetbsd-10-1-RELEASE
+D

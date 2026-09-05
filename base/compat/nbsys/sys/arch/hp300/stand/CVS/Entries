@@ -1,0 +1,8 @@
+/Makefile/1.24/Wed May 31 14:31:23 2000//Tnetbsd-10-1-RELEASE
+/Makefile.buildboot/1.37.10.1/Sat Jun 22 10:57:10 2024//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.17/Thu Apr 15 01:54:38 2021//Tnetbsd-10-1-RELEASE
+D/common////
+D/inst////
+D/installboot////
+D/mkboot////
+D/uboot////

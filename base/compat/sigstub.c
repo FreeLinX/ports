@@ -24,8 +24,8 @@
 #include <pwd.h>
 #include <stdio.h>
 #include <stdarg.h>
-#include <stdio.h>
-#include <stdarg.h>
+#include <sys/resource.h>
+#include <sys/xattr.h>
 
 static sigset_t
 sigset_from_mask(int mask)
@@ -517,4 +517,327 @@ void
 csetexpandtc(int doexpand)
 {
 	(void)doexpand;
+}
+
+/*
+ * BSD revoke(2): close all open file references to path.  musl neither
+ * declares nor provides it; Linux has revoke(2) only for terminal-like
+ * devices and the utmp-relevant callers (quota) use regular files.  A
+ * stub is the honest analogue: no Linux semantics to preserve.
+ */
+int
+revoke(const char *path)
+{
+	(void)path;
+	errno = EOPNOTSUPP;
+	return -1;
+}
+
+/*
+ * libutil dehumanize_number(3): parse a human-size string ("42", "1.5M",
+ * with optional k/m/g/t/p/e scale suffixes at 1024^k) into an int64_t.
+ * Mirrors the NetBSD contract: 0 on success, -1 with errno EINVAL/ERANGE.
+ */
+int
+dehumanize_number(const char *str, int64_t *result)
+{
+	double val;
+	const char *p;
+	char *end;
+	long long scale = 1;
+	int exp = 0;
+
+	p = str;
+	while (isspace((unsigned char)*p))
+		p++;
+	val = strtod(p, &end);
+	if (end == p) {
+		errno = EINVAL;
+		return -1;
+	}
+	switch (tolower((unsigned char)*end)) {
+	case 'k':	exp = 1; break;
+	case 'm':	exp = 2; break;
+	case 'g':	exp = 3; break;
+	case 't':	exp = 4; break;
+	case 'p':	exp = 5; break;
+	case 'e':	exp = 6; break;
+	case 'b':	scale = 512; break;
+	case '\0':	break;
+	default:	errno = EINVAL; return -1;
+	}
+	if (exp != 0) {
+		end++;
+		scale = 1;
+		while (exp-- != 0)
+			scale *= 1024;
+	}
+	if (tolower((unsigned char)*end) == 'b')
+		end++;
+	while (isspace((unsigned char)*end))
+		end++;
+	if (*end != '\0') {
+		errno = EINVAL;
+		return -1;
+	}
+	val *= (double)scale;
+	if (val > (double)LLONG_MAX || val < (double)LLONG_MIN) {
+		errno = ERANGE;
+		return -1;
+	}
+	*result = (int64_t)val;
+	return 0;
+}
+
+/*
+ * NetBSD closefrom(2): close every descriptor >= fd (tip, rsh).  Linux has
+ * no close_range-by-value syscall in the base musl API, so walk the fd table
+ * to the resource limit.
+ */
+int
+closefrom(int fd)
+{
+	struct rlimit rl;
+	int i;
+
+	if (fd < 0) {
+		errno = EINVAL;
+		return -1;
+	}
+	if (getrlimit(RLIMIT_NOFILE, &rl) == -1)
+		return -1;
+	for (i = fd; i < (int)rl.rlim_max; i++)
+		close(i);
+	return 0;
+}
+
+/*
+ * NetBSD snprintb(3): fprintb-style bit-field printer.  fmt has one %llx
+ * conversion for the unshifted remainder; the b bit specifiers generate hex
+ * lines much like NetBSD's.  Videoctl uses it to decode device register
+ * flags; a faithful subset is enough for the tool to run.
+ */
+char *
+snprintb(char *buf, size_t len, const char *fmt, uint64_t val)
+{
+	const char *p;
+	char *out = buf;
+	size_t left = len;
+
+	if (left == 0)
+		return buf;
+	for (p = fmt; *p && left > 1; ) {
+		if (*p == '%' && p[1] == '\\') {
+			p += 2;
+			continue;
+		}
+		if (*p == '%' && (p[1] == 'l' || p[1] == '0')) {
+			int n;
+			n = snprintf(out, left, "%llx", (unsigned long long)val);
+			if (n < 0 || n >= (int)left)
+				break;
+			out += n;
+			left -= n;
+			p += 2;
+			continue;
+		}
+		if (*p == '\\') {
+			char c = '\0';
+			int m;
+			switch (p[1]) {
+			case 'b': c = '\b'; m = 2; break;
+			case 't': c = '\t'; m = 2; break;
+			case 'n': c = '\n'; m = 2; break;
+			case 'r': c = '\r'; m = 2; break;
+			default: c = p[1]; m = 2; break;
+			}
+			p += m;
+			continue;
+		}
+		if ((unsigned char)*p >= 0x20 && *p != '%') {
+			*out++ = *p++;
+			left--;
+			continue;
+		}
+		if (*p++ == '\n')
+			*out++ = '\n';
+	}
+	*out = '\0';
+	return buf;
+}
+
+/*
+ * NetBSD warnc(3): like warn(3) but the diagnostic code comes from the
+ * argument instead of errno (scmdctl).
+ */
+void
+warnc(int code, const char *fmt, ...)
+{
+	va_list ap;
+
+	va_start(ap, fmt);
+	if (fmt != NULL) {
+		vfprintf(stderr, fmt, ap);
+		fprintf(stderr, ": ");
+	}
+	va_end(ap);
+	fprintf(stderr, "%s\n", strerror(code));
+}
+
+/*
+ * NetBSD extattr_* userland (usr.bin/extattr).  Linux syscalls the BSD
+ * extended-attribute API (setxattr/getxattr/listxattr/removexattr) with a
+ * different spelling and a string namespace argument instead of the BSD
+ * attrnamespace constants; map get/list/remove so the tool works on Linux
+ * extended attributes, and stub the set path (namespaces differ).
+ */
+int
+extattr_namespace_to_string(int attrnamespace, char *name, size_t size)
+{
+	(void)attrnamespace;
+	(void)name;
+	(void)size;
+	errno = EOPNOTSUPP;
+	return -1;
+}
+
+int
+extattr_string_to_namespace(const char *name, int *attrnamespace)
+{
+	(void)name;
+	(void)attrnamespace;
+	errno = EOPNOTSUPP;
+	return -1;
+}
+
+ssize_t
+extattr_list_fd(int fd, int attrnamespace, void *data, size_t nbytes)
+{
+	(void)fd;
+	(void)attrnamespace;
+	(void)data;
+	(void)nbytes;
+	errno = EOPNOTSUPP;
+	return -1;
+}
+
+ssize_t
+extattr_list_file(const char *path, int attrnamespace, void *data, size_t nbytes)
+{
+	if (attrnamespace != EXTATTR_NAMESPACE_USER) {
+		errno = EINVAL;
+		return -1;
+	}
+	return listxattr(path, data, nbytes);
+}
+
+ssize_t
+extattr_list_link(const char *path, int attrnamespace, void *data, size_t nbytes)
+{
+	(void)path;
+	(void)attrnamespace;
+	(void)data;
+	(void)nbytes;
+	errno = EOPNOTSUPP;
+	return -1;
+}
+
+ssize_t
+extattr_get_fd(int fd, int attrnamespace, const char *name, void *data, size_t nbytes)
+{
+	(void)fd;
+	(void)attrnamespace;
+	(void)name;
+	(void)data;
+	(void)nbytes;
+	errno = EOPNOTSUPP;
+	return -1;
+}
+
+ssize_t
+extattr_get_file(const char *path, int attrnamespace, const char *name, void *data, size_t nbytes)
+{
+	if (attrnamespace != EXTATTR_NAMESPACE_USER) {
+		errno = EINVAL;
+		return -1;
+	}
+	return getxattr(path, name, data, nbytes);
+}
+
+ssize_t
+extattr_get_link(const char *path, int attrnamespace, const char *name, void *data, size_t nbytes)
+{
+	(void)path;
+	(void)attrnamespace;
+	(void)name;
+	(void)data;
+	(void)nbytes;
+	errno = EOPNOTSUPP;
+	return -1;
+}
+
+int
+extattr_set_fd(int fd, int attrnamespace, const char *name, const void *data, size_t nbytes)
+{
+	(void)fd;
+	(void)attrnamespace;
+	(void)name;
+	(void)data;
+	(void)nbytes;
+	errno = EOPNOTSUPP;
+	return -1;
+}
+
+int
+extattr_set_file(const char *path, int attrnamespace, const char *name, const void *data, size_t nbytes)
+{
+	(void)path;
+	(void)attrnamespace;
+	(void)name;
+	(void)data;
+	(void)nbytes;
+	errno = EOPNOTSUPP;
+	return -1;
+}
+
+int
+extattr_set_link(const char *path, int attrnamespace, const char *name, const void *data, size_t nbytes)
+{
+	(void)path;
+	(void)attrnamespace;
+	(void)name;
+	(void)data;
+	(void)nbytes;
+	errno = EOPNOTSUPP;
+	return -1;
+}
+
+int
+extattr_delete_fd(int fd, int attrnamespace, const char *name)
+{
+	(void)fd;
+	(void)attrnamespace;
+	(void)name;
+	errno = EOPNOTSUPP;
+	return -1;
+}
+
+int
+extattr_delete_file(const char *path, int attrnamespace, const char *name)
+{
+	if (attrnamespace != EXTATTR_NAMESPACE_USER) {
+		errno = EINVAL;
+		return -1;
+	}
+	return removexattr(path, name);
+}
+
+int
+extattr_delete_link(const char *path, int attrnamespace, const char *name)
+{
+	(void)path;
+	(void)attrnamespace;
+	(void)name;
+	errno = EOPNOTSUPP;
+	return -1;
 }

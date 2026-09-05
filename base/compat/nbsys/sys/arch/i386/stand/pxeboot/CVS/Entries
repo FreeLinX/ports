@@ -1,0 +1,14 @@
+/Makefile/1.28.26.1/Fri Sep 20 11:31:32 2024//Tnetbsd-10-1-RELEASE
+/conf.c/1.5/Sun Dec 11 12:17:49 2005//Tnetbsd-10-1-RELEASE
+/dev_net.c/1.11/Sun Jul 17 20:54:42 2011//Tnetbsd-10-1-RELEASE
+/dev_net.h/1.2/Sat Mar 14 14:46:00 2009//Tnetbsd-10-1-RELEASE
+/devopen.c/1.9/Mon Oct 26 19:16:56 2009//Tnetbsd-10-1-RELEASE
+/main.c/1.32/Tue Sep  7 11:41:32 2021//Tnetbsd-10-1-RELEASE
+/pxe.c/1.18/Sun Oct 20 19:47:28 2013//Tnetbsd-10-1-RELEASE
+/pxe.h/1.8/Fri Oct 18 04:13:56 2019//Tnetbsd-10-1-RELEASE
+/pxe_call.S/1.5/Sun Oct 20 19:47:28 2013//Tnetbsd-10-1-RELEASE
+/pxe_netif.h/1.2/Sun Dec 13 23:01:42 2009//Tnetbsd-10-1-RELEASE
+/pxeboot.h/1.1/Sat Feb 16 03:37:40 2002//Tnetbsd-10-1-RELEASE
+/start_pxe.S/1.7/Fri Sep 27 08:57:10 2019//Tnetbsd-10-1-RELEASE
+/version/1.3/Tue Jul 15 23:16:27 2008//Tnetbsd-10-1-RELEASE
+D

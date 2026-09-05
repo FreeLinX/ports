@@ -1,0 +1,34 @@
+/COPYING/1.1.1.1/Sat Feb  2 08:03:47 2019//Tnetbsd-10-1-RELEASE
+/arch-arm.h/1.1.1.1/Sat Feb  2 08:03:47 2019//Tnetbsd-10-1-RELEASE
+/arch-x86_32.h/1.1.1.1/Sat Feb  2 08:03:47 2019//Tnetbsd-10-1-RELEASE
+/arch-x86_64.h/1.1.1.1/Sat Feb  2 08:03:47 2019//Tnetbsd-10-1-RELEASE
+/callback.h/1.1.1.1/Sat Feb  2 08:03:47 2019//Tnetbsd-10-1-RELEASE
+/dom0_ops.h/1.1.1.1/Sat Feb  2 08:03:47 2019//Tnetbsd-10-1-RELEASE
+/domctl.h/1.1.1.1/Sat Feb  2 08:03:47 2019//Tnetbsd-10-1-RELEASE
+/elfnote.h/1.1.1.1/Sat Feb  2 08:03:47 2019//Tnetbsd-10-1-RELEASE
+/errno.h/1.1.1.1/Sat Feb  2 08:03:47 2019//Tnetbsd-10-1-RELEASE
+/event_channel.h/1.1.1.1/Sat Feb  2 08:03:47 2019//Tnetbsd-10-1-RELEASE
+/features.h/1.1.1.1/Sat Feb  2 08:03:47 2019//Tnetbsd-10-1-RELEASE
+/grant_table.h/1.1.1.1/Sat Feb  2 08:03:47 2019//Tnetbsd-10-1-RELEASE
+/kexec.h/1.1.1.1/Sat Feb  2 08:03:47 2019//Tnetbsd-10-1-RELEASE
+/memory.h/1.2/Tue May 26 10:36:20 2020//Tnetbsd-10-1-RELEASE
+/nmi.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/physdev.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/platform.h/1.1.1.1.32.1/Wed Oct 18 16:53:03 2023//Tnetbsd-10-1-RELEASE
+/pmu.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/sched.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/sysctl.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/tmem.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/trace.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/vcpu.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/version.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/vm_event.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/xen-compat.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/xen.h/1.1.1.1.32.1/Wed Oct 18 16:53:03 2023//Tnetbsd-10-1-RELEASE
+/xencomm.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+/xenoprof.h/1.1.1.1/Sat Feb  2 08:03:48 2019//Tnetbsd-10-1-RELEASE
+D/arch-arm////
+D/arch-x86////
+D/hvm////
+D/io////
+D/xsm////

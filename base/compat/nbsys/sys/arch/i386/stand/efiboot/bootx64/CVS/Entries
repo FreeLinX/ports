@@ -1,0 +1,8 @@
+/Makefile/1.4/Sun Sep  6 07:20:29 2020//Tnetbsd-10-1-RELEASE
+/efiboot_machdep.h/1.1/Tue Jan 24 11:09:14 2017//Tnetbsd-10-1-RELEASE
+/efibootx64.c/1.5.26.1/Sat May 13 13:26:57 2023//Tnetbsd-10-1-RELEASE
+/ldscript/1.2/Mon Dec 24 18:21:50 2018//Tnetbsd-10-1-RELEASE
+/multiboot64.S/1.1/Fri Sep 13 02:19:46 2019//Tnetbsd-10-1-RELEASE
+/start.S/1.2/Sat Apr 29 00:05:35 2017//Tnetbsd-10-1-RELEASE
+/startprog64.S/1.3.50.1/Sat May 13 13:26:57 2023//Tnetbsd-10-1-RELEASE
+D

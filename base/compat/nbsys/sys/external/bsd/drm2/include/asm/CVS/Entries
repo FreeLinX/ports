@@ -1,0 +1,22 @@
+/agp.h/1.3/Sun Dec 19 01:51:11 2021//Tnetbsd-10-1-RELEASE
+/cpufeature.h/1.9/Sun Dec 19 11:52:47 2021//Tnetbsd-10-1-RELEASE
+/current.h/1.2/Tue Mar 18 18:20:42 2014//Tnetbsd-10-1-RELEASE
+/hypervisor.h/1.1/Thu Feb 17 01:21:02 2022//Tnetbsd-10-1-RELEASE
+/intel-mid.h/1.1/Mon Aug 27 06:40:32 2018//Tnetbsd-10-1-RELEASE
+/io.h/1.10/Tue Oct 25 23:33:18 2022//Tnetbsd-10-1-RELEASE
+/ioctl.h/1.2/Tue Mar 18 18:20:42 2014//Tnetbsd-10-1-RELEASE
+/iosf_mbi.h/1.2/Sun Dec 19 11:49:12 2021//Tnetbsd-10-1-RELEASE
+/mman.h/1.2/Tue Mar 18 18:20:42 2014//Tnetbsd-10-1-RELEASE
+/mtrr.h/1.3/Wed Jul 16 20:56:25 2014//Tnetbsd-10-1-RELEASE
+/page.h/1.3/Sun Dec 19 01:18:45 2021//Tnetbsd-10-1-RELEASE
+/param.h/1.2/Tue Mar 18 18:20:42 2014//Tnetbsd-10-1-RELEASE
+/pat.h/1.2/Tue Mar 18 18:20:42 2014//Tnetbsd-10-1-RELEASE
+/pgalloc.h/1.2/Tue Mar 18 18:20:42 2014//Tnetbsd-10-1-RELEASE
+/pgtable.h/1.1/Sun Dec 19 00:31:27 2021//Tnetbsd-10-1-RELEASE
+/processor.h/1.6/Sun Dec 19 01:46:08 2021//Tnetbsd-10-1-RELEASE
+/set_memory.h/1.1/Sun Dec 19 00:31:27 2021//Tnetbsd-10-1-RELEASE
+/shmparam.h/1.2/Tue Mar 18 18:20:42 2014//Tnetbsd-10-1-RELEASE
+/smp.h/1.2/Sun Dec 19 11:39:56 2021//Tnetbsd-10-1-RELEASE
+/uaccess.h/1.11/Tue Oct 25 23:38:33 2022//Tnetbsd-10-1-RELEASE
+/unaligned.h/1.4/Sat Feb  6 00:31:58 2016//Tnetbsd-10-1-RELEASE
+D/fpu////

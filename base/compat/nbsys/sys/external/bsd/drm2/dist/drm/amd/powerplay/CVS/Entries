@@ -1,0 +1,17 @@
+/Makefile/1.1.1.1/Sat Dec 18 20:15:18 2021//Tnetbsd-10-1-RELEASE
+/amdgpu_amd_powerplay.c/1.4/Sun Dec 19 12:31:45 2021//Tnetbsd-10-1-RELEASE
+/amdgpu_arcturus_ppt.c/1.4/Sun Dec 19 12:21:29 2021//Tnetbsd-10-1-RELEASE
+/amdgpu_navi10_ppt.c/1.4/Sun Dec 19 12:21:29 2021//Tnetbsd-10-1-RELEASE
+/amdgpu_renoir_ppt.c/1.4/Sun Dec 19 12:37:54 2021//Tnetbsd-10-1-RELEASE
+/amdgpu_smu.c/1.5/Sun Dec 19 12:37:54 2021//Tnetbsd-10-1-RELEASE
+/amdgpu_smu_v11_0.c/1.3/Sun Dec 19 12:21:29 2021//Tnetbsd-10-1-RELEASE
+/amdgpu_smu_v12_0.c/1.2/Sat Dec 18 23:45:26 2021//Tnetbsd-10-1-RELEASE
+/amdgpu_vega20_ppt.c/1.3/Sun Dec 19 12:21:29 2021//Tnetbsd-10-1-RELEASE
+/arcturus_ppt.h/1.2/Sat Dec 18 23:45:26 2021//Tnetbsd-10-1-RELEASE
+/navi10_ppt.h/1.2/Sat Dec 18 23:45:26 2021//Tnetbsd-10-1-RELEASE
+/renoir_ppt.h/1.2/Sat Dec 18 23:45:26 2021//Tnetbsd-10-1-RELEASE
+/smu_internal.h/1.2/Sat Dec 18 23:45:26 2021//Tnetbsd-10-1-RELEASE
+/vega20_ppt.h/1.2/Sat Dec 18 23:45:26 2021//Tnetbsd-10-1-RELEASE
+D/hwmgr////
+D/inc////
+D/smumgr////

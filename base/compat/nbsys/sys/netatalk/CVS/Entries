@@ -1,0 +1,19 @@
+/Makefile/1.2/Tue Nov 26 23:30:32 2002//Tnetbsd-10-1-RELEASE
+/aarp.c/1.43/Sat Dec 22 14:28:56 2018//Tnetbsd-10-1-RELEASE
+/aarp.h/1.3/Sun May  8 13:51:31 2011//Tnetbsd-10-1-RELEASE
+/at.h/1.8/Tue Dec  2 19:33:44 2014//Tnetbsd-10-1-RELEASE
+/at_control.c/1.42.4.2/Mon Jul 31 16:37:18 2023//Tnetbsd-10-1-RELEASE
+/at_extern.h/1.21/Sat Sep  3 01:48:22 2022//Tnetbsd-10-1-RELEASE
+/at_print.c/1.2/Wed Jul 21 06:35:45 2021//Tnetbsd-10-1-RELEASE
+/at_proto.c/1.23/Sat Sep  3 01:48:22 2022//Tnetbsd-10-1-RELEASE
+/at_rmx.c/1.6/Thu Aug 17 17:11:28 2006//Tnetbsd-10-1-RELEASE
+/at_var.h/1.10/Sat Sep  3 01:48:22 2022//Tnetbsd-10-1-RELEASE
+/ddp.h/1.2/Sat Dec 10 23:29:05 2005//Tnetbsd-10-1-RELEASE
+/ddp_input.c/1.33.4.1/Mon Jul 31 16:37:18 2023//Tnetbsd-10-1-RELEASE
+/ddp_output.c/1.21.34.1/Mon Jul 31 16:37:18 2023//Tnetbsd-10-1-RELEASE
+/ddp_private.h/1.2/Mon Apr 28 20:24:09 2008//Tnetbsd-10-1-RELEASE
+/ddp_usrreq.c/1.76/Sat Sep  3 01:48:22 2022//Tnetbsd-10-1-RELEASE
+/ddp_var.h/1.4/Wed Apr 23 15:17:42 2008//Tnetbsd-10-1-RELEASE
+/files.netatalk/1.4/Sat Feb 17 19:10:18 2018//Tnetbsd-10-1-RELEASE
+/phase2.h/1.3/Sun Sep  6 06:01:01 2015//Tnetbsd-10-1-RELEASE
+D

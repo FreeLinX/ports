@@ -1,0 +1,13 @@
+/ar5312.c/1.9/Sat Oct 27 17:18:01 2012//Tnetbsd-10-1-RELEASE
+/ar5312_board.c/1.5/Tue Jun  9 22:50:50 2015//Tnetbsd-10-1-RELEASE
+/ar5315.c/1.10/Sat Oct 27 17:18:02 2012//Tnetbsd-10-1-RELEASE
+/ar5315_board.c/1.4/Sun Jul 10 06:24:18 2011//Tnetbsd-10-1-RELEASE
+/ar7100.c/1.3/Tue Jun  9 22:50:50 2015//Tnetbsd-10-1-RELEASE
+/ar9344.c/1.5/Thu May 29 14:41:26 2014//Tnetbsd-10-1-RELEASE
+/ar_conf.c/1.3/Tue Jun  9 22:50:50 2015//Tnetbsd-10-1-RELEASE
+/ar_console.c/1.2/Sun Jul 10 06:26:02 2011//Tnetbsd-10-1-RELEASE
+/ar_intr.c/1.7/Mon Jan  4 17:42:29 2021//Tnetbsd-10-1-RELEASE
+/arbus.c/1.17/Sat Aug  7 16:18:58 2021//Tnetbsd-10-1-RELEASE
+/arbusle.c/1.1/Sun Jul 10 06:26:02 2011//Tnetbsd-10-1-RELEASE
+D/dev////
+D/include////

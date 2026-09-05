@@ -1,0 +1,10 @@
+/osbsdtbl.c/1.1.1.11/Sat Aug 27 14:02:02 2022//Tnetbsd-10-1-RELEASE
+/osgendbg.c/1.1.1.6/Sat Aug 27 14:02:02 2022//Tnetbsd-10-1-RELEASE
+/oslinuxtbl.c/1.15/Sat Aug 27 14:04:58 2022//Tnetbsd-10-1-RELEASE
+/osunixdir.c/1.1.1.12/Sat Aug 27 14:02:02 2022//Tnetbsd-10-1-RELEASE
+/osunixmap.c/1.1.1.12/Sat Aug 27 14:02:02 2022//Tnetbsd-10-1-RELEASE
+/osunixxf.c/1.1.1.15/Sat Aug 27 14:02:02 2022//Tnetbsd-10-1-RELEASE
+/oswindir.c/1.1.1.12/Sat Aug 27 14:02:02 2022//Tnetbsd-10-1-RELEASE
+/oswintbl.c/1.1.1.14/Sat Aug 27 14:02:02 2022//Tnetbsd-10-1-RELEASE
+/oswinxf.c/1.1.1.15/Sat Aug 27 14:02:02 2022//Tnetbsd-10-1-RELEASE
+D

@@ -1,0 +1,48 @@
+/Makefile/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/efi.h/1.1.1.3/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/efi_nii.h/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/efi_pxe.h/1.1.1.1/Tue Apr  1 16:16:07 2014//Tnetbsd-10-1-RELEASE
+/efiapi.h/1.4/Thu Sep 30 19:02:47 2021//Tnetbsd-10-1-RELEASE
+/eficompiler.h/1.2/Thu Aug 16 18:24:35 2018//Tnetbsd-10-1-RELEASE
+/eficon.h/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/eficonex.h/1.1.1.1/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/efidebug.h/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/efidef.h/1.4/Fri Sep 13 20:56:29 2019//Tnetbsd-10-1-RELEASE
+/efidevp.h/1.1.1.3/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/efierr.h/1.1.1.2/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/efifpswa.h/1.1/Thu Aug  4 18:08:12 2016//Tnetbsd-10-1-RELEASE
+/efifs.h/1.1.1.1/Tue Apr  1 16:16:07 2014//Tnetbsd-10-1-RELEASE
+/efigpt.h/1.1.1.1/Tue Apr  1 16:16:07 2014//Tnetbsd-10-1-RELEASE
+/efiip.h/1.1.1.1/Tue Apr  1 16:16:07 2014//Tnetbsd-10-1-RELEASE
+/efilib.h/1.3/Thu Sep 30 19:02:47 2021//Tnetbsd-10-1-RELEASE
+/efilink.h/1.1.1.3/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/efinet.h/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/efipart.h/1.1.1.1/Tue Apr  1 16:16:07 2014//Tnetbsd-10-1-RELEASE
+/efipciio.h/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/efipoint.h/1.1.1.1/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/efiprot.h/1.1.1.3/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/efipxebc.h/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/efirtlib.h/1.1.1.3/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/efiser.h/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/efisetjmp.h/1.1.1.2/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/efishell.h/1.1.1.1/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/efishellintf.h/1.1.1.1/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/efistdarg.h/1.4/Thu Sep 30 19:02:47 2021//Tnetbsd-10-1-RELEASE
+/efitcp.h/1.1.1.1/Tue Apr  1 16:16:07 2014//Tnetbsd-10-1-RELEASE
+/efiudp.h/1.1.1.1/Tue Apr  1 16:16:07 2014//Tnetbsd-10-1-RELEASE
+/efiui.h/1.1.1.2/Thu Aug 16 18:17:47 2018//Tnetbsd-10-1-RELEASE
+/inc.mak/1.1.1.1/Tue Apr  1 16:16:07 2014//Tnetbsd-10-1-RELEASE
+/lib.h/1.1.1.1/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/libsmbios.h/1.1.1.2/Thu Sep 30 18:50:09 2021//Tnetbsd-10-1-RELEASE
+/make.inf/1.1.1.1/Tue Apr  1 16:16:07 2014//Tnetbsd-10-1-RELEASE
+/makefile.hdr/1.1.1.1/Tue Apr  1 16:16:07 2014//Tnetbsd-10-1-RELEASE
+/pci22.h/1.1.1.1/Tue Apr  1 16:16:07 2014//Tnetbsd-10-1-RELEASE
+/romload.h/1.1.1.1/Tue Apr  1 16:16:07 2014//Tnetbsd-10-1-RELEASE
+D/aarch64////
+D/arm////
+D/ia32////
+D/ia64////
+D/mips64el////
+D/protocol////
+D/riscv64////
+D/x86_64////

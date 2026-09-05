@@ -1,0 +1,16 @@
+/Makefile/1.31/Sun Jan 17 04:47:59 2016//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.2/Fri Oct 12 20:15:52 2012//Tnetbsd-10-1-RELEASE
+/chdsk.c/1.4/Mon Apr 11 14:00:02 2011//Tnetbsd-10-1-RELEASE
+/clock.c/1.5/Fri Nov 21 01:18:39 2014//Tnetbsd-10-1-RELEASE
+/consio.c/1.11/Fri Oct 17 17:48:53 2014//Tnetbsd-10-1-RELEASE
+/consio.h/1.3/Mon Apr 11 14:00:02 2011//Tnetbsd-10-1-RELEASE
+/devopen.c/1.7/Sun Jun 26 04:17:17 2016//Tnetbsd-10-1-RELEASE
+/fd.c/1.8/Sat Mar  8 03:20:24 2014//Tnetbsd-10-1-RELEASE
+/fdsub.S/1.1/Thu Sep 27 10:03:28 2001//Tnetbsd-10-1-RELEASE
+/fdvar.h/1.2/Sun Nov 11 05:20:27 2007//Tnetbsd-10-1-RELEASE
+/libx68k.h/1.8/Thu Jun 23 12:32:22 2022//Tnetbsd-10-1-RELEASE
+/parseutils.c/1.3/Tue May 31 04:12:10 2016//Tnetbsd-10-1-RELEASE
+/putimage.S/1.5/Sun Nov 25 04:06:59 2012//Tnetbsd-10-1-RELEASE
+/sdcd.c/1.18/Thu Jun 23 12:32:22 2022//Tnetbsd-10-1-RELEASE
+/sdcdvar.h/1.2/Mon Apr 11 14:00:02 2011//Tnetbsd-10-1-RELEASE
+D

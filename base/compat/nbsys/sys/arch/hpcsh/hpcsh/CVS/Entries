@@ -1,0 +1,10 @@
+/autoconf.c/1.27/Sat Oct 27 17:17:57 2012//Tnetbsd-10-1-RELEASE
+/bus_space.c/1.20/Sat Nov 21 21:07:38 2020//Tnetbsd-10-1-RELEASE
+/clock_machdep.c/1.5/Mon Apr 28 20:23:22 2008//Tnetbsd-10-1-RELEASE
+/console.c/1.15/Wed Mar 18 10:22:30 2009//Tnetbsd-10-1-RELEASE
+/debug.c/1.11/Mon Apr 28 20:23:22 2008//Tnetbsd-10-1-RELEASE
+/kloader_machdep.c/1.14/Mon Apr 28 20:23:22 2008//Tnetbsd-10-1-RELEASE
+/locore.S/1.12/Mon Apr 28 20:23:22 2008//Tnetbsd-10-1-RELEASE
+/machdep.c/1.78/Mon Nov  6 03:47:46 2017//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.22/Sat Aug  7 16:18:55 2021//Tnetbsd-10-1-RELEASE
+D

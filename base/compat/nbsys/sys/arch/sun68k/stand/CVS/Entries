@@ -1,0 +1,9 @@
+/Makefile/1.4/Sun Dec 11 12:19:29 2005//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.27/Sat Sep  3 15:18:21 2016//Tnetbsd-10-1-RELEASE
+/README/1.2/Tue Aug 17 22:00:31 2021//Tnetbsd-10-1-RELEASE
+D/bootxx////
+D/bootyy////
+D/libsa////
+D/netboot////
+D/tapeboot////
+D/ufsboot////

@@ -1,0 +1,7 @@
+/autoconf.c/1.7/Sun Jul 29 18:05:42 2012//Tnetbsd-10-1-RELEASE
+/machdep.c/1.14/Sun Jul 15 05:16:42 2018//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.8/Sat Aug  7 16:18:52 2021//Tnetbsd-10-1-RELEASE
+/pic_cpc700.c/1.8/Sat Nov 21 15:42:20 2020//Tnetbsd-10-1-RELEASE
+/pmppc_locore.S/1.13/Fri Feb 26 02:18:56 2021//Tnetbsd-10-1-RELEASE
+D/dev////
+D/pci////

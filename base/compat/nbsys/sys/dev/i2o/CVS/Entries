@@ -1,0 +1,14 @@
+/Makefile/1.4/Wed Apr 11 07:42:33 2001//Tnetbsd-10-1-RELEASE
+/dpti.c/1.50/Mon Sep  3 16:29:31 2018//Tnetbsd-10-1-RELEASE
+/dptivar.h/1.10/Mon Nov  1 21:28:03 2021//Tnetbsd-10-1-RELEASE
+/files.i2o/1.10/Sat Dec  1 18:14:48 2007//Tnetbsd-10-1-RELEASE
+/i2o.h/1.17/Mon May 30 09:56:04 2022//Tnetbsd-10-1-RELEASE
+/i2odpt.h/1.5/Mon Sep  8 23:36:54 2008//Tnetbsd-10-1-RELEASE
+/iop.c/1.92/Sat Aug  7 16:19:11 2021//Tnetbsd-10-1-RELEASE
+/iopio.h/1.9/Sun Apr 17 21:24:53 2022//Tnetbsd-10-1-RELEASE
+/iopreg.h/1.2/Mon Apr 28 20:23:48 2008//Tnetbsd-10-1-RELEASE
+/iopsp.c/1.41/Wed May  4 07:48:34 2022//Tnetbsd-10-1-RELEASE
+/iopspvar.h/1.9/Sat Oct 27 17:18:17 2012//Tnetbsd-10-1-RELEASE
+/iopvar.h/1.24/Sat Oct 27 17:18:17 2012//Tnetbsd-10-1-RELEASE
+/ld_iop.c/1.39/Wed Aug  9 16:44:39 2017//Tnetbsd-10-1-RELEASE
+D

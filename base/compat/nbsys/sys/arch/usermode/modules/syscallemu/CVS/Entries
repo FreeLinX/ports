@@ -1,0 +1,6 @@
+/Makefile/1.6/Sun Feb 17 05:32:35 2019//Tnetbsd-10-1-RELEASE
+/syscallemu.c/1.1/Thu Jan  5 13:26:51 2012//Tnetbsd-10-1-RELEASE
+/syscallemu.h/1.1/Thu Jan  5 13:26:51 2012//Tnetbsd-10-1-RELEASE
+/syscallemu_arm.c/1.1/Sun Nov 10 19:58:38 2013//Tnetbsd-10-1-RELEASE
+/syscallemu_x86.c/1.1/Fri Jan  6 13:16:20 2012//Tnetbsd-10-1-RELEASE
+D

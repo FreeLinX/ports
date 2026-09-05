@@ -1,0 +1,24 @@
+/amdgpu_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/drm.h/1.7/Mon Dec 20 12:56:07 2021//Tnetbsd-10-1-RELEASE
+/drm_fourcc.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/drm_mode.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/drm_sarea.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/i810_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/i915_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/mga_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/msm_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/nouveau_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/panfrost_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/qxl_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/r128_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/radeon_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/savage_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/sis_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/tegra_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/v3d_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/vc4_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/vgem_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/via_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/virtgpu_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+/vmwgfx_drm.h/1.2/Sat Dec 18 23:45:46 2021//Tnetbsd-10-1-RELEASE
+D

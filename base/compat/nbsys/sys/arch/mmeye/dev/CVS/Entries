@@ -1,0 +1,7 @@
+/com_mainbus.c/1.13/Sat Dec  8 17:46:12 2018//Tnetbsd-10-1-RELEASE
+/if_ne_mainbus.c/1.1/Sat Feb 19 10:46:28 2011//Tnetbsd-10-1-RELEASE
+/mmeyepcmcia.c/1.25/Sat Aug  7 16:19:00 2021//Tnetbsd-10-1-RELEASE
+/mmeyepcmciareg.h/1.2/Wed Feb  2 04:29:59 2011//Tnetbsd-10-1-RELEASE
+/rtciic.c/1.5/Sat Aug  7 16:19:00 2021//Tnetbsd-10-1-RELEASE
+/wdc_mainbus.c/1.7/Mon Sep  9 22:01:23 2019//Tnetbsd-10-1-RELEASE
+D

@@ -1,0 +1,9 @@
+/adi,ad5592r.h/1.1.1.2/Thu Nov 30 19:40:51 2017//Tnetbsd-10-1-RELEASE
+/qcom,spmi-adc7-pm8350.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/qcom,spmi-adc7-pm8350b.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/qcom,spmi-adc7-pmk8350.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/qcom,spmi-adc7-pmr735a.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/qcom,spmi-adc7-pmr735b.h/1.1.1.1/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+/qcom,spmi-vadc.h/1.1.1.3/Sun Nov  7 16:49:57 2021//Tnetbsd-10-1-RELEASE
+D/adc////
+D/temperature////

@@ -1,0 +1,8 @@
+/bus_dma.c/1.74/Tue Jul 26 20:08:54 2022//Tnetbsd-10-1-RELEASE
+/comlogout.c/1.5/Fri Jul  1 19:22:35 2011//Tnetbsd-10-1-RELEASE
+/sgmap_common.c/1.29/Sun Jul 18 05:12:27 2021//Tnetbsd-10-1-RELEASE
+/sgmap_typedep.c/1.44/Mon Jul 19 16:25:54 2021//Tnetbsd-10-1-RELEASE
+/sgmap_typedep.h/1.6/Mon Apr 28 20:23:11 2008//Tnetbsd-10-1-RELEASE
+/sgmapvar.h/1.19/Sat Sep  5 04:11:10 2020//Tnetbsd-10-1-RELEASE
+/shared_intr.c/1.29/Sun Jul  4 22:36:43 2021//Tnetbsd-10-1-RELEASE
+D

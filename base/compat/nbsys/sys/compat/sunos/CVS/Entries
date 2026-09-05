@@ -1,0 +1,17 @@
+/Makefile/1.7/Sat Mar  7 15:15:24 2015//Tnetbsd-10-1-RELEASE
+/files.sunos/1.11/Tue Feb 12 07:16:55 2019//Tnetbsd-10-1-RELEASE
+/sunos.h/1.24/Sun Sep  6 06:00:59 2015//Tnetbsd-10-1-RELEASE
+/sunos_dirent.h/1.4/Wed Dec 19 13:57:51 2018//Tnetbsd-10-1-RELEASE
+/sunos_exec.c/1.57/Fri Aug 10 21:44:59 2018//Tnetbsd-10-1-RELEASE
+/sunos_exec.h/1.11/Wed Nov 19 18:36:05 2008//Tnetbsd-10-1-RELEASE
+/sunos_exec_aout.c/1.19/Sun Oct 18 16:59:19 2015//Tnetbsd-10-1-RELEASE
+/sunos_ioctl.c/1.71/Tue Sep  7 11:43:05 2021//Tnetbsd-10-1-RELEASE
+/sunos_misc.c/1.177/Tue Sep  7 11:43:05 2021//Tnetbsd-10-1-RELEASE
+/sunos_mod.c/1.7/Thu Dec 12 02:15:42 2019//Tnetbsd-10-1-RELEASE
+/sunos_syscall.h/1.99/Thu Jun 11 03:47:05 2020//Tnetbsd-10-1-RELEASE
+/sunos_syscallargs.h/1.83/Thu Jun 11 03:47:05 2020//Tnetbsd-10-1-RELEASE
+/sunos_syscalls.c/1.98/Thu Jun 11 03:47:05 2020//Tnetbsd-10-1-RELEASE
+/sunos_sysent.c/1.94/Thu Jun 11 03:47:05 2020//Tnetbsd-10-1-RELEASE
+/syscalls.conf/1.5/Fri Nov  1 20:44:43 2002//Tnetbsd-10-1-RELEASE
+/syscalls.master/1.82/Mon Sep 23 20:42:29 2019//Tnetbsd-10-1-RELEASE
+D

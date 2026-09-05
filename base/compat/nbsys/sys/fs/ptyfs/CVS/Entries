@@ -1,0 +1,7 @@
+/Makefile/1.1/Mon Jun 14 14:40:47 2010//Tnetbsd-10-1-RELEASE
+/files.ptyfs/1.4/Sat Oct 11 06:42:19 2014//Tnetbsd-10-1-RELEASE
+/ptyfs.h/1.16/Fri Nov 27 14:43:57 2020//Tnetbsd-10-1-RELEASE
+/ptyfs_subr.c/1.34/Fri Nov 27 14:43:57 2020//Tnetbsd-10-1-RELEASE
+/ptyfs_vfsops.c/1.58/Mon Mar 16 21:20:10 2020//Tnetbsd-10-1-RELEASE
+/ptyfs_vnops.c/1.69/Fri Aug  5 10:36:02 2022//Tnetbsd-10-1-RELEASE
+D

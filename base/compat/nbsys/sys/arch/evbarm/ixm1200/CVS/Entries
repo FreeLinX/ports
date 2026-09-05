@@ -1,0 +1,11 @@
+/ixm1200_machdep.c/1.66/Tue Aug 17 22:00:28 2021//Tnetbsd-10-1-RELEASE
+/ixm1200_pci.c/1.13/Fri Nov 16 15:06:23 2018//Tnetbsd-10-1-RELEASE
+/ixm1200_start.S/1.6/Tue May 24 20:50:18 2022//Tnetbsd-10-1-RELEASE
+/ixm1200reg.h/1.2/Wed Oct 21 14:15:51 2009//Tnetbsd-10-1-RELEASE
+/ixm1200var.h/1.2/Wed Oct 21 14:15:51 2009//Tnetbsd-10-1-RELEASE
+/ixp12x0_mainbus.c/1.10/Sat Oct 27 17:17:48 2012//Tnetbsd-10-1-RELEASE
+/ixpcom_ixm.c/1.11/Sat Oct 27 17:17:48 2012//Tnetbsd-10-1-RELEASE
+/ixpcom_ixmvar.h/1.2/Wed Oct 21 14:15:51 2009//Tnetbsd-10-1-RELEASE
+/nappi_nppb.c/1.14/Wed Jun 17 06:59:45 2020//Tnetbsd-10-1-RELEASE
+/nappi_nr.c/1.11/Sat Oct 27 17:17:48 2012//Tnetbsd-10-1-RELEASE
+D

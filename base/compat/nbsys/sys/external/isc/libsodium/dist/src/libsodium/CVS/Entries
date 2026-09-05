@@ -1,0 +1,22 @@
+/Makefile.am/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/Makefile.in/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+D/crypto_aead////
+D/crypto_auth////
+D/crypto_box////
+D/crypto_core////
+D/crypto_generichash////
+D/crypto_hash////
+D/crypto_kdf////
+D/crypto_kx////
+D/crypto_onetimeauth////
+D/crypto_pwhash////
+D/crypto_scalarmult////
+D/crypto_secretbox////
+D/crypto_secretstream////
+D/crypto_shorthash////
+D/crypto_sign////
+D/crypto_stream////
+D/crypto_verify////
+D/include////
+D/randombytes////
+D/sodium////

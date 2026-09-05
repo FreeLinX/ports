@@ -1,0 +1,12 @@
+/autoconf.c/1.10/Tue May  3 14:20:24 2022//Tnetbsd-10-1-RELEASE
+/bus_dma.c/1.16/Sat Dec 19 21:27:52 2020//Tnetbsd-10-1-RELEASE
+/clock_machdep.c/1.4/Sun May  4 19:43:06 2008//Tnetbsd-10-1-RELEASE
+/consinit.c/1.1/Fri Sep  1 21:26:18 2006//Tnetbsd-10-1-RELEASE
+/intr.c/1.9/Sat Dec 19 21:27:52 2020//Tnetbsd-10-1-RELEASE
+/kloader_machdep.c/1.2/Mon Apr 28 20:23:26 2008//Tnetbsd-10-1-RELEASE
+/landiskreg.h/1.2/Sat Jan 21 19:44:30 2012//Tnetbsd-10-1-RELEASE
+/locore.S/1.4/Mon Apr 28 20:23:26 2008//Tnetbsd-10-1-RELEASE
+/machdep.c/1.23/Mon Nov  6 03:47:47 2017//Tnetbsd-10-1-RELEASE
+/mainbus.c/1.6/Sat Aug  7 16:18:57 2021//Tnetbsd-10-1-RELEASE
+/shpcic_machdep.c/1.9/Mon Oct 31 15:56:40 2022//Tnetbsd-10-1-RELEASE
+D

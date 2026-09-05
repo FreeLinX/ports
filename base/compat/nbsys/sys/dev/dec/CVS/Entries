@@ -1,0 +1,24 @@
+/Makefile/1.4/Thu May  3 05:26:08 2001//Tnetbsd-10-1-RELEASE
+/clockvar.h/1.11/Sat May 23 19:11:19 2009//Tnetbsd-10-1-RELEASE
+/dec_boot.h/1.7/Sun Dec 11 12:21:20 2005//Tnetbsd-10-1-RELEASE
+/dz.c/1.43/Wed Oct 26 23:44:36 2022//Tnetbsd-10-1-RELEASE
+/dzkbd.c/1.30.6.1/Sat Feb 17 16:17:17 2024//Tnetbsd-10-1-RELEASE
+/dzkbdvar.h/1.3/Mon Jan  6 21:05:37 2003//Tnetbsd-10-1-RELEASE
+/dzms.c/1.24/Sat Aug  7 16:19:10 2021//Tnetbsd-10-1-RELEASE
+/dzreg.h/1.4/Sun Dec 11 12:21:20 2005//Tnetbsd-10-1-RELEASE
+/dzvar.h/1.12/Fri Dec 27 06:52:43 2019//Tnetbsd-10-1-RELEASE
+/files.dec/1.9/Fri Dec 27 09:47:55 2019//Tnetbsd-10-1-RELEASE
+/if_le_dec.c/1.21/Thu Jun 22 16:46:53 2017//Tnetbsd-10-1-RELEASE
+/lk201.h/1.9/Sun Dec 11 12:21:20 2005//Tnetbsd-10-1-RELEASE
+/lk201_ws.c/1.10.50.1/Sat Feb 17 16:17:17 2024//Tnetbsd-10-1-RELEASE
+/lk201reg.h/1.3/Sun Dec 11 12:21:20 2005//Tnetbsd-10-1-RELEASE
+/lk201var.h/1.7.50.1/Sat Feb 17 16:17:17 2024//Tnetbsd-10-1-RELEASE
+/mcclock.c/1.28/Mon Nov 17 02:15:49 2014//Tnetbsd-10-1-RELEASE
+/mcclock_pad32.c/1.16/Sat Mar 14 21:04:19 2009//Tnetbsd-10-1-RELEASE
+/mcclock_pad32.h/1.10/Fri Feb 11 02:36:16 2000//Tnetbsd-10-1-RELEASE
+/mcclockvar.h/1.8/Sat Jun  4 01:43:56 2011//Tnetbsd-10-1-RELEASE
+/vsxxx.c/1.12/Sat Oct 28 04:53:54 2017//Tnetbsd-10-1-RELEASE
+/vsxxxvar.h/1.6/Sat Oct 27 17:18:15 2012//Tnetbsd-10-1-RELEASE
+/wskbdmap_lk201.c/1.6/Wed Mar 13 15:21:30 2002//Tnetbsd-10-1-RELEASE
+/wskbdmap_lk201.h/1.3/Wed Mar 13 15:22:51 2002//Tnetbsd-10-1-RELEASE
+D

@@ -1,0 +1,14 @@
+/Makefile/1.2/Sat Dec 15 01:03:28 2001//Tnetbsd-10-1-RELEASE
+/cir.c/1.33/Thu Mar 31 19:30:16 2022//Tnetbsd-10-1-RELEASE
+/cirio.h/1.4/Sun Sep  6 06:01:00 2015//Tnetbsd-10-1-RELEASE
+/cirvar.h/1.9/Tue Jul 26 08:59:38 2011//Tnetbsd-10-1-RELEASE
+/files.ir/1.3/Tue Mar  6 20:34:36 2007//Tnetbsd-10-1-RELEASE
+/ir.c/1.6/Tue Dec 28 14:45:30 2010//Tnetbsd-10-1-RELEASE
+/ir.h/1.5/Mon Apr 28 20:23:51 2008//Tnetbsd-10-1-RELEASE
+/irdaio.h/1.8/Sun Sep  6 06:01:00 2015//Tnetbsd-10-1-RELEASE
+/irframe.c/1.46/Fri Jul 25 08:10:37 2014//Tnetbsd-10-1-RELEASE
+/irframe_tty.c/1.67/Wed Oct 26 23:45:43 2022//Tnetbsd-10-1-RELEASE
+/irframevar.h/1.19/Tue May 12 14:29:42 2009//Tnetbsd-10-1-RELEASE
+/sir.c/1.6/Mon May 27 16:23:20 2013//Tnetbsd-10-1-RELEASE
+/sir.h/1.8/Mon May 27 16:23:20 2013//Tnetbsd-10-1-RELEASE
+D

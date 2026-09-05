@@ -1,0 +1,9 @@
+/.clang-format/1.1.1.1/Tue Jan  8 05:40:31 2019//Tnetbsd-10-1-RELEASE
+/analyze_libtsan.sh/1.1.1.1/Tue Jan  8 05:40:31 2019//Tnetbsd-10-1-RELEASE
+/check_analyze.sh/1.1.1.1/Tue Jan  8 05:40:31 2019//Tnetbsd-10-1-RELEASE
+/check_cmake.sh/1.1.1.1/Tue Jan  8 05:40:31 2019//Tnetbsd-10-1-RELEASE
+D/benchmarks////
+D/dd////
+D/go////
+D/rtl////
+D/tests////

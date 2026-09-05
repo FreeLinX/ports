@@ -1,0 +1,19 @@
+/Makefile/1.3/Thu Nov 27 10:18:08 2008//Tnetbsd-10-1-RELEASE
+/Makefile.inc/1.7/Mon Apr  4 19:47:50 2011//Tnetbsd-10-1-RELEASE
+/README.models/1.7/Fri May 28 00:18:27 2021//Tnetbsd-10-1-RELEASE
+D/adm5120////
+D/alchemy////
+D/atheros////
+D/bonito////
+D/cavium////
+D/cfe////
+D/conf////
+D/fdt////
+D/include////
+D/ingenic////
+D/mips////
+D/pci////
+D/pmon////
+D/ralink////
+D/rmi////
+D/sibyte////

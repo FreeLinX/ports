@@ -1,0 +1,13 @@
+/Makefile/1.2/Tue Nov 26 23:30:29 2002//Tnetbsd-10-1-RELEASE
+/autoconf.h/1.10/Tue Jul  1 15:15:34 2008//Tnetbsd-10-1-RELEASE
+/bus.h/1.19/Mon Sep 23 16:17:58 2019//Tnetbsd-10-1-RELEASE
+/cpu.h/1.26/Sun Nov 24 15:53:47 2019//Tnetbsd-10-1-RELEASE
+/disklabel.h/1.4/Tue Aug 30 12:39:58 2011//Tnetbsd-10-1-RELEASE
+/idprom.h/1.5/Mon Apr 28 20:23:38 2008//Tnetbsd-10-1-RELEASE
+/intr.h/1.20.114.1/Wed Aug  9 17:42:01 2023//Tnetbsd-10-1-RELEASE
+/loadfile_machdep.h/1.5/Wed Aug  6 21:57:51 2014//Tnetbsd-10-1-RELEASE
+/mon.h/1.5/Mon Apr 28 20:23:38 2008//Tnetbsd-10-1-RELEASE
+/mutex.h/1.2/Fri Feb  9 21:55:13 2007//Tnetbsd-10-1-RELEASE
+/psl.h/1.5/Sun Dec 11 12:19:29 2005//Tnetbsd-10-1-RELEASE
+/rwlock.h/1.2/Fri Feb  9 21:55:13 2007//Tnetbsd-10-1-RELEASE
+D

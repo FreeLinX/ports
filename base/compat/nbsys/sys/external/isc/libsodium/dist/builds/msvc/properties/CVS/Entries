@@ -1,0 +1,25 @@
+/Common.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/DLL.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/Debug.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/DebugDEXE.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/DebugDLL.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/DebugLEXE.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/DebugLIB.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/DebugLTCG.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/DebugSEXE.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/EXE.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/LIB.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/LTCG.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/Link.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/Messages.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/Output.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/Release.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/ReleaseDEXE.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/ReleaseDLL.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/ReleaseLEXE.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/ReleaseLIB.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/ReleaseLTCG.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/ReleaseSEXE.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/Win32.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+/x64.props/1.1.1.1/Thu Aug 20 21:17:05 2020//Tnetbsd-10-1-RELEASE
+D

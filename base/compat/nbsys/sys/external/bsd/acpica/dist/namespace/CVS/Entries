@@ -1,0 +1,23 @@
+/nsaccess.c/1.22/Sat Aug 27 14:04:58 2022//Tnetbsd-10-1-RELEASE
+/nsalloc.c/1.1.1.14/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nsarguments.c/1.1.1.12/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nsconvert.c/1.1.1.16/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nsdump.c/1.20/Sat Aug 27 14:04:58 2022//Tnetbsd-10-1-RELEASE
+/nsdumpdv.c/1.1.1.12/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nseval.c/1.18/Sat Aug 27 14:04:58 2022//Tnetbsd-10-1-RELEASE
+/nsinit.c/1.20/Sat Aug 27 14:04:58 2022//Tnetbsd-10-1-RELEASE
+/nsload.c/1.1.1.16/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nsnames.c/1.1.1.15/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nsobject.c/1.1.1.12/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nsparse.c/1.1.1.15/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nspredef.c/1.1.1.14/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nsprepkg.c/1.1.1.14/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nsrepair.c/1.1.1.15/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nsrepair2.c/1.19/Sat Aug 27 14:04:58 2022//Tnetbsd-10-1-RELEASE
+/nssearch.c/1.1.1.15/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nsutils.c/1.1.1.17/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nswalk.c/1.1.1.12/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+/nsxfeval.c/1.17/Sat Aug 27 14:04:58 2022//Tnetbsd-10-1-RELEASE
+/nsxfname.c/1.15/Sat Aug 27 14:04:58 2022//Tnetbsd-10-1-RELEASE
+/nsxfobj.c/1.1.1.13/Sat Aug 27 14:02:04 2022//Tnetbsd-10-1-RELEASE
+D

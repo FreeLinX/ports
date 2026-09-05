@@ -1,0 +1,9 @@
+/eb7500atx_machdep.c/1.37/Sun May 15 20:37:51 2022//Tnetbsd-10-1-RELEASE
+/if_cs.c/1.13/Sun May 29 10:47:39 2022//Tnetbsd-10-1-RELEASE
+/rsbus.c/1.12/Sat Aug  7 16:18:40 2021//Tnetbsd-10-1-RELEASE
+/rsbus.h/1.4/Sat Oct 27 17:17:23 2012//Tnetbsd-10-1-RELEASE
+/rsbus_io.c/1.5/Fri Mar 16 17:56:31 2018//Tnetbsd-10-1-RELEASE
+/rsbus_io_asm.S/1.2/Sun Dec 11 12:16:05 2005//Tnetbsd-10-1-RELEASE
+/rside.c/1.16/Fri Oct 20 07:06:05 2017//Tnetbsd-10-1-RELEASE
+/rsidereg.h/1.2/Sun Dec 11 12:16:05 2005//Tnetbsd-10-1-RELEASE
+D

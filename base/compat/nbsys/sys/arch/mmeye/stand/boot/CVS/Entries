@@ -1,0 +1,24 @@
+/Makefile/1.5/Sat Apr  8 19:53:21 2017//Tnetbsd-10-1-RELEASE
+/boot.c/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/boot.h/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/bootinfo.c/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/bootinfo.h/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/clock.c/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/com.c/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/common.h/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/conf.c/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/cons.c/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/cons.h/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/deflate.sh/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/devopen.c/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/entry.S/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/ns16550.h/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/prf.c/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/scif.c/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/scif.h/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/tgets.c/1.2/Fri Apr 29 21:39:50 2022//Tnetbsd-10-1-RELEASE
+/version/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+/wd.c/1.5/Tue Jan  8 19:36:57 2019//Tnetbsd-10-1-RELEASE
+/wdc.c/1.4/Tue Jan  8 19:12:41 2019//Tnetbsd-10-1-RELEASE
+/wdvar.h/1.1/Thu Mar  3 05:59:37 2011//Tnetbsd-10-1-RELEASE
+D

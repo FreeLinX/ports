@@ -1,0 +1,15 @@
+/files.sysmon/1.15/Fri Apr 24 03:33:43 2015//Tnetbsd-10-1-RELEASE
+/swsensor.c/1.19/Fri Dec 31 11:05:41 2021//Tnetbsd-10-1-RELEASE
+/swwdog.c/1.23/Fri Dec 31 11:05:41 2021//Tnetbsd-10-1-RELEASE
+/sysmon.c/1.32/Mon Mar 28 12:33:21 2022//Tnetbsd-10-1-RELEASE
+/sysmon_envsys.c/1.151/Fri May 20 21:31:24 2022//Tnetbsd-10-1-RELEASE
+/sysmon_envsys_events.c/1.123/Fri Dec 31 14:30:04 2021//Tnetbsd-10-1-RELEASE
+/sysmon_envsys_tables.c/1.14/Mon Nov 21 21:24:01 2022//Tnetbsd-10-1-RELEASE
+/sysmon_envsys_util.c/1.7/Thu Jun 11 02:39:31 2020//Tnetbsd-10-1-RELEASE
+/sysmon_envsysvar.h/1.48/Fri Dec 31 11:05:41 2021//Tnetbsd-10-1-RELEASE
+/sysmon_power.c/1.69/Fri Dec 31 11:05:41 2021//Tnetbsd-10-1-RELEASE
+/sysmon_taskq.c/1.23/Fri Dec 31 14:29:14 2021//Tnetbsd-10-1-RELEASE
+/sysmon_taskq.h/1.5/Fri Dec 31 14:22:11 2021//Tnetbsd-10-1-RELEASE
+/sysmon_wdog.c/1.30/Fri Dec 31 11:05:41 2021//Tnetbsd-10-1-RELEASE
+/sysmonvar.h/1.53/Fri Dec 31 14:44:50 2021//Tnetbsd-10-1-RELEASE
+D

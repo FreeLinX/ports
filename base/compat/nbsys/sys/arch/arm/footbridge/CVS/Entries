@@ -1,0 +1,16 @@
+/Makefile/1.4/Tue Nov 26 23:30:11 2002//Tnetbsd-10-1-RELEASE
+/dc21285mem.h/1.3/Tue Aug 24 08:39:50 2021//Tnetbsd-10-1-RELEASE
+/dc21285reg.h/1.5/Fri Dec 14 11:08:03 2007//Tnetbsd-10-1-RELEASE
+/footbridge.c/1.30/Tue Sep 27 06:36:41 2022//Tnetbsd-10-1-RELEASE
+/footbridge.h/1.4/Fri Jul  1 19:32:28 2011//Tnetbsd-10-1-RELEASE
+/footbridge_clock.c/1.27/Fri Aug 13 11:40:43 2021//Tnetbsd-10-1-RELEASE
+/footbridge_com.c/1.40/Fri Aug 13 11:40:43 2021//Tnetbsd-10-1-RELEASE
+/footbridge_com_io.c/1.10/Fri Aug 13 11:40:43 2021//Tnetbsd-10-1-RELEASE
+/footbridge_intr.h/1.22/Fri Aug 13 11:40:43 2021//Tnetbsd-10-1-RELEASE
+/footbridge_io.c/1.26/Mon May 23 19:52:34 2022//Tnetbsd-10-1-RELEASE
+/footbridge_irqhandler.c/1.28/Fri Aug 13 11:40:43 2021//Tnetbsd-10-1-RELEASE
+/footbridge_irqhandler.h/1.6/Wed Apr  2 11:35:36 2014//Tnetbsd-10-1-RELEASE
+/footbridge_machdep.c/1.11/Tue Aug 17 22:00:27 2021//Tnetbsd-10-1-RELEASE
+/footbridge_pci.c/1.34/Tue Sep 27 06:36:41 2022//Tnetbsd-10-1-RELEASE
+/footbridgevar.h/1.7/Fri Jul  1 19:32:28 2011//Tnetbsd-10-1-RELEASE
+D/isa////
