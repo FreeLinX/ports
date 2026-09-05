@@ -1,0 +1,19 @@
+--- a/usr.bin/tcopy/tcopy.c
++++ b/usr.bin/tcopy/tcopy.c
+@@ -64,7 +64,7 @@
+ static int	filen, guesslen, maxblk = MAXREC;
+ static long	lastrec, record;
+ static off_t	size, tsize;
+-static FILE	*msg = stdout;
++static FILE	*msg;
+ 
+ static void	*getspace(int);
+ __dead static void	 intr(int);
+@@ -75,6 +75,7 @@
+ int
+ main(int argc, char *argv[])
+ {
++	msg = stdout;
+ 	int ch, needeof, nw, inp, outp;
+ 	ssize_t lastnread, nread;
+ 	enum {READ, VERIFY, COPY, COPYVERIFY} op = READ;

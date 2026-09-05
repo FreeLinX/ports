@@ -21,3 +21,5 @@ NETBSD_MEMBERS = usr/src/usr.bin/lastcomm/lastcomm.c \
 	usr/src/usr.bin/lastcomm/pathnames.h
 
 PORT_SRCS = usr.bin/lastcomm/lastcomm.c
+COMPAT_SRCS += $(FLX_COMPAT)/devname.c
+COMPAT_SRCS += $(FLX_COMPAT)/user_from_uid.c

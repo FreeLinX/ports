@@ -451,3 +451,54 @@ cgetnum(char *cap, const char *name, long *num)
 	}
 	return 0;
 }
+
+/*
+ * cgetustr(3): like cgetstr() but returns the value with escape
+ * sequences left unexpanded (vgrind passes these straight through to
+ * its printer language).  The returned buffer is malloc'd like
+ * cgetstr.
+ */
+int
+cgetustr(char *cap, const char *name, char **str)
+{
+	char *v;
+
+	*str = NULL;
+	v = cgetcap(cap, name, '=');
+	if (v == NULL)
+		return -1;
+	{
+		const char *e = v;
+		char *s;
+
+		while (*e != '\0' && *e != ':') {
+			if (*e == '\\') {
+				e++;
+				if (*e == '\0')
+					break;
+				e++;
+				continue;
+			}
+			if (*e == '"') {
+				e++;
+				continue;
+			}
+			e++;
+		}
+		s = malloc((size_t)(e - v) + 1);
+		if (s == NULL)
+			return -2;
+		memcpy(s, v, (size_t)(e - v));
+		s[e - v] = '\0';
+		{
+			size_t l = strlen(s);
+
+			if (l >= 2 && s[0] == '"' && s[l - 1] == '"') {
+				memmove(s, s + 1, l - 2);
+				s[l - 2] = '\0';
+			}
+		}
+		*str = s;
+		return (int)strlen(s);
+	}
+}

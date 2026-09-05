@@ -20,3 +20,4 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/hesinfo/hesinfo.c
 
 PORT_SRCS = usr.bin/hesinfo/hesinfo.c
+COMPAT_SRCS += $(FLX_COMPAT)/hesiod.c
