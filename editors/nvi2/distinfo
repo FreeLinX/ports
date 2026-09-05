@@ -1,0 +1,5 @@
+# FreeLinX/ports - editors/nvi2 : upstream source reference.
+DISTINFO_NAME=nvi2-2.2.2
+DISTINFO_ARCHIVE=nvi2-2.2.2.tar.gz
+DISTINFO_URL=https://github.com/lichray/nvi2/archive/refs/tags/v2.2.2.tar.gz
+DISTINFO_SHA256=a1ad5d7c880913992a116cba56e28ee8e7d1f59a7f10e5a9b2ce6d105decb59c

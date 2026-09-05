@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/sbase : upstream source reference.
+DISTINFO_NAME=sbase-05222026
+DISTINFO_ARCHIVE=sbase-05222026.tar.gz
+DISTINFO_URL=https://git.suckless.org/sbase/snapshot/sbase-05222026.tar.gz
+DISTINFO_SHA256=98d9d602e827dd7339dc24917e1295639a9ce546d861073a49e70aa9a534ae42

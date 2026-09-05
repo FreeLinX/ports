@@ -1,0 +1,5 @@
+# FreeLinX/ports - www/w3m : upstream source reference.
+DISTINFO_NAME=w3m-0.5.3
+DISTINFO_ARCHIVE=w3m-sf.tar.gz
+DISTINFO_URL=https://sourceforge.net/projects/w3m/files/w3m/w3m-0.5.3/w3m-0.5.3.tar.gz/download
+DISTINFO_SHA256=e994d263f2fd2c22febfbe45103526e00145a7674a0fda79c822b97c2770a9e3

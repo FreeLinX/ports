@@ -1,0 +1,5 @@
+# FreeLinX/ports - devel/netbsd-curses : upstream source reference.
+DISTINFO_NAME=netbsd-curses-0.3.2
+DISTINFO_ARCHIVE=netbsd-curses-0.3.2.tar.xz
+DISTINFO_URL=http://ftp.barfooze.de/pub/sabotage/tarballs/netbsd-curses-0.3.2.tar.xz
+DISTINFO_SHA256=d28358b833e6cabcf229fecef98c649e2e90c29858aa34220476faf0e5ce10a1
