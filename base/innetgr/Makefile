@@ -20,3 +20,4 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/innetgr/innetgr.c
 
 PORT_SRCS = usr.bin/innetgr/innetgr.c
+COMPAT_SRCS += $(FLX_COMPAT)/netgroup.c

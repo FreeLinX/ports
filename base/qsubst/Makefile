@@ -20,3 +20,13 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/qsubst/qsubst.c
 
 PORT_SRCS = usr.bin/qsubst/qsubst.c
+COMPAT_SRCS += $(FLX_COMPAT)/sigstub.c
+
+NCURSES_PREFIX = $(FREELINX_BUILD_DIR)/deps/ncurses
+FLX_LD          = $(CC) $(FREELINX_CFLAGS) $(FREELINX_LDFLAGS) \
+			-nostdlib -L$(FREELINX_SYSROOT)/lib \
+			$(FLX_CRT) \
+			$(OBJ_DIR)/*.o \
+			$(NCURSES_PREFIX)/lib/libtinfo.a \
+			-lc $(FLX_COMPILER_RT) \
+			$(FLX_CRT_END)
