@@ -39,6 +39,7 @@ int evasprintf(char ** __restrict, const char * __restrict, va_list);
 int string_to_flags(char **, unsigned long *, unsigned long *);
 char *flags_to_string(unsigned long, const char *);
 int setup_getid(const char *);
+int pw_gensalt(char *, size_t, const char *, const char *);
 __END_DECLS
 
 #endif /* !_FREELINX_UTIL_H_ */

@@ -10,6 +10,18 @@
 #define _FREELINX_COMPAT_SYS_SYSCTL_H_
 
 #include <sys/types.h>
+#include <sys/sysvipc.h>
+
+#define	CTL_KERN	1
+#define	KERN_SYSVIPC	24
+
+#define	KERN_SYSVIPC_MSG		1
+#define	KERN_SYSVIPC_SEM		2
+#define	KERN_SYSVIPC_SHM		3
+#define	KERN_SYSVIPC_INFO		4
+#define	KERN_SYSVIPC_MSG_INFO		1
+#define	KERN_SYSVIPC_SEM_INFO		2
+#define	KERN_SYSVIPC_SHM_INFO		3
 
 #define	CTL_USER	6
 #define	USER_CS_PATH	100

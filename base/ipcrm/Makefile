@@ -20,3 +20,4 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/ipcrm/ipcrm.c
 
 PORT_SRCS = usr.bin/ipcrm/ipcrm.c
+COMPAT_SRCS += $(FLX_COMPAT)/sysctl.c
