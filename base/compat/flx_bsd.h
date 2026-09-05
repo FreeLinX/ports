@@ -291,6 +291,7 @@ int	cgetclose(void);
 char	*cgetcap(char *, const char *, int);
 int	cgetstr(char *, const char *, char **);
 int	cgetnum(char *, const char *, long *);
+int	cgetustr(char *, const char *, char **);
 void	csetexpandtc(int);
 
 /* <paths.h> supply missing from musl (getent). */
@@ -299,6 +300,28 @@ void	csetexpandtc(int);
 #endif
 #ifndef _PATH_PRINTCAP
 #define	_PATH_PRINTCAP	"/etc/printcap"
+#endif
+
+/* BSD protos <sys/stat.h> supplies (tcopy, and others). */
+#ifndef DEFFILEMODE
+#define	DEFFILEMODE	00666
+#endif
+
+/* Default tape device (tcopy). */
+#ifndef _PATH_DEFTAPE
+#define	_PATH_DEFTAPE	"/dev/nrst0"
+#endif
+
+/* BSD <sys/cdefs.h> noreturn marker (tcopy). */
+#ifndef __dead
+#define	__dead		__attribute__((noreturn))
+#endif
+
+/* Device block address type BSD exports via <sys/mtio.h> (tcopy);
+ * musl leaves it undefined. */
+#ifndef _BSD_DADDR_T_
+#define	_BSD_DADDR_T_
+typedef long	daddr_t;
 #endif
 
 /* Hostname length bound as <netdb.h>-adjacent BSD headers provide. */

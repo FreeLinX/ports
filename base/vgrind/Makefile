@@ -24,3 +24,4 @@ NETBSD_MEMBERS = usr/src/usr.bin/vgrind/extern.h \
 
 PORT_SRCS = usr.bin/vgrind/regexp.c \
 	usr.bin/vgrind/vfontedpr.c
+COMPAT_SRCS += $(FLX_COMPAT)/getcap.c

@@ -20,3 +20,4 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/tcopy/tcopy.c
 
 PORT_SRCS = usr.bin/tcopy/tcopy.c
+COMPAT_SRCS += $(FLX_COMPAT)/sigstub.c

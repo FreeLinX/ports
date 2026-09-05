@@ -20,3 +20,4 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/whereis/whereis.c
 
 PORT_SRCS = usr.bin/whereis/whereis.c
+COMPAT_SRCS += $(FLX_COMPAT)/sysctl.c
