@@ -20,3 +20,8 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/getent/getent.c
 
 PORT_SRCS = usr.bin/getent/getent.c
+COMPAT_SRCS += $(FLX_COMPAT)/netgroup.c
+COMPAT_SRCS += $(FLX_COMPAT)/rpc/rpcent.c
+COMPAT_SRCS += $(FLX_COMPAT)/ethernet.c
+COMPAT_SRCS += $(FLX_COMPAT)/getcap.c
+COMPAT_SRCS += $(FLX_COMPAT)/sigstub.c

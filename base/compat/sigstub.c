@@ -377,3 +377,144 @@ vsnprintf_ssm(char *buf, size_t size, const char *fmt, va_list ap)
 {
 	return vsnprintf_ss(buf, size, fmt, ap);
 }
+
+/*
+ * libutil sockaddr_snprintf(3): format a sockaddr per BSD-style fmt.
+ * usr.bin/getaddrinfo uses the %a (numeric address), %p (port) and,
+ * for non-INET sockets, %F (family name) conversions.  Real Linux
+ * backends: inet_ntop for the address, ntohs for the port.
+ */
+#include <netinet/in.h>
+#include <arpa/inet.h>
+
+static const char *
+addr_family_name(int fam)
+{
+	switch (fam) {
+	case AF_INET:	return "inet";
+	case AF_INET6:	return "inet6";
+	case AF_UNIX:	return "local";
+	case AF_UNSPEC:	return "unspec";
+	default:	return "unknown";
+	}
+}
+
+int
+sockaddr_snprintf(char *buf, size_t buflen, const char *fmt,
+    const struct sockaddr *sa)
+{
+	size_t off = 0;
+	const char *p;
+
+	if (buflen == 0)
+		return 0;
+	for (p = fmt; *p != '\0' && off + 1 < buflen; p++) {
+		if (*p != '%') {
+			buf[off++] = *p;
+			continue;
+		}
+		switch (*++p) {
+		case 'a': {
+			char abuf[INET6_ADDRSTRLEN];
+			const struct sockaddr_in *sin =
+			    (const struct sockaddr_in *)sa;
+			const struct sockaddr_in6 *sin6 =
+			    (const struct sockaddr_in6 *)sa;
+			const void *addr = NULL;
+
+			if (sa->sa_family == AF_INET)
+				addr = &sin->sin_addr;
+			else if (sa->sa_family == AF_INET6)
+				addr = &sin6->sin6_addr;
+			if (addr != NULL &&
+			    inet_ntop(sa->sa_family, addr, abuf,
+			    sizeof(abuf)) != NULL)
+				off += (size_t)snprintf(buf + off,
+				    buflen - off, "%s", abuf);
+			else
+				off += (size_t)snprintf(buf + off,
+				    buflen - off, "?"); 
+			break;
+		}
+		case 'p':
+			if (sa->sa_family == AF_INET)
+				off += (size_t)snprintf(buf + off,
+				    buflen - off, "%u",
+				    (unsigned)ntohs(((const struct
+				    sockaddr_in *)sa)->sin_port));
+			else if (sa->sa_family == AF_INET6)
+				off += (size_t)snprintf(buf + off,
+				    buflen - off, "%u",
+				    (unsigned)ntohs(((const struct
+				    sockaddr_in6 *)sa)->sin6_port));
+			else
+				off += (size_t)snprintf(buf + off,
+				    buflen - off, "?");
+			break;
+		case 'F':
+			off += (size_t)snprintf(buf + off, buflen - off,
+			    "%s", addr_family_name(sa->sa_family));
+			break;
+		case 'I':
+			if (sa->sa_family == AF_INET6)
+				off += (size_t)snprintf(buf + off,
+				    buflen - off, "%u",
+				    (unsigned)((const struct
+				    sockaddr_in6 *)sa)->sin6_scope_id);
+			break;
+		case 'R': {
+			const unsigned char *u =
+			    (const unsigned char *)sa;
+			size_t i;
+			for (i = 0; i < 16; i++)
+				off += (size_t)snprintf(buf + off,
+				    buflen - off, "%02x", u[i]);
+			break;
+		}
+		case 'S':
+			if (sa->sa_family == AF_INET)
+				off += (size_t)snprintf(buf + off,
+				    buflen - off, "%u",
+				    (unsigned)ntohs(((const struct
+				    sockaddr_in *)sa)->sin_port));
+			break;
+		default:
+			off += (size_t)snprintf(buf + off, buflen - off,
+			    "%c", *p);
+			break;
+		}
+	}
+	buf[off < buflen ? off : buflen - 1] = '\0';
+	return (int)off;
+}
+
+/*
+ * BSD libc stay-open knobs for the passwd/group databases (musl lacks
+ * setpassent/setgroupent).  glibc-style: returning 0 asks the caller
+ * not to keep the file descriptors open; that is musl's behaviour, so
+ * return 0 and the enumeration functions behave natively.
+ */
+int
+setpassent(int stayopen)
+{
+	(void)stayopen;
+	return 0;
+}
+
+int
+setgroupent(int stayopen)
+{
+	(void)stayopen;
+	return 0;
+}
+
+/*
+ * NetBSD-specific knob that (with an argument) makes getcap expand
+ * "tc=..." entries; libtinfo expands those unconditionally, so the
+ * call is a no-op here.
+ */
+void
+csetexpandtc(int doexpand)
+{
+	(void)doexpand;
+}

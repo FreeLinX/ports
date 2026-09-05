@@ -21,3 +21,4 @@ NETBSD_MEMBERS = usr/src/usr.bin/fmt/buffer.h \
 	usr/src/usr.bin/fmt/fmt.c
 
 PORT_SRCS = usr.bin/fmt/fmt.c
+COMPAT_SRCS += $(FLX_COMPAT)/fgetwln.c

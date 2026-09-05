@@ -20,3 +20,6 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/getaddrinfo/getaddrinfo.c
 
 PORT_SRCS = usr.bin/getaddrinfo/getaddrinfo.c
+LOCAL_SRCS = tables.h
+FLX_CPPFLAGS += -I$(SRC_DIR)
+COMPAT_SRCS += $(FLX_COMPAT)/sigstub.c

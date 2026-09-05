@@ -225,4 +225,84 @@ int	fsync_range(int, int, off_t, off_t);
 #define	TIMESPEC_TO_TIMEVAL(tv, ts)					\
 	((tv)->tv_sec = (ts)->tv_sec, (tv)->tv_usec = (ts)->tv_nsec / 1000)
 #endif
+
+/* NetBSD <sys/cdefs.h> unused-parameter marker (musl lacks __USE). */
+#ifndef __USE
+#define	__USE(x)	(void)(x)
+#endif
+
+/*
+ * NetBSD <nls.h> catalog structs used by usr.bin/gencat.  musl's
+ * nl_types is a trivial no-op, so these only need to be internally
+ * consistent for gencat's reader/writer (the magic is compared against
+ * itself on both sides).
+ */
+#ifndef _NLS_MAGIC
+#define	_NLS_MAGIC	0x00040010
+
+struct _nls_cat_hdr {
+	int32_t	__magic;
+	int32_t	__nsets;
+	int32_t	__mem;
+	int32_t	__msg_hdr_offset;
+	int32_t	__msg_txt_offset;
+};
+
+struct _nls_set_hdr {
+	int32_t	__setno;
+	int32_t	__nmsgs;
+	int32_t	__index;
+	int32_t	__mem;
+	int32_t	__msg_hdr_offset;
+};
+
+struct _nls_msg_hdr {
+	int32_t	__msgno;
+	int32_t	__msglen;
+	int32_t	__offset;
+};
+#endif /* !_NLS_MAGIC */
+
+/* BSD stdio wide-line reader (musl lacks fgetwln(3)) (fgetwln.c). */
+wchar_t	*fgetwln(FILE *, size_t *);
+/* RFC-822 header-line detector (wide) as libc provides for fmt (fgetwln.c). */
+int	ishead(const wchar_t *);
+
+/* Sun-style DES front-end (bdes) backed by OpenSSL libcrypto (des_sun.c). */
+int	des_setkey(char *);
+int	des_cipher(const char *, char *, long, int);
+
+/* NetBSD tcsetattr(3) flag (musl lacks TCSASOFT); musl ignores extra bits. */
+#ifndef TCSASOFT
+#define	TCSASOFT	0x0010
+#endif
+
+/* libutil sockaddr_snprintf(3) (sigstub.c). */
+int	sockaddr_snprintf(char *, size_t, const char *, const struct sockaddr *);
+/* BSD passwd/group stay-open knobs (musl lacks them) (sigstub.c). */
+int	setpassent(int);
+int	setgroupent(int);
+
+/* cget(3)/getcap(3) family, provided by libtinfo (getent uses these). */
+int	cgetent(char **, char **, const char *);
+int	cgetfirst(char **, char **);
+int	cgetnext(char **, char **);
+int	cgetclose(void);
+char	*cgetcap(char *, const char *, int);
+int	cgetstr(char *, const char *, char **);
+int	cgetnum(char *, const char *, long *);
+void	csetexpandtc(int);
+
+/* <paths.h> supply missing from musl (getent). */
+#ifndef _PATH_GETTYTAB
+#define	_PATH_GETTYTAB	"/etc/gettytab"
+#endif
+#ifndef _PATH_PRINTCAP
+#define	_PATH_PRINTCAP	"/etc/printcap"
+#endif
+
+/* Hostname length bound as <netdb.h>-adjacent BSD headers provide. */
+#ifndef MAXHOSTNAMELEN
+#define	MAXHOSTNAMELEN	256
+#endif
 #endif /* !_FREELINX_FLX_BSD_H_ */
