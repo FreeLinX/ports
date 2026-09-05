@@ -1,0 +1,5 @@
+# FreeLinX/ports - devel/libgc : upstream source reference.
+DISTINFO_NAME=bdwgc-8.2.8
+DISTINFO_ARCHIVE=libgc-8.2.8.tar.gz
+DISTINFO_URL=https://github.com/ivmai/bdwgc/archive/refs/tags/v8.2.8.tar.gz
+DISTINFO_SHA256=f8f85e2ad675375df37916826c70f80630b7cc4d3ae33c4447a72640641d224f

@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/ubase : upstream source reference.
+DISTINFO_NAME=ubase-05222026
+DISTINFO_ARCHIVE=ubase-05222026.tar.gz
+DISTINFO_URL=https://git.suckless.org/ubase/snapshot/ubase-05222026.tar.gz
+DISTINFO_SHA256=fd5132eaee3ef82f6d947f1720167316a2dfdf4ccd6ed2925e09af973e0fc60b

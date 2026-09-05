@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/abduco : upstream source reference.
+DISTINFO_NAME=abduco-0.6
+DISTINFO_ARCHIVE=abduco-0.6.tar.gz
+DISTINFO_URL=https://github.com/martanne/abduco/archive/refs/tags/v0.6.tar.gz
+DISTINFO_SHA256=46ddba2200ce405c9f0571d08844be0d20bd573e7fa1bf91d0d0fc312e5c8b5c
