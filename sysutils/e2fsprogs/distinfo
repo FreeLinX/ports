@@ -1,0 +1,7 @@
+# FreeLinX/ports - sysutils/e2fsprogs : upstream source reference.
+# Note: e2fsprogs does not publish release tarballs on GitHub releases.
+# We use the GitHub source archive (git tag).
+DISTINFO_NAME=e2fsprogs-1.47.3
+DISTINFO_ARCHIVE=v1.47.3.tar.gz
+DISTINFO_URL=https://github.com/tytso/e2fsprogs/archive/v1.47.3.tar.gz
+DISTINFO_SHA256=9286ee5471a8a5339a61eb952739e4614a5b1dbed79ca73a78f014885ce2ad53

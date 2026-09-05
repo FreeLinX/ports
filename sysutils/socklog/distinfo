@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/socklog : socklog 2.2.3 (logging for runit).
+DISTINFO_NAME=socklog-2.2.3
+DISTINFO_ARCHIVE=v2.2.3.tar.gz
+DISTINFO_URL=https://github.com/just-containers/socklog/archive/refs/tags/v2.2.3.tar.gz
+DISTINFO_SHA256=9f9752ec21fb296ec60bc00f9bd344d55cb09ba53655a8051249eab12b157e06

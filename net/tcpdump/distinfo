@@ -1,0 +1,5 @@
+# FreeLinX/ports - net/tcpdump : upstream source reference.
+DISTINFO_NAME=tcpdump-4.99.5
+DISTINFO_ARCHIVE=tcpdump-4.99.5.tar.xz
+DISTINFO_URL=https://www.tcpdump.org/release/tcpdump-4.99.5.tar.xz
+DISTINFO_SHA256=d76395ab82d659d526291b013eee200201380930793531515abfc6e77b4f2ee5
