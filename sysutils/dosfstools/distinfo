@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/dosfstools : upstream source reference.
+DISTINFO_NAME=dosfstools-4.2
+DISTINFO_ARCHIVE=dosfstools-4.2.tar.gz
+DISTINFO_URL=https://github.com/dosfstools/dosfstools/releases/download/v4.2/dosfstools-4.2.tar.gz
+DISTINFO_SHA256=64926eebf90092dca21b14259a5301b7b98e7b1943e8a201c7d726084809b527

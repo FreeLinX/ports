@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/usbutils : upstream source reference.
+DISTINFO_NAME=usbutils-018
+DISTINFO_ARCHIVE=v018.tar.gz
+DISTINFO_URL=https://github.com/gregkh/usbutils/archive/refs/tags/v018.tar.gz
+DISTINFO_SHA256=7cb6f475730e6ac3348ced5def99974a5fa2897fda317808c64ca3e5139d0a9e

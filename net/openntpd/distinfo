@@ -1,0 +1,5 @@
+# FreeLinX/ports - net/openntpd : upstream source reference.
+DISTINFO_NAME=openntpd-7.9p1
+DISTINFO_ARCHIVE=openntpd-7.9p1.tar.gz
+DISTINFO_URL=https://cdn.openbsd.org/pub/OpenBSD/OpenNTPD/openntpd-7.9p1.tar.gz
+DISTINFO_SHA256=091eeb3f4e358e28c3ab2ea58f93d7a0b5758a20d7c8a0418e162e9b2c27addc

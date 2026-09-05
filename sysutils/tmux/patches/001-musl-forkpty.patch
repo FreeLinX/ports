@@ -1,0 +1,9 @@
+--- a/compat.h
++++ b/compat.h
+@@ -389,7 +389,7 @@
+ #ifndef HAVE_FORKPTY
+ /* forkpty.c */
+-pid_t		 forkpty(int *, char *, struct termios *, struct winsize *);
++/* forkpty provided by musl pty.h */
+ #endif
+ 
