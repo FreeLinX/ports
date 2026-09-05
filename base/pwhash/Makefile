@@ -20,3 +20,14 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/pwhash/pwhash.c
 
 PORT_SRCS = usr.bin/pwhash/pwhash.c
+COMPAT_SRCS += $(FLX_COMPAT)/pw_gensalt.c
+COMPAT_SRCS += $(FLX_COMPAT)/pw_getconf.c
+
+CRYPT_PREFIX = $(FREELINX_SYSROOT)
+FLX_LD          = $(CC) $(FREELINX_CFLAGS) $(FREELINX_LDFLAGS) \
+			-nostdlib -L$(FREELINX_SYSROOT)/lib \
+			$(FLX_CRT) \
+			$(OBJ_DIR)/*.o \
+			-lcrypt \
+			-lc $(FLX_COMPILER_RT) \
+			$(FLX_CRT_END)

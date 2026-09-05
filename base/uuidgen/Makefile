@@ -20,3 +20,4 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/uuidgen/uuidgen.c
 
 PORT_SRCS = usr.bin/uuidgen/uuidgen.c
+COMPAT_SRCS += $(FLX_COMPAT)/uuid.c

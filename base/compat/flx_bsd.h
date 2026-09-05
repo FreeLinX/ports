@@ -324,6 +324,16 @@ void	csetexpandtc(int);
 typedef long	daddr_t;
 #endif
 
+/* BSD <limits.h> password length (pwhash). */
+#ifndef _PASSWORD_LEN
+#define	_PASSWORD_LEN	128
+#endif
+
+/* musl lacks the BSD EFTYPE errno (pwhash). */
+#ifndef EFTYPE
+#define	EFTYPE	79
+#endif
+
 /* Hostname length bound as <netdb.h>-adjacent BSD headers provide. */
 #ifndef MAXHOSTNAMELEN
 #define	MAXHOSTNAMELEN	256
