@@ -20,3 +20,5 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/db/db.c
 
 PORT_SRCS = usr.bin/db/db.c
+COMPAT_SRCS += $(FLX_DB_SRCS) $(FLX_VIS_SRCS)
+FLX_CPPFLAGS += -D__DBINTERFACE_PRIVATE

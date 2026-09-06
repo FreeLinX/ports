@@ -32,3 +32,6 @@ PORT_SRCS = usr.bin/nbperf/graph2.c \
 	usr.bin/nbperf/nbperf-chm.c \
 	usr.bin/nbperf/nbperf-chm3.c \
 	usr.bin/nbperf/nbperf.c
+
+COMPAT_SRCS += $(FLX_LIBC)/mi_vector_hash.c
+COMPAT_SRCS += $(FLX_COMPAT)/arc4random.c

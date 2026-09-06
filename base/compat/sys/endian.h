@@ -1,13 +1,7 @@
-/* FreeLinX/ports - base/compat/sys/endian.h : NetBSD byte-order shim.
- *
- * NetBSD base sources include <sys/endian.h> to obtain the
- * htole/letoh/htobe/betoh conversion family and the BYTE_ORDER macros.
- * musl provides all of those through <endian.h>; this wrapper (found via
- * the compat include path) forwards to it.
- */
-#ifndef _FREELINX_SYS_ENDIAN_H_
-#define _FREELINX_SYS_ENDIAN_H_
-
-#include <endian.h>
-
-#endif /* !_FREELINX_SYS_ENDIAN_H_ */
+/* FreeLinX shim: musl has no <sys/endian.h>; le/be{16,32,64}dec/enc come
+ * from flx_bsd.h (force-included in every base compile). */
+#ifndef _FLX_SYS_ENDIAN_H_
+#define _FLX_SYS_ENDIAN_H_
+#include <stdint.h>
+#include <strings.h>
+#endif

@@ -20,3 +20,6 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/infocmp/infocmp.c
 
 PORT_SRCS = usr.bin/infocmp/infocmp.c
+
+FLX_CPPFLAGS+= $(FLX_TERMINFO_CPPFLAGS)
+COMPAT_SRCS += $(FLX_LTERMINFO_SRCS)

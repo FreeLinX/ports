@@ -1,0 +1,10 @@
+--- a/usr.bin/talk/look_up.c	2026-09-05 22:11:08.641004329 +0100
++++ b/usr.bin/talk/look_up.c	2026-09-05 22:11:08.671237292 +0100
+@@ -74,7 +74,6 @@
+ 
+ 		(void)memcpy(&addr, &rp->addr.sa_family, sizeof(addr));
+ 		addr.sa_family = rp->addr.sa_family;
+-		addr.sa_len = sizeof(addr);
+ 
+ 		errno = 0;
+ 		if (connect(sockt, &addr, sizeof(addr)) != -1)

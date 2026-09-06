@@ -42,3 +42,8 @@ PORT_SRCS = usr.bin/talk/ctl.c \
 	usr.bin/talk/look_up.c \
 	usr.bin/talk/msgs.c \
 	usr.bin/talk/talk.c
+
+FLX_CPPFLAGS+= $(FLX_NCURSES_CPPFLAGS)
+FLX_LDADD   += $(FLX_NCURSES_LDADD)
+
+FLX_LDADD   += $(FLX_NCURSES_LDADD)

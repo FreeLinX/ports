@@ -30,3 +30,5 @@ PORT_SRCS = usr.bin/finger/finger.c \
 	usr.bin/finger/net.c \
 	usr.bin/finger/sprint.c \
 	usr.bin/finger/util.c
+COMPAT_SRCS += $(FLX_DB_SRCS) $(FLX_VIS_SRCS) $(FLX_REALLOCARR_SRCS) $(FLX_UTMPENTRY_SRCS) $(FLX_SIGSTUB_SRCS)
+FLX_CPPFLAGS += -D__DBINTERFACE_PRIVATE

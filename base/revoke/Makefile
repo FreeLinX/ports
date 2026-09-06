@@ -20,3 +20,4 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/revoke/revoke.c
 
 PORT_SRCS = usr.bin/revoke/revoke.c
+COMPAT_SRCS += $(FLX_SIGSTUB_SRCS)

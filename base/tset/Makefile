@@ -29,3 +29,6 @@ PORT_SRCS = usr.bin/tset/map.c \
 	usr.bin/tset/set.c \
 	usr.bin/tset/term.c \
 	usr.bin/tset/tset.c
+
+FLX_CPPFLAGS+= $(FLX_TERMINFO_CPPFLAGS)
+COMPAT_SRCS += $(FLX_LTERMINFO_SRCS)

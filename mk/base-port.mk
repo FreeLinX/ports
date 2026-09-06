@@ -35,7 +35,8 @@ SRC_DIR?=$(FREELINX_BUILD_DIR)/work/$(NAME)
 OBJ_DIR?=$(FREELINX_BUILD_DIR)/obj/$(NAME)
 DIST_TGZ?=$(FREELINX_DIST_DIR)/$(DISTINFO_ARCHIVE)
 FLX_COMPAT?=$(FREELINX_PORTS_ROOT)/base/compat
-COMPAT_SRCS?=$(FLX_COMPAT)/getprogname.c
+COMPAT_SRCS?=$(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/estrlcpy.c $(FLX_COMPAT)/estdlib.c $(FLX_COMPAT)/arc4random.c $(FLX_COMPAT)/getttynam.c $(FLX_COMPAT)/easprintf.c
+include $(FREELINX_PORTS_ROOT)/mk/flx-libc.mk
 PATCHES?=$(wildcard $(CURDIR)/patches/patch-*)
 
 # NetBSD kernel-source + public-header overlay (base/compat/nbsys).  Provided
@@ -134,3 +135,9 @@ $(BUILD_BIN): do-prepare
 .PHONY: do-build
 do-build: $(BUILD_BIN)
 	@printf '[FreeLinX/ports] built: %s\n' "$(BUILD_BIN)"
+
+# ncurses from the deps tree (host-built): -I include/ncursesw for
+# <curses.h>/<term.h>/<term_private.h>, and static link set for CU_* tools.
+FLX_NCURSES        := $(FREELINX_PORTS_ROOT)/build/deps/ncurses
+FLX_NCURSES_CPPFLAGS = -I$(FLX_NCURSES)/include -I$(FLX_NCURSES)/include/ncursesw
+FLX_NCURSES_LDADD    = $(FLX_NCURSES)/lib/libncursesw.a $(FLX_NCURSES)/lib/libtinfo.a

@@ -27,3 +27,6 @@ NETBSD_MEMBERS = usr/src/usr.bin/aiomixer/app.h \
 PORT_SRCS = usr.bin/aiomixer/draw.c \
 	usr.bin/aiomixer/main.c \
 	usr.bin/aiomixer/parse.c
+
+FLX_CPPFLAGS+= $(FLX_NCURSES_CPPFLAGS)
+FLX_LDADD   += $(FLX_NCURSES_LDADD)

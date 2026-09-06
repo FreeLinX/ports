@@ -1,0 +1,18 @@
+--- a/usr.bin/talk/ctl.c	2026-09-05 22:11:08.638065950 +0100
++++ b/usr.bin/talk/ctl.c	2026-09-05 22:11:08.671186752 +0100
+@@ -72,7 +72,6 @@
+ 	(void)memset(&my_addr, 0, sizeof(my_addr));
+ 	my_addr.sin_family = AF_INET;
+ #ifdef BSD4_4
+-	my_addr.sin_len = sizeof(my_addr);
+ #endif
+ 	my_addr.sin_addr = my_machine_addr;
+ 	my_addr.sin_port = 0;
+@@ -95,7 +94,6 @@
+ 	(void)memset(&ctl_addr, 0, sizeof(ctl_addr));
+ 	ctl_addr.sin_family = AF_INET;
+ #ifdef BSD4_4
+-	ctl_addr.sin_len = sizeof(my_addr);
+ #endif
+ 	ctl_addr.sin_port = 0;
+ 	ctl_addr.sin_addr = my_machine_addr;
