@@ -25,3 +25,5 @@ PORT_SRCS = usr.bin/progress/progress.c \
 	usr.bin/ftp/progressbar.c
 
 FLX_CPPFLAGS+= -I$(SRC_DIR)/usr.bin/ftp
+
+COMPAT_SRCS += $(FLX_STRCPYTRICK_SRCS)

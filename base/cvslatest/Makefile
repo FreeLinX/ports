@@ -20,3 +20,5 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/cvslatest/cvslatest.c
 
 PORT_SRCS = usr.bin/cvslatest/cvslatest.c
+COMPAT_SRCS += $(FLX_FTS_SRCS)
+COMPAT_SRCS += $(FLX_REALLOCARR_SRCS)

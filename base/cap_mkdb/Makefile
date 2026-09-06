@@ -20,3 +20,5 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/cap_mkdb/cap_mkdb.c
 
 PORT_SRCS = usr.bin/cap_mkdb/cap_mkdb.c
+COMPAT_SRCS += $(FLX_DB_SRCS) $(FLX_GETCAP_SRCS)
+FLX_CPPFLAGS += -D__DBINTERFACE_PRIVATE

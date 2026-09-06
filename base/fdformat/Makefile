@@ -21,3 +21,4 @@ NETBSD_MEMBERS = usr/src/usr.bin/fdformat/fdformat.c \
 	usr/src/usr.bin/fdformat/pathnames.h
 
 PORT_SRCS = usr.bin/fdformat/fdformat.c
+COMPAT_SRCS += $(FLX_GETCAP_SRCS)

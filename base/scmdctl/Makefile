@@ -35,3 +35,4 @@ PORT_SRCS = usr.bin/scmdctl/common.c \
 	usr.bin/scmdctl/printscmd.c \
 	usr.bin/scmdctl/scmdctl.c \
 	usr.bin/scmdctl/uart.c
+COMPAT_SRCS += $(FLX_STRTOI_SRCS) $(FLX_SIGSTUB_SRCS)

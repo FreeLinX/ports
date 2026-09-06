@@ -45,62 +45,62 @@
  * <stdint.h>; guard each so the first definition wins instead of tripping
  * "typedef redefinition with different types" when a NetBSD kernel header
  * drags this file in through -idirafter. */
-#ifndef int_least8_t
+#ifndef INT_LEAST8_MIN
 typedef	__INT_LEAST8_TYPE__		  int_least8_t;
 #endif
-#ifndef uint_least8_t
+#ifndef UINT_LEAST8_MAX
 typedef	__UINT_LEAST8_TYPE__		 uint_least8_t;
 #endif
-#ifndef int_least16_t
+#ifndef INT_LEAST16_MIN
 typedef	__INT_LEAST16_TYPE__		 int_least16_t;
 #endif
-#ifndef uint_least16_t
+#ifndef UINT_LEAST16_MAX
 typedef	__UINT_LEAST16_TYPE__		uint_least16_t;
 #endif
-#ifndef int_least32_t
+#ifndef INT_LEAST32_MIN
 typedef	__INT_LEAST32_TYPE__		 int_least32_t;
 #endif
-#ifndef uint_least32_t
+#ifndef UINT_LEAST32_MAX
 typedef	__UINT_LEAST32_TYPE__		uint_least32_t;
 #endif
-#ifndef int_least64_t
+#ifndef INT_LEAST64_MIN
 typedef	__INT_LEAST64_TYPE__		 int_least64_t;
 #endif
-#ifndef uint_least64_t
+#ifndef UINT_LEAST64_MAX
 typedef	__UINT_LEAST64_TYPE__		uint_least64_t;
 #endif
 
 /* 7.18.1.3 Fastest minimum-width integer types */
-#ifndef int_fast8_t
+#ifndef INT_FAST8_MIN
 typedef	__INT_FAST8_TYPE__		   int_fast8_t;
 #endif
-#ifndef uint_fast8_t
+#ifndef UINT_FAST8_MAX
 typedef	__UINT_FAST8_TYPE__		  uint_fast8_t;
 #endif
-#ifndef int_fast16_t
+#ifndef INT_FAST16_MIN
 typedef	__INT_FAST16_TYPE__		  int_fast16_t;
 #endif
-#ifndef uint_fast16_t
+#ifndef UINT_FAST16_MAX
 typedef	__UINT_FAST16_TYPE__		 uint_fast16_t;
 #endif
-#ifndef int_fast32_t
+#ifndef INT_FAST32_MIN
 typedef	__INT_FAST32_TYPE__		  int_fast32_t;
 #endif
-#ifndef uint_fast32_t
+#ifndef UINT_FAST32_MAX
 typedef	__UINT_FAST32_TYPE__		 uint_fast32_t;
 #endif
-#ifndef int_fast64_t
+#ifndef INT_FAST64_MIN
 typedef	__INT_FAST64_TYPE__		  int_fast64_t;
 #endif
-#ifndef uint_fast64_t
+#ifndef UINT_FAST64_MAX
 typedef	__UINT_FAST64_TYPE__		 uint_fast64_t;
 #endif
 
 /* 7.18.1.5 Greatest-width integer types */
-#ifndef intmax_t
+#ifndef INTMAX_MIN
 typedef	__INTMAX_TYPE__			      intmax_t;
 #endif
-#ifndef uintmax_t
+#ifndef UINTMAX_MAX
 typedef	__UINTMAX_TYPE__		     uintmax_t;
 #endif
 

@@ -25,3 +25,5 @@ PORT_SRCS = usr.bin/rlogin/rlogin.c \
 	usr.bin/rsh/getport.c
 
 FLX_CPPFLAGS+= -I$(SRC_DIR)/usr.bin/rsh
+
+COMPAT_SRCS += $(FLX_COMPAT)/rcmd.c

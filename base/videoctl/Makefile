@@ -20,3 +20,4 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/videoctl/videoctl.c
 
 PORT_SRCS = usr.bin/videoctl/videoctl.c
+COMPAT_SRCS += $(FLX_SIGSTUB_SRCS)

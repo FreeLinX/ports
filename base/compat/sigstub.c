@@ -841,3 +841,4 @@ extattr_delete_link(const char *path, int attrnamespace, const char *name)
 	errno = EOPNOTSUPP;
 	return -1;
 }
+

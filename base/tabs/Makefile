@@ -20,3 +20,6 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/tabs/tabs.c
 
 PORT_SRCS = usr.bin/tabs/tabs.c
+
+FLX_CPPFLAGS+= $(FLX_NCURSES_CPPFLAGS)
+FLX_LDADD   += $(FLX_NCURSES_LDADD)

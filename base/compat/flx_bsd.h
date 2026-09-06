@@ -547,4 +547,201 @@ struct uucred {
 #define	EJUSTRETURN	EINPROGRESS
 #endif
 
+/* ---------------------------------------------------------------------------
+ * NetBSD kernel-header type stubs (kvm/ktrace/netstat/fstat cluster).
+ * The nbsys overlay exposes real 10.1 kernel headers needing kernel types
+ * musl never defines; provide the handful used by base utilities here so
+ * the headers parse under -idirafter.  All are compatible-with-NetBSD
+ * definitions (duplicate typedefs of the same type are legal C11, so a
+ * kernel header that later defines one itself is harmless).
+ * ------------------------------------------------------------------------- */
+#include <stdbool.h>
+
+#ifndef MAXCOMLEN
+#define MAXCOMLEN 16
+#endif
+
+struct kauth_cred;			/* sys/kauth.h tag, never deref'd here */
+typedef struct kauth_cred *kauth_cred_t;
+typedef uint32_t if_index_t;
+#ifndef paddr_t
+typedef uint64_t paddr_t;
+#endif
+typedef int lwpid_t;
+#ifndef __register_t
+typedef long __register_t;
+#endif
+
+typedef u_int __cpu_simple_lock_t;
+#ifndef __SIMPLELOCK_UNLOCKED
+#define __SIMPLELOCK_UNLOCKED 0
+#endif
+#ifndef __SIMPLELOCK_LOCKED
+#define __SIMPLELOCK_LOCKED 1
+#endif
+
+#ifndef __CAST
+#define __CAST(type, value) ((type)(value))
+#endif
+
+/* ---------------------------------------------------------------------------
+ * NetBSD kernel-header type stubs (kvm/ktrace/netstat/fstat cluster).
+ * The nbsys overlay exposes real 10.1 kernel headers needing kernel types
+ * musl never defines; provide the handful used by base utilities here so
+ * the headers parse under -idirafter.  All are compatible-with-NetBSD
+ * definitions (duplicate typedefs of the same type are legal C11, so a
+ * kernel header that later defines one itself is harmless).
+ * ------------------------------------------------------------------------- */
+#include <stdbool.h>
+
+#ifndef MAXCOMLEN
+#define MAXCOMLEN 16
+#endif
+
+struct kauth_cred;			/* sys/kauth.h tag, never deref'd here */
+typedef struct kauth_cred *kauth_cred_t;
+typedef uint32_t if_index_t;
+#ifndef paddr_t
+typedef uint64_t paddr_t;
+#endif
+typedef int lwpid_t;
+#ifndef __register_t
+typedef long __register_t;
+#endif
+
+typedef u_int __cpu_simple_lock_t;
+#ifndef __SIMPLELOCK_UNLOCKED
+#define __SIMPLELOCK_UNLOCKED 0
+#endif
+#ifndef __SIMPLELOCK_LOCKED
+#define __SIMPLELOCK_LOCKED 1
+#endif
+
+#ifndef __CAST
+#define __CAST(type, value) ((type)(value))
+#endif
+
+
+/* ---------------------------------------------------------------------------
+ * termios / tty size / misc BSD-isms musl lacks.  Linux shares the on-wire
+ * ioctl numbers for TIOCSWINSZ etc., so struct ttysize can mirror winsize
+ * and TIOCGSIZE can alias TIOCGWINSZ; VDSUSP sits in an unused c_cc slot.
+ * __nothing is the empty-attribute helper from <sys/cdefs.h>.
+ * ------------------------------------------------------------------------- */
+#ifndef TIOCGSIZE
+struct ttysize { unsigned short ts_lines; unsigned short ts_cols; };
+#define TIOCGSIZE TIOCGWINSZ
+#endif
+
+#ifndef VDSUSP
+#define VDSUSP 19		/* Linux termios: unused slot, kept for compat */
+#endif
+
+#ifndef __nothing
+#define __nothing ((void)0)
+#endif
+
+/* libutil estring helpers (estrlcpy.3) shared by base tools; see
+ * compat/estrlcpy.c / compat/estdlib.c for the definitions. */
+#ifndef ESTRLCAT_DECL
+size_t estrlcat(char *, const char *, size_t);
+size_t estrlcpy(char *, const char *, size_t);
+void   ereallocarr(void *, size_t, size_t);
+#define ESTRLCAT_DECL
+#endif
+
+
+/* ---------------------------------------------------------------------------
+ * endian helpers & termcap ospeed - NetBSD <sys/endian.h>/<term.h> members
+ * missing from musl, used by libterminfo and tset.
+ * ------------------------------------------------------------------------- */
+#ifndef le16dec
+static inline uint16_t le16dec(const void *p){ const uint8_t *b=p; return (uint16_t)(b[0] | ((uint16_t)b[1]<<8)); }
+static inline uint32_t le32dec(const void *p){ const uint8_t *b=p; return (uint32_t)b[0]|((uint32_t)b[1]<<8)|((uint32_t)b[2]<<16)|((uint32_t)b[3]<<24); }
+static inline uint64_t le64dec(const void *p){ const uint8_t *b=p; return (uint64_t)le32dec(b) | ((uint64_t)le32dec(b+4)<<32); }
+static inline void le16enc(void *p, uint16_t v){ uint8_t *b=p; b[0]=(uint8_t)v; b[1]=(uint8_t)(v>>8); }
+static inline void le32enc(void *p, uint32_t v){ uint8_t *b=p; b[0]=(uint8_t)v; b[1]=(uint8_t)(v>>8); b[2]=(uint8_t)(v>>16); b[3]=(uint8_t)(v>>24); }
+static inline void le64enc(void *p, uint64_t v){ uint8_t *b=p; le32enc(b,(uint32_t)v); le32enc(b+4,(uint32_t)(v>>32)); }
+static inline uint16_t be16dec(const void *p){ const uint8_t *b=p; return (uint16_t)(((uint16_t)b[0]<<8)|b[1]); }
+static inline uint32_t be32dec(const void *p){ const uint8_t *b=p; return ((uint32_t)b[0]<<24)|((uint32_t)b[1]<<16)|((uint32_t)b[2]<<8)|(uint32_t)b[3]; }
+static inline uint64_t be64dec(const void *p){ const uint8_t *b=p; return ((uint64_t)be32dec(b)<<32)|(uint64_t)be32dec(b+4); }
+static inline void be16enc(void *p, uint16_t v){ uint8_t *b=p; b[0]=(uint8_t)(v>>8); b[1]=(uint8_t)v; }
+static inline void be32enc(void *p, uint32_t v){ uint8_t *b=p; b[0]=(uint8_t)(v>>24); b[1]=(uint8_t)(v>>16); b[2]=(uint8_t)(v>>8); b[3]=(uint8_t)v; }
+static inline void be64enc(void *p, uint64_t v){ uint8_t *b=p; be32enc(b,(uint32_t)(v>>32)); be32enc(b+4,(uint32_t)v); }
+#endif
+
+#ifndef FLX_BSD_DECL_OSPEED
+extern short ospeed;
+#define FLX_BSD_DECL_OSPEED 1
+#endif
+
+
+/* ---------------------------------------------------------------------------
+ * libutil / terminfo / tty-defaults leftovers: emalloc/estrdup, libterminfo
+ * putp + PC, NetBSD C* tty c_cc index aliases, NetBSD <search.h> hdestroy1.
+ * ------------------------------------------------------------------------- */
+#ifndef emalloc
+void *emalloc(size_t);
+#endif
+#ifndef estrdup
+char  *estrdup(const char *);
+#endif
+#ifndef putp_decl
+int putp(const char *);
+#endif
+extern char PC;
+
+/* NetBSD <sys/ttydefaults.h>: C* aliases for the c_cc indexes. */
+#ifndef CEOF
+#define CEOF     VEOF
+#define CERASE   VERASE
+#define CKILL    VKILL
+#define CINTR    VINTR
+#define CQUIT    VQUIT
+#define CSUSP    VSUSP
+#define CSTART   VSTART
+#define CSTOP    VSTOP
+#define CWERASE  VWERASE
+#define CRPRNT   VREPRINT
+#define CDISCARD VDISCARD
+#define CLNEXT   VLNEXT
+#define CFLUSH   VDISCARD
+#endif
+#ifndef OXTABS
+#define OXTABS 0
+#endif
+
+#ifndef FLX_BSD_DECL_HDESTROY1
+void hdestroy1(void (*)(void *), void (*)(void *));
+#define FLX_BSD_DECL_HDESTROY1 1
+#endif
+
+
+/* ---------------------------------------------------------------------------
+ * misc: __unused attribute plus NetBSD mi_vector_hash(3) (hash used by the
+ * vendored cdb reader/writer for terminfo databases).
+ * ------------------------------------------------------------------------- */
+#ifndef __unused
+#define __unused __attribute__((unused))
+#endif
+#ifndef FLX_BSD_DECL_MIVEC
+void mi_vector_hash(const void * __restrict, size_t, uint32_t, uint32_t[3]);
+#define FLX_BSD_DECL_MIVEC 1
+#endif
+
+
+
+#ifndef FLX_BSD_DECL_ESTRING2
+void *ecalloc(size_t, size_t);
+void *erealloc(void *, size_t);
+int easprintf(char ** __restrict, const char * __restrict, ...);
+#define FLX_BSD_DECL_ESTRING2 1
+#endif
+#ifndef FLX_BSD_DECL_ARC4RANDOM
+uint32_t arc4random(void);
+void arc4random_buf(void *, size_t);
+uint32_t arc4random_uniform(uint32_t);
+#define FLX_BSD_DECL_ARC4RANDOM 1
+#endif
+
 #endif /* !_FREELINX_FLX_BSD_H_ */
