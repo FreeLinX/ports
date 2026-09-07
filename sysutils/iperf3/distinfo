@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/iperf3 : upstream source reference.
+DISTINFO_NAME=iperf-3.17.1
+DISTINFO_ARCHIVE=iperf-3.17.1.tar.gz
+DISTINFO_URL=https://downloads.es.net/pub/iperf/iperf-3.17.1.tar.gz
+DISTINFO_SHA256=84404ca8431b595e86c473d8f23d8bb102810001f15feaf610effd3b318788aa

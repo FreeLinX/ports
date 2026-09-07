@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/dvtm : upstream source reference.
+DISTINFO_NAME=dvtm-0.15
+DISTINFO_ARCHIVE=dvtm-0.15.tar.gz
+DISTINFO_URL=https://github.com/martanne/dvtm/releases/download/v0.15/dvtm-0.15.tar.gz
+DISTINFO_SHA256=8f2015c05e2ad82f12ae4cf12b363d34f527a4bbc8c369667f239e4542e1e510

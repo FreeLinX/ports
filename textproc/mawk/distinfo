@@ -1,0 +1,7 @@
+# FreeLinX/ports - textproc/mawk : upstream source reference.
+# TODO: the originally-specified mawk-20240122.tgz does not exist (HTTP 404);
+#         using real upstream mawk-1.3.4-20240123.tgz (hash computed from download).
+DISTINFO_NAME=mawk-1.3.4-20240123
+DISTINFO_ARCHIVE=mawk-1.3.4-20240123.tgz
+DISTINFO_URL=https://invisible-island.net/archives/mawk/mawk-1.3.4-20240123.tgz
+DISTINFO_SHA256=a8e319a83744b1f1fb6988dfa189d61887f866e9140cc9a49eb003b2b0655e88

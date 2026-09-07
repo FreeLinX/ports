@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/pstree : upstream source reference.
+DISTINFO_NAME=psmisc-23.6
+DISTINFO_ARCHIVE=psmisc-23.6.tar.xz
+DISTINFO_URL=https://sourceforge.net/projects/psmisc/files/psmisc/psmisc-23.6.tar.xz/download
+DISTINFO_SHA256=257dde06159a4c49223d06f1cccbeb68933a4514fc8f1d77c64b54f0d108822a

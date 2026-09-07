@@ -1,0 +1,5 @@
+# FreeLinX/ports - devel/cmake : upstream source reference.
+DISTINFO_NAME=cmake-3.30.2
+DISTINFO_ARCHIVE=cmake-3.30.2.tar.gz
+DISTINFO_URL=https://github.com/Kitware/CMake/releases/download/v3.30.2/cmake-3.30.2.tar.gz
+DISTINFO_SHA256=46074c781eccebc433e98f0bbfa265ca3fd4381f245ca3b140e7711531d60db2

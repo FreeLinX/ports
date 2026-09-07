@@ -1,0 +1,5 @@
+# FreeLinX/ports - net/toybox : upstream source reference.
+DISTINFO_NAME=toybox-0.8.11
+DISTINFO_ARCHIVE=toybox-0.8.11.tar.gz
+DISTINFO_URL=https://landley.net/toybox/downloads/toybox-0.8.11.tar.gz
+DISTINFO_SHA256=15aa3f832f4ec1874db761b9950617f99e1e38144c22da39a71311093bfe67dc

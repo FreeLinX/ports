@@ -1,0 +1,4 @@
+DISTINFO_NAME=sway-1.10.1
+DISTINFO_ARCHIVE=sway-1.10.1.tar.gz
+DISTINFO_URL=https://gitlab.freedesktop.org/wlroots/sway/-/archive/1.10.1/sway-1.10.1.tar.gz
+DISTINFO_SHA256=360f05185f974f62adee59a106d6d86d870bd6440df19fc1e8b41d9480caab04

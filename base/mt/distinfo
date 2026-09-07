@@ -1,0 +1,9 @@
+# FreeLinX/ports - base/mt : upstream source reference.
+#
+# UPSTREAM SOURCE (not FreeLinX patches, not generated):
+#   NetBSD 10.1 base source set.
+#   Source: https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/source/sets/src.tgz
+DISTINFO_NAME=netbsd-10.1-src
+DISTINFO_ARCHIVE=src.tgz
+DISTINFO_URL=https://cdn.netbsd.org/pub/NetBSD/NetBSD-10.1/source/sets/src.tgz
+DISTINFO_SHA256=4f9cbe87cf7ec9024345cd433908d355b4b91e22b1dac62b375179352e6be399

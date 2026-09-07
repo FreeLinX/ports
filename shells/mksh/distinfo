@@ -1,0 +1,5 @@
+# FreeLinX/ports - shells/mksh : upstream source reference.
+DISTINFO_NAME=mksh-R59c
+DISTINFO_ARCHIVE=mksh-R59c.tgz
+DISTINFO_URL=https://www.mirbsd.org/MirOS/dist/mir/mksh/mksh-R59c.tgz
+DISTINFO_SHA256=77ae1665a337f1c48c61d6b961db3e52119b38e58884d1c89684af31f87bc506

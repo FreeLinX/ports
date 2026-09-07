@@ -1,0 +1,5 @@
+# FreeLinX/ports - editors/ne : upstream source reference.
+DISTINFO_NAME=ne-3.3.3
+DISTINFO_ARCHIVE=ne-3.3.3.tar.gz
+DISTINFO_URL=https://github.com/vigna/ne/archive/refs/tags/3.3.3.tar.gz
+DISTINFO_SHA256=4f7509bb552e10348f9599f39856c8b7a2a74ea54c980dd2c9e15be212a1a6f0

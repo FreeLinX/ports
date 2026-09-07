@@ -67,13 +67,13 @@ for p in "$@"; do
 
     _stage="$FREELINX_STAGING_ROOT/$_relpath"
     _rootfs="$FREELINX_ROOTFS_DIR/$_relpath"
-    if [ ! -f "$_stage" ]; then
-        flx_die "$p: install target did not create expected staged binary at $_stage"
+    if [ ! -e "$_stage" ]; then
+        flx_die "$p: install target did not create expected staged output at $_stage"
     fi
 
     flx_info "Installing $p to staging overlay: $_stage"
 
-    if [ "$INSTALL_TO_ROOTFS" -eq 1 ]; then
+    if [ "$INSTALL_TO_ROOTFS" -eq 1 ] && [ ! -d "$_stage" ]; then
         # Validate the configured rootfs destination once, before any copy.
         _rootfs_base=$(flx_validate_rootfs_dir "$FREELINX_ROOTFS_DIR") \
             || exit 1

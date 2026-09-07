@@ -1,0 +1,5 @@
+# FreeLinX/ports - net/wget : upstream source reference.
+DISTINFO_NAME=wget-1.25.0
+DISTINFO_ARCHIVE=wget-1.25.0.tar.gz
+DISTINFO_URL=https://ftp.gnu.org/gnu/wget/wget-1.25.0.tar.gz
+DISTINFO_SHA256=766e48423e79359ea31e41db9e5c289675947a7fcf2efdcedb726ac9d0da3784

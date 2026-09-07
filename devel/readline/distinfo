@@ -1,0 +1,4 @@
+DISTINFO_NAME=readline-8.2.13
+DISTINFO_ARCHIVE=readline-8.2.13.tar.gz
+DISTINFO_URL=https://ftp.gnu.org/gnu/readline/readline-8.2.13.tar.gz
+DISTINFO_SHA256=0e5be4d2937e8bd9b7cd60d46721ce79f88a33415dd68c2d738fb5924638f656

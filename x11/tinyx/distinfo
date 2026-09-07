@@ -1,0 +1,4 @@
+DISTINFO_NAME=xorg-server-1.20.14
+DISTINFO_ARCHIVE=xorg-server-1.20.14.tar.gz
+DISTINFO_URL=https://www.x.org/pub/individual/xserver/xorg-server-1.20.14.tar.gz
+DISTINFO_SHA256=54b199c9280ff8bf0f73a54a759645bd0eeeda7255d1c99310d5b7595f3ac066

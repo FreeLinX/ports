@@ -1,0 +1,5 @@
+# FreeLinX/ports - net/busybox : upstream source reference.
+DISTINFO_NAME=busybox-1.36.1
+DISTINFO_ARCHIVE=busybox-1.36.1.tar.bz2
+DISTINFO_URL=https://www.busybox.net/downloads/busybox-1.36.1.tar.bz2
+DISTINFO_SHA256=b8cc24c9574d809e7279c3be349795c5d5ceb6fdf19ca709f80cde50e47de314

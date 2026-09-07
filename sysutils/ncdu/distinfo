@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/ncdu : upstream source reference.
+DISTINFO_NAME=ncdu-1.20
+DISTINFO_ARCHIVE=ncdu-1.20.tar.gz
+DISTINFO_URL=https://dev.yorhel.nl/download/ncdu-1.20.tar.gz
+DISTINFO_SHA256=5fe2bb841abe72374bb242dbb93293c4ae053078432d896a7481b2ff10be9572

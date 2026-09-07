@@ -1,0 +1,5 @@
+# FreeLinX/ports - net/rsync : upstream source reference.
+DISTINFO_NAME=rsync-3.3.0
+DISTINFO_ARCHIVE=rsync-3.3.0.tar.gz
+DISTINFO_URL=https://download.samba.org/pub/rsync/src/rsync-3.3.0.tar.gz
+DISTINFO_SHA256=7399e9a6708c32d678a72a63219e96f23be0be2336e50fd1348498d07041df90

@@ -1,0 +1,5 @@
+# FreeLinX/ports - security/age : upstream source reference.
+DISTINFO_NAME=age-1.2.0
+DISTINFO_ARCHIVE=v1.2.0.tar.gz
+DISTINFO_URL=https://github.com/FiloSottile/age/archive/refs/tags/v1.2.0.tar.gz
+DISTINFO_SHA256=cefe9e956401939ad86a9c9d7dcf843a43b6bcdf4ee7d8e4508864f227a3f6f0

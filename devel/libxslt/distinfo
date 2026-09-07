@@ -1,0 +1,5 @@
+# FreeLinX/ports - devel/libxslt : upstream source reference.
+DISTINFO_NAME=libxslt-1.1.42
+DISTINFO_ARCHIVE=libxslt-1.1.42.tar.xz
+DISTINFO_URL=https://download.gnome.org/sources/libxslt/1.1/libxslt-1.1.42.tar.xz
+DISTINFO_SHA256=85ca62cac0d41fc77d3f6033da9df6fd73d20ea2fc18b0a3609ffb4110e1baeb

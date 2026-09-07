@@ -1,0 +1,5 @@
+# FreeLinX/ports - x11/xclock : upstream source reference.
+DISTINFO_NAME=xclock-1.1.1
+DISTINFO_ARCHIVE=xclock-1.1.1.tar.gz
+DISTINFO_URL=https://www.x.org/pub/individual/app/xclock-1.1.1.tar.gz
+DISTINFO_SHA256=be0f90645b0fe21d2cbfdd77102cc3168f01cb794663fd8db2b305fed261e4c3
