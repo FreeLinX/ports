@@ -57,8 +57,10 @@ PROJECT_CFG_CMDS = \
 		--disable-locale-charset --disable-nls \
 		--without-mswin --without-cygwin \
 		--enable-nested-tables \
+		--disable-color-style \
 		--disable-option-checking \
 		AR="$(FLX_HOST_AR)" RANLIB="$(FLX_HOST_RANLIB)" \
+		CPPFLAGS="-DHAVE_PUTENV=1 -DNCURSES_WIDECHAR=1 -I$(FREELINX_PORTS_ROOT)/base/compat/nbsys/sys" \
 		LIBS="-lncursesw -lz -lssl -lcrypto"
 
 BUILD_CMDS = \

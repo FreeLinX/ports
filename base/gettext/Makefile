@@ -20,4 +20,5 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/gettext/gettext.c
 
 PORT_SRCS = usr.bin/gettext/gettext.c
-COMPAT_SRCS += $(FLX_COMPAT)/emalloc.c
+# estdlib.c (default COMPAT set) already provides emalloc/estrdup; adding
+# emalloc.c here duplicated those symbols at link time.

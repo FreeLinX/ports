@@ -239,6 +239,8 @@ int
 cgetnext(char **cap, char **db_array)
 {
 	cgbuild(db_array);
+	if (g_curr == NULL && g_entries != NULL)
+		g_curr = g_entries;
 	while (g_curr != NULL) {
 		struct cgentry *e = g_curr;
 		char *b;

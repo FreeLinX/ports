@@ -692,21 +692,34 @@ warnc(int code, const char *fmt, ...)
  * extended attributes, and stub the set path (namespaces differ).
  */
 int
-extattr_namespace_to_string(int attrnamespace, char *name, size_t size)
+extattr_namespace_to_string(int attrnamespace, char **name)
 {
-	(void)attrnamespace;
-	(void)name;
-	(void)size;
-	errno = EOPNOTSUPP;
-	return -1;
+	switch (attrnamespace) {
+	case EXTATTR_NAMESPACE_USER:
+		*name = strdup("user");
+		break;
+	case EXTATTR_NAMESPACE_SYSTEM:
+		*name = strdup("system");
+		break;
+	default:
+		errno = EINVAL;
+		return -1;
+	}
+	return *name == NULL ? -1 : 0;
 }
 
 int
 extattr_string_to_namespace(const char *name, int *attrnamespace)
 {
-	(void)name;
-	(void)attrnamespace;
-	errno = EOPNOTSUPP;
+	if (strcmp(name, "user") == 0) {
+		*attrnamespace = EXTATTR_NAMESPACE_USER;
+		return 0;
+	}
+	if (strcmp(name, "system") == 0) {
+		*attrnamespace = EXTATTR_NAMESPACE_SYSTEM;
+		return 0;
+	}
+	errno = EINVAL;
 	return -1;
 }
 

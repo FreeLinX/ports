@@ -73,3 +73,7 @@ PORT_SRCS = usr.bin/make/arch.c \
 	usr.bin/make/trace.c \
 	usr.bin/make/util.c \
 	usr.bin/make/var.c
+
+# musl has a real vsnprintf; skip bmake's old-stdio fallback (its
+# STRFLAG branch deliberately does NOT compile: ":::" error).
+FLX_CPPFLAGS += -DHAVE_VSNPRINTF=1 -DHAVE_STRERROR=1

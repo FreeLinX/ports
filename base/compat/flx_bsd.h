@@ -43,9 +43,21 @@
  * <bits/stat.h> (x86_64) has struct-stat members literally named `__unused[3]`,
  * which a bare `#define __unused ...` would corrupt.  FreeLinX's cross sysroot
  * renames those members (see toolchain sysroot build: bits/stat.h __flx_unused)
- * so this global macro is safe for NetBSD code. */
+ * so this global macro is safe for NetBSD code.  Until every such member is
+ * renamed, the compat wrappers base/compat/sys/stat.h, base/compat/utmpx.h,
+ * base/compat/sys/msg.h and base/compat/sys/shm.h take __unused down around
+ * the affected musl struct parses and restore it immediately afterwards. */
 #ifndef __unused
 #define	__unused	__attribute__((__unused__))
+#endif
+
+/* NetBSD <sys/cdefs.h> RCS tags (indent(1), others).  musl's sys/cdefs.h is
+ * the glibc-compat one and defines none of these; compiled away. */
+#ifndef __RCSID
+#define	__RCSID(s)	/* nothing */
+#endif
+#ifndef __FBSDID
+#define	__FBSDID(s)	/* nothing */
 #endif
 
 #ifndef ACCESSPERMS
@@ -507,7 +519,7 @@ void	warnc(int, const char *, ...);
 #ifndef EXTATTR_NAMESPACE_SYSTEM
 #define	EXTATTR_NAMESPACE_SYSTEM	2
 #endif
-int	extattr_namespace_to_string(int, char *, size_t);
+int	extattr_namespace_to_string(int, char **);
 int	extattr_string_to_namespace(const char *, int *);
 ssize_t	extattr_list_fd(int, int, void *, size_t);
 ssize_t	extattr_list_file(const char *, int, void *, size_t);
@@ -744,4 +756,13 @@ uint32_t arc4random_uniform(uint32_t);
 #define FLX_BSD_DECL_ARC4RANDOM 1
 #endif
 
+/* musl glob(3) has no GLOB_BRACE (BSD kick); make it a no-op flag so other
+ * BSD code that only ORs it in still compiles.  Brace expansion is lost. */
+#ifndef GLOB_BRACE
+#define GLOB_BRACE 0
+#endif
+
 #endif /* !_FREELINX_FLX_BSD_H_ */
+
+intmax_t	strtoi(const char *, char **, int, intmax_t, intmax_t, int *);
+uintmax_t	strtou(const char *, char **, int, uintmax_t, uintmax_t, int *);

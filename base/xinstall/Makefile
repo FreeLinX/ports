@@ -24,6 +24,8 @@ PORT_SRCS = usr.bin/xinstall/xinstall.c
 COMPAT_SRCS += $(FLX_COMPAT)/vis.c
 COMPAT_SRCS += $(FLX_COMPAT)/md5c.c $(FLX_COMPAT)/md5hl.c
 COMPAT_SRCS += $(FLX_COMPAT)/setmode.c
-COMPAT_SRCS += $(FLX_COMPAT)/errc.c
+COMPAT_SRCS += $(FLX_COMPAT)/errc_nw.c
 COMPAT_SRCS += $(FLX_COMPAT)/sigstub.c
+# sigstub.c supplies warnc + uid/gid/flags helpers (xinstall.c needs them).
+# errc/vwarnc come from errc_nw.c so only sigstub defines warnc in this link.
 FLX_CPPFLAGS += -DHAVE_NBTOOL_CONFIG_H=1

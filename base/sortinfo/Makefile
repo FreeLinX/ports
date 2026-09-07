@@ -20,4 +20,5 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/sortinfo/sortinfo.c
 
 PORT_SRCS = usr.bin/sortinfo/sortinfo.c
-COMPAT_SRCS += $(FLX_COMPAT)/erealloc.c
+# estdlib.c (default COMPAT set) already provides erealloc/ecalloc; adding
+# erealloc.c here duplicated emalloc/estrdup/ecalloc/erealloc at link time.

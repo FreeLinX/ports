@@ -27,7 +27,22 @@ NETBSD_MEMBERS = usr/src/usr.bin/m4/eval.c \
 	usr/src/usr.bin/m4/misc.c \
 	usr/src/usr.bin/m4/pathnames.h \
 	usr/src/usr.bin/m4/stdd.h \
-	usr/src/usr.bin/m4/trace.c
+	usr/src/usr.bin/m4/trace.c \
+	usr/src/usr.bin/m4/parser.y \
+	usr/src/usr.bin/m4/tokenizer.l \
+	usr/src/usr.bin/m4/lib/ohash.h \
+	usr/src/usr.bin/m4/lib/ohash_int.h \
+	usr/src/usr.bin/m4/lib/ohash_create_entry.c \
+	usr/src/usr.bin/m4/lib/ohash_delete.c \
+	usr/src/usr.bin/m4/lib/ohash_do.c \
+	usr/src/usr.bin/m4/lib/ohash_entries.c \
+	usr/src/usr.bin/m4/lib/ohash_enum.c \
+	usr/src/usr.bin/m4/lib/ohash_init.c \
+	usr/src/usr.bin/m4/lib/ohash_interval.c \
+	usr/src/usr.bin/m4/lib/ohash_lookup_interval.c \
+	usr/src/usr.bin/m4/lib/ohash_lookup_memory.c \
+	usr/src/usr.bin/m4/lib/ohash_qlookup.c \
+	usr/src/usr.bin/m4/lib/ohash_qlookupi.c
 
 PORT_SRCS = usr.bin/m4/eval.c \
 	usr.bin/m4/expr.c \
@@ -35,4 +50,27 @@ PORT_SRCS = usr.bin/m4/eval.c \
 	usr.bin/m4/look.c \
 	usr.bin/m4/main.c \
 	usr.bin/m4/misc.c \
-	usr.bin/m4/trace.c
+	usr.bin/m4/trace.c \
+	usr.bin/m4/parser.c \
+	usr.bin/m4/tokenizer.c \
+	usr.bin/m4/lib/ohash_create_entry.c \
+	usr.bin/m4/lib/ohash_delete.c \
+	usr.bin/m4/lib/ohash_do.c \
+	usr.bin/m4/lib/ohash_entries.c \
+	usr.bin/m4/lib/ohash_enum.c \
+	usr.bin/m4/lib/ohash_init.c \
+	usr.bin/m4/lib/ohash_interval.c \
+	usr.bin/m4/lib/ohash_lookup_interval.c \
+	usr.bin/m4/lib/ohash_lookup_memory.c \
+	usr.bin/m4/lib/ohash_qlookup.c \
+	usr.bin/m4/lib/ohash_qlookupi.c
+
+# The bundled ohash lives in the extracted usr.bin/m4/lib/ tree next to
+# ohash.h (which look.c includes as <ohash.h>).
+FLX_CPPFLAGS += -I$(SRC_DIR)/usr.bin/m4/lib
+COMPAT_SRCS += $(FLX_COMPAT)/strtoi.c
+COMPAT_SRCS += $(FLX_COMPAT)/yywrap.c
+
+# m4's parser is byacc/flex generated (parser.y -> parser.c, tokenizer.l ->
+# tokenizer.c); run the host tools during do-prepare before compiling.
+FLX_PREGEN = cd $(SRC_DIR)/usr.bin/m4 && bison -y -d parser.y && mv y.tab.c parser.c && mv y.tab.h parser.h && flex -o tokenizer.c tokenizer.l
