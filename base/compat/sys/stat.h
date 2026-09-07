@@ -22,7 +22,23 @@
 #ifndef _FREELINX_COMPAT_SYS_STAT_H_
 #define _FREELINX_COMPAT_SYS_STAT_H_
 
+/*
+ * musl's <bits/stat.h> struct stat has members literally named `__unused`
+ * (the pad word on x86_64).  flx_bsd.h (force-included before every base
+ * utility) defines the BSD `__unused` statement-attribute macro globally,
+ * which would textually corrupt those members (`long __unused[3]` ->
+ * `long __attribute__((__unused__))[3]`).  The FreeLinX sysroot is expected
+ * to rename the member, but until it does, take __unused down for the musl
+ * struct parse and restore it unchanged afterwards so NetBSD code still sees
+ * the attribute in its own declarations.
+ */
+#ifdef __unused
+#undef __unused
+#endif
 #include_next <sys/stat.h>
+#ifndef __unused
+#define	__unused	__attribute__((__unused__))
+#endif
 
 #ifndef S_IFWHT
 #define	S_IFWHT	0x120000	/* whiteout (FreeLinX: never set by Linux) */

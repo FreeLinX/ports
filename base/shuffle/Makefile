@@ -20,4 +20,4 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/shuffle/shuffle.c
 
 PORT_SRCS = usr.bin/shuffle/shuffle.c
-COMPAT_SRCS += $(FLX_COMPAT)/erealloc.c $(FLX_COMPAT)/arc4random.c
+COMPAT_SRCS += $(FLX_COMPAT)/arc4random.c

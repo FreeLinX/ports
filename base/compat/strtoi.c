@@ -1,111 +1,58 @@
-/* FreeLinX/ports - base/compat/strtoi.c : BSD strtoi(3)/strtou(3).
+/* FreeLinX/ports - base/compat/strtoi.c : NetBSD strtoi(3)/strtou(3).
  *
- * NetBSD's nc and friends parse option values with strtoi(3)/strtou(3):
- * bounded conversions that clamp to [lo,hi] and report ECANCELED (no
- * digits), ENOTSUP (trailing junk) or ERANGE (out of range) through the
- * optional status pointer, without disturbing errno on success.  musl has
- * only the unbounded strtoimax/strtoumax, so FreeLinX provides the BSD
- * pair with exactly the NetBSD contract (mirrors NetBSD's _strtoi.h
- * implementation from src.lib/libc/stdlib).
+ * musl lacks the NetBSD strtoi/strtou integer-parsing family.  These wrap
+ * strtoimax/strtoumax and clamp to lo..hi, returning ECANCELED via rstatus
+ * on range error (matching NetBSD semantics: if rstatus is non-NULL it
+ * receives ERANGE on range failure, ECANCELED if the result had to be
+ * clamped).
  */
 #include <errno.h>
 #include <inttypes.h>
-#include <stddef.h>
-
-#define strtoi_impl_FUNCNAME strtoi
-#define strtoi_impl_TYPE intmax_t
-#define strtoi_impl_WRAPPED strtoimax
+#include <limits.h>
+#include <stdlib.h>
 
 intmax_t
-strtoi_impl_FUNCNAME(const char * __restrict nptr, char ** __restrict endptr,
-    int base, intmax_t lo, intmax_t hi, int *rstatus)
+strtoi(const char *nptr, char **endptr, int base, intmax_t lo, intmax_t hi, int *rstatus)
 {
-	int serrno;
-	intmax_t im;
-	char *ep;
-	int rep;
+	intmax_t val;
+	int status = 0;
 
-	if (endptr == NULL)
-		endptr = &ep;
-	if (rstatus == NULL)
-		rstatus = &rep;
+	if (endptr != NULL)
+		*endptr = (char *)nptr;
 
-	serrno = errno;
-	errno = 0;
-
-	im = strtoi_impl_WRAPPED(nptr, endptr, base);
-
-	*rstatus = errno;
-	errno = serrno;
-
-	if (*rstatus == 0) {
-		/* No digits were found */
-		if (nptr == *endptr)
-			*rstatus = ECANCELED;
-		/* There are further characters after number */
-		else if (**endptr != '\0')
-			*rstatus = ENOTSUP;
+	val = strtoimax(nptr, endptr, base);
+	if (errno == EINVAL) {
+		status = EINVAL;
+	} else {
+		if (errno == ERANGE || val < lo || val > hi) {
+			status = ECANCELED;
+			val = val < lo ? lo : hi;
+		}
 	}
-
-	if (im < lo) {
-		if (*rstatus == 0)
-			*rstatus = ERANGE;
-		return lo;
-	}
-	if (im > hi) {
-		if (*rstatus == 0)
-			*rstatus = ERANGE;
-		return hi;
-	}
-
-	return im;
+	if (rstatus != NULL)
+		*rstatus = status;
+	return val;
 }
 
-#undef strtoi_impl_FUNCNAME
-#undef strtoi_impl_TYPE
-#undef strtoi_impl_WRAPPED
-
 uintmax_t
-strtou(const char * __restrict nptr, char ** __restrict endptr, int base,
-    uintmax_t lo, uintmax_t hi, int *rstatus)
+strtou(const char *nptr, char **endptr, int base, uintmax_t lo, uintmax_t hi, int *rstatus)
 {
-	int serrno;
-	uintmax_t um;
-	char *ep;
-	int rep;
+	uintmax_t val;
+	int status = 0;
 
-	if (endptr == NULL)
-		endptr = &ep;
-	if (rstatus == NULL)
-		rstatus = &rep;
+	if (endptr != NULL)
+		*endptr = (char *)nptr;
 
-	serrno = errno;
-	errno = 0;
-
-	um = strtoumax(nptr, endptr, base);
-
-	*rstatus = errno;
-	errno = serrno;
-
-	if (*rstatus == 0) {
-		/* No digits were found */
-		if (nptr == *endptr)
-			*rstatus = ECANCELED;
-		/* There are further characters after number */
-		else if (**endptr != '\0')
-			*rstatus = ENOTSUP;
+	val = strtoumax(nptr, endptr, base);
+	if (errno == EINVAL) {
+		status = EINVAL;
+	} else {
+		if (errno == ERANGE || val < lo || val > hi) {
+			status = ECANCELED;
+			val = val < lo ? lo : hi;
+		}
 	}
-
-	if (um < lo) {
-		if (*rstatus == 0)
-			*rstatus = ERANGE;
-		return lo;
-	}
-	if (um > hi) {
-		if (*rstatus == 0)
-			*rstatus = ERANGE;
-		return hi;
-	}
-
-	return um;
+	if (rstatus != NULL)
+		*rstatus = status;
+	return val;
 }

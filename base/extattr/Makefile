@@ -20,3 +20,5 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/extattr/getextattr.c
 
 PORT_SRCS = usr.bin/extattr/getextattr.c
+COMPAT_SRCS += $(FLX_COMPAT)/sigstub.c
+COMPAT_SRCS += $(FLX_COMPAT)/vis.c

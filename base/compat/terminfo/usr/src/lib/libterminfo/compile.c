@@ -179,13 +179,14 @@ _ti_grow_tbuf(TBUF *tbuf, size_t len)
 	l = tbuf->bufpos + len;
 	if (l > tbuf->buflen) {
 		if (tbuf->buflen == 0)
-			buf = malloc(l);
+			tbuf->buflen = l;
 		else
-			buf = realloc(tbuf->buf, l);
+			while (tbuf->buflen < l)
+				tbuf->buflen *= 2;
+		buf = realloc(tbuf->buf, tbuf->buflen);
 		if (buf == NULL)
 			return NULL;
 		tbuf->buf = buf;
-		tbuf->buflen = l;
 	}
 	return tbuf->buf;
 }

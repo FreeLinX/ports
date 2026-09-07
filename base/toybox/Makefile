@@ -23,5 +23,5 @@ PROJECT_BIN = $(SRC_TREE)/toybox
 # Start from the upstream configuration, then enable the Linux system tools
 # FreeLinX needs.  The compiler and linker environment comes exclusively from
 # project-port.mk's FreeLinX flags.
-PROJECT_CFG_CMDS = sh $(FREELINX_ROOT)/base/toybox/config.sh
+PROJECT_CFG_CMDS = sh $(FREELINX_PORTS_ROOT)/base/toybox/config.sh
 BUILD_CMDS = make -j"$(FREELINX_JOBS)" toybox
