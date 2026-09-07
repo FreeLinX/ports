@@ -1,0 +1,4 @@
+DISTINFO_NAME=libssh2-1.11.1
+DISTINFO_ARCHIVE=libssh2-1.11.1.tar.gz
+DISTINFO_URL=https://www.libssh2.org/download/libssh2-1.11.1.tar.gz
+DISTINFO_SHA256=d9ec76cbe34db98eec3539fe2c899d26b0c837cb3eb466a56b0f109cabf658f7

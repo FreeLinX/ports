@@ -1,0 +1,5 @@
+# FreeLinX/ports - textproc/dos2unix : upstream source reference.
+DISTINFO_NAME=dos2unix-7.5.2
+DISTINFO_ARCHIVE=dos2unix-7.5.2.tar.gz
+DISTINFO_URL=https://downloads.sourceforge.net/project/dos2unix/dos2unix/7.5.2/dos2unix-7.5.2.tar.gz
+DISTINFO_SHA256=264742446608442eb48f96c20af6da303cb3a92b364e72cb7e24f88239c4bf3a

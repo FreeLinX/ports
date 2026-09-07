@@ -1,0 +1,13 @@
+# FreeLinX/ports - net/netcat : minimal POSIX sh netcat.
+#
+# NOT fetched from any upstream. FreeLinX-original POSIX sh implementation of
+# netcat(1). Provides basic TCP/UDP connectivity for scripting. Upstream
+# netcat implementations (OpenBSD netcat, nmap-ncat) failed to download or
+# are too complex for the current FreeLinX toolchain. This is a stopgap
+# providing basic TCP client functionality using shell builtins.
+#
+# No DISTINFO_URL/DISTINFO_SHA256: there is no upstream archive to fetch.
+DISTINFO_NAME=freelinx-netcat
+DISTINFO_ARCHIVE=
+DISTINFO_URL=
+DISTINFO_SHA256=

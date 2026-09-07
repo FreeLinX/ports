@@ -1,0 +1,5 @@
+# FreeLinX/ports - devel/libuv : upstream source reference.
+DISTINFO_NAME=libuv-v1.49.1
+DISTINFO_ARCHIVE=libuv-v1.49.1.tar.gz
+DISTINFO_URL=https://dist.libuv.org/dist/v1.49.1/libuv-v1.49.1.tar.gz
+DISTINFO_SHA256=8d84f714f4cfd167b1576a58b82430cc2166ef135463d0644964fd71c61a6766

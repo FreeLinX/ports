@@ -1,0 +1,5 @@
+# FreeLinX/ports - devel/libffi : upstream source reference.
+DISTINFO_NAME=libffi-3.4.6
+DISTINFO_ARCHIVE=libffi-3.4.6.tar.gz
+DISTINFO_URL=https://github.com/libffi/libffi/releases/download/v3.4.6/libffi-3.4.6.tar.gz
+DISTINFO_SHA256=b0dea9df23c863a7a50e825440f3ebffabd65df1497108e5d437747843895a4e

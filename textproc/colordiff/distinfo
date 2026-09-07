@@ -1,0 +1,7 @@
+# FreeLinX/ports - textproc/colordiff : upstream source reference.
+# No upstream archive -- this is a FreeLinX-original POSIX sh wrapper.
+# Placeholder distinfo so the framework's -include does not warn.
+DISTINFO_NAME=colordiff-1
+DISTINFO_ARCHIVE=
+DISTINFO_URL=
+DISTINFO_SHA256=

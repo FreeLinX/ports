@@ -1,0 +1,5 @@
+# FreeLinX/ports - graphics/libwebp : upstream source reference.
+DISTINFO_NAME=libwebp-1.4.0
+DISTINFO_ARCHIVE=libwebp-1.4.0.tar.gz
+DISTINFO_URL=https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.4.0.tar.gz
+DISTINFO_SHA256=61f873ec69e3be1b99535634340d5bde750b2e4447caa1db9f61be3fd49ab1e5

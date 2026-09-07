@@ -1,0 +1,5 @@
+# FreeLinX/ports - net/socat : upstream source reference.
+DISTINFO_NAME=socat-1.8.0.2
+DISTINFO_ARCHIVE=socat-1.8.0.2.tar.gz
+DISTINFO_URL=http://www.dest-unreach.org/socat/download/socat-1.8.0.2.tar.gz
+DISTINFO_SHA256=e9498367cb765d44bb06be9709c950f436b30bf7071a224a0fee2522f9cbb417

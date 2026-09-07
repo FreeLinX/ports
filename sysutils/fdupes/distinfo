@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/fdupes : upstream source reference.
+DISTINFO_NAME=fdupes-2.3.2
+DISTINFO_ARCHIVE=fdupes-2.3.2.tar.gz
+DISTINFO_URL=https://github.com/adrianlopezroche/fdupes/releases/download/v2.3.2/fdupes-2.3.2.tar.gz
+DISTINFO_SHA256=808d8decbe7fa41cab407ae4b7c14bfc27b8cb62227540c3dcb6caf980592ac7

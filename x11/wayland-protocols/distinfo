@@ -1,0 +1,4 @@
+DISTINFO_NAME=wayland-protocols-1.40
+DISTINFO_ARCHIVE=wayland-protocols-1.40.tar.xz
+DISTINFO_URL=https://gitlab.freedesktop.org/wayland/wayland-protocols/-/releases/1.40/downloads/wayland-protocols-1.40.tar.xz
+DISTINFO_SHA256=b21711793247c2c42763914392dfa9fcb9e3728ca4b4aa110adb8d915fc00689

@@ -1,0 +1,6 @@
+# FreeLinX/ports - sysutils/htop : upstream source reference.
+# NOTE: release URL with v3.3.0 404'd; using GitHub source archive.
+DISTINFO_NAME=htop-3.3.0
+DISTINFO_ARCHIVE=htop-3.3.0.tar.gz
+DISTINFO_URL=https://github.com/htop-dev/htop/archive/refs/tags/3.3.0.tar.gz
+DISTINFO_SHA256=1e5cc328eee2bd1acff89f860e3179ea24b85df3ac483433f92a29977b14b045

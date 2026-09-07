@@ -1,0 +1,5 @@
+# FreeLinX/ports - x11/dmenu : upstream source reference.
+DISTINFO_NAME=dmenu-5.3
+DISTINFO_ARCHIVE=dmenu-5.3.tar.gz
+DISTINFO_URL=https://dl.suckless.org/tools/dmenu-5.3.tar.gz
+DISTINFO_SHA256=1a8f53e6fd2d749839ec870c5e27b3e14da5c3eeacbfcb945d159e1d5433795f

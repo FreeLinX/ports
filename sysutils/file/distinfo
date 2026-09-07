@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/file : upstream source reference.
+DISTINFO_NAME=file-5.46
+DISTINFO_ARCHIVE=file-5.46.tar.gz
+DISTINFO_URL=https://astron.com/pub/file/file-5.46.tar.gz
+DISTINFO_SHA256=c9cc77c7c560c543135edc555af609d5619dbef011997e988ce40a3d75d86088

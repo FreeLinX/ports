@@ -1,0 +1,5 @@
+# FreeLinX/ports - textproc/yq : upstream source reference.
+DISTINFO_NAME=yq-4.44.3
+DISTINFO_ARCHIVE=yq-4.44.3.tar.gz
+DISTINFO_URL=https://github.com/mikefarah/yq/archive/refs/tags/v4.44.3.tar.gz
+DISTINFO_SHA256=ea950f5622480fc0ff3708c52589426a737cd4ec887a52922a74efa1be8f2fbf

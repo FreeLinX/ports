@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/tree : upstream source reference.
+DISTINFO_NAME=tree-2.1.3
+DISTINFO_ARCHIVE=tree-2.1.3.tar.gz
+DISTINFO_URL=https://github.com/Old-Man-Programmer/tree/archive/refs/tags/2.1.3.tar.gz
+DISTINFO_SHA256=3ffe2c8bb21194b088ad1e723f0cf340dd434453c5ff9af6a38e0d47e0c2723b

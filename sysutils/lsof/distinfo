@@ -1,0 +1,6 @@
+# FreeLinX/ports - sysutils/lsof : upstream source reference.
+# NOTE: release tarball lsof_4.99.3_src.tar.gz 404'd; using GitHub source archive.
+DISTINFO_NAME=lsof-4.99.3
+DISTINFO_ARCHIVE=lsof-4.99.3.tar.gz
+DISTINFO_URL=https://github.com/lsof-org/lsof/archive/refs/tags/4.99.3.tar.gz
+DISTINFO_SHA256=b9c56468b927d9691ab168c0b1e9f8f1f835694a35ff898c549d383bd8d09bd4

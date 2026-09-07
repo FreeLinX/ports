@@ -1,0 +1,13 @@
+# FreeLinX/ports - sysutils/watch : minimal watch utility.
+#
+# NOT fetched from any upstream. FreeLinX-original POSIX sh implementation of
+# watch(1). Repeatedly executes a command, clearing the screen between each
+# run, to observe changes over time. Supports -n <seconds> for interval
+# control. Upstream watch implementations (procps-ng, psmisc) require ncurses
+# or other heavy dependencies not yet available in FreeLinX.
+#
+# No DISTINFO_URL/DISTINFO_SHA256: there is no upstream archive to fetch.
+DISTINFO_NAME=freelinx-watch
+DISTINFO_ARCHIVE=
+DISTINFO_URL=
+DISTINFO_SHA256=

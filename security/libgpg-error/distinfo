@@ -1,0 +1,5 @@
+# FreeLinX/ports - security/libgpg-error : upstream source reference.
+DISTINFO_NAME=libgpg-error-1.51
+DISTINFO_ARCHIVE=libgpg-error-1.51.tar.bz2
+DISTINFO_URL=https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.51.tar.bz2
+DISTINFO_SHA256=be0f1b2db6b93eed55369cdf79f19f72750c8c7c39fc20b577e724545427e6b2
