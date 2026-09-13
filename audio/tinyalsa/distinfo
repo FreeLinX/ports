@@ -1,0 +1,5 @@
+# FreeLinX/ports - audio/tinyalsa distinfo
+DISTINFO_NAME=tinyalsa-2.0.0
+DISTINFO_ARCHIVE=tinyalsa-2.0.0.tar.gz
+DISTINFO_URL=https://github.com/tinyalsa/tinyalsa
+DISTINFO_SHA256=in-tree
