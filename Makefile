@@ -21,6 +21,10 @@ build:
 install:
 	./scripts/install.sh $(INSTALL_FLAGS) $(PORT)
 
+## package - create .xpkg binary packages and repo index
+package:
+	./scripts/package.sh $(PORT)
+
 ## clean - remove generated artifacts (build/, staging/, dist/, .config.mk)
 clean:
 	./scripts/clean.sh

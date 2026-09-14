@@ -1,0 +1,2180 @@
+{
+  "packages": {
+    "libnl": {
+      "version": "3.9.0",
+      "description": "libnl 3.9.0 (netlink socket library).",
+      "arch": "x86_64",
+      "file": "libnl-3.9.0.xpkg",
+      "size": 68514,
+      "sha256": "b2acc240819703d6f602911787d69f98bd3eef5687651814c6c46be8bb3afe24"
+    },
+    "infocmp": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/infocmp`.",
+      "arch": "x86_64",
+      "file": "infocmp-10.1.xpkg",
+      "size": 142219,
+      "sha256": "98781c55043151c08463ea73084bb6d4f67cd820a69cb4ccf3a2812eb6578e92"
+    },
+    "freelinx-route": {
+      "version": "1.0",
+      "description": "BSD-styled route for Linux.",
+      "arch": "x86_64",
+      "file": "freelinx-route-1.0.xpkg",
+      "size": 149228,
+      "sha256": "8383e8d4ae327ec2c6ecd6ffd20d3facb167dc0ea8251ee8640f4b5ebbc9afb0"
+    },
+    "scmdctl": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/scmdctl`.",
+      "arch": "x86_64",
+      "file": "scmdctl-10.1.xpkg",
+      "size": 100610,
+      "sha256": "02037d554e905b86b14495c102bcb0d4760232e963266c8d2f3bf5bfb185d7f1"
+    },
+    "cap_mkdb": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/cap_mkdb`.",
+      "arch": "x86_64",
+      "file": "cap_mkdb-10.1.xpkg",
+      "size": 156522,
+      "sha256": "d44ea1deab43b2595718349f2fc3bac1aa47cfb4f0aad1195dda201a51d3c1b3"
+    },
+    "apply": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/apply`.",
+      "arch": "x86_64",
+      "file": "apply-10.1.xpkg",
+      "size": 67954,
+      "sha256": "55397809b557a0bd6b04d305ec9c53e89981c95f65f43cd72383aa43cc5c4b25"
+    },
+    "traceroute": {
+      "version": "1.0",
+      "description": "standalone traceroute.",
+      "arch": "x86_64",
+      "file": "traceroute-1.0.xpkg",
+      "size": 59275,
+      "sha256": "0806e90a59942299e8ac66a62659983749ec4e29dfe1117b0b78a3240598024b"
+    },
+    "od": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/od`.",
+      "arch": "x86_64",
+      "file": "od-10.1.xpkg",
+      "size": 56773,
+      "sha256": "ccbf530aead3ab939e6f46618d6b1ae0488290acf9605e0c94f82dd9cd2a7fc8"
+    },
+    "curl": {
+      "version": "8.12.1",
+      "description": "curl 8.12.1 (HTTP client).",
+      "arch": "x86_64",
+      "file": "curl-8.12.1.xpkg",
+      "size": 2550698,
+      "sha256": "6a63f891714de30f4eb8d8a9883adc98605641f392f255ec4ae247dfad38e921"
+    },
+    "toybox": {
+      "version": "0.8.12",
+      "description": "Toybox 0.8.12 multicall Linux userland.",
+      "arch": "x86_64",
+      "file": "toybox-0.8.12.xpkg",
+      "size": 1101168,
+      "sha256": "762febc00a1b096e200bbcaa9b3d0b7055497a133c6035d1269f60563682cfdd"
+    },
+    "iperf3": {
+      "version": "3.17.1",
+      "description": "iperf 3.17.1 (network bandwidth tool).",
+      "arch": "x86_64",
+      "file": "iperf3-3.17.1.xpkg",
+      "size": 81672,
+      "sha256": "12adf5ee09d2e06086a6df3a992487e00380b03a5d9ece7f03f4305f08ecbced"
+    },
+    "column": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/column`.",
+      "arch": "x86_64",
+      "file": "column-10.1.xpkg",
+      "size": 34333,
+      "sha256": "1d6bc1293be8e598713e4248bfb8ba0212af7fce528667c9e13c67c2e0857857"
+    },
+    "sync": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/sync`.",
+      "arch": "x86_64",
+      "file": "sync-10.1.xpkg",
+      "size": 32984,
+      "sha256": "d530699231997169a53f6cdc38812cb8e3c2833e3b5ab02aaaba4e69556a731e"
+    },
+    "pwhash": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/pwhash`.",
+      "arch": "x86_64",
+      "file": "pwhash-10.1.xpkg",
+      "size": 64111,
+      "sha256": "4a390440d92db58e99c5426bf04c377269d5c47ac4ac62a8f637cfb9c8bb6034"
+    },
+    "netbsd-route": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/sbin/route`.",
+      "arch": "x86_64",
+      "file": "netbsd-route-10.1.xpkg",
+      "size": 40761,
+      "sha256": "059e25fcd11cd67d85ffd5ead02d73e43c96443f60fec5907713750616f33f40"
+    },
+    "dosfstools": {
+      "version": "4.2",
+      "description": "dosfstools 4.2 (FAT filesystem tools).",
+      "arch": "x86_64",
+      "file": "dosfstools-4.2.xpkg",
+      "size": 207031,
+      "sha256": "078eaa9ff692a7bafaf65c2149057a07e4f3da916d68b84602e75310da034697"
+    },
+    "vgrind": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/vgrind`.",
+      "arch": "x86_64",
+      "file": "vgrind-10.1.xpkg",
+      "size": 63024,
+      "sha256": "98c4077c2ad5b8e1c44e1adca999ddd3820504c1ab918e5bf30d656ab5c7d997"
+    },
+    "sdiff": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/sdiff`.",
+      "arch": "x86_64",
+      "file": "sdiff-10.1.xpkg",
+      "size": 90549,
+      "sha256": "b13d8022bf7783fd3088f92a410fbd22e02c62e9291ec5524dbed07cf70f838f"
+    },
+    "mkubootimage": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/mkubootimage`.",
+      "arch": "x86_64",
+      "file": "mkubootimage-10.1.xpkg",
+      "size": 55287,
+      "sha256": "f35ad5553302567dd6ce0cad8e27fe72f4bf978b69bb49d6f13bbe0e20075e70"
+    },
+    "newsyslog": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/newsyslog`.",
+      "arch": "x86_64",
+      "file": "newsyslog-10.1.xpkg",
+      "size": 82046,
+      "sha256": "b1c3db8dc184ec7375952c6352ca5522ad83caac094b5ed1392765a71e342c55"
+    },
+    "innetgr": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/innetgr`.",
+      "arch": "x86_64",
+      "file": "innetgr-10.1.xpkg",
+      "size": 35628,
+      "sha256": "f1d43726ff0f678b1ad8274748a259db7190d7fea3ebbceba8d47189b864eeb1"
+    },
+    "basename": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/basename`.",
+      "arch": "x86_64",
+      "file": "basename-10.1.xpkg",
+      "size": 60576,
+      "sha256": "330480b7891b1fc10482a36ca45e6919e253c0df334634cd49e6167eef45a36d"
+    },
+    "xstr": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/xstr`.",
+      "arch": "x86_64",
+      "file": "xstr-10.1.xpkg",
+      "size": 47078,
+      "sha256": "5bebd695bb528cbe39b0fa5f7bf61a1b64ff61e856a390a78d744a526c3b8701"
+    },
+    "fastfetch": {
+      "version": "2.67.1",
+      "description": "fastfetch 2.67.1 (upstream project port).",
+      "arch": "x86_64",
+      "file": "fastfetch-2.67.1.xpkg",
+      "size": 790678,
+      "sha256": "0664c4ca75d513323712964940bead248c35ffc179ec07863bef9090477be208"
+    },
+    "domainname": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/domainname`.",
+      "arch": "x86_64",
+      "file": "domainname-10.1.xpkg",
+      "size": 19360,
+      "sha256": "bfbb8074f5833ffa768c950540c1294df9d880edb96e864023655eea5df50568"
+    },
+    "cat": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/cat`.",
+      "arch": "x86_64",
+      "file": "cat-10.1.xpkg",
+      "size": 62115,
+      "sha256": "307c7dd87844dc973b1ca11d54db17b8510098d2365e87f67c99e7ed10a5340e"
+    },
+    "write": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/write`.",
+      "arch": "x86_64",
+      "file": "write-10.1.xpkg",
+      "size": 85170,
+      "sha256": "36407cc777978028d64f10e35fd0a83e2d032dc4ff0963b1e8812e148b1b65f7"
+    },
+    "tetris": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 tetris game.",
+      "arch": "x86_64",
+      "file": "tetris-10.1.xpkg",
+      "size": 207,
+      "sha256": "0543f0fbecc09b351e8ef59e7b84cc7376803d3e56f64cd389cabbc5bb880fcd"
+    },
+    "mkdep": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/mkdep`.",
+      "arch": "x86_64",
+      "file": "mkdep-10.1.xpkg",
+      "size": 51529,
+      "sha256": "4a901b35de7607f4d5a68290e4d3e6ef8dc54616221a7dffcdf9a6c58a59f003"
+    },
+    "mount": {
+      "version": "freelinx",
+      "description": "FreeLinX-native mount (Linux mount(2)).",
+      "arch": "x86_64",
+      "file": "mount-freelinx.xpkg",
+      "size": 84441,
+      "sha256": "3b41e134327376a0ef2ee8b2c0cc8859abf15f8e29e7312ae0f3bb8e3190b050"
+    },
+    "umount": {
+      "version": "freelinx",
+      "description": "FreeLinX-native umount (Linux umount2(2)).",
+      "arch": "x86_64",
+      "file": "umount-freelinx.xpkg",
+      "size": 74230,
+      "sha256": "4131d3a7e8cfed26a153b425630d6820f2348be52dd62045be930c0306e53599"
+    },
+    "pciutils": {
+      "version": "3.13.0",
+      "description": "pciutils 3.13.0 (PCI utilities).",
+      "arch": "x86_64",
+      "file": "pciutils-3.13.0.xpkg",
+      "size": 171754,
+      "sha256": "086cc9618590cb2ce7d37d8952ff833a71e36f3340927155d3237b15ffc32a49"
+    },
+    "revoke": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/revoke`.",
+      "arch": "x86_64",
+      "file": "revoke-10.1.xpkg",
+      "size": 62606,
+      "sha256": "e703fb2f32bb05d4da6c2d0b697163f5593a9c2554d51b34839b994313c1c34a"
+    },
+    "units": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/units`.",
+      "arch": "x86_64",
+      "file": "units-10.1.xpkg",
+      "size": 57601,
+      "sha256": "84396613ee2de81e01f4eea72a16c962d2fa4a351ad6764ca5ce1340d92a320d"
+    },
+    "nohup": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/nohup`.",
+      "arch": "x86_64",
+      "file": "nohup-10.1.xpkg",
+      "size": 39662,
+      "sha256": "412a909e7abda943eb7ec7176c61a52a91e34223f00ddc4650a370efbfe17870"
+    },
+    "at": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/at`.",
+      "arch": "x86_64",
+      "file": "at-10.1.xpkg",
+      "size": 105754,
+      "sha256": "f5d1bfc08b3e8560ce26349c45b476a241745eed18ad9ec1805f28859e2caba0"
+    },
+    "usbutils": {
+      "version": "018",
+      "description": "usbutils 018 (USB utilities).",
+      "arch": "x86_64",
+      "file": "usbutils-018.xpkg",
+      "size": 273024,
+      "sha256": "9eb6d26811f1dcafeb7aaaa2d81981f1cd6f3208907934531927ac89310bbfd0"
+    },
+    "fold": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/fold`.",
+      "arch": "x86_64",
+      "file": "fold-10.1.xpkg",
+      "size": 65308,
+      "sha256": "527ec772b943d23a6d6b1b37c7d527107958f18c3c51c22f655e97bcd249b21a"
+    },
+    "netbsd-ifconfig": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/sbin/ifconfig`.",
+      "arch": "x86_64",
+      "file": "netbsd-ifconfig-10.1.xpkg",
+      "size": 27068,
+      "sha256": "6a3cd25ecac336e5fd9385daf51907e4012067c8827584f1c679b07206fe1e8b"
+    },
+    "ncdu": {
+      "version": "1.20",
+      "description": "ncdu 1.20 (ncurses disk usage analyzer).",
+      "arch": "x86_64",
+      "file": "ncdu-1.20.xpkg",
+      "size": 201648,
+      "sha256": "c25ccd0d81e97cd95dfaf1e810625add581236cd67af0e56cbf19a3d30777dfa"
+    },
+    "paste": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/paste`.",
+      "arch": "x86_64",
+      "file": "paste-10.1.xpkg",
+      "size": 68089,
+      "sha256": "f475e3ac8a0650c62fe70f74f345da2e029c1edd1c4db9f5aae16375c7ec1d79"
+    },
+    "tcpdump": {
+      "version": "4.99.5",
+      "description": "tcpdump 4.99.5 (packet analyzer).",
+      "arch": "x86_64",
+      "file": "tcpdump-4.99.5.xpkg",
+      "size": 687837,
+      "sha256": "bde98acfae79f5d5f0b7781ae509a0eba27a6926b2ceb4d1b697aa2ad172a8e7"
+    },
+    "mawk": {
+      "version": "1.3.4-20240123",
+      "description": "mawk 1.3.4-20240123 (AWK interpreter).",
+      "arch": "x86_64",
+      "file": "mawk-1.3.4-20240123.xpkg",
+      "size": 151151,
+      "sha256": "05d14322ac1452057749aea4501c26a91443676cb233ed77c30336e039146292"
+    },
+    "echo": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/echo`.",
+      "arch": "x86_64",
+      "file": "echo-10.1.xpkg",
+      "size": 58896,
+      "sha256": "4a5385ceac80e78f3722cda22a88e40e2306f8a45a412c721cd97c33eecb6e1e"
+    },
+    "yes": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/yes`.",
+      "arch": "x86_64",
+      "file": "yes-10.1.xpkg",
+      "size": 49159,
+      "sha256": "b4c7018605759fd48f2985f86d8a50ef979f9446d78265cd53ee8c47a0e10b41"
+    },
+    "rlogin": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/rlogin`.",
+      "arch": "x86_64",
+      "file": "rlogin-10.1.xpkg",
+      "size": 76619,
+      "sha256": "528b2c888b0e704347ca0cc0a182c0e46957c743e3afabc3668353d3a4b35f4c"
+    },
+    "kill": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/kill`.",
+      "arch": "x86_64",
+      "file": "kill-10.1.xpkg",
+      "size": 56162,
+      "sha256": "19b761c5a5b780f2f1c238ded050e32891160e95048f28f9c4a2dbf5da4eba96"
+    },
+    "watch": {
+      "version": "1",
+      "description": "minimal watch utility.",
+      "arch": "x86_64",
+      "file": "watch-1.xpkg",
+      "size": 538,
+      "sha256": "3433a596d4ff6e7ef3bc4522bd24e623ec2d353d3d0de520fff0e5d6d0b0fd7a"
+    },
+    "xargs": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/xargs`.",
+      "arch": "x86_64",
+      "file": "xargs-10.1.xpkg",
+      "size": 110822,
+      "sha256": "134fda7073d21d7ad0dfe566ab007894c3bb19cc9fdad431be6a54f0c27e66da"
+    },
+    "tty": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/tty`.",
+      "arch": "x86_64",
+      "file": "tty-10.1.xpkg",
+      "size": 35771,
+      "sha256": "293fa4f10c399156cdba28ec92a9422e9a8a35e634dafa7e4698e616ade47881"
+    },
+    "ed": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/ed`.",
+      "arch": "x86_64",
+      "file": "ed-10.1.xpkg",
+      "size": 118165,
+      "sha256": "8bfaa153ecbc85da245a2e7f342d304e068506c653cbdc70294e004fa648924b"
+    },
+    "rwho": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/rwho`.",
+      "arch": "x86_64",
+      "file": "rwho-10.1.xpkg",
+      "size": 54810,
+      "sha256": "9f3db64d05bfe297679c25440b4fe5bd147d4f462eed672b799179b14854185a"
+    },
+    "file": {
+      "version": "5.46",
+      "description": "file 5.46 (file type identification).",
+      "arch": "x86_64",
+      "file": "file-5.46.xpkg",
+      "size": 80681,
+      "sha256": "451587f3660fecd897085a335ae386ab40bc1c8117ed7752f67bf30bd59f1d25"
+    },
+    "tree": {
+      "version": "2.1.3",
+      "description": "tree 2.1.3 (directory listing utility).",
+      "arch": "x86_64",
+      "file": "tree-2.1.3.xpkg",
+      "size": 70660,
+      "sha256": "9df965e9437570229878fc7c344c8d8e7401f38a5a943b41ebbcbb070c1bbb0f"
+    },
+    "getconf": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/getconf`.",
+      "arch": "x86_64",
+      "file": "getconf-10.1.xpkg",
+      "size": 44319,
+      "sha256": "05a369fe762f28abed455ca0ee8204f2d67e0c84824adacd574063aea473e18d"
+    },
+    "nvi2": {
+      "version": "2.2.2",
+      "description": "nvi2 BSD vi clone (2.2.2).",
+      "arch": "x86_64",
+      "file": "nvi2-2.2.2.xpkg",
+      "size": 2011037,
+      "sha256": "6272008f174e2fe1442773b343a7cf412864daf480584b74e08b9b957f722a52"
+    },
+    "time": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/time`.",
+      "arch": "x86_64",
+      "file": "time-10.1.xpkg",
+      "size": 33268,
+      "sha256": "fce29a7b918f54f40e96114439376c533c9a053762d68728c8380f267ed475c3"
+    },
+    "who": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/who`.",
+      "arch": "x86_64",
+      "file": "who-10.1.xpkg",
+      "size": 50570,
+      "sha256": "28c2cfe43ed02db5cb516ee8e1d186121b2cf25a58331903880333337b7cad37"
+    },
+    "getopt": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/getopt`.",
+      "arch": "x86_64",
+      "file": "getopt-10.1.xpkg",
+      "size": 34924,
+      "sha256": "f542fcd1fa428570814382bc3b785c0d5566047e20739067a724202023db0c1e"
+    },
+    "cvslatest": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/cvslatest`.",
+      "arch": "x86_64",
+      "file": "cvslatest-10.1.xpkg",
+      "size": 67240,
+      "sha256": "1e688641e00a3ac4ea32a52a84f96f13a5a4e753b6ab769d926bd7c99c58edfe"
+    },
+    "expand": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/expand`.",
+      "arch": "x86_64",
+      "file": "expand-10.1.xpkg",
+      "size": 57817,
+      "sha256": "3c31b2dd3951a103812e503200179357823905b68e8af43c7597fc72fd6543b0"
+    },
+    "expr": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/expr`.",
+      "arch": "x86_64",
+      "file": "expr-10.1.xpkg",
+      "size": 57672,
+      "sha256": "46a509afde99d2e5ee54284781366f6d9f33a26045efb2437b7f2670eb2f42c9"
+    },
+    "pv": {
+      "version": "1.8.13",
+      "description": "pv 1.8.13 (pipe viewer).",
+      "arch": "x86_64",
+      "file": "pv-1.8.13.xpkg",
+      "size": 81801,
+      "sha256": "1f21843d499ccff7cd3bd657eef7ecb5db95509246fbc6d16867d2e307ad01ae"
+    },
+    "doom": {
+      "version": "0.1",
+      "description": "id Software DOOM (doomgeneric) for FreeLinX.",
+      "arch": "x86_64",
+      "file": "doom-0.1.xpkg",
+      "size": 1545167,
+      "sha256": "73e7f582002e7c91b470ae8213076aef6c140bdb174413e474bd6a86ca887d70"
+    },
+    "head": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/head`.",
+      "arch": "x86_64",
+      "file": "head-10.1.xpkg",
+      "size": 70169,
+      "sha256": "00f0c65066b6be2afc146a099189cd9d7fefc32d9ff3066b2133f083b92cfd81"
+    },
+    "tinyalsa": {
+      "version": "2.0.0",
+      "description": "minimal non-GNU ALSA audio suite.",
+      "arch": "x86_64",
+      "file": "tinyalsa-2.0.0.xpkg",
+      "size": 33654,
+      "sha256": "3052d32a9df4141cd01da86e81ea185d8723048264b80aceecb80676706655f5"
+    },
+    "ul": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/ul`.",
+      "arch": "x86_64",
+      "file": "ul-10.1.xpkg",
+      "size": 132176,
+      "sha256": "92b79b2a16a6d2a6e0aed877e45b5b20dfbc548166f43eb8ea0e4662b49d6af7"
+    },
+    "wc": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/wc`.",
+      "arch": "x86_64",
+      "file": "wc-10.1.xpkg",
+      "size": 69892,
+      "sha256": "19f7f085e70e6c76f6e4ae5917693c899ad598632b0abc6dc1be6971df16efc3"
+    },
+    "iproute2": {
+      "version": "6.9.0",
+      "description": "iproute2 6.9.0 (network configuration).",
+      "arch": "x86_64",
+      "file": "iproute2-6.9.0.xpkg",
+      "size": 356750,
+      "sha256": "8f51e5c07d5eb14c48591d3140646f7ba6ad91775a762a342e4af9b8e135f231"
+    },
+    "tput": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/tput`.",
+      "arch": "x86_64",
+      "file": "tput-10.1.xpkg",
+      "size": 128671,
+      "sha256": "b44a3fbf6e1116f1b9f5b9078567252d308acc078440256aada0daafe6438c68"
+    },
+    "flxt": {
+      "version": "1.0",
+      "description": "1990s Unix Motif/X11 Text Editor",
+      "arch": "x86_64",
+      "file": "flxt-1.0.xpkg",
+      "size": 2182102,
+      "sha256": "8af539a4be5e582c17d50a1165429a5b3e7f0e31fce81e2442e6271e3307d9da"
+    },
+    "radioctl": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/radioctl`.",
+      "arch": "x86_64",
+      "file": "radioctl-10.1.xpkg",
+      "size": 50079,
+      "sha256": "487be64c3923375bcbe04626e5868f604d156bf22f091201568ff8c93fd92677"
+    },
+    "uuencode": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/uuencode`.",
+      "arch": "x86_64",
+      "file": "uuencode-10.1.xpkg",
+      "size": 43293,
+      "sha256": "53f183544e121b47f1e8a369e70724f170a8b35994c9eb92af811aca98443f68"
+    },
+    "csplit": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/csplit`.",
+      "arch": "x86_64",
+      "file": "csplit-10.1.xpkg",
+      "size": 103307,
+      "sha256": "4fe981abe310aaf208a10ed125b20dd1b6d87ecb31653193514449ac2a025f55"
+    },
+    "clear": {
+      "version": "1",
+      "description": "minimal screen-clear utility.",
+      "arch": "x86_64",
+      "file": "clear-1.xpkg",
+      "size": 387,
+      "sha256": "76567c431c2cb7468b48754cbc3c63479b0b9143c28318ceff845a4e8eb776ee"
+    },
+    "sed": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/sed`.",
+      "arch": "x86_64",
+      "file": "sed-10.1.xpkg",
+      "size": 101939,
+      "sha256": "e7048076be171f8045db8ca38825b7ecffd9f3406dac69d69f334e2b41442f46"
+    },
+    "abduco": {
+      "version": "0.6",
+      "description": "session manager (git snapshot).",
+      "arch": "x86_64",
+      "file": "abduco-0.6.xpkg",
+      "size": 112931,
+      "sha256": "b2c5eaeb78f15985da4a07d839252ef1484f7fde6416a482131c3210c1e3c778"
+    },
+    "last": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/last`.",
+      "arch": "x86_64",
+      "file": "last-10.1.xpkg",
+      "size": 45569,
+      "sha256": "6fd3df0a72295a89aaadec51d9c1acbbcad5338ed759ec92096f0c8846518333"
+    },
+    "diff": {
+      "version": "cvs(OpenBSDmaster)",
+      "description": "BSD `/usr/bin/diff`.",
+      "arch": "x86_64",
+      "file": "diff-cvs(OpenBSDmaster).xpkg",
+      "size": 107131,
+      "sha256": "7666b3efe730aab682c1437b6be5a498a8acfafba3054049d9a2e38f5a02299e"
+    },
+    "flock": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/flock`.",
+      "arch": "x86_64",
+      "file": "flock-10.1.xpkg",
+      "size": 78062,
+      "sha256": "4eb739e8f73e501651b14016195a2ae76a56818f2310d1851a1d980044252603"
+    },
+    "hexdump": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/hexdump`.",
+      "arch": "x86_64",
+      "file": "hexdump-10.1.xpkg",
+      "size": 56794,
+      "sha256": "ab01f3d4075a5137d6dc36aadc16e215b025ef0d603700601ae52f988afd7cc4"
+    },
+    "midiplay": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/midiplay`.",
+      "arch": "x86_64",
+      "file": "midiplay-10.1.xpkg",
+      "size": 52260,
+      "sha256": "e713177a9c337998c93f3c28db16b40a0799dbcebdbdbbcfbc86d70622c53b1e"
+    },
+    "chmod": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/chmod`.",
+      "arch": "x86_64",
+      "file": "chmod-10.1.xpkg",
+      "size": 85805,
+      "sha256": "4b99af4cdc365b8bd0add2afd17450f844628f601b2d8413814ebc2a2856a567"
+    },
+    "hesinfo": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/hesinfo`.",
+      "arch": "x86_64",
+      "file": "hesinfo-10.1.xpkg",
+      "size": 37459,
+      "sha256": "f83a74a659d47704f73913f89d0de8a7db27b611493869910d98272acfe9a022"
+    },
+    "busybox": {
+      "version": "1.36.1",
+      "description": "busybox 1.36.1 (multi-call binary toolkit).",
+      "arch": "x86_64",
+      "file": "busybox-1.36.1.xpkg",
+      "size": 990708,
+      "sha256": "c842d3057cf4d9514d8d09bc54a4b14d809d947f65a086350f88ec3b1e7cadbb"
+    },
+    "st": {
+      "version": "0.9.2",
+      "description": "suckless terminal emulator.",
+      "arch": "x86_64",
+      "file": "st-0.9.2.xpkg",
+      "size": 1660222,
+      "sha256": "0712c1427f9ea6bf6f9c3aaf709f91f76fa7ace43ed9e94ef8fc411bcf9cc2e9"
+    },
+    "col": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/col`.",
+      "arch": "x86_64",
+      "file": "col-10.1.xpkg",
+      "size": 52382,
+      "sha256": "3d2a1d73318fe7142cd8a11872ac7fc39838b269040013448ec3234d937f8aa6"
+    },
+    "ldns": {
+      "version": "1.8.3",
+      "description": "ldns library + drill DNS tool (1.8.3).",
+      "arch": "x86_64",
+      "file": "ldns-1.8.3.xpkg",
+      "size": 3850180,
+      "sha256": "a19e57d15ac187146d3e5eee0af7f3a9e657ee47e1cf00b8c04b95fbd74353d0"
+    },
+    "id": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/id`.",
+      "arch": "x86_64",
+      "file": "id-10.1.xpkg",
+      "size": 48757,
+      "sha256": "6f78c47bbbaaf1d6e231e409b155c7388cad3836b808fd22f3381103b28c435e"
+    },
+    "mandoc": {
+      "version": "1.14.6",
+      "description": "mandoc 1.14.6 (man page formatter/viewer).",
+      "arch": "x86_64",
+      "file": "mandoc-1.14.6.xpkg",
+      "size": 343673,
+      "sha256": "d86161d14bcdd27922c695cec00389745b6875c9b3b0748cb0f2f5ee98d0f11a"
+    },
+    "realpath": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/realpath`.",
+      "arch": "x86_64",
+      "file": "realpath-10.1.xpkg",
+      "size": 39660,
+      "sha256": "7e131a0e9f5c305c8d529c7e4d8c21145fc84da4ba635ed1212deaa04a75c668"
+    },
+    "man": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/man`.",
+      "arch": "x86_64",
+      "file": "man-10.1.xpkg",
+      "size": 665,
+      "sha256": "9f7bc5e9c96523d57520d0a68d3ad6f562add9f828a4a5ae0c7f34bb745ba4cb"
+    },
+    "nl": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/nl`.",
+      "arch": "x86_64",
+      "file": "nl-10.1.xpkg",
+      "size": 70820,
+      "sha256": "644d4647bdb72954f8e5c60e9a225cbad4e3becbbbcb4b48a643a04a281419c7"
+    },
+    "split": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/split`.",
+      "arch": "x86_64",
+      "file": "split-10.1.xpkg",
+      "size": 69784,
+      "sha256": "61ba394eaa2d2f51a0376d5eefeaa2bb8cbacbf18e77ae57976943ff34a3a9df"
+    },
+    "freelinx-ifconfig": {
+      "version": "1.0",
+      "description": "BSD-styled interface config for Linux.",
+      "arch": "x86_64",
+      "file": "freelinx-ifconfig-1.0.xpkg",
+      "size": 140858,
+      "sha256": "538bba8f2e1aa7edcbfd1208fafb4a5d235a55559e9feab374f084cf03b64512"
+    },
+    "rs": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/rs`.",
+      "arch": "x86_64",
+      "file": "rs-10.1.xpkg",
+      "size": 43027,
+      "sha256": "b2d7e11118f33ea8f7111403d961aac539a3db50b85baea6ff7d5fd4323531ad"
+    },
+    "whois": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/whois`.",
+      "arch": "x86_64",
+      "file": "whois-10.1.xpkg",
+      "size": 60847,
+      "sha256": "4f774613604cc8e441218adcc7669793da546e421851e5f3ebbdcc386e2659e8"
+    },
+    "test": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/test`.",
+      "arch": "x86_64",
+      "file": "test-10.1.xpkg",
+      "size": 72965,
+      "sha256": "7fa1ea932bdad579fc0293c6f2743f004dfe9383fd7fe7b88752cc5acd44d864"
+    },
+    "stat": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr.bin/stat`.",
+      "arch": "x86_64",
+      "file": "stat-10.1.xpkg",
+      "size": 117538,
+      "sha256": "011c6a2f9bbef8ad1652b21d08bb9161f744101ba3fcb4f30bec146752f4ed8e"
+    },
+    "tsort": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/tsort`.",
+      "arch": "x86_64",
+      "file": "tsort-10.1.xpkg",
+      "size": 32302,
+      "sha256": "009d08b0893606ebabb3ac1893d3282e7aced3eb6a3ba916565c90b5ff4e5bb4"
+    },
+    "ipcrm": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/ipcrm`.",
+      "arch": "x86_64",
+      "file": "ipcrm-10.1.xpkg",
+      "size": 56458,
+      "sha256": "ed155b1a7e853d32aa8e57bad92cf19d23004fbdbc20f71a231b3f725f6cc934"
+    },
+    "pfetch": {
+      "version": "master",
+      "description": "pfetch (Dylan Araps), MIT license.",
+      "arch": "x86_64",
+      "file": "pfetch-master.xpkg",
+      "size": 17692,
+      "sha256": "5a88b1267bb212c2f4403a5afc803de4bc2c972cdec355db996f4fb80b69bfcb"
+    },
+    "biff": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/biff`.",
+      "arch": "x86_64",
+      "file": "biff-10.1.xpkg",
+      "size": 36481,
+      "sha256": "c534e285a4aa1bfec6de09854d558b7dab34d79b6478cbe3b05f3bd3e5b613ed"
+    },
+    "colcrt": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/colcrt`.",
+      "arch": "x86_64",
+      "file": "colcrt-10.1.xpkg",
+      "size": 36778,
+      "sha256": "5e192fcdbeaf4f95716f4fa6cc5bcd29b03e6deaf04fbdf84ca9372c097a5729"
+    },
+    "gencat": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/gencat`.",
+      "arch": "x86_64",
+      "file": "gencat-10.1.xpkg",
+      "size": 47145,
+      "sha256": "04f583b7f81a9a9105f0ac1f64e3dca77f562c1d33403c5eb37fae8fa98c3146"
+    },
+    "mesg": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/mesg`.",
+      "arch": "x86_64",
+      "file": "mesg-10.1.xpkg",
+      "size": 53286,
+      "sha256": "50c31aa2f227bd7759b406ddc11a59c317c532dc1c2ed9847434d71757031fd5"
+    },
+    "fincore": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/fincore`.",
+      "arch": "x86_64",
+      "file": "fincore-10.1.xpkg",
+      "size": 39632,
+      "sha256": "375f1cc8563c7c290c48f9bed90337a24c8066d7db1a21816b14b71cfcde150b"
+    },
+    "printenv": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/printenv`.",
+      "arch": "x86_64",
+      "file": "printenv-10.1.xpkg",
+      "size": 35204,
+      "sha256": "092e711288a760fb5ab3df32ea335fb522d79096372527a1d535186ee1c37585"
+    },
+    "lock": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/lock`.",
+      "arch": "x86_64",
+      "file": "lock-10.1.xpkg",
+      "size": 74308,
+      "sha256": "972153aedbb50427962fe83c77a1a86e6ab3749eb8d2f940ab282dcbcc05ed47"
+    },
+    "su": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `su`.",
+      "arch": "x86_64",
+      "file": "su-10.1.xpkg",
+      "size": 77141,
+      "sha256": "86f6014a17d1cf4723151a47b4f64497478cc201d4eca4efe8118045659907c7"
+    },
+    "ftp": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/ftp`.",
+      "arch": "x86_64",
+      "file": "ftp-10.1.xpkg",
+      "size": 261402,
+      "sha256": "0b532eebaecfc085c33bfcf4511bdc0ddc479b258ae5becf89deb149180498eb"
+    },
+    "uuidgen": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/uuidgen`.",
+      "arch": "x86_64",
+      "file": "uuidgen-10.1.xpkg",
+      "size": 47884,
+      "sha256": "65229f3c356999cf958224d7182592ae39828b129ccde2b6d1443713abb5f71a"
+    },
+    "error": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/error`.",
+      "arch": "x86_64",
+      "file": "error-10.1.xpkg",
+      "size": 108715,
+      "sha256": "3f1e12339406a0e7eb31339119ba7fd141f1fdca29747373b01b96f80c582039"
+    },
+    "rsh": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/rsh`.",
+      "arch": "x86_64",
+      "file": "rsh-10.1.xpkg",
+      "size": 58605,
+      "sha256": "139b4b5482aad5abaa94724a9657550b861eadbf937ff8d730511ec68e97b012"
+    },
+    "eject": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/eject`.",
+      "arch": "x86_64",
+      "file": "eject-10.1.xpkg",
+      "size": 16965,
+      "sha256": "3719b242c2e0416aeab24226ff63ae1e0331d237b8a11fa71b1258a93c31fb43"
+    },
+    "script": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/script`.",
+      "arch": "x86_64",
+      "file": "script-10.1.xpkg",
+      "size": 86559,
+      "sha256": "ace8420dc37bc71838062f8de045f076c9fce3adc033fee1f30db40a2f341b75"
+    },
+    "git": {
+      "version": "2.47.1",
+      "description": "Git 2.47.1 (upstream project port).",
+      "arch": "x86_64",
+      "file": "git-2.47.1.xpkg",
+      "size": 2128391,
+      "sha256": "1a9f73bbb6c7d85e724c900e0dc99ac9a7ed6b951edbbf82db6728d13f4006b7"
+    },
+    "vndcompress": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/vndcompress`.",
+      "arch": "x86_64",
+      "file": "vndcompress-10.1.xpkg",
+      "size": 141066,
+      "sha256": "c187e3487475a2b66df702df44d09bc1d2c35763648f663faade528d5d9183b1"
+    },
+    "openssh": {
+      "version": "9.9p1",
+      "description": "OpenSSH 9.9p1 (upstream portable port).",
+      "arch": "x86_64",
+      "file": "openssh-9.9p1.xpkg",
+      "size": 2292304,
+      "sha256": "1002b94f5118e1a0d01da89b98b23e4b3b011951dab016f92a71ba569d7f0ab3"
+    },
+    "vacation": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/vacation`.",
+      "arch": "x86_64",
+      "file": "vacation-10.1.xpkg",
+      "size": 166885,
+      "sha256": "5ee9678d561e8d83a1740e492e96bc2f29710be1128e684215f91c5d636ff902"
+    },
+    "ipcs": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/ipcs`.",
+      "arch": "x86_64",
+      "file": "ipcs-10.1.xpkg",
+      "size": 73237,
+      "sha256": "e2f60d5426b2a541c3a126c9688794b088510498c079460246cd994225d6d118"
+    },
+    "ping": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 IPv4 ICMP echo client.",
+      "arch": "x86_64",
+      "file": "ping-10.1.xpkg",
+      "size": 89330,
+      "sha256": "600fbdc850de28e52251466e5f1f02904e985bf7bf49109df18ddf63834f43b3"
+    },
+    "dhcpcd": {
+      "version": "10.5.2",
+      "description": "dhcpcd 10.5.2 (DHCP client).",
+      "arch": "x86_64",
+      "file": "dhcpcd-10.5.2.xpkg",
+      "size": 508495,
+      "sha256": "7327b86e6b454868a244bff77c40d91907bc9767767ba31061e49f8a536a9e6c"
+    },
+    "colordiff": {
+      "version": "1",
+      "description": "FreeLinX-original colordiff wrapper.",
+      "arch": "x86_64",
+      "file": "colordiff-1.xpkg",
+      "size": 376,
+      "sha256": "b4f617c99e148109b8d42e2bc4a2ae774e5b8c3dccb1895461fbf7ee87316f67"
+    },
+    "tail": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/tail`.",
+      "arch": "x86_64",
+      "file": "tail-10.1.xpkg",
+      "size": 73870,
+      "sha256": "60f2fee5677b1de5f9fb0fd17669c09b3f592b56068f51417fe537cae1c7c3fd"
+    },
+    "videoctl": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/videoctl`.",
+      "arch": "x86_64",
+      "file": "videoctl-10.1.xpkg",
+      "size": 75322,
+      "sha256": "e9092b040cb0f5b810e2271a521d9cc4c89820c334b8506fb7c84adf180ce25f"
+    },
+    "tcopy": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/tcopy`.",
+      "arch": "x86_64",
+      "file": "tcopy-10.1.xpkg",
+      "size": 69443,
+      "sha256": "4370b4267df3ece1336dabf3a8fe02a5658645b1a44691a7a7ee0f277d831369"
+    },
+    "bzip2": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/bzip2`.",
+      "arch": "x86_64",
+      "file": "bzip2-10.1.xpkg",
+      "size": 69413,
+      "sha256": "b3e66745308113fa6496b8a5a1f3c56eb80d4e7c01308b98b22f6e3585f51ae5"
+    },
+    "mkstr": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/mkstr`.",
+      "arch": "x86_64",
+      "file": "mkstr-10.1.xpkg",
+      "size": 39814,
+      "sha256": "1405b0d48c63e9c008a52d7b14dbe8d890f3a859753e8fdc02c418b1b557acc2"
+    },
+    "vis": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/vis`.",
+      "arch": "x86_64",
+      "file": "vis-10.1.xpkg",
+      "size": 44622,
+      "sha256": "95fddd6f7c6bf6935b995ec732cfe6114cb2d2ef1f7a8b06c7c9af61532edf96"
+    },
+    "llvm-binutils": {
+      "version": "21.1.8",
+      "description": "LLVM binutils equivalents (exposure).",
+      "arch": "x86_64",
+      "file": "llvm-binutils-21.1.8.xpkg",
+      "size": 245,
+      "sha256": "322250ae463a7dd71ef307c8b0b20440d67888a7082e8887f964fa1886f1a646"
+    },
+    "du": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/du`.",
+      "arch": "x86_64",
+      "file": "du-10.1.xpkg",
+      "size": 54884,
+      "sha256": "d66c37f4ae711414fea250f7656cc9476d4fb1fb685b99fb6cdc24b0a0161ae9"
+    },
+    "join": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/join`.",
+      "arch": "x86_64",
+      "file": "join-10.1.xpkg",
+      "size": 68765,
+      "sha256": "db0f525b8609f1cb8b731ef526adc14beff1acfa1ec88bfa27d1b5bb03774103"
+    },
+    "from": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/from`.",
+      "arch": "x86_64",
+      "file": "from-10.1.xpkg",
+      "size": 40340,
+      "sha256": "8c44828f9fa1e3496768ccda8e9f23b0d8c09f96c3f9cbd8653eba4e4583adc1"
+    },
+    "whatis": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/whatis`.",
+      "arch": "x86_64",
+      "file": "whatis-10.1.xpkg",
+      "size": 191,
+      "sha256": "6769deba84ac9c86393cf324b07adab137db96f650f93fb1c54a5cb59d397639"
+    },
+    "netbsd-ping": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/sbin/ping`.",
+      "arch": "x86_64",
+      "file": "netbsd-ping-10.1.xpkg",
+      "size": 89327,
+      "sha256": "afde710a04fedb6f10c68a1741d6a81ebfa515464d92769b814d71793e44f1a2"
+    },
+    "smartmontools": {
+      "version": "7.4",
+      "description": "S.M.A.R.T. monitoring utilities (7.4)",
+      "arch": "x86_64",
+      "file": "smartmontools-7.4.xpkg",
+      "size": 596427,
+      "sha256": "ed3240441183ad0905b357d2b649d654ed117455181adc465caf56b7565fc098"
+    },
+    "dnsmasq": {
+      "version": "2.90",
+      "description": "dnsmasq 2.90 (DNS/DHCP server).",
+      "arch": "x86_64",
+      "file": "dnsmasq-2.90.xpkg",
+      "size": 230003,
+      "sha256": "1698412dad58192853086768899c7941c7ac5c118b0f63e252efe69630533431"
+    },
+    "fpr": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/fpr`.",
+      "arch": "x86_64",
+      "file": "fpr-10.1.xpkg",
+      "size": 37561,
+      "sha256": "74d72f7eb6555cd69ccb9c8f3e334dd26f113e385884b4e8ab4456506768c4fc"
+    },
+    "mkdir": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/mkdir`.",
+      "arch": "x86_64",
+      "file": "mkdir-10.1.xpkg",
+      "size": 58206,
+      "sha256": "ec5043b5b7f66a2ecb90bb7ab52b05c4963dd55f945454a702c17d24b5fb90e8"
+    },
+    "cal": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/cal`.",
+      "arch": "x86_64",
+      "file": "cal-10.1.xpkg",
+      "size": 55983,
+      "sha256": "7593385e52f7dc1e75c4fd1ade9750bf866df637d7c451ed83276a6c456c9d1d"
+    },
+    "dirname": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/dirname`.",
+      "arch": "x86_64",
+      "file": "dirname-10.1.xpkg",
+      "size": 60123,
+      "sha256": "af464f58883e314bf24a3ccc88dac91b82a36d6b7d68e2911c765acf1652b6f6"
+    },
+    "locate": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/locate`.",
+      "arch": "x86_64",
+      "file": "locate-10.1.xpkg",
+      "size": 39018,
+      "sha256": "c8edefbf708801c54321d925876f4e27efed69f44fd29be474f538b846ec7c89"
+    },
+    "ninja": {
+      "version": "1.13.2",
+      "description": "Ninja v1.13.2 (upstream project port).",
+      "arch": "x86_64",
+      "file": "ninja-1.13.2.xpkg",
+      "size": 543084,
+      "sha256": "ae0d66f96f38215d1227361fef93ee20252600e903a5ce2971e3b41f49331f62"
+    },
+    "mktemp": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/mktemp`.",
+      "arch": "x86_64",
+      "file": "mktemp-10.1.xpkg",
+      "size": 38643,
+      "sha256": "940ccbfd84099e54a938a7b360dad28362cc0b12c3a431e6173afa5d63f571d4"
+    },
+    "less": {
+      "version": "661",
+      "description": "less 668 (terminal pager).",
+      "arch": "x86_64",
+      "file": "less-661.xpkg",
+      "size": 169697,
+      "sha256": "0b41a0cd43cfb7bb0be3331069f3f2a0912a425be88cc78a7e49ab6a2a1f71b9"
+    },
+    "wget": {
+      "version": "1.25.0",
+      "description": "wget 1.25.0 (network file retriever).",
+      "arch": "x86_64",
+      "file": "wget-1.25.0.xpkg",
+      "size": 2629934,
+      "sha256": "7ebb148a6b65ecf4f6b52e83f212be1642256ba24c6edb52f3112c88aefdb629"
+    },
+    "base64": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/base64`.",
+      "arch": "x86_64",
+      "file": "base64-10.1.xpkg",
+      "size": 39397,
+      "sha256": "83a1024bf161aa46d825c031fd1938baa8eea8a35940b06e3891df8eced6f63f"
+    },
+    "asa": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/asa`.",
+      "arch": "x86_64",
+      "file": "asa-10.1.xpkg",
+      "size": 35222,
+      "sha256": "8d6f3ec6e031b97d08beadba65366e5de92f70ddb71b7f2315072d99e723037a"
+    },
+    "vim": {
+      "version": "9.2.1025",
+      "description": "Vim 9.2.1025 (upstream project port).",
+      "arch": "x86_64",
+      "file": "vim-9.2.1025.xpkg",
+      "size": 2149858,
+      "sha256": "c6d32ce6a5411f4f7c8a93281ea3b45ed983441ce6e6ab7bd1e9fa23f428858c"
+    },
+    "lastcomm": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/lastcomm`.",
+      "arch": "x86_64",
+      "file": "lastcomm-10.1.xpkg",
+      "size": 52994,
+      "sha256": "30ea4a081f1169a375b318a4fb06ef7bc5f25e27fd3dad10d1ab394517f6967e"
+    },
+    "getent": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/getent`.",
+      "arch": "x86_64",
+      "file": "getent-10.1.xpkg",
+      "size": 110097,
+      "sha256": "2cda42a2ec564901455506e44fa2e074da740f13f692ea874efb3852cd5f2d3b"
+    },
+    "getaddrinfo": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/getaddrinfo`.",
+      "arch": "x86_64",
+      "file": "getaddrinfo-10.1.xpkg",
+      "size": 91479,
+      "sha256": "7f3908e0f446950461e6f5970cc824d8aad50da8946ace7990a1e614115c548e"
+    },
+    "fmt": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/fmt`.",
+      "arch": "x86_64",
+      "file": "fmt-10.1.xpkg",
+      "size": 53161,
+      "sha256": "640a46222177125d1b36e47f2cc7dea0e1829e9739cf66dd34bce2bba97af607"
+    },
+    "rev": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/rev`.",
+      "arch": "x86_64",
+      "file": "rev-10.1.xpkg",
+      "size": 40178,
+      "sha256": "c95703a1640b3a191b9a64e6858615dd7029f044cb75c131d3d59520212ab62d"
+    },
+    "ls": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/ls`.",
+      "arch": "x86_64",
+      "file": "ls-10.1.xpkg",
+      "size": 151665,
+      "sha256": "9f96b79fdd840ab292ad1f4c0a8c864561edf6b11a50f3e93aa78a29be614a8d"
+    },
+    "pr": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/pr`.",
+      "arch": "x86_64",
+      "file": "pr-10.1.xpkg",
+      "size": 99508,
+      "sha256": "147a0a799111e8cc26346a1a606de5d71d9dc4826a891713c473a8d38d13b460"
+    },
+    "cp": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/cp`.",
+      "arch": "x86_64",
+      "file": "cp-10.1.xpkg",
+      "size": 95875,
+      "sha256": "1d725591e4a54781f953b4cd6ab9d4bf8f2d318a8d9c6ab0569bc090e60f7c2f"
+    },
+    "seq": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/seq`.",
+      "arch": "x86_64",
+      "file": "seq-10.1.xpkg",
+      "size": 65200,
+      "sha256": "fc47817110e607d1fb747abfa0a3f0c2e866f0517227fbda97957d6a2c570123"
+    },
+    "uniq": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/uniq`.",
+      "arch": "x86_64",
+      "file": "uniq-10.1.xpkg",
+      "size": 69575,
+      "sha256": "cf20d38dd36d077bcb488988406c0bbd13391ac7c8e9e0a1d4972495188bdb0e"
+    },
+    "compress": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/compress`.",
+      "arch": "x86_64",
+      "file": "compress-10.1.xpkg",
+      "size": 45523,
+      "sha256": "459e3ca6cafd643390329738b050514a38beacfe227432b11faef6564aafa918"
+    },
+    "comm": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/comm`.",
+      "arch": "x86_64",
+      "file": "comm-10.1.xpkg",
+      "size": 66537,
+      "sha256": "e259cecd1c7540f76252bad828cb4e7a9d74acbde4e6310ff503e21627483f75"
+    },
+    "wpa_supplicant": {
+      "version": "2.11",
+      "description": "wpa_supplicant 2.11 (WiFi supplicant).",
+      "arch": "x86_64",
+      "file": "wpa_supplicant-2.11.xpkg",
+      "size": 4455965,
+      "sha256": "78f449a12e88f6432781f08a02b97f1d9ca37dd73742ff6646f6b5d796459488"
+    },
+    "tabs": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/tabs`.",
+      "arch": "x86_64",
+      "file": "tabs-10.1.xpkg",
+      "size": 93503,
+      "sha256": "0e1753586198e1b29d7fc05208f9766d3df0dd1c0a6a68bc31e30c5c93dcb786"
+    },
+    "logger": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/logger`.",
+      "arch": "x86_64",
+      "file": "logger-10.1.xpkg",
+      "size": 43165,
+      "sha256": "884bcce2fe553edeee18ce68a46069500ae50f0807b971ac59b71d764cc437be"
+    },
+    "netbsd-sh": {
+      "version": "10.1",
+      "description": "NetBSD `/bin/sh` (Almquist shell, ash).",
+      "arch": "x86_64",
+      "file": "netbsd-sh-10.1.xpkg",
+      "size": 333975,
+      "sha256": "0c29f662315e46d6792d558c68b2852969db247bba57bbba7af4ee1424d678fe"
+    },
+    "unexpand": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/unexpand`.",
+      "arch": "x86_64",
+      "file": "unexpand-10.1.xpkg",
+      "size": 33527,
+      "sha256": "6c736e01bc82e8e17e79a843b2cbfb26e498f29fa6c5f4cf0ba3aa0b00560500"
+    },
+    "sort": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/sort`.",
+      "arch": "x86_64",
+      "file": "sort-10.1.xpkg",
+      "size": 121105,
+      "sha256": "75b6ff2bf9d5b08a933d81a689c658cf5f4cc23311aa9475958f40fb19586e87"
+    },
+    "socat": {
+      "version": "1.8.0.2",
+      "description": "socat 1.8.0.2 (multipurpose relay).",
+      "arch": "x86_64",
+      "file": "socat-1.8.0.2.xpkg",
+      "size": 243088,
+      "sha256": "f4c876adb631d66707cd2e6b0612960b36dd4219de9a336d237f97ea397c3b70"
+    },
+    "awk": {
+      "version": "2024",
+      "description": "Brian Kernighan's One True Awk.",
+      "arch": "x86_64",
+      "file": "awk-2024.xpkg",
+      "size": 132769,
+      "sha256": "9522ef6c26c03c95fb8bd0e5258001d918801057dec6f3a5de4be99d58f742bf"
+    },
+    "bdes": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/bdes`.",
+      "arch": "x86_64",
+      "file": "bdes-10.1.xpkg",
+      "size": 1803073,
+      "sha256": "125af1bb28f6b8b13aab8a0a87da0bfb676c1828a5ff908f24f269d756ac2123"
+    },
+    "uname": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/uname`.",
+      "arch": "x86_64",
+      "file": "uname-10.1.xpkg",
+      "size": 24122,
+      "sha256": "6b9ce933f754ba839c10d7bf2b6737032b47d06aa349fb62d8d3978414a96563"
+    },
+    "runit": {
+      "version": "2.2.0",
+      "description": "runit 2.2.0 (service supervision, init).",
+      "arch": "x86_64",
+      "file": "runit-2.2.0.xpkg",
+      "size": 44978,
+      "sha256": "5aecd120e2d7a5ebe886aaec41b390fba0c04191711624c95135474715669905"
+    },
+    "db": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/db`.",
+      "arch": "x86_64",
+      "file": "db-10.1.xpkg",
+      "size": 175013,
+      "sha256": "87e754dfc348ae0117cff434aeaabf0f9436123428482770b76ae035f2798949"
+    },
+    "unzip": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/unzip`.",
+      "arch": "x86_64",
+      "file": "unzip-10.1.xpkg",
+      "size": 283551,
+      "sha256": "b4c88003ec7a17e3dae85c8b164bfab80a8f45ee170883c2ac533af9ab59b948"
+    },
+    "fsplit": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/fsplit`.",
+      "arch": "x86_64",
+      "file": "fsplit-10.1.xpkg",
+      "size": 44144,
+      "sha256": "909edb7de7a81fdf2f3bc1125d2caed37bf186007a41e156590abb190582cb67"
+    },
+    "cut": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/cut`.",
+      "arch": "x86_64",
+      "file": "cut-10.1.xpkg",
+      "size": 68467,
+      "sha256": "55d12847c4595ed11495eea0aadbd15ef4f8d3fe555f8ce5a75e8944ab699349"
+    },
+    "rsync": {
+      "version": "3.3.0",
+      "description": "rsync 3.3.0 (remote file sync).",
+      "arch": "x86_64",
+      "file": "rsync-3.3.0.xpkg",
+      "size": 493051,
+      "sha256": "d262e144e4ed21c6bd1e8a0beffc0605285d10e5fa7076e8411556c68840c734"
+    },
+    "tcc": {
+      "version": "0.9.27",
+      "description": "Tiny C Compiler (0.9.27)",
+      "arch": "x86_64",
+      "file": "tcc-0.9.27.xpkg",
+      "size": 199764,
+      "sha256": "3b51258cc288d3e85228b88535ac9df0086331bb0a5eb9153f385574a026bf47"
+    },
+    "nice": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/nice`.",
+      "arch": "x86_64",
+      "file": "nice-10.1.xpkg",
+      "size": 26004,
+      "sha256": "fffe005eabe22262e417e2476533d9f4c06e387623c0bf951a465f0f6d9c2a42"
+    },
+    "apropos": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/apropos`.",
+      "arch": "x86_64",
+      "file": "apropos-10.1.xpkg",
+      "size": 193,
+      "sha256": "315b3c5f3e5cb3db785fd16687b88ff4d684080e4692bec51214cb14c28ce1e1"
+    },
+    "colrm": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/colrm`.",
+      "arch": "x86_64",
+      "file": "colrm-10.1.xpkg",
+      "size": 37812,
+      "sha256": "6f4d5861570dc3c0bd41b559fb26332afef30f241d0709998a3fce87fb253d2f"
+    },
+    "wall": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/wall`.",
+      "arch": "x86_64",
+      "file": "wall-10.1.xpkg",
+      "size": 63025,
+      "sha256": "e31973d18f0928f7184e64aa5507029e99f08e200324c93c74d008b33a8bc4db"
+    },
+    "fdformat": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/fdformat`.",
+      "arch": "x86_64",
+      "file": "fdformat-10.1.xpkg",
+      "size": 49790,
+      "sha256": "0671312cb29664bf8d4a144a90ea837f2d8a29d2560bad6f76dd978ee414312d"
+    },
+    "openntpd": {
+      "version": "7.9p1",
+      "description": "OpenNTPD 7.9p1 (NTP time sync daemon).",
+      "arch": "x86_64",
+      "file": "openntpd-7.9p1.xpkg",
+      "size": 51954,
+      "sha256": "49109ad4dbb9a191128482a539d21dc950b4faf0c5c15e6ed063226a5a1c35ac"
+    },
+    "resize": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/resize`.",
+      "arch": "x86_64",
+      "file": "resize-10.1.xpkg",
+      "size": 53457,
+      "sha256": "40b93abda330d773f48d5b06de5505ba6df3da51ea57c8752d69ccd2ca93ddc3"
+    },
+    "look": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/look`.",
+      "arch": "x86_64",
+      "file": "look-10.1.xpkg",
+      "size": 39379,
+      "sha256": "99efa57c25e6448038a487ef753ae1d9e160cabc3880b8542cc8ea3f3269b5ba"
+    },
+    "dos2unix": {
+      "version": "7.5.2",
+      "description": "dos2unix 7.5.2 (text file format converter).",
+      "arch": "x86_64",
+      "file": "dos2unix-7.5.2.xpkg",
+      "size": 51751,
+      "sha256": "e6150e8e78ba5aefcd9de3f5507c9c10fc8dd510a9c68c2b106bd454d9cd7cb5"
+    },
+    "mdevd": {
+      "version": "0.1.8.1",
+      "description": "mdev-compatible uevent daemon 0.1.8.1.",
+      "arch": "x86_64",
+      "file": "mdevd-0.1.8.1.xpkg",
+      "size": 78258,
+      "sha256": "6feba0ea957fe4667d8af43bb3221b8baaa1d04aa32d6787e268a19e2e67db90"
+    },
+    "finger": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/finger`.",
+      "arch": "x86_64",
+      "file": "finger-10.1.xpkg",
+      "size": 236677,
+      "sha256": "6cee159745b679e502cece73a28c55670fae2e2766ad540bb3c9c84081940c9b"
+    },
+    "checknr": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/checknr`.",
+      "arch": "x86_64",
+      "file": "checknr-10.1.xpkg",
+      "size": 45496,
+      "sha256": "ba0e46c707aec73a84ee2fd488a9d7ac39a2a40a975390e3d837a1c16387a03f"
+    },
+    "dvtm": {
+      "version": "0.15",
+      "description": "dvtm 0.15 (dynamic virtual terminal manager).",
+      "arch": "x86_64",
+      "file": "dvtm-0.15.xpkg",
+      "size": 205519,
+      "sha256": "df1a8c145e7227387317389a3e9b2a017e84613a52ed6b82ba0119c21de78a77"
+    },
+    "tftp": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/tftp`.",
+      "arch": "x86_64",
+      "file": "tftp-10.1.xpkg",
+      "size": 89120,
+      "sha256": "0fad7609d104b3607612a411783a9781d6e43ef494755e03fb66bea819575cd4"
+    },
+    "pkgconf": {
+      "version": "2.3.0",
+      "description": "pkg-config replacement (2.3.0).",
+      "arch": "x86_64",
+      "file": "pkgconf-2.3.0.xpkg",
+      "size": 42105,
+      "sha256": "bd0e54bb3080d61ce78b89039fd1d7eff5b5518efe4fc4d8493b60aaa809d73f"
+    },
+    "dd": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/dd`.",
+      "arch": "x86_64",
+      "file": "dd-10.1.xpkg",
+      "size": 95125,
+      "sha256": "4d8f4b21041ad1a321543f6a2448393ba53501ea6ea9af62ee469a6f6f9cd3fc"
+    },
+    "ctags": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/ctags`.",
+      "arch": "x86_64",
+      "file": "ctags-10.1.xpkg",
+      "size": 56911,
+      "sha256": "771272612dcc710abad02ca0403e3061d68c214bdaf2429dea05b35df8553d01"
+    },
+    "pathchk": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/pathchk`.",
+      "arch": "x86_64",
+      "file": "pathchk-10.1.xpkg",
+      "size": 38102,
+      "sha256": "0af2940b51f9ddda35d596aa8ff0dc4161e41a842c6006c0d97bf4970c0bc44d"
+    },
+    "flx-tools": {
+      "version": "1.0",
+      "description": "FreeLinX Core Desktop Utilities & Tools",
+      "arch": "x86_64",
+      "file": "flx-tools-1.0.xpkg",
+      "size": 11011694,
+      "sha256": "39d4c5f633106e50686f5c95c5269c496ee0136ba3a994828e734bfa47f8c4b7"
+    },
+    "sleep": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/sleep`.",
+      "arch": "x86_64",
+      "file": "sleep-10.1.xpkg",
+      "size": 52195,
+      "sha256": "cf2fe6a5b224a209e83600a665d7f975d1fe13113bc5118fc42c302f37b1df77"
+    },
+    "route": {
+      "version": "freelinx",
+      "description": "BSD-style IPv4 route utility for Linux.",
+      "arch": "x86_64",
+      "file": "route-freelinx.xpkg",
+      "size": 40770,
+      "sha256": "a55aec3841ddb9805feab91c4ea46a2d0e1389d88c9188d5019d03dd9799545d"
+    },
+    "unifdef": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/unifdef`.",
+      "arch": "x86_64",
+      "file": "unifdef-10.1.xpkg",
+      "size": 57461,
+      "sha256": "2c6c6328106f0ff01b437d63b3ee38ca69462c5ba92354e02b870119decb9bbb"
+    },
+    "rm": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/rm`.",
+      "arch": "x86_64",
+      "file": "rm-10.1.xpkg",
+      "size": 89638,
+      "sha256": "3a73d488f876059daa1aa091e12d0dbf9e583734ca1f6276d034e73972f23e46"
+    },
+    "leave": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/leave`.",
+      "arch": "x86_64",
+      "file": "leave-10.1.xpkg",
+      "size": 45704,
+      "sha256": "4c6aebe2ed887cf03c45dbd5e97a939c24ae95af21368b5aa508896f01ec8fd1"
+    },
+    "mpg123": {
+      "version": "1.32.10",
+      "description": "Fast console MPEG audio player (1.32.10)",
+      "arch": "x86_64",
+      "file": "mpg123-1.32.10.xpkg",
+      "size": 395013,
+      "sha256": "0a09f08fd60d595458b5c5247bcee6559a4e2eebd3ab2df2885cfcb36a5bb979"
+    },
+    "elf2aout": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/elf2aout`.",
+      "arch": "x86_64",
+      "file": "elf2aout-10.1.xpkg",
+      "size": 47044,
+      "sha256": "4d95b750b23b6eaa43529b78a4f90d516abd659909714d9caa35c507077297d5"
+    },
+    "gzip": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/gzip`.",
+      "arch": "x86_64",
+      "file": "gzip-10.1.xpkg",
+      "size": 134934,
+      "sha256": "6ee2ae0df682ba7f57d32a26d96b249f9ba22c6a7b851f5085828909deddaa14"
+    },
+    "xclock": {
+      "version": "1.1.1",
+      "description": "X clock display.",
+      "arch": "x86_64",
+      "file": "xclock-1.1.1.xpkg",
+      "size": 2176690,
+      "sha256": "3b6cc7c97f36f0c290fd8de6e26b5d17fc44ec046e4829849c6ca0bb7b7a0553"
+    },
+    "tee": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/tee`.",
+      "arch": "x86_64",
+      "file": "tee-10.1.xpkg",
+      "size": 64629,
+      "sha256": "f7a210aa3ee389907d534aa1b22a148f0bdc8c8b2938e605e39b2aaa5931ae68"
+    },
+    "uudecode": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/uudecode`.",
+      "arch": "x86_64",
+      "file": "uudecode-10.1.xpkg",
+      "size": 48945,
+      "sha256": "1c3874c06896c2dff7becc09b91099787f1c6df823547f0a28652594e5d53c65"
+    },
+    "bmake": {
+      "version": "portable",
+      "description": "NetBSD bmake (portable BSD make).",
+      "arch": "x86_64",
+      "file": "bmake-portable.xpkg",
+      "size": 192314,
+      "sha256": "0384145d762dd34a4c7ca43b96444466a1b99a19cf130ce3c2242fc9531a4755"
+    },
+    "patch": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/patch`.",
+      "arch": "x86_64",
+      "file": "patch-10.1.xpkg",
+      "size": 109054,
+      "sha256": "6d54768e51e3d9a700abb9f905559e15d67405282c57331d2682f5b4d822b339"
+    },
+    "grep": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr.bin/grep`.",
+      "arch": "x86_64",
+      "file": "grep-10.1.xpkg",
+      "size": 113090,
+      "sha256": "490517d6d0676842dd6657e3d893e9b50145ecb7451e74cd8c84ea11bdf66c6e"
+    },
+    "ifconfig": {
+      "version": "freelinx",
+      "description": "BSD-style interface configuration on Linux.",
+      "arch": "x86_64",
+      "file": "ifconfig-freelinx.xpkg",
+      "size": 27073,
+      "sha256": "da39d27be71e613df2bb1345f4dfc15d9fb337b16a287423b675b10b0fb3eba8"
+    },
+    "tic": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/tic`.",
+      "arch": "x86_64",
+      "file": "tic-10.1.xpkg",
+      "size": 140912,
+      "sha256": "c63be80946da3a5fda5aa9154d94c51d5ebd270db33c19ae019795a9cf41d20e"
+    },
+    "netgroup": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/netgroup`.",
+      "arch": "x86_64",
+      "file": "netgroup-10.1.xpkg",
+      "size": 18792,
+      "sha256": "d54d30c6b7611562be44f3c4544aca010e1c35fc3b3b2ec7e47aea991ed8261b"
+    },
+    "hostname": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/hostname`.",
+      "arch": "x86_64",
+      "file": "hostname-10.1.xpkg",
+      "size": 41407,
+      "sha256": "68aed32e3758ac707ca68561128aba1625cac37fff35ec5f816805653f241b0f"
+    },
+    "what": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/what`.",
+      "arch": "x86_64",
+      "file": "what-10.1.xpkg",
+      "size": 39446,
+      "sha256": "f9226b3dd5617aef57061d9386bac974761b6f9c854fe5ca08e5fbacea2023d1"
+    },
+    "mksh": {
+      "version": "R59c",
+      "description": "MirBSD Korn shell R59c.",
+      "arch": "x86_64",
+      "file": "mksh-R59c.xpkg",
+      "size": 204719,
+      "sha256": "b761ef1dd2f35986b720532a667650727425d553474ff9a2472ee66016cea338"
+    },
+    "lam": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/lam`.",
+      "arch": "x86_64",
+      "file": "lam-10.1.xpkg",
+      "size": 37860,
+      "sha256": "a9646b130ad231a35db0ac9501896f38fa67253b8b249c278202cd30861e1e3f"
+    },
+    "dmesg": {
+      "version": "freelinx",
+      "description": "FreeLinX-native dmesg (Linux syslog(2)).",
+      "arch": "x86_64",
+      "file": "dmesg-freelinx.xpkg",
+      "size": 53917,
+      "sha256": "9fca71a6601ba072dfa86ec0f1f60e399ecf398b8f8252513f6177ae10b79cb4"
+    },
+    "indent": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/indent`.",
+      "arch": "x86_64",
+      "file": "indent-10.1.xpkg",
+      "size": 97120,
+      "sha256": "c3d4e1ded2325ca9570e0cc6ad5353fb04f8333f3a46c19d533a0f31e78da2b1"
+    },
+    "mkfifo": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/mkfifo`.",
+      "arch": "x86_64",
+      "file": "mkfifo-10.1.xpkg",
+      "size": 46114,
+      "sha256": "772486d073bb4a3a8015371d2e34d55d36b2d5295e5ba4673e9d4f9aa9e49892"
+    },
+    "w3m": {
+      "version": "0.5.3",
+      "description": "w3m text-based web browser (0.5.3).",
+      "arch": "x86_64",
+      "file": "w3m-0.5.3.xpkg",
+      "size": 6455236,
+      "sha256": "b84ae26783be236efc354b61f05f865d4864d4546f6bc57cc40bc8b94f5b312a"
+    },
+    "pwd": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/pwd`.",
+      "arch": "x86_64",
+      "file": "pwd-10.1.xpkg",
+      "size": 23329,
+      "sha256": "b636f3b945b0108b021c2a3bd4da4c3c6aa7ff24a8d0d889f4437f3084e6f945"
+    },
+    "renice": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/renice`.",
+      "arch": "x86_64",
+      "file": "renice-10.1.xpkg",
+      "size": 32272,
+      "sha256": "0137e109c46f9fc8c4d3391f2b48a66e048f2cd6d8f92679f5c9f5bb5a755b2e"
+    },
+    "banner": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/banner`.",
+      "arch": "x86_64",
+      "file": "banner-10.1.xpkg",
+      "size": 37639,
+      "sha256": "b56a7c8c97fc59a4d386718b80a55a419c38799bb229c28ce16e2859e2a4f0a9"
+    },
+    "newgrp": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/newgrp`.",
+      "arch": "x86_64",
+      "file": "newgrp-10.1.xpkg",
+      "size": 71567,
+      "sha256": "0fc283b3729e3e8c33f8a936463ec8fc386f0f38916813baa7b379cc70540361"
+    },
+    "progress": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/progress`.",
+      "arch": "x86_64",
+      "file": "progress-10.1.xpkg",
+      "size": 59336,
+      "sha256": "e94b12aac154e3a79f46e8a5909c5a796e0c6d0fa9554fccaaaf5c426bbae40f"
+    },
+    "tset": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/tset`.",
+      "arch": "x86_64",
+      "file": "tset-10.1.xpkg",
+      "size": 139887,
+      "sha256": "b93981ff837b664e27fa98385fe1a532a267ee19d5fb6aaf981f9eb4bfd6ca3e"
+    },
+    "df": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/df`.",
+      "arch": "x86_64",
+      "file": "df-10.1.xpkg",
+      "size": 94073,
+      "sha256": "6b78cdc3348414bd47ed2bea67534bd92d3b2b52b6c3d17541ac8e5023571222"
+    },
+    "date": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/date`.",
+      "arch": "x86_64",
+      "file": "date-10.1.xpkg",
+      "size": 53491,
+      "sha256": "8390bec398ead1acb18854eeafc6e9c956ac17bde14ca1040eb1318356e0e526"
+    },
+    "nbperf": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/nbperf`.",
+      "arch": "x86_64",
+      "file": "nbperf-10.1.xpkg",
+      "size": 64054,
+      "sha256": "686030cdb5d1b31340a64637b4e307ecb1398eb2281936ac1f9dfdbe34c66544"
+    },
+    "timeout": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/timeout`.",
+      "arch": "x86_64",
+      "file": "timeout-10.1.xpkg",
+      "size": 38205,
+      "sha256": "d7bce6a7291bfa95b1d802ea1eefa2f97f6d57660a097525c4e96890276de8a7"
+    },
+    "env": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/env`.",
+      "arch": "x86_64",
+      "file": "env-10.1.xpkg",
+      "size": 55137,
+      "sha256": "88a12d648e45e54808dce0e71a557ddd7a72af53f033ecf27afbca41ff73dd34"
+    },
+    "cmp": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/cmp`.",
+      "arch": "x86_64",
+      "file": "cmp-10.1.xpkg",
+      "size": 60997,
+      "sha256": "308d5ec64f783cbda9a9d20575c4db197595d4e29b46f623e06652589c7469fe"
+    },
+    "utoppya": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/utoppya`.",
+      "arch": "x86_64",
+      "file": "utoppya-10.1.xpkg",
+      "size": 66548,
+      "sha256": "fec216dfd669f3e7d9d7552ab1cb73fbdec607c3281b0a53d163cd5aa8f563b0"
+    },
+    "e2fsprogs": {
+      "version": "1.47.3",
+      "description": "e2fsprogs 1.47.3 (ext2/3/4 tools).",
+      "arch": "x86_64",
+      "file": "e2fsprogs-1.47.3.xpkg",
+      "size": 307663,
+      "sha256": "40629a02f8fbb532ca8725b2bf3ddf5569b47c15baf09a95a06790f1e7f02ae0"
+    },
+    "kmod": {
+      "version": "34.2",
+      "description": "Linux kernel module tools 34.2.",
+      "arch": "x86_64",
+      "file": "kmod-34.2.xpkg",
+      "size": 375664,
+      "sha256": "0a655ea4bdad6a91ae658bb9c63c072703687524ce1aba6f4592d2aea59787b9"
+    },
+    "flx-efiboot": {
+      "version": "1.0",
+      "description": "FreeLinX Native UEFI Boot Manager",
+      "arch": "x86_64",
+      "file": "flx-efiboot-1.0.xpkg",
+      "size": 25008,
+      "sha256": "49f198950e3dc9ee9b1bab7e5251de8060471309ae73cc752135d29b5a5e43ad"
+    },
+    "find": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/find`.",
+      "arch": "x86_64",
+      "file": "find-10.1.xpkg",
+      "size": 151222,
+      "sha256": "4a6153ebb0090fafda56d6f1401cbd0d6a5d4543c123702d1046b077275c76b3"
+    },
+    "shuffle": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/shuffle`.",
+      "arch": "x86_64",
+      "file": "shuffle-10.1.xpkg",
+      "size": 40098,
+      "sha256": "edf64ff0a2403e5b2fa59af0c60720e1280fb532fa7c944a0070d646566e48ad"
+    },
+    "tr": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/tr`.",
+      "arch": "x86_64",
+      "file": "tr-10.1.xpkg",
+      "size": 72801,
+      "sha256": "86811d03a1979080fa1b1bbbb4c93dad366720c8fe5d1299edcfc97a8f142b98"
+    },
+    "mv": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/mv`.",
+      "arch": "x86_64",
+      "file": "mv-10.1.xpkg",
+      "size": 76066,
+      "sha256": "a74905753f04cdf1dcd3975a303cde806eea8fe458190f90158449c4d570498b"
+    },
+    "calendar": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/calendar`.",
+      "arch": "x86_64",
+      "file": "calendar-10.1.xpkg",
+      "size": 69956,
+      "sha256": "51cd2c5ac7909f4107e5ec3cd858ae31f4317236a433fb49c3182f7e4c3d19c4"
+    },
+    "htop": {
+      "version": "3.3.0",
+      "description": "htop 3.3.0 (interactive process viewer).",
+      "arch": "x86_64",
+      "file": "htop-3.3.0.xpkg",
+      "size": 291576,
+      "sha256": "0c3a2c7eec024cfdfc9014cf2d4ead2d9579b4649e839e3de1f8c17e953608ac"
+    },
+    "whereis": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/whereis`.",
+      "arch": "x86_64",
+      "file": "whereis-10.1.xpkg",
+      "size": 56939,
+      "sha256": "6997e46d3a6ace8f7640d6962d200a503767c22a8ca39441de08181a76e62e90"
+    },
+    "cksum": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/cksum` (and `sum`).",
+      "arch": "x86_64",
+      "file": "cksum-10.1.xpkg",
+      "size": 66398,
+      "sha256": "6d84b73b8f360a3040636f2d7d8b99ac364c08f5503e42a89d2ad100bd7a3bcf"
+    },
+    "shlock": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/shlock`.",
+      "arch": "x86_64",
+      "file": "shlock-10.1.xpkg",
+      "size": 40904,
+      "sha256": "e5782a8ec69b020e3fcde6089724fac11f24a435d11891a7f87a787aec00b54a"
+    },
+    "nc": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/nc`.",
+      "arch": "x86_64",
+      "file": "nc-10.1.xpkg",
+      "size": 86094,
+      "sha256": "72bc1c787e531edc3c981ed3065f99082a331ecc1602da34e80944af9bfc89ca"
+    },
+    "dc": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/dc`.",
+      "arch": "x86_64",
+      "file": "dc-10.1.xpkg",
+      "size": 1825211,
+      "sha256": "19c7e6cbd5651178ecd6e1215e8a59863705c60b751e9a7381dc58d9f5713a25"
+    },
+    "tmux": {
+      "version": "3.4",
+      "description": "tmux 3.4 (terminal multiplexer).",
+      "arch": "x86_64",
+      "file": "tmux-3.4.xpkg",
+      "size": 610836,
+      "sha256": "5bb307550565dfadfa7f49a2c0ee9eb20e2715393070a92402957be210365f7b"
+    },
+    "doas": {
+      "version": "6.8.2",
+      "description": "OpenDoas 6.8.2 (BSD doas for Linux).",
+      "arch": "x86_64",
+      "file": "doas-6.8.2.xpkg",
+      "size": 79457,
+      "sha256": "feed5812166271a37929ab645f76ef7e56897dd72a8b32edb671a7adfb8be780"
+    },
+    "jq": {
+      "version": "1.7.1",
+      "description": "jq 1.7.1 (command-line JSON processor).",
+      "arch": "x86_64",
+      "file": "jq-1.7.1.xpkg",
+      "size": 258178,
+      "sha256": "4aa151115bd5ea25722951ebffbbe7f66ec756161e7496297edffc7b01118748"
+    },
+    "rmdir": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/rmdir`.",
+      "arch": "x86_64",
+      "file": "rmdir-10.1.xpkg",
+      "size": 54075,
+      "sha256": "f364093c504428c5aa618b178dc40a33f92b781863d2f2dc5c943050a4c99249"
+    },
+    "printf": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/printf`.",
+      "arch": "x86_64",
+      "file": "printf-10.1.xpkg",
+      "size": 81093,
+      "sha256": "bbc3712a47f50c5137fcf1af65f8c42e11b46145ed912434cefe08de9a79b91c"
+    },
+    "soelim": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/soelim`.",
+      "arch": "x86_64",
+      "file": "soelim-10.1.xpkg",
+      "size": 37556,
+      "sha256": "b726ad1c4a785669539a96cc62ed95757c9bb354ea660705a48db4de080aaf62"
+    },
+    "fdupes": {
+      "version": "2.3.2",
+      "description": "fdupes 2.3.2 (duplicate file finder).",
+      "arch": "x86_64",
+      "file": "fdupes-2.3.2.xpkg",
+      "size": 963216,
+      "sha256": "1fc44461285cb7a3fb21a481417096c1fc68bab4bb53b68ab3b842aab7c103cf"
+    },
+    "lsof": {
+      "version": "4.99.3",
+      "description": "lsof 4.99.3 (list open files).",
+      "arch": "x86_64",
+      "file": "lsof-4.99.3.xpkg",
+      "size": 178127,
+      "sha256": "00f75dd3ff8c03f4ea1ced567bf4d2aeaa9f80753d4bece4e8e02438ab732c2d"
+    },
+    "deroff": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/deroff`.",
+      "arch": "x86_64",
+      "file": "deroff-10.1.xpkg",
+      "size": 59868,
+      "sha256": "05f21c390a6366b141e8ca310e6ccce43aa37bd78e5a455bb5da76e9428556b9"
+    },
+    "gcore": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/gcore`.",
+      "arch": "x86_64",
+      "file": "gcore-10.1.xpkg",
+      "size": 37718,
+      "sha256": "210192d45f9b865cbf35e545e055b3a01322c3bfbd2b58b5222e4044cee0d6d4"
+    },
+    "logname": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/logname`.",
+      "arch": "x86_64",
+      "file": "logname-10.1.xpkg",
+      "size": 38066,
+      "sha256": "beff2d35d0ae2cec6153fce1eeb808d44f745cbd3729e63f62fa308854242cc6"
+    },
+    "netcat": {
+      "version": "1",
+      "description": "minimal POSIX sh netcat.",
+      "arch": "x86_64",
+      "file": "netcat-1.xpkg",
+      "size": 86092,
+      "sha256": "b396201cef08dda355930f4840ebab0d32805c269441de78dd10a6659f7bdce0"
+    },
+    "users": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/users`.",
+      "arch": "x86_64",
+      "file": "users-10.1.xpkg",
+      "size": 37704,
+      "sha256": "d0941688699d7bdf4e6ca7f9646f0443951db8b239368928d873dc317fcb4a67"
+    },
+    "unvis": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/unvis`.",
+      "arch": "x86_64",
+      "file": "unvis-10.1.xpkg",
+      "size": 41182,
+      "sha256": "5a2968f28322ba79683893d7c430a245d5c89f43a46139b0825faef0c2242594"
+    },
+    "touch": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/touch`.",
+      "arch": "x86_64",
+      "file": "touch-10.1.xpkg",
+      "size": 67631,
+      "sha256": "8f4c9630d5967fb260af2cf9ea114d07a9e76e86e2fbec4d243ba2c2dfe4fa2e"
+    },
+    "iconv": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/iconv`.",
+      "arch": "x86_64",
+      "file": "iconv-10.1.xpkg",
+      "size": 165439,
+      "sha256": "8a2c9ebae0867716f48de0d882d7034b28c2ffe2c1113be6878d230e918267c4"
+    },
+    "chown": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/sbin/chown`.",
+      "arch": "x86_64",
+      "file": "chown-10.1.xpkg",
+      "size": 97675,
+      "sha256": "89d1ef3e0753bba54c27169563f9aa69019de9c89d76b9306a5303285c85c76d"
+    },
+    "ps": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/ps`.",
+      "arch": "x86_64",
+      "file": "ps-10.1.xpkg",
+      "size": 52209,
+      "sha256": "ac4cd426bcd68c61cc5bdd95b47bd5b6bcef254185ca83bc542b13b3ab98fabd"
+    },
+    "ne": {
+      "version": "3.3.3",
+      "description": "the nice editor 3.3.3.",
+      "arch": "x86_64",
+      "file": "ne-3.3.3.xpkg",
+      "size": 297819,
+      "sha256": "45d4ae4dea2c10cec7914d1eb80983fc1a3e89813f836612c159c2f39f0c41f3"
+    },
+    "pstree": {
+      "version": "23.6",
+      "description": "psmisc 23.6 (process tree viewer).",
+      "arch": "x86_64",
+      "file": "pstree-23.6.xpkg",
+      "size": 97203,
+      "sha256": "0034f019349bd8081ad2c67b8e55fc6dea53491771ea7bd1ea468e0a45b216b6"
+    },
+    "ln": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/bin/ln`.",
+      "arch": "x86_64",
+      "file": "ln-10.1.xpkg",
+      "size": 43376,
+      "sha256": "05df1a594050455a22f10a74ba6ffff9b7b6d11964b4e6f8c0017a66c79e5e5c"
+    },
+    "jot": {
+      "version": "10.1",
+      "description": "NetBSD 10.1 `/usr/bin/jot`.",
+      "arch": "x86_64",
+      "file": "jot-10.1.xpkg",
+      "size": 42314,
+      "sha256": "ae957ab9a8e77292f3ba1e54a6179caa04e40d6b4b2d8416a72b0ea2e4b6c4a9"
+    }
+  }
+}

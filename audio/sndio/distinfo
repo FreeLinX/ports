@@ -1,0 +1,5 @@
+# FreeLinX/ports - audio/sndio : OpenBSD sndio audio framework
+DISTINFO_NAME=sndio-1.10.0
+DISTINFO_ARCHIVE=sndio-1.10.0.tar.gz
+DISTINFO_URL=https://sndio.org/sndio-1.10.0.tar.gz
+DISTINFO_SHA256=bebd3bfd01c50c9376cf3e7814b9379bed9e17d0393b5113b7eb7a3d0d038c54

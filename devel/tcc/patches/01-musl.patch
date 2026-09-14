@@ -1,0 +1,45 @@
+--- a/tcc.h
++++ b/tcc.h
+@@ -48,6 +48,10 @@
+ # include <unistd.h>
+ #endif
+ 
++#ifndef TCC_MUSL
++# define TCC_MUSL 1
++#endif
++
+ #ifdef _WIN32
+ # define WIN32_LEAN_AND_MEAN 1
+ # include <windows.h>
+@@ -199,7 +203,7 @@
+ 
+ /* path to find crt1.o, crti.o and crtn.o */
+ #ifndef CONFIG_TCC_CRTPREFIX
+-# define CONFIG_TCC_CRTPREFIX USE_TRIPLET(CONFIG_SYSROOT "/usr/" CONFIG_LDDIR)
++# define CONFIG_TCC_CRTPREFIX ALSO_TRIPLET(CONFIG_SYSROOT "/usr/" CONFIG_LDDIR) ":" ALSO_TRIPLET(CONFIG_SYSROOT "/" CONFIG_LDDIR)
+ #endif
+ 
+ /* Below: {B} is substituted by CONFIG_TCCDIR (rsp. -B option) */
+--- a/libtcc.c
++++ b/libtcc.c
+@@ -884,6 +884,7 @@
+ # if defined(TCC_MUSL)
+     tcc_define_symbol(s, "__DEFINED_va_list", "");
+     tcc_define_symbol(s, "__DEFINED___isoc_va_list", "");
++    tcc_define_symbol(s, "__builtin_va_list", "void *");
+     tcc_define_symbol(s, "__isoc_va_list", "void *");
+ # endif /* TCC_MUSL */
+     /* Some GCC builtins that are simple to express as macros.  */
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -29,6 +29,10 @@
+ # only for native compiler
+ $(X)BCHECK_O = bcheck.o
+ 
++ifeq ($(CONFIG_musl),yes)
++ BCHECK_O =
++endif
++
+ ifdef CONFIG_OSX
+  XFLAGS += -D_ANSI_SOURCE
+ endif
