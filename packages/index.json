@@ -408,6 +408,14 @@
       "size": 118165,
       "sha256": "8bfaa153ecbc85da245a2e7f342d304e068506c653cbdc70294e004fa648924b"
     },
+    "mupdf": {
+      "version": "1.24.10",
+      "description": "Lightweight PDF, XPS, and EPUB viewer (1.24.10).",
+      "arch": "x86_64",
+      "file": "mupdf-1.24.10.xpkg",
+      "size": 29906862,
+      "sha256": "046be08baeacb6aac81cea8ac533d8e3abb473c8645de3047523c4420804b462"
+    },
     "rwho": {
       "version": "10.1",
       "description": "NetBSD 10.1 `/usr/bin/rwho`.",
@@ -503,6 +511,14 @@
       "file": "pv-1.8.13.xpkg",
       "size": 81801,
       "sha256": "1f21843d499ccff7cd3bd657eef7ecb5db95509246fbc6d16867d2e307ad01ae"
+    },
+    "setxkbmap": {
+      "version": "1.3.5",
+      "description": "Set the keyboard using the X Keyboard Extension (1.3.5).",
+      "arch": "x86_64",
+      "file": "setxkbmap-1.3.5.xpkg",
+      "size": 729650,
+      "sha256": "a5b53a3d87656869982d931bd74f0f1f424be3a281d9f41f790f23880645d9b8"
     },
     "doom": {
       "version": "0.1",
@@ -776,6 +792,14 @@
       "size": 60847,
       "sha256": "4f774613604cc8e441218adcc7669793da546e421851e5f3ebbdcc386e2659e8"
     },
+    "mpv": {
+      "version": "0.35.1",
+      "description": "Free, open-source, and cross-platform media player (0.35.1).",
+      "arch": "x86_64",
+      "file": "mpv-0.35.1.xpkg",
+      "size": 13183087,
+      "sha256": "0bf8b8ce53194b2609fa9fd635d555d995fa3bf1aac22517bf5f4ecc54994b05"
+    },
     "test": {
       "version": "10.1",
       "description": "NetBSD 10.1 `/bin/test`.",
@@ -847,6 +871,14 @@
       "file": "mesg-10.1.xpkg",
       "size": 53286,
       "sha256": "50c31aa2f227bd7759b406ddc11a59c317c532dc1c2ed9847434d71757031fd5"
+    },
+    "ffmpeg": {
+      "version": "6.1.2",
+      "description": "Universal multimedia converter and streamer (6.1.2).",
+      "arch": "x86_64",
+      "file": "ffmpeg-6.1.2.xpkg",
+      "size": 10535192,
+      "sha256": "ad32ccb26c13698621676108f8e76ce5973cd704381f69f80a86ce502cf22de9"
     },
     "fincore": {
       "version": "10.1",
@@ -2071,6 +2103,14 @@
       "file": "lsof-4.99.3.xpkg",
       "size": 178127,
       "sha256": "00f75dd3ff8c03f4ea1ced567bf4d2aeaa9f80753d4bece4e8e02438ab732c2d"
+    },
+    "xrandr": {
+      "version": "1.5.4",
+      "description": "Primitive command line interface to RandR extension (1.5.4).",
+      "arch": "x86_64",
+      "file": "xrandr-1.5.4.xpkg",
+      "size": 740182,
+      "sha256": "523ab305dfed39f749702fae4894e3558d63c9276233096c0b34a9077fd89d12"
     },
     "deroff": {
       "version": "10.1",
