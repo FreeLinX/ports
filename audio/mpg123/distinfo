@@ -1,0 +1,5 @@
+# FreeLinX/ports - audio/mpg123 : Fast console MPEG audio player
+DISTINFO_NAME=mpg123-1.32.10
+DISTINFO_ARCHIVE=mpg123-1.32.10.tar.bz2
+DISTINFO_URL=https://www.mpg123.de/download/mpg123-1.32.10.tar.bz2
+DISTINFO_SHA256=87b2c17fe0c979d3ef38eeceff6362b35b28ac8589fbf1854b5be75c9ab6557c

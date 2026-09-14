@@ -1,0 +1,5 @@
+# FreeLinX/ports - devel/tcc : Tiny C Compiler
+DISTINFO_NAME=tcc-0.9.27
+DISTINFO_ARCHIVE=tcc-0.9.27.tar.bz2
+DISTINFO_URL=http://download.savannah.gnu.org/releases/tinycc/tcc-0.9.27.tar.bz2
+DISTINFO_SHA256=de23af78fca90ce32dff2dd45b3432b2334740bb9bb7b05bf60fdbfc396ceb9c

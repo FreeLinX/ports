@@ -1,0 +1,5 @@
+# FreeLinX/ports - sysutils/smartmontools : S.M.A.R.T. disk monitoring tools
+DISTINFO_NAME=smartmontools-7.4
+DISTINFO_ARCHIVE=smartmontools-7.4.tar.gz
+DISTINFO_URL=https://downloads.sourceforge.net/project/smartmontools/smartmontools/7.4/smartmontools-7.4.tar.gz
+DISTINFO_SHA256=e9a61f641ff96ca95319edfb17948cd297d0cd3342736b2c49c99d4716fb993d
