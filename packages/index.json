@@ -856,6 +856,14 @@
       "size": 39632,
       "sha256": "375f1cc8563c7c290c48f9bed90337a24c8066d7db1a21816b14b71cfcde150b"
     },
+    "dillo": {
+      "version": "3.1.1",
+      "description": "Dillo lightweight graphical web browser (3.1.1).",
+      "arch": "x86_64",
+      "file": "dillo-3.1.1.xpkg",
+      "size": 6787368,
+      "sha256": "723adf32d61ac017b53d49f5802728e6c16310f0835bbb63fbb75acfefa0d16d"
+    },
     "printenv": {
       "version": "10.1",
       "description": "NetBSD 10.1 `/usr/bin/printenv`.",
