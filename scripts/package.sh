@@ -78,6 +78,30 @@ package_one_port() {
                 _found=1
             fi
         done
+    elif [ "$_pname" = "dillo" ]; then
+        for _sdir in "$FREELINX_STAGING_ROOT" "$ROOTFS_DIR"; do
+            for _b in dillo dpid dpidc dillo-install-hyphenation; do
+                if [ -f "$_sdir/usr/bin/$_b" ]; then
+                    mkdir -p "$_temp_stage/usr/bin"
+                    cp -a "$_sdir/usr/bin/$_b" "$_temp_stage/usr/bin/"
+                    _found=1
+                fi
+            done
+            if [ -d "$_sdir/usr/lib/dillo" ]; then
+                mkdir -p "$_temp_stage/usr/lib"
+                cp -a "$_sdir/usr/lib/dillo" "$_temp_stage/usr/lib/"
+                _found=1
+            fi
+            if [ -d "$_sdir/etc/dillo" ]; then
+                mkdir -p "$_temp_stage/etc"
+                cp -a "$_sdir/etc/dillo" "$_temp_stage/etc/"
+                _found=1
+            fi
+            if [ -f "$_sdir/usr/share/applications/dillo.desktop" ]; then
+                mkdir -p "$_temp_stage/usr/share/applications"
+                cp -a "$_sdir/usr/share/applications/dillo.desktop" "$_temp_stage/usr/share/applications/"
+            fi
+        done
     else
         # Search staging root, then fallback to rootfs
         for _sdir in "$FREELINX_STAGING_ROOT" "$ROOTFS_DIR"; do
