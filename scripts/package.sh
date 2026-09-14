@@ -102,6 +102,32 @@ package_one_port() {
                 cp -a "$_sdir/usr/share/applications/dillo.desktop" "$_temp_stage/usr/share/applications/"
             fi
         done
+    elif [ "$_pname" = "mupdf" ]; then
+        for _sdir in "$FREELINX_STAGING_ROOT" "$ROOTFS_DIR"; do
+            for _b in mupdf mupdf-x11; do
+                if [ -f "$_sdir/usr/bin/$_b" ] || [ -h "$_sdir/usr/bin/$_b" ]; then
+                    mkdir -p "$_temp_stage/usr/bin"
+                    cp -a "$_sdir/usr/bin/$_b" "$_temp_stage/usr/bin/"
+                    _found=1
+                fi
+            done
+            if [ -f "$_sdir/usr/share/applications/mupdf.desktop" ]; then
+                mkdir -p "$_temp_stage/usr/share/applications"
+                cp -a "$_sdir/usr/share/applications/mupdf.desktop" "$_temp_stage/usr/share/applications/"
+            fi
+        done
+    elif [ "$_pname" = "mpv" ]; then
+        for _sdir in "$FREELINX_STAGING_ROOT" "$ROOTFS_DIR"; do
+            if [ -f "$_sdir/usr/bin/mpv" ]; then
+                mkdir -p "$_temp_stage/usr/bin"
+                cp -a "$_sdir/usr/bin/mpv" "$_temp_stage/usr/bin/"
+                _found=1
+            fi
+            if [ -f "$_sdir/usr/share/applications/mpv.desktop" ]; then
+                mkdir -p "$_temp_stage/usr/share/applications"
+                cp -a "$_sdir/usr/share/applications/mpv.desktop" "$_temp_stage/usr/share/applications/"
+            fi
+        done
     else
         # Search staging root, then fallback to rootfs
         for _sdir in "$FREELINX_STAGING_ROOT" "$ROOTFS_DIR"; do
