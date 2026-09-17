@@ -56,9 +56,9 @@ package_one_port() {
 
     _found=0
 
-    # Special bundling for flx-tools suite
-    if [ "$_pname" = "flx-tools" ]; then
-        for _tb in flx-fm flx-panel flx-view flx-shot flx-bg flx-3dtest flx-fs mkfs.flxfs flx-driver flx-wifi flx-part; do
+    # Special bundling for flxtools suite
+    if [ "$_pname" = "flxtools" ]; then
+        for _tb in flxfm flxpanel flxview flxshot flxbg flx3dtest flxfs mkfs.flxfs flxdriver flxwifi flxpart; do
             for _sdir in "$FREELINX_STAGING_ROOT" "$ROOTFS_DIR"; do
                 for _bdir in bin sbin usr/bin usr/sbin; do
                     if [ -f "$_sdir/$_bdir/$_tb" ] || [ -h "$_sdir/$_bdir/$_tb" ]; then
@@ -74,7 +74,7 @@ package_one_port() {
             if [ -f "$_sdir/usr/bin/flxt" ]; then
                 mkdir -p "$_temp_stage/usr/bin"
                 cp -a "$_sdir/usr/bin/flxt" "$_temp_stage/usr/bin/"
-                ln -sf flxt "$_temp_stage/usr/bin/flx-pad"
+                ln -sf flxt "$_temp_stage/usr/bin/flxpad"
                 _found=1
             fi
         done

@@ -1616,14 +1616,6 @@
       "size": 38102,
       "sha256": "0af2940b51f9ddda35d596aa8ff0dc4161e41a842c6006c0d97bf4970c0bc44d"
     },
-    "flx-tools": {
-      "version": "1.0",
-      "description": "FreeLinX Core Desktop Utilities & Tools",
-      "arch": "x86_64",
-      "file": "flx-tools-1.0.xpkg",
-      "size": 11011694,
-      "sha256": "39d4c5f633106e50686f5c95c5269c496ee0136ba3a994828e734bfa47f8c4b7"
-    },
     "sleep": {
       "version": "10.1",
       "description": "NetBSD 10.1 `/bin/sleep`.",
@@ -1944,14 +1936,6 @@
       "size": 375664,
       "sha256": "0a655ea4bdad6a91ae658bb9c63c072703687524ce1aba6f4592d2aea59787b9"
     },
-    "flx-efiboot": {
-      "version": "1.0",
-      "description": "FreeLinX Native UEFI Boot Manager",
-      "arch": "x86_64",
-      "file": "flx-efiboot-1.0.xpkg",
-      "size": 25008,
-      "sha256": "49f198950e3dc9ee9b1bab7e5251de8060471309ae73cc752135d29b5a5e43ad"
-    },
     "find": {
       "version": "10.1",
       "description": "NetBSD 10.1 `/usr/bin/find`.",
@@ -2223,6 +2207,22 @@
       "file": "jot-10.1.xpkg",
       "size": 42314,
       "sha256": "ae957ab9a8e77292f3ba1e54a6179caa04e40d6b4b2d8416a72b0ea2e4b6c4a9"
+    },
+    "flxtools": {
+      "version": "1.0",
+      "description": "FreeLinX Core Desktop Utilities & Tools",
+      "arch": "x86_64",
+      "file": "flxtools-1.0.xpkg",
+      "size": 11011694,
+      "sha256": "39d4c5f633106e50686f5c95c5269c496ee0136ba3a994828e734bfa47f8c4b7"
+    },
+    "flexfiboot": {
+      "version": "1.0",
+      "description": "FreeLinX Native UEFI Boot Manager",
+      "arch": "x86_64",
+      "file": "flexfiboot-1.0.xpkg",
+      "size": 25008,
+      "sha256": "49f198950e3dc9ee9b1bab7e5251de8060471309ae73cc752135d29b5a5e43ad"
     }
   }
 }

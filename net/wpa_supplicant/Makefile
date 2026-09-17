@@ -69,7 +69,7 @@ BUILD_CMDS = \
 	make -j"$(FREELINX_JOBS)" wpa_supplicant wpa_cli wpa_passphrase
 
 # The suite delivers three tools: wpa_supplicant (main), plus the wpa_cli
-# control client and wpa_passphrase PSK generator used by flx-wifi. Each is
+# control client and wpa_passphrase PSK generator used by flxwifi. Each is
 # built into the same work tree and staged into sbin/ alongside the main
 # binary. INSTALL_RELPATH (above) drives the primary; these cover the rest.
 WPA_BUILD_DIR = $(SRC_TREE)/wpa_supplicant

@@ -443,8 +443,8 @@ in the build). Kernel side is upstream Linux 6.6.21 with `CONFIG_CFG80211` and
 | `net/netbsd-ping`    | NetBSD 10.1 ICMP echo                | net      | scaffolded (needs patches) |
 | `net/netbsd-ifconfig`| NetBSD 10.1 interface mgmt (AF_ROUTE)| net      | scaffolded (needs netlink rewrite) |
 | `net/netbsd-route`   | NetBSD 10.1 route mgmt (AF_ROUTE)    | net      | scaffolded (kept for reference only) |
-| `net/freelinx-ifconfig` | BSD-styled ifconfig over libnl/netlink | net  | **built**, staged to sbin/flx-ifconfig |
-| `net/freelinx-route` | BSD-styled route over libnl/netlink  | net      | **built**, staged to sbin/flx-route |
+| `net/freelinx-ifconfig` | BSD-styled ifconfig over libnl/netlink | net  | **built**, staged to sbin/flxifconfig |
+| `net/freelinx-route` | BSD-styled route over libnl/netlink  | net      | **built**, staged to sbin/flxroute |
 | `firmware/linux-firmware` | redistributable device blobs    | firmware | **built + installed** (1.2G, flat under /lib/firmware) |
 
 ### Kernel config (kernel-repo/kernel.config)
@@ -468,7 +468,7 @@ NetBSD's `ifconfig` and `route` are built on **BSD routing sockets**
 provide (Linux routes/interfaces are managed over `AF_NETLINK` with RTM_*
 messages). Simply compiling them against musl is not enough. Rather than
 rewrite NetBSD's non-trivial hostops layers, FreeLinX ships **its own**
-BSD-styled `flx-ifconfig` and `flx-route`, written from scratch, compiled
+BSD-styled `flxifconfig` and `flxroute`, written from scratch, compiled
 only with the FreeLinX clang + LLD + musl toolchain, statically linked
 against libnl-3 (which FreeLinX builds itself). They talk AF_NETLINK via
 libnl and provide the small BSD command surface a bring-up needs (`up`/
@@ -483,31 +483,31 @@ NetBSD `<netinet/in_systm.h>` / `<netinet/ip_var.h>` /
 
 
 
-### `flx-wifi` — distro-style wifi wrapper
-`flx-wifi` wraps `wpa_supplicant` + `wpa_cli` + `wpa_passphrase` + `dhcpcd`
-into one BSD-command flow, installed to `/sbin/flx-wifi`:
+### `flxwifi` — distro-style wifi wrapper
+`flxwifi` wraps `wpa_supplicant` + `wpa_cli` + `wpa_passphrase` + `dhcpcd`
+into one BSD-command flow, installed to `/sbin/flxwifi`:
 
-    flx-wifi scan                                        # scan + list APs
-    flx-wifi connect "MyNetwork"                         # open network
-    flx-wifi connect "MyNetwork" "mypassword"            # WPA/WPA2
-    flx-wifi disconnect
-    flx-wifi status
-    flx-wifi off
+    flxwifi scan                                        # scan + list APs
+    flxwifi connect "MyNetwork"                         # open network
+    flxwifi connect "MyNetwork" "mypassword"            # WPA/WPA2
+    flxwifi disconnect
+    flxwifi status
+    flxwifi off
 
 It starts the supplicant with a generated config (creating
-`/var/run/flx-wifi.conf` if absent), drives the association over `wpa_cli`,
+`/var/run/flxwifi.conf` if absent), drives the association over `wpa_cli`,
 then hands off to `dhcpcd`. It is a plain POSIX `sh` script staged as
-`sbin/flx-wifi`. (Real 802.11 scan/associate needs physical hardware with a
+`sbin/flxwifi`. (Real 802.11 scan/associate needs physical hardware with a
 supported NIC + firmware; it cannot be exercised inside QEMU.)
 
 ### Verified (2026-09-03, booted FreeLinX image)
-- `flx-wifi status` runs cleanly; `flx-wifi scan` starts the supplicant.
-- `flx-ifconfig eth0 inet 10.0.2.15/24` **applies the /24 prefix** — this
+- `flxwifi status` runs cleanly; `flxwifi scan` starts the supplicant.
+- `flxifconfig eth0 inet 10.0.2.15/24` **applies the /24 prefix** — this
   fixed a libnl gotcha: `rtnl_addr_set_local()` overwrites the prefixlen
   with the parsed address's own prefix (0), so the prefix is now set on the
   parsed `nl_addr` first. A connected route (`10.0.2.0/24`) now appears and
   the default route adds successfully.
-- `flx-route add default 10.0.2.2` then `ping -c 3 10.0.2.2` round-trips
+- `flxroute add default 10.0.2.2` then `ping -c 3 10.0.2.2` round-trips
   3/3 through the wired NIC.
 - Wifi kernel modules load live in the running system (`iwlwifi`, `ath9k`,
   `ath10k_pci`, `brcmfmac`, `brcmsmac`) with full dependency chains

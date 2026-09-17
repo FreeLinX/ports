@@ -13,13 +13,13 @@
  * needs (up/down, set address, set mtu).
  *
  * Usage (NetBSD-ish):
- *   flx-ifconfig             list all interfaces with addresses
- *   flx-ifconfig <if>        show one interface
- *   flx-ifconfig <if> up     bring an interface up
- *   flx-ifconfig <if> down   bring an interface down
- *   flx-ifconfig <if> inet ADDR/NN
- *   flx-ifconfig <if> inet6 ADDR/NN
- *   flx-ifconfig <if> mtu N
+ *   flxifconfig             list all interfaces with addresses
+ *   flxifconfig <if>        show one interface
+ *   flxifconfig <if> up     bring an interface up
+ *   flxifconfig <if> down   bring an interface down
+ *   flxifconfig <if> inet ADDR/NN
+ *   flxifconfig <if> inet6 ADDR/NN
+ *   flxifconfig <if> mtu N
  *
  * License: BSD-2-Clause (FreeLinX original code).
  */
@@ -36,7 +36,7 @@
 #include <netlink/route/link.h>
 #include <netlink/route/addr.h>
 
-static const char *flx_progname = "flx-ifconfig";
+static const char *flx_progname = "flxifconfig";
 
 static const char *flx_wanted;      /* NULL => show all */
 
