@@ -1,0 +1,23 @@
+#!/bin/sh
+# flxbar-top: dzen2 top bar (clock, date, hostname)
+# Feeds a status line into dzen2 (top, XFT).
+
+export FONTCONFIG_PATH=/etc/fonts
+export FONTCONFIG_FILE=/etc/fonts/fonts.conf
+
+FG="#d7d7d7"
+BG="#2a2a2a"
+ICO="#9fb0b8"
+HI="#e0a030"
+MUTED="#6a6a6a"
+
+WIDTH=$(xrandr --current 2>/dev/null | grep -E '\bconnected\b' | grep -oE '[0-9]+x[0-9]+' | head -1 | cut -d x -f1)
+[ -z "$WIDTH" ] && WIDTH=1280
+
+while :; do
+    echo "^bg($BG)  ^fg($ICO)FreeLinX^fg($MUTED) |^fg($ICO) $(hostname)^fg($MUTED) | ^fg($HI)$(date +%H:%M)^fg($MUTED) ^fg($FG)$(date +%A\ %d\ %B\ %Y)  "
+    sleep 1
+done |
+    dzen2 -x 0 -y 0 -w "$WIDTH" \
+          -h 20 -fn "DejaVu Sans:size=9" -ta l \
+          -fg "$FG" -bg "$BG"

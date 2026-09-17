@@ -1,0 +1,42 @@
+#!/bin/sh
+# flxbar-bottom: lemonbar bottom status bar (CPU, RAM, disk, temp, date).
+# lemonbar-xft: fontconfig fonts, docked at the bottom edge (-b).
+# Reads /proc directly; no procps required.
+
+export FONTCONFIG_PATH=/etc/fonts
+export FONTCONFIG_FILE=/etc/fonts/fonts.conf
+
+FG="#d7d7d7"
+BG="#1e1e1e"
+BH=20
+WIDTH=$(xrandr --current 2>/dev/null | grep -E '\bconnected\b' | grep -oE '[0-9]+x[0-9]+' | head -1 | cut -d x -f1)
+HEIGHT=$(xrandr --current 2>/dev/null | grep -E '\bconnected\b' | grep -oE '[0-9]+x[0-9]+' | head -1 | cut -d x -f2)
+[ -z "$WIDTH" ] && WIDTH=1280
+[ -z "$HEIGHT" ] && HEIGHT=800
+Y=$((HEIGHT-BH))
+
+STF=/tmp/flxbar-cpu
+while :; do
+    NOW=$(awk '/^cpu /{t=$2+$3+$4+$5+$6+$7+$8; i=$5+$6; print i, t}' /proc/stat)
+    if [ -f "$STF" ]; then
+        read -r PTI PTT < "$STF"
+        CI=$(echo "$NOW" | awk '{print $1}')
+        CT=$(echo "$NOW" | awk '{print $2}')
+        DT=$((CT-PTT)); DI=$((CI-PTI))
+        if [ "$DT" -gt 0 ]; then CPU=$((100*(DT-DI)/DT)); else CPU=0; fi
+    else
+        CPU=0
+    fi
+    echo "$NOW" > "$STF"
+    rm -f "$STF"
+
+    MEMT=$(awk '/MemTotal:/{t=$2}/MemAvailable:/{a=$2}END{printf "%.0f/%.0fM", (t-a)/1024, t/1024}' /proc/meminfo)
+    ROOT=$(df -h / 2>/dev/null | awk 'NR==2{print $3"/"$2" ("$5")"}')
+    UP=$(awk '{printf "%dd %02d:%02d", $1/86400, ($1%86400)/3600, ($1%3600)/60}' /proc/uptime)
+    TEMP=""
+    [ -r /sys/class/thermal/thermal_zone0/temp ] && TEMP=$(cat /sys/class/thermal/thermal_zone0/temp | awk '{printf " | T:%.0fC", $1/1000}')
+
+    echo "  CPU: ${CPU}%  |  MEM: $MEMT  |  ROOT: $ROOT  |  up $UP$TEMP"
+    sleep 2
+done |
+    lemonbar -b -p -g "${WIDTH}x${BH}+0+${Y}" -f "DejaVu Sans:size=9" -F "$FG" -B "$BG"
