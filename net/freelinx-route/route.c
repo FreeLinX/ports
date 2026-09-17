@@ -12,13 +12,13 @@
  * surface: no GNU long-options, no color.  Commands: show/add/delete.
  *
  * Usage (NetBSD-ish):
- *   flx-route [show]                    print the routing table
- *   flx-route add default <gateway>
- *   flx-route add -net A.B.C.D/NN <gateway>
- *   flx-route add -net A.B.C.D/NN -interface <if>
- *   flx-route add -host A.B.C.D <gateway>
- *   flx-route delete -net A.B.C.D/NN <gateway>
- *   flx-route delete default <gateway>
+ *   flxroute [show]                    print the routing table
+ *   flxroute add default <gateway>
+ *   flxroute add -net A.B.C.D/NN <gateway>
+ *   flxroute add -net A.B.C.D/NN -interface <if>
+ *   flxroute add -host A.B.C.D <gateway>
+ *   flxroute delete -net A.B.C.D/NN <gateway>
+ *   flxroute delete default <gateway>
  *
  * License: BSD-2-Clause (FreeLinX original code).
  *
@@ -43,7 +43,7 @@
 #include <netlink/route/nexthop.h>
 #include <netlink/list.h>
 
-static const char *flx_progname = "flx-route";
+static const char *flx_progname = "flxroute";
 
 /* --- minimal reproduction of libnl 3.9.0 struct rtnl_nexthop (for list walk) */
 struct rtnl_nexthop_priv {

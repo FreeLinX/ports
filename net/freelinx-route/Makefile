@@ -25,8 +25,8 @@ BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot)
 TARGET := $(FREELINX_TRIPLE)
 PREFIX := /
 
-INSTALL_BIN:= flx-route
-INSTALL_RELPATH:= sbin/flx-route
+INSTALL_BIN:= flxroute
+INSTALL_RELPATH:= sbin/flxroute
 
 include ../../mk/port.mk
 
@@ -38,7 +38,7 @@ FLX_LIBNL_LIBS   = -L$(FLX_LIBNL_PREFIX)/lib -lnl-route-3 -lnl-3
 # In-port source.
 SRC        := $(CURDIR)/route.c
 BUILD_DIR  := $(FREELINX_BUILD_DIR)/obj/$(NAME)
-BUILD_BIN  := $(BUILD_DIR)/flx-route
+BUILD_BIN  := $(BUILD_DIR)/flxroute
 
 $(BUILD_DIR):
 	@$(MKDIR) -p $(BUILD_DIR)
