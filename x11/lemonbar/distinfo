@@ -1,0 +1,5 @@
+# FreeLinX/ports - x11/lemonbar : upstream source reference (silentz/lemonbar-xft master).
+DISTINFO_NAME=lemonbar-xft
+DISTINFO_ARCHIVE=lemonbar-xft.tar.gz
+DISTINFO_URL=https://codeload.github.com/silentz/lemonbar-xft/tar.gz/refs/heads/master
+DISTINFO_SHA256=722642c648ba2ba679dc08ab3ead6dba3d388692dd8778f6163a04418229cf77
