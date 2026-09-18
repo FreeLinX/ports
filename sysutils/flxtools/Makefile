@@ -1,5 +1,8 @@
-# FreeLinX/ports - sysutils/flxtools : FreeLinX Core Desktop Utilities & Tools
-# Suite including flxfm, flxpanel, flxview, flxshot, flx3dtest, flxbg.
+# FreeLinX/ports - sysutils/flxtools : FreeLinX Core Desktop Utilities & Tools (flx suite).
+# The flx* desktop utilities: flxbg, flxpanel, flxshot, flx3dtest, flxfs,
+# flxnet, flxpower, flxbrowser, mkfs.flxfs (usr/bin) plus the sbin system
+# tools flxwifi, flxdriver, flxpart, flxadduser, flxinstall, flxautomount,
+# flxdriverhotplug.  All staged from the FreeLinX rootfs template.
 
 NAME    := flxtools
 VERSION := 1.0

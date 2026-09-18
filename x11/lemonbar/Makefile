@@ -1,13 +1,14 @@
-# FreeLinX/ports - x11/lemonbar : lightweight XCB status bar with Xft fonts (1.4-xft).
+# FreeLinX/ports - x11/lemonbar : Lemonbar 1.4-xft status bar (static).
 #
 # Bottom status bar for the Openbox desktop (CPU/RAM/disk/temp/clock).
 # Fork with Xft (fontconfig) support, in sync with Oct 2024 lemonbar.
 # MIT license.  Plain POSIX make build.  Requires libxcb + libX11 + libXft.
 
 NAME    := lemonbar
-VERSION := 1.4-xft
+VERSION := 1.4
 CATEGORY:= x11
 LICENSE := MIT
+PKG_DEPENDS := fonts
 DEPENDENCIES:=
 BUILD_DEPENDENCIES:= X11 libs (libxcb, libX11, libXft, build/deps/x11)
 TARGET  := $(FREELINX_TRIPLE)

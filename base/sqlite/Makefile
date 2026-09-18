@@ -25,6 +25,12 @@ SQLITE_PREFIX = $(FREELINX_BUILD_DIR)/deps/$(NAME)
 INSTALL_BIN:=
 INSTALL_RELPATH:= lib/libsqlite3.a
 
+# sqlite is pure C: do NOT pull in the C++/libc++ link libraries that
+# project-port.mk adds to LDFLAGS by default (they do not exist in the
+# musl sysroot and break configure's compiler probe).
+FLX_PROJECT_LIBS :=
+FLX_PROJECT_LDFLAGS :=
+
 include ../../mk/project-port.mk
 
 # The FreeLinX toolchain's llvm-ar/llvm-ranlib need GLIBC_2.38 which the
