@@ -41,7 +41,7 @@ PROJECT_CFG_CMDS = \
 		--prefix="$(OSSL_PREFIX)" \
 		--openssldir="$(OSSL_PREFIX)/ssl" \
 		no-shared no-tests no-dso no-ui-console no-ssl3 no-comp \
-		no-afalgeng no-threads \
+		no-afalgeng no-threads no-secure-memory \
 		"CC=$(FREELINX_CC)" \
 		"CFLAGS=$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2" \
 		"LDFLAGS=$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt" \
