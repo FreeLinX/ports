@@ -445,7 +445,7 @@ in the build). Kernel side is upstream Linux 6.6.21 with `CONFIG_CFG80211` and
 | `net/netbsd-route`   | NetBSD 10.1 route mgmt (AF_ROUTE)    | net      | scaffolded (kept for reference only) |
 | `net/freelinx-ifconfig` | BSD-styled ifconfig over libnl/netlink | net  | **built**, staged to sbin/flxifconfig |
 | `net/freelinx-route` | BSD-styled route over libnl/netlink  | net      | **built**, staged to sbin/flxroute |
-| `firmware/linux-firmware` | redistributable device blobs    | firmware | **built + installed** (1.2G, flat under /lib/firmware) |
+| `firmware/linux-firmware` | redistributable device blobs    | firmware | **build-only in 1.0 pre-release** (staged at ISO build time; not part of the 289 xpkg set) |
 
 ### Kernel config (kernel-repo/kernel.config)
 `CONFIG_CFG80211=y`, `CONFIG_MAC80211=y`, `CONFIG_RFKILL=y`, `CONFIG_FW_LOADER=y`
@@ -460,7 +460,11 @@ cannot be compiled from Free Software. `firmware/linux-firmware` downloads
 the upstream release tarball and copies `firmware/*` into
 `/lib/firmware` of the rootfs. This is the one unavoidable non-Free package
 FreeLinX ships. Fetch with `make fetch PORT=linux-firmware`, stage/install with
-`make install PORT=linux-firmware` (large ~580MB download).
+`make install PORT=linux-firmware` (large ~580MB download). The 1.0
+pre-release xpkg repository (289 packages) deliberately does **not** ship
+these blobs: `/lib/firmware` lands in the rootfs only when the port is
+staged at ISO build time, so WiFi firmware availability is a hardware-bring-up
+step rather than a package dependency.
 
 ### NetBSD ifconfig/route: resolved with FreeLinX's own tools
 NetBSD's `ifconfig` and `route` are built on **BSD routing sockets**
