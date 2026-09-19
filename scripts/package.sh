@@ -31,7 +31,7 @@ package_one_port() {
     _pname="$(basename "$_target")"
     _portdir=""
     
-    for _cat in base shells net firmware sysutils audio devel editors games graphics security textproc www x11; do
+    for _cat in base shells net firmware sysutils audio devel editors games graphics security textproc www x11 archivers; do
         if [ -d "$FREELINX_ROOT/$_cat/$_pname" ]; then
             _portdir="$FREELINX_ROOT/$_cat/$_pname"
             break
@@ -255,8 +255,8 @@ package_one_port() {
             fi
         done
     else
-        # Search staging root, then fallback to rootfs
-        for _sdir in "$FREELINX_STAGING_ROOT" "$ROOTFS_DIR"; do
+# Search staging root, deps, then fallback to rootfs
+        for _sdir in "$FREELINX_STAGING_ROOT" "$FREELINX_ROOT/build/deps/$_pname" "$ROOTFS_DIR"; do
             for _bdir in bin sbin usr/bin usr/sbin usr/games; do
                 _root="$_sdir/$_bdir"
                 for _cand in "$_pname" "$_bin"; do
@@ -271,6 +271,19 @@ package_one_port() {
                 mkdir -p "$_temp_stage/usr/lib"
                 cp -a "$_sdir/usr/lib/$_pname" "$_temp_stage/usr/lib/"
                 _found=1
+            fi
+            if [ -d "$_sdir/usr/share/$_pname" ]; then
+                mkdir -p "$_temp_stage/usr/share"
+                cp -a "$_sdir/usr/share/$_pname" "$_temp_stage/usr/share/"
+                _found=1
+            fi
+            if [ -f "$_sdir/usr/share/applications/$_pname.desktop" ]; then
+                mkdir -p "$_temp_stage/usr/share/applications"
+                cp -a "$_sdir/usr/share/applications/$_pname.desktop" "$_temp_stage/usr/share/applications/"
+            fi
+            if [ -d "$_sdir/usr/share/X11/app-defaults" ]; then
+                mkdir -p "$_temp_stage/usr/share/X11"
+                cp -a "$_sdir/usr/share/X11/app-defaults" "$_temp_stage/usr/share/X11/"
             fi
             if [ -d "$_sdir/etc/$_pname" ]; then
                 mkdir -p "$_temp_stage/etc"
