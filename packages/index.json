@@ -2306,7 +2306,7 @@
     },
     "flxbar-bottom": {
       "version": "1.0",
-      "description": "FreeLinX bottom status bar (i3status → lemonbar).",
+      "description": "FreeLinX bottom status bar (i3status \u2192 lemonbar).",
       "arch": "x86_64",
       "file": "flxbar-bottom-1.0.xpkg",
       "size": 621,
@@ -2503,6 +2503,78 @@
       "file": "wump-10.1.xpkg",
       "size": 56844,
       "sha256": "27a51701d51b14af95be44aa4ec49d450f0fc60800fdd9ea8befebaa80aed1c1"
+    },
+    "xcalc": {
+      "version": "1.1.2",
+      "description": "xcalc 1.1.2 (X11 scientific calculator).",
+      "arch": "x86_64",
+      "file": "xcalc-1.1.2.xpkg",
+      "size": 1162318,
+      "sha256": "f9fb1fc7141ee3fe7f486d194de44fbf4ef0cd8c56e552399ae3a1f5eb17efea"
+    },
+    "netsurf": {
+      "version": "3.11",
+      "description": "NetSurf fast and lightweight web browser with JavaScript",
+      "arch": "x86_64",
+      "file": "netsurf-3.11.xpkg",
+      "size": 6077610,
+      "sha256": "206fcddda4cd52a339d81fb0785dfedf6d95938deb7a77925aed5fa5f2f34a6c"
+    },
+    "cowsay": {
+      "version": "3.7.0",
+      "description": "cowsay 3.7.0 (talking cow generator).",
+      "arch": "x86_64",
+      "file": "cowsay-3.7.0.xpkg",
+      "size": 18316,
+      "sha256": "aa079be436ba798d796a0fa9ae808fc0182660d9f81400203d2603f69af05a47"
+    },
+    "flx-yt": {
+      "version": "1.0",
+      "description": "FreeLinX YouTube streaming player via MPV and Invidious API",
+      "arch": "x86_64",
+      "file": "flx-yt-1.0.xpkg",
+      "size": 1456,
+      "sha256": "e6392b3864b6565ae0aff9933b61fd68298fd7f7be65b3cf58cb897150b916b2"
+    },
+    "flx-desktop-apps": {
+      "version": "1.0",
+      "description": "FreeLinX native Cairo/X11 desktop applications suite",
+      "arch": "x86_64",
+      "file": "flx-desktop-apps-1.0.xpkg",
+      "size": 8723779,
+      "sha256": "0df795eb4fa1ad25cbf949e7fd1dad369ef18f2621b1794f47923b8b6946bff5"
+    },
+    "fortune": {
+      "version": "10.1",
+      "description": "NetBSD fortune 10.1 (random quotes generator).",
+      "arch": "x86_64",
+      "file": "fortune-10.1.xpkg",
+      "size": 1236552,
+      "sha256": "7876154c2df9eba96945d59d434ec75d71a6d0a7244d39b2100009bfbeb3a1c1"
+    },
+    "figlet": {
+      "version": "2.2.5",
+      "description": "figlet 2.2.5 (banner generator).",
+      "arch": "x86_64",
+      "file": "figlet-2.2.5.xpkg",
+      "size": 157664,
+      "sha256": "6eeccdc4a23455fb44c8bfdae3b0502ad9babed2e971f06ca19c12076946fabf"
+    },
+    "nnn": {
+      "version": "5.0",
+      "description": "nnn 5.0 (fast terminal file manager).",
+      "arch": "x86_64",
+      "file": "nnn-5.0.xpkg",
+      "size": 266466,
+      "sha256": "0bbe9a1647b14832539756f35248d4f78da10dcfe19dac6c80393d47122236db"
+    },
+    "zstd": {
+      "version": "1.5.7",
+      "description": "zstd 1.5.7 (Zstandard compression).",
+      "arch": "x86_64",
+      "file": "zstd-1.5.7.xpkg",
+      "size": 457330,
+      "sha256": "9a9230c3e4b07c559d33d3df838b76c140e3f1fcb36afee587d076401fdc411d"
     }
   }
 }
