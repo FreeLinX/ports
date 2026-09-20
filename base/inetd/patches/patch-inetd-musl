@@ -1,0 +1,58 @@
+--- a/usr.sbin/inetd/inetd.c
++++ b/usr.sbin/inetd/inetd.c
+@@ -538,7 +538,7 @@
+ 		denied = hosts_access(&req) == 0;
+ 		if (denied || lflag) {
+ 			if (getnameinfo(&sep->se_ctrladdr,
+-			    (socklen_t)sep->se_ctrladdr.sa_len, NULL, 0,
++			    (socklen_t)sizeof(struct sockaddr_storage), NULL, 0,
+ 			    buf, sizeof(buf), 0) != 0) {
+ 				/* shouldn't happen */
+ 				(void)snprintf(buf, sizeof buf, "%d",
+@@ -1015,8 +1015,6 @@
+ 		    cmsg->cmsg_type == IP_RECVDSTADDR) {
+ 			struct in_addr *dst = (struct in_addr *)CMSG_DATA(cmsg);
+ 			struct sockaddr_in *sin = (struct sockaddr_in *)&ss;
+-
+-			sin->sin_len = sizeof(*sin);
+ 			sin->sin_family = AF_INET;
+ 			sin->sin_addr = *dst;
+ 			break;
+@@ -1026,8 +1024,6 @@
+ 			struct in_pktinfo *pi =
+ 			    (struct in_pktinfo *)CMSG_DATA(cmsg);
+ 			struct sockaddr_in *sin = (struct sockaddr_in *)&ss;
+-
+-			sin->sin_len = sizeof(*sin);
+ 			sin->sin_family = AF_INET;
+ 			sin->sin_addr = pi->ipi_addr;
+ 			break;
+@@ -1039,7 +1035,6 @@
+ 			    (struct in6_pktinfo *)CMSG_DATA(cmsg);
+ 			struct sockaddr_in6 *sin6 = (struct sockaddr_in6 *)&ss;
+ 
+-			sin6->sin6_len = sizeof(*sin6);
+ 			sin6->sin6_family = AF_INET6;
+ 			sin6->sin6_addr = pi6->ipi6_addr;
+ 			if (IN6_IS_ADDR_LINKLOCAL(&sin6->sin6_addr) ||
+@@ -1546,7 +1541,8 @@
+ 	return true;
+ 
+ bad:
+-	if (getnameinfo(sa, sa->sa_len, hbuf, (socklen_t)sizeof(hbuf), NULL, 0,
++	if (getnameinfo(sa, (socklen_t)sizeof(struct sockaddr_storage), hbuf,
++	    (socklen_t)sizeof(hbuf), NULL, 0,
+ 	    niflags) != 0)
+ 		strlcpy(hbuf, "?", sizeof(hbuf));
+ 	syslog(LOG_WARNING,"Possible DoS attack from %s, Port %d",
+--- a/usr.sbin/inetd/ratelimit.c
++++ b/usr.sbin/inetd/ratelimit.c
+@@ -167,7 +167,7 @@
+ #endif
+ 		default: {
+ 			int res = getnameinfo(&addr.sa,
+-			    (socklen_t)addr.sa.sa_len,
++			    (socklen_t)sizeof(struct sockaddr_storage),
+ 			    out->other_addr, NI_MAXHOST,
+ 			    NULL, 0,
+ 			    NI_NUMERICHOST

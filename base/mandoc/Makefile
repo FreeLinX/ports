@@ -20,7 +20,7 @@
 # Cross build recipe:
 #   cd $(FREELINX_BUILD_DIR)/work/mandoc/mandoc-1.14.6
 #   TRIPLE=$(FREELINX_TRIPLE); SYS=$(FREELINX_SYSROOT)
-#   D=/home/devuan/FreeLinX/ports/build/deps/zlib
+#   D=$(FREELINX_BUILD_DIR)/deps/zlib
 #   CC=$(FREELINX_TOOLCHAIN_BIN)/clang
 #   ./configure --prefix=/ --host=$TRIPLE \
 #       CC="$CC" CFLAGS="--target=$TRIPLE --sysroot=$SYS -O2" \

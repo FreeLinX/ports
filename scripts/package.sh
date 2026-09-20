@@ -257,7 +257,7 @@ package_one_port() {
     else
         # Search staging root, then fallback to rootfs
         for _sdir in "$FREELINX_STAGING_ROOT" "$ROOTFS_DIR"; do
-            for _bdir in bin sbin usr/bin usr/sbin; do
+            for _bdir in bin sbin usr/bin usr/sbin usr/games; do
                 _root="$_sdir/$_bdir"
                 for _cand in "$_pname" "$_bin"; do
                     if [ -f "$_root/$_cand" ] || [ -h "$_root/$_cand" ]; then

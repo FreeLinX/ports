@@ -20,3 +20,9 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/pwait/pwait.c
 
 PORT_SRCS = usr.bin/pwait/pwait.c
+
+# FreeLinX compat:
+#  - kqueue(2)/kevent(2): NetBSD 10 pwait is kqueue/EVPFILT_PROC based
+#    (see base/compat/kqueue.c - epoll+signalfd emulation).
+#  - getprogname(3): musl shim in base/compat.
+COMPAT_SRCS = $(FLX_COMPAT)/kqueue.c $(FLX_COMPAT)/getprogname.c

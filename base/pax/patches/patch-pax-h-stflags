@@ -1,0 +1,11 @@
+--- a/bin/pax/pax.h
++++ b/bin/pax/pax.h
+@@ -38,7 +38,7 @@
+ 
+ #if ! HAVE_NBTOOL_CONFIG_H
+ #define HAVE_LUTIMES 1
+-#define HAVE_STRUCT_STAT_ST_FLAGS 1
++#define HAVE_STRUCT_STAT_ST_FLAGS 0
+ #endif
+ 
+ /*
