@@ -36,6 +36,7 @@
 #include <stdint.h>
 #include <endian.h>
 #include <pwd.h>
+#include <grp.h>
 #include <time.h>
 #include <limits.h>
 
@@ -649,6 +650,73 @@ struct ttysize { unsigned short ts_lines; unsigned short ts_cols; };
 #define VDSUSP 19		/* Linux termios: unused slot, kept for compat */
 #endif
 
+#ifndef VSTATUS
+#define VSTATUS 20		/* Linux termios: unused slot, kept for compat */
+#endif
+
+/* linedn_t - BSD line discipline "number".  Linux exposes no line-discipline
+ * model to userland and NetBSD's stty(1) passes this field straight to
+ * print() as the discipline NAME (%s); model it as an opaque pointer that is
+ * always NULL ("unknown").  stty.c is patched to leave it NULL (TIOCGLINED
+ * does not exist on Linux); this keeps the upstream pointer passing valid. */
+#ifndef FLX_LINEDN_T
+typedef const char *linedn_t;
+#define FLX_LINEDN_T 1
+#endif
+
+/* NetBSD <sys/ttydefaults.h> TTYDEF_* banners, in Linux termios bit layout
+ * (values below are exactly the kernel's tty_std_termios).  Used by
+ * stty(1) `sane` to (re)establish a sane line. */
+#ifndef TTYDEF_IFLAG
+#define TTYDEF_IFLAG 0x2502 /* BRKINT|ICRNL|IMAXBEL|IXON */
+#define TTYDEF_OFLAG 0x0005 /* OPOST|ONLCR */
+#define TTYDEF_CFLAG 0x04B0 /* CREAD|CS8|HUPCL */
+#define TTYDEF_LFLAG 0x8A7B /* ISIG|ICANON|ECHO|ECHOE|ECHOK|ECHONL|
+			       ECHOCTL|ECHOKE|IEXTEN */
+#endif
+
+/* NetBSD-only termios capability flags with no Linux analogue: pin to 0 so
+ * `& flag`, `| flag` and `& ~flag` are all harmless no-ops. */
+#ifndef CDTRCTS
+#define CDTRCTS 0
+#endif
+#ifndef ALTWERASE
+#define ALTWERASE 0
+#endif
+#ifndef MDMBUF
+#define MDMBUF 0			/* modem buffering (c_cflag) */
+#endif
+#ifndef NOKERNINFO
+#define NOKERNINFO 0			/* disable kernel ^T info (c_lflag) */
+#endif
+
+/* musl <paths.h> omits the urandom path (stty(1) `insane`). */
+#ifndef _PATH_URANDOM
+#define _PATH_URANDOM "/dev/urandom"
+#endif
+
+/* BSD ttychars default values (netbsd/sys/ttychars.h).  Used by stty(1)
+ * both as bare values and to decide whether a char differs from default. */
+#ifndef CINTR
+#define	CINTR		'\177'	/* default ^? */
+#define	CQUIT		034	/* default ^\ */
+#define	CERASE		'\177'	/* default ^? */
+#define	CKILL		'\025'	/* default ^U */
+#define	CEOF		'\004'	/* default ^D */
+#define	CEOL		'\0'	/* default ^@ */
+#define	CSTART		'\021'	/* default ^Q */
+#define	CSTOP		'\023'	/* default ^S */
+#define	CSUSP		'\032'	/* default ^Z */
+#define	CDSUSP		'\031'	/* default ^Y */
+#define	CWERASE		'\027'	/* default ^W */
+#define	CREPRINT	'\022'	/* default ^R */
+#define	CDISCARD	'\017'	/* default ^O */
+#define	CLNEXT		'\026'	/* default ^V */
+#define	CMIN		1	/* default MIN value */
+#define	CTIME		0	/* default TIME value */
+#define	CSTATUS		'\024'	/* default ^T */
+#endif
+
 #ifndef __nothing
 #define __nothing ((void)0)
 #endif
@@ -760,6 +828,75 @@ uint32_t arc4random_uniform(uint32_t);
  * BSD code that only ORs it in still compiles.  Brace expansion is lost. */
 #ifndef GLOB_BRACE
 #define GLOB_BRACE 0
+#endif
+
+/* fchroot(2): BSD-only (pax uses it); Linux has no analogue. */
+int fchroot(int);
+
+/* BSD ALLPERMS in <sys/stat.h>; musl does not provide it (many BSD tools). */
+#ifndef ALLPERMS
+#define ALLPERMS 07777
+#endif
+
+/* parsedate(3) (BSD libutil); musl lacks it - base/compat/parsedate.c. */
+#ifndef FLX_BSD_DECL_PARSEDATE
+time_t parsedate(const char *, const time_t *, const int *);
+#define FLX_BSD_DECL_PARSEDATE 1
+#endif
+
+/* UID_MAX/GID_MAX live in <limits.h> on BSD/glibc; musl omits them. */
+#ifndef UID_MAX
+#define UID_MAX 4294967295U
+#endif
+#ifndef GID_MAX
+#define GID_MAX 4294967295U
+#endif
+
+/* pwcache user/group DB register calls (base/compat/pwcache.c); grp.h/
+ * pwd.h are included above so struct group/passwd are complete here. */
+#ifndef FLX_BSD_DECL_PWCACHE
+int pwcache_userdb(int (*)(int), void (*)(void),
+    struct passwd *(*)(const char *), struct passwd *(*)(uid_t));
+int pwcache_groupdb(int (*)(int), void (*)(void),
+    struct group *(*)(const char *), struct group *(*)(gid_t));
+#define FLX_BSD_DECL_PWCACHE 1
+#endif
+
+/* BSD accept filter (inetd SO_ACCEPTFILTER); Linux lacks the feature, the
+ * struct is kept so servtab compiles; the setsockopt fails harmlessly. */
+#ifndef SO_ACCEPTFILTER
+#define SO_ACCEPTFILTER 0x1000
+#endif
+#ifndef _STRUCT_ACCEPT_FILTER_ARG
+#define _STRUCT_ACCEPT_FILTER_ARG
+struct accept_filter_arg {
+	char af_name[16];
+	char af_arg[(256-16)];
+};
+#endif
+/* BSD IP_RECVDSTADDR (inetd internal dgram destaddr).  Linux delivers the
+ * equivalent via IP_PKTINFO; this keeps BSD code compiling while the cold
+ * branch never matches, and the setsockopt fails harmlessly at runtime. */
+#ifndef IP_RECVDSTADDR
+#define IP_RECVDSTADDR 15
+#endif
+/* BSD IPV6_FAITH (historic 6bone "faith" forwarding hook); the inetd
+ * setsockopt for FAITH_TYPE services fails harmlessly on Linux. */
+#ifndef IPV6_FAITH
+#define IPV6_FAITH 29
+#endif
+/* pidfile(3) (BSD libutil); base/compat/pidfile.c. */
+#ifndef FLX_BSD_DECL_PIDFILE
+int pidfile(const char *);
+#define FLX_BSD_DECL_PIDFILE 1
+#endif
+
+/* strtoi(3)/strtou(3) (NetBSD libc intmax parsers); musl lacks both -
+ * base/compat/strtoi.c + strtou.c (template _strtoi.h). */
+#ifndef FLX_BSD_DECL_STRTOI
+intmax_t strtoi(const char *, char **, int, intmax_t, intmax_t, int *);
+uintmax_t strtou(const char *, char **, int, uintmax_t, uintmax_t, int *);
+#define FLX_BSD_DECL_STRTOI 1
 #endif
 
 #endif /* !_FREELINX_FLX_BSD_H_ */

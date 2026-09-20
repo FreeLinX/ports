@@ -107,7 +107,7 @@ do-prepare:
 		for s in $(LOCAL_SRCS); do cp "$$s" "$(SRC_DIR)/"; done; \
 		printf '[FreeLinX/ports] applying FreeLinX patches\n'; \
 		for p in $(PATCHES); do \
-			patch -d "$(SRC_DIR)" -p1 < "$$p"; \
+			patch -d "$(SRC_DIR)" -p1 --fuzz=0 < "$$p"; \
 		done; \
 		if [ -n "$(FLX_PREGEN)" ]; then \
 			printf '[FreeLinX/ports] running pre-generate\n'; \

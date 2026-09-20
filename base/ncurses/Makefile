@@ -37,13 +37,15 @@ NCURSES_PREFIX = $(FREELINX_BUILD_DIR)/deps/$(NAME)
 INSTALL_BIN:=
 INSTALL_RELPATH:= lib/libncursesw.a
 
-include ../../mk/project-port.mk
-
 # ncurses is C (its own tiny bits of C++/Ada are disabled). Do NOT pull in the
 # C++/libc++ link libraries, and keep host make/ar on the toolchain path.
+# NOTE: these must be set BEFORE the include — project-port.mk simple-expands
+# them into the exported CFLAGS/LDFLAGS at include time.
 FLX_PROJECT_LIBS :=
 FLX_PROJECT_CPPFLAGS =
 FLX_PROJECT_LDFLAGS  =
+
+include ../../mk/project-port.mk
 
 # The FreeLinX toolchain's llvm-ar/llvm-ranlib require GLIBC_2.38 (host has
 # 2.36) and cannot run here; archiving is libc-agnostic so host ar/ranlib

@@ -1,0 +1,50 @@
+--- a/usr.bin/telnet/telnet.c
++++ b/usr.bin/telnet/telnet.c
+@@ -41,7 +41,11 @@
+ #include <sys/param.h>
+ 
+ #include <signal.h>
+-#include <term.h>
++/* FreeLinX: no terminfo in the musl sysroot.  setupterm(3) and ttytype[]
++ * come from base/compat/terminfo_stub.c; setupterm() always fails, so
++ * gettermname() uses its fallback (sends the plain $TERM value).
++ */
++int setupterm(const char *, int, int *);
+ #include <unistd.h>
+ /* By the way, we need to include curses.h before telnet.h since,
+  * among other things, telnet.h #defines 'DO', which is a variable
+--- a/usr.bin/telnet/commands.c
++++ b/usr.bin/telnet/commands.c
+@@ -2043,8 +2043,17 @@
+ {
+     static char addrbuf[NI_MAXHOST];
+     const int niflags = NI_NUMERICHOST;
++    socklen_t salen;
+ 
+-    if (getnameinfo(sa, sa->sa_len, addrbuf, sizeof(addrbuf),
++    /* FreeLinX: musl struct sockaddr has no sa_len member; derive the
++     * socket length from the address family like the kernel would. */
++    switch (sa->sa_family) {
++    case AF_INET:  salen = sizeof(struct sockaddr_in);  break;
++    case AF_INET6: salen = sizeof(struct sockaddr_in6); break;
++    default:       salen = sizeof(struct sockaddr);     break;
++    }
++
++    if (getnameinfo(sa, salen, addrbuf, sizeof(addrbuf),
+ 	    NULL, 0, niflags) == 0)
+ 	return addrbuf;
+     else
+--- a/usr.bin/telnet/sys_bsd.c
++++ b/usr.bin/telnet/sys_bsd.c
+@@ -169,8 +169,9 @@
+ void
+ TerminalFlushOutput(void)
+ {
+-    int com = 0;
+-    (void) ioctl(fileno(stdout), TIOCFLUSH, &com);
++    /* FreeLinX: Linux has no TIOCFLUSH; tcflush(TCIOFLUSH) drops both
++     * the input and output queues, matching the BSD call. */
++    (void) tcflush(fileno(stdout), TCIOFLUSH);
+ }
+ 
+ void

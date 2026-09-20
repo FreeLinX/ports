@@ -1,0 +1,57 @@
+--- a/bin/stty/stty.c
++++ b/bin/stty/stty.c
+@@ -99,12 +99,14 @@
+ 
+ 	if (tcgetattr(i.fd, &i.t) < 0)
+ 		err(1, "tcgetattr");
+-	if (ioctl(i.fd, TIOCGLINED, i.ldisc) < 0)
+-		warn("TIOCGLINED");
++	/* FreeLinX: Linux has neither TIOCGLINED nor TIOCGQSIZE.  The line
++	 * discipline is unknown (print() skips the field when NULL) and there
++	 * is no output queue to report.
++	 */
++	i.ldisc = NULL;
+ 	if (ioctl(i.fd, TIOCGWINSZ, &i.win) < 0)
+ 		warn("TIOCGWINSZ");
+-	if (ioctl(i.fd, TIOCGQSIZE, &i.queue) < 0)
+-		warn("TIOCGQSIZE");
++	i.queue = 0;
+ 
+ 	switch(fmt) {
+ 	case STTY_NOTSET:
+--- a/bin/stty/key.c
++++ b/bin/stty/key.c
+@@ -225,8 +225,9 @@
+ 		for (f = 0; f < NCCS; f++) {
+ 			ip->t.c_cc[f] = random() & 0xFF;
+ 		}
+-		ip->t.c_ispeed = random();
+-		ip->t.c_ospeed = random();
++		/* FreeLinX: Linux termios has no c_ispeed/c_ospeed members;
++		 * speeds are set out-of-band via cfsetspeed(3) only.
++		 */
+ 	}
+     
+ 	ip->set = 1;
+@@ -320,13 +321,17 @@
+ void
+ f_ostart(struct info *ip)
+ {
+-	if (ioctl (0, TIOCSTART) < 0)
+-		err(1, "TIOCSTART");
++	/* FreeLinX: Linux flow control is TCXONC(2)-based (TIOCSTART is a
++	 * BSD-ism).  TCOON resumes suspended output.
++	 */
++	if (ioctl (0, TCXONC, TCOON) < 0)
++		err(1, "TCXONC");
+ }
+ 
+ void
+ f_ostop(struct info *ip)
+ {
+-	if (ioctl (0, TIOCSTOP) < 0)
+-		err(1, "TIOCSTOP");
++	/* TCIOFF suspends output. */
++	if (ioctl (0, TCXONC, TCIOFF) < 0)
++		err(1, "TCXONC");
+ }
