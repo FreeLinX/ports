@@ -381,8 +381,8 @@
       "description": "FreeLinX-native dmesg (Linux syslog(2)).",
       "arch": "x86_64",
       "file": "dmesg-freelinx.xpkg",
-      "size": 53917,
-      "sha256": "9fca71a6601ba072dfa86ec0f1f60e399ecf398b8f8252513f6177ae10b79cb4"
+      "size": 23846,
+      "sha256": "57f1b2b04a6c8dbca98ba8a8b78519fea3eb6406a84e759b35757b8f24acb145"
     },
     "dnsmasq": {
       "version": "2.90",
@@ -1133,8 +1133,8 @@
       "description": "FreeLinX-native mount (Linux mount(2)).",
       "arch": "x86_64",
       "file": "mount-freelinx.xpkg",
-      "size": 84441,
-      "sha256": "3b41e134327376a0ef2ee8b2c0cc8859abf15f8e29e7312ae0f3bb8e3190b050"
+      "size": 34247,
+      "sha256": "e0f8234f90f173e7dc50dcfda350b07560c246e80fd97d64b70ee6efc193126f"
     },
     "mpg123": {
       "version": "1.32.10",
@@ -1917,8 +1917,8 @@
       "description": "FreeLinX-native umount (Linux umount2(2)).",
       "arch": "x86_64",
       "file": "umount-freelinx.xpkg",
-      "size": 74230,
-      "sha256": "4131d3a7e8cfed26a153b425630d6820f2348be52dd62045be930c0306e53599"
+      "size": 33669,
+      "sha256": "3d4218f86e4748cb67de12ce79de8bb1ab713d215e9f3dffb02c8917d2b1cdf6"
     },
     "uname": {
       "version": "10.1",
