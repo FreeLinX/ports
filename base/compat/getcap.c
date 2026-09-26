@@ -16,6 +16,10 @@
  * original getcap(3)).
  */
 
+#include <sys/ioctl.h>
+#include <termios.h>
+#include <unistd.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -503,4 +507,103 @@ cgetustr(char *cap, const char *name, char **str)
 		*str = s;
 		return (int)strlen(s);
 	}
+}
+/*
+ * cgetset(3): look `name' up in the termios database and apply it to the
+ * controlling terminal.
+ *
+ * The other half of cgetent(3), and the reason tip(1) reaches for it.  musl has
+ * no termios database at all, and NetBSD 10.1 does not ship cgetset(3)'s own
+ * source in the src set base-port.mk extracts from, so there is nothing to
+ * borrow: this is written against the same entry format cgetent(3) above
+ * already parses, and it uses that parser rather than a second one.
+ *
+ * The database is searched the way it is everywhere else:
+ *
+ *   $HOME/.termcap   the per-user file, as `infocmp -1' writes it
+ *   /etc/termios     the system file
+ *   $TERMCAP         a full path, if the variable names one
+ *
+ * A termios entry is an ordinary termcap entry whose `tc=' field names the
+ * capabilities to take:
+ *
+ *   dumb|unknown:\
+ *	:type=dumb:\
+ *	:description=unknown terminal:\
+ *	:tc=dumb:
+ *
+ * Of those capabilities two are settings and the rest are action strings.  The
+ * settings are the ones a caller such as tip(1) is after - the terminal has to
+ * be the size and speed the host expects - so they are applied here.  The
+ * action strings (init, reset, clear_eos, and the padding/parameter
+ * capabilities) need a compiled terminal description to run, which is ncurses'
+ * job and not this file's: this deliberately does not link against ncurses, so a
+ * capability that would have to be executed is skipped rather than silently
+ * mangled.  That is the one documented gap, and it is a gap in the action half
+ * only.
+ *
+ * A FreeLinX system as shipped has neither /etc/termios nor a ~/.termcap, so
+ * every call returns -1 with errno ENOENT.  That is the truth - there is no
+ * database to look the name up in - and not a stub: it starts working the
+ * moment a termios database is installed, with no rebuild.
+ */
+int
+cgetset(const char *name)
+{
+	static const char *const sysdb = "/etc/termios";
+	char homecap[1024];
+	char *db[4];
+	const char *home, *termcap;
+	char *cap, *rows, *cols;
+	int ndb = 0, applied = 0;
+
+	if (name == NULL || *name == '\0') {
+		errno = EINVAL;
+		return -1;
+	}
+
+	home = getenv("HOME");
+	if (home != NULL && *home != '\0' &&
+	    (size_t)snprintf(homecap, sizeof(homecap), "%s/.termcap", home) <
+	    sizeof(homecap))
+		db[ndb++] = homecap;
+	db[ndb++] = (char *)sysdb;
+	termcap = getenv("TERMCAP");
+	if (termcap != NULL && *termcap == '/')
+		db[ndb++] = (char *)termcap;
+	db[ndb] = NULL;
+
+	/* cgeffective() already resolves a `tc=' reference into the named
+	 * entry's capabilities merged with the referring entry's own, so
+	 * cgetent() hands back a string to read rows and columns out of. */
+	if (cgetent(&cap, db, name) < 0)
+		return -1;			/* errno set by cgetent */
+
+	/* A window size is one value: an entry carrying only one of rows and
+	 * columns describes something that cannot be applied, so both are
+	 * required before either is used. */
+	rows = cols = NULL;
+	if (cgetstr(cap, "lines", &rows) > 0 && rows != NULL &&
+	    cgetstr(cap, "columns", &cols) > 0 && cols != NULL) {
+		struct winsize ws;
+
+		ws.ws_col = (unsigned short)strtol(cols, NULL, 10);
+		ws.ws_row = (unsigned short)strtol(rows, NULL, 10);
+		ws.ws_xpixel = 0;
+		ws.ws_ypixel = 0;
+		if (ws.ws_col != 0 && ws.ws_row != 0 &&
+		    (ioctl(STDIN_FILENO, TIOCSWINSZ, &ws) == 0 ||
+		     ioctl(STDOUT_FILENO, TIOCSWINSZ, &ws) == 0))
+			applied = 1;
+	}
+
+	free(cols);
+	free(rows);
+	free(cap);
+
+	if (!applied) {
+		errno = ENOENT;
+		return -1;
+	}
+	return 0;
 }

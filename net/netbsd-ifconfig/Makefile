@@ -18,6 +18,16 @@
 # patches/ dir as a NetBSD->Linux hostops layer; until then the port is a
 # correct scaffold pointing at the genuine upstream sources.
 #
+# It also has a second, independent blocker above the header layer: 471 prop_*
+# calls spread over 18 of its files, and proplib.h - the property library it
+# drives the IPv6 side through - is not in the src set this tree builds from,
+# so there is nothing to shim against even in principle.
+#
+# Recorded so the build gate refuses with this reason instead of stopping at
+# `proplib.h: file not found'.  net/freelinx-ifconfig is the FreeLinX-native
+# equivalent and does build.
+PORT_NOT_PORTABLE:= is a routing-socket and proplib client (AF_ROUTE, struct rt_msghdr, RTM_*, 471 prop_* calls) needing a netlink hostops rewrite; proplib.h is also absent from the vendored src.tgz - see net/freelinx-ifconfig for the FreeLinX-native equivalent
+#
 # Upstream members kept for the scaffold (see NetBSD sbin/ifconfig Makefile).
 NAME   := netbsd-ifconfig
 VERSION:= 10.1

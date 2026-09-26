@@ -1,6 +1,5 @@
-diff -ruN a/lib/libutil/efun.c b/lib/libutil/efun.c
---- a/lib/libutil/efun.c	2026-08-31 02:09:47.555957026 +0400
-+++ b/lib/libutil/efun.c	2026-08-31 02:09:55.004066296 +0400
+--- a/lib/libutil/efun.c
++++ b/lib/libutil/efun.c
 @@ -50,7 +50,7 @@
  static void (*efunc)(int, const char *, ...) = err;
  
@@ -31,7 +30,7 @@ diff -ruN a/lib/libutil/efun.c b/lib/libutil/efun.c
  	if (e != 0) {
  		errno = e;
  		(*efunc)(1,
-@@ -191,10 +202,20 @@
+@@ -191,8 +202,18 @@
  uintmax_t
  estrtou(const char * nptr, int base, uintmax_t lo, uintmax_t hi)
  {
@@ -51,5 +50,3 @@ diff -ruN a/lib/libutil/efun.c b/lib/libutil/efun.c
  	if (e != 0) {
  		errno = e;
  		(*efunc)(1,
- 
- 

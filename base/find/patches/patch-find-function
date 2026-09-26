@@ -1,5 +1,5 @@
---- a/usr.bin/find/function.c	2026-08-31 02:12:38.946471462 +0400
-+++ b/usr.bin/find/function.c	2026-08-31 02:14:39.876245601 +0400
+--- a/usr.bin/find/function.c
++++ b/usr.bin/find/function.c
 @@ -45,6 +45,7 @@
  #include <sys/stat.h>
  #include <sys/wait.h>
@@ -8,14 +8,14 @@
  
  #include <dirent.h>
  #include <err.h>
-@@ -59,10 +60,31 @@
+@@ -59,9 +60,30 @@
  #include <stdio.h>
  #include <stdlib.h>
  #include <string.h>
 -#include <tzfile.h>
  #include <unistd.h>
  #include <util.h>
- 
++
 +/* FreeLinX: musl has no <tzfile.h> (NetBSD supplies these time literals
 + * there) and no BSD MNT_* flags; Linux spellings for the sticky bit and
 + * the read-only statvfs flag differ too. */
@@ -37,14 +37,14 @@
 +#ifndef MNT_RDONLY
 +#define	MNT_RDONLY	ST_RDONLY
 +#endif
-+
+ 
  #include "find.h"
  
- #define	COMPARE(a, b) {							\
 @@ -200,12 +222,36 @@
  find_parsedate(PLAN *plan, const char *option, const char *vp)
  {
  	time_t timestamp;
+-
 +	struct tm tm;
 +	char *end;
 +	static const char *const fmts[] = {
@@ -56,7 +56,7 @@
 +		NULL
 +	};
 +	const char *const *fmt;
- 
++
 +	/* FreeLinX: musl has no NetBSD parsedate(3); accept plain
 +	 * epoch seconds or the strptime formats above. */
  	errno = 0;
@@ -145,12 +145,10 @@
 -	char *flags = **argvp;
 -	PLAN *new;
 -	u_long flagset;
-+	(void)isok;
-+	(void)opt;
- 
- 	(*argvp)++;
- 	ftsoptions &= ~FTS_NOSTAT;
- 
+-
+-	(*argvp)++;
+-	ftsoptions &= ~FTS_NOSTAT;
+-
 -	new = palloc(N_FLAGS, f_flags);
 -
 -	if (*flags == '-') {
@@ -164,6 +162,12 @@
 -		errx(1, "%s: %s: illegal flags string", opt, flags);
 -	new->f_data = flagset;
 -	return (new);
++	(void)isok;
++	(void)opt;
++
++	(*argvp)++;
++	ftsoptions &= ~FTS_NOSTAT;
++
 +	return (palloc(N_FLAGS, f_flags));
  }
  
@@ -177,7 +181,7 @@
  	char *p, save[2];
  
  	memset(&save, 0, sizeof save);	/* XXX gcc */
-@@ -1098,9 +1132,12 @@
+@@ -1098,8 +1132,11 @@
  		 * Further tests may need both of these values, so
  		 * always copy both of them.
  		 */
@@ -191,4 +195,3 @@
  	}
  	switch (plan->flags) {
  	case F_MTFLAG:
- 

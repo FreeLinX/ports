@@ -340,6 +340,13 @@ int	cgetnext(char **, char **);
 int	cgetclose(void);
 char	*cgetcap(char *, const char *, int);
 int	cgetstr(char *, const char *, char **);
+/*
+ * cgetset(3) is the half of the pair that touches the terminal, so it sits
+ * next to cgetent() rather than in the port that happens to call it first
+ * (tip).  Both are one API, both are implemented in getcap.c, and a second
+ * program that needs cgetent(3) will need cgetset(3) for the same reason.
+ */
+int	cgetset(const char *);
 int	cgetnum(char *, const char *, long *);
 int	cgetustr(char *, const char *, char **);
 void	csetexpandtc(int);

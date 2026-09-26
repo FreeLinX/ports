@@ -28,9 +28,17 @@ BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot), zlib (build/deps)
 TARGET := $(FREELINX_TRIPLE)
 PREFIX := /
 
-# Installed as staging/bin/gzip.  Set before include.
+# Installed as staging/bin/gzip, with the other names that gzip(1) is one
+# binary under.  gzip.c:343 dispatches on getprogname(): called as "gunzip" it
+# decompresses, as "zcat" or "gzcat" it decompresses to stdout.  Those three
+# are the whole list in this source - it implements no zgrep and no gzreboot -
+# so the aliases stop there rather than promising names that would not work.
+# Staging gzip alone produced a system where all of that worked and none of it
+# could be reached by name, and "gunzip: not found" is what a build script says
+# when it needs to unpack an archive.
 INSTALL_BIN:= gzip
 INSTALL_RELPATH:= bin/gzip
+INSTALL_ALIASES:= gunzip=gzip zcat=gzip gzcat=gzip
 
 include ../../mk/base-port.mk
 
@@ -59,12 +67,11 @@ COMPAT_SRCS = $(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/reallocarr.c
 
 PORT_SRCS = usr.bin/gzip/gzip.c lib/libc/gen/fts.c
 
-# Link libz.a before -lc (recursive default FLX_LD from base-port.mk is
-# redefined here; the recipe expands $(FLX_LD) late, at link time).
-FLX_LD          = $(CC) $(FREELINX_CFLAGS) $(FREELINX_LDFLAGS) \
-			-nostdlib -L$(FREELINX_SYSROOT)/lib \
-			$(FLX_CRT) \
-			$(OBJ_DIR)/*.o \
-			$(ZLIB_PREFIX)/lib/libz.a \
-			-lc $(FLX_COMPILER_RT) \
-			$(FLX_CRT_END)
+# libz.a goes through FLX_LDADD, the hook base-port.mk already has for extra
+# link inputs, rather than by overriding FLX_LD.  Overriding it means writing
+# out the whole link line, and the version that did that used "$(OBJ_DIR)/*.o"
+# for its objects: anything an earlier build left in the object directory went
+# into the binary, so a source dropped from PORT_SRCS kept being linked.  The
+# default FLX_LD already names the objects correctly and already puts
+# $(FLX_LDADD) before -lc, which is where a static archive has to be.
+FLX_LDADD += $(ZLIB_PREFIX)/lib/libz.a

@@ -31,7 +31,15 @@
 
 #include <sys/ansi.h>
 
-#ifndef sa_family_t
+/*
+ * musl declares sa_family_t in bits/socket.h via
+ * bits/alltypes.h, which records what it declared in a __DEFINED_<name>
+ * marker.  A typedef name is not a macro, so `#ifndef sa_family_t` cannot
+ * see musl's declaration and is always true - the overlay then redeclares the
+ * name with NetBSD's own (narrower) type and every translation unit that
+ * reaches both headers fails with a typedef redefinition.  Check the marker.
+ */
+#if !defined(sa_family_t) && !defined(__DEFINED_sa_family_t)
 typedef __sa_family_t	sa_family_t;
 #define sa_family_t	__sa_family_t
 #endif

@@ -1,6 +1,5 @@
-diff -ruN a/usr.bin/sort/sort.h b/usr.bin/sort/sort.h
---- a/usr.bin/sort/sort.h	2026-08-31 02:09:37.823814247 +0400
-+++ b/usr.bin/sort/sort.h	2026-08-31 02:09:41.763872051 +0400
+--- a/usr.bin/sort/sort.h
++++ b/usr.bin/sort/sort.h
 @@ -64,6 +64,11 @@
   */
  
@@ -13,17 +12,16 @@ diff -ruN a/usr.bin/sort/sort.h b/usr.bin/sort/sort.h
  
  #include <err.h>
  #include <errno.h>
-@@ -74,7 +79,13 @@
+@@ -73,6 +78,12 @@
+ #include <stdio.h>
  #include <stdlib.h>
  #include <string.h>
- 
++
 +/* FreeLinX: NetBSD declares emalloc(3)/erealloc(3) in <util.h>; the
 + * FreeLinX compat <util.h> stand-in (musl ships no util.h) only declares
 + * getbsize.  Implementations come from libutil's efun.c (extracted). */
 +void		*emalloc(size_t);
 +void		*erealloc(void *, size_t);
-+
- #define NBINS		256
  
- /* values for masks, weights, and other flags. */
+ #define NBINS		256
  

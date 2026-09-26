@@ -74,12 +74,27 @@
  */
 #include <sys/ansi.h>
 
-#ifndef sa_family_t
+/*
+ * musl declares sa_family_t in bits/socket.h via
+ * bits/alltypes.h, which records what it declared in a __DEFINED_<name>
+ * marker.  A typedef name is not a macro, so `#ifndef sa_family_t` cannot
+ * see musl's declaration and is always true - the overlay then redeclares the
+ * name with NetBSD's own (narrower) type and every translation unit that
+ * reaches both headers fails with a typedef redefinition.  Check the marker.
+ */
+#if !defined(sa_family_t) && !defined(__DEFINED_sa_family_t)
 typedef __sa_family_t	sa_family_t;
 #define sa_family_t	__sa_family_t
 #endif
 
-#ifndef socklen_t
+/*
+ * musl declares socklen_t in bits/socket.h via bits/alltypes.h,
+ * which records it in a __DEFINED_<name> marker.  A typedef name is not a
+ * macro, so `#ifndef socklen_t` cannot see musl's declaration and is always
+ * true - the overlay then redeclares the name with NetBSD's own type and the
+ * translation unit fails with a typedef redefinition.  Check the marker.
+ */
+#if !defined(socklen_t) && !defined(__DEFINED_socklen_t)
 typedef __socklen_t	socklen_t;
 #define socklen_t	__socklen_t
 #endif
@@ -360,7 +375,14 @@ struct sockaddr_storage {
 
 #if defined(_NETBSD_SOURCE)
 
-#ifndef pid_t
+/*
+ * musl declares pid_t via bits/alltypes.h, which records it in a
+ * __DEFINED_<name> marker.  A typedef name is not a macro, so
+ * `#ifndef pid_t` cannot see musl's declaration and is always true - the
+ * overlay then redeclares it and the translation unit fails with a typedef
+ * redefinition.  Check the marker.
+ */
+#if !defined(pid_t) && !defined(__DEFINED_pid_t)
 typedef __pid_t		pid_t;		/* process id */
 #define pid_t		__pid_t
 #endif

@@ -1,18 +1,18 @@
---- a/usr.bin/gzip/zuncompress.c	2026-08-31 02:20:33.837454401 +0400
-+++ b/usr.bin/gzip/zuncompress.c	2026-08-31 02:21:28.814267991 +0400
-@@ -37,6 +37,12 @@
+--- a/usr.bin/gzip/zuncompress.c
++++ b/usr.bin/gzip/zuncompress.c
+@@ -36,6 +36,12 @@
+  */
  
  /* This file is #included by gzip.c */
- 
++
 +/* FreeLinX: musl <errno.h> has no BSD EFTYPE, and musl has no funopen(3);
 + * fopencookie(3) provides the same cookie-driven FILE semantics. */
 +#ifndef EFTYPE
 +#define	EFTYPE	EINVAL
 +#endif
-+
+ 
  static int	zread(void *, char *, int);
  
- #define	tab_prefixof(i)	(zs->zs_codetab[i])
 @@ -168,10 +174,21 @@
  	return 0;
  }
@@ -35,7 +35,7 @@
  
  	if ((zs = calloc(1, sizeof(struct s_zstate))) == NULL)
  		return (NULL);
-@@ -199,8 +216,13 @@
+@@ -199,7 +216,12 @@
  		return NULL;
  	}
  
@@ -49,4 +49,3 @@
  }
  
  /*
- 

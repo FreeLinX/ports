@@ -1,7 +1,7 @@
-diff -ruN a/sbin/chown/chown.c b/sbin/chown/chown.c
---- a/sbin/chown/chown.c	2026-08-31 00:00:00.000000000 +0000
-+++ b/sbin/chown/chown.c	2026-08-31 00:00:00.000000000 +0000
-@@ -61,3 +61,9 @@
+--- a/sbin/chown/chown.c
++++ b/sbin/chown/chown.c
+@@ -60,6 +60,12 @@
+ #include <unistd.h>
  #include <getopt.h>
  
 +/* FreeLinX: NetBSD declares uid_from_user(3) in <pwd.h> and gid_from_group(3)
@@ -11,3 +11,5 @@ diff -ruN a/sbin/chown/chown.c b/sbin/chown/chown.c
 +int	 gid_from_group(const char *, gid_t *);
 +
  static void	a_gid(const char *);
+ static void	a_uid(const char *);
+ static id_t	id(const char *, const char *);

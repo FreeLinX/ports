@@ -1,0 +1,70 @@
+--- a/usr.bin/tip/aculib/hayes.c
++++ b/usr.bin/tip/aculib/hayes.c
+@@ -30,6 +30,35 @@
+  */
+ 
+ #include <sys/cdefs.h>
++
++/*
++ * DTR control.
++ *
++ * NetBSD has TIOCCDTR and TIOCSDTR: ioctls that read and set the Data Terminal
++ * Ready line of a serial port.  Linux has no equivalent.  The tty subsystem
++ * there exposes modem status lines (MSR_DCTS/MSR_DDSR/MSR_DCD) for reading,
++ * but there is no request that drives DTR, because a Linux serial port has no
++ * user-writable DTR - the line is driven by the driver and by carrier detect.
++ *
++ * Inventing two request numbers to keep the source compiling would be a lie
++ * that failed silently, so the calls are routed through one function whose
++ * body says plainly what Linux cannot do.  The only behaviour lost is the
++ * courtesy hang-up: dropping DTR is how this driver ends a call, and without it
++ * the modem has to be hung up with the AT command escape (the "+++" sequence
++ * the comment above describes), which tip(1) does not send.
++ *
++ * Every call site's return value was already discarded - each was
++ * `(void)ioctl(...)' - so nothing that depended on the result is changed.
++ */
++static void
++hay_dtr(int on)
++{
++#ifdef TIOCCDTR
++	(void)ioctl(FD, on ? TIOCSDTR : TIOCCDTR, 0);
++#else
++	(void)on;			/* no DTR control on Linux */
++#endif
++}
+ #ifndef lint
+ #if 0
+ static char sccsid[] = "@(#)hayes.c	8.1 (Berkeley) 6/6/93";
+@@ -126,9 +155,9 @@
+ #ifdef DEBUG
+ 	(void)printf("\rdisconnecting modem....\n\r");
+ #endif
+-	(void)ioctl(FD, TIOCCDTR, 0);
++	hay_dtr(0);;
+ 	(void)sleep(1);
+-	(void)ioctl(FD, TIOCSDTR, 0);
++	hay_dtr(1);;
+ 	goodbye();
+ }
+ 
+@@ -266,7 +295,7 @@
+ #endif
+ 	}
+ 	(void)tcflush(FD, TCIOFLUSH);
+-	(void)ioctl(FD, TIOCCDTR, 0);		/* clear DTR (insurance) */
++	hay_dtr(0);;		/* clear DTR (insurance) */
+ 	(void)close(FD);
+ }
+ 
+@@ -291,8 +320,8 @@
+ 			(void)printf("hay_sync: (\"%s\") %d\n\r", dumbuf, retry);
+ #endif
+ 		}
+-		(void)ioctl(FD, TIOCCDTR, 0);
+-		(void)ioctl(FD, TIOCSDTR, 0);
++		hay_dtr(0);;
++		hay_dtr(1);;
+ 	}
+ 	(void)printf("Cannot synchronize with hayes...\n\r");
+ 	return(0);

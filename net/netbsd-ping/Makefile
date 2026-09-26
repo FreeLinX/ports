@@ -38,4 +38,8 @@ PORT_SRCS = sbin/ping/ping.c sbin/ping/ping_hostops.c
 # NOTE: requires FreeLinX patches/ for NetBSD in_systm/ip_var/ipsec headers
 # plus base/compat cdefs + err before this can link.
 FLX_CPPFLAGS?=-I$(FLX_COMPAT) -I$(SRC_DIR)/include
-COMPAT_SRCS = $(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/strlcpy.c
+# Added to, not substituted for, the default compat objects: assigning
+# COMPAT_SRCS here once dropped arc4random.c, and the port failed to link
+# with `undefined symbol: arc4random' - a symbol this port's own sources
+# never mention, arriving from a default object that had quietly gone.
+PORT_COMPAT_SRCS += $(FLX_COMPAT)/strlcpy.c
