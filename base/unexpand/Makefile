@@ -28,8 +28,11 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/unexpand/unexpand.c
 
 # unexpand.c uses erealloc(3) from NetBSD <libutil.h>: BSD err(1) wrapper over
-# realloc() that aborts on failure; musl has no err-based alloc wrappers, so
-# FreeLinX provides base/compat/erealloc.c.
-COMPAT_SRCS = $(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/erealloc.c
+# realloc() that aborts on failure.  musl has no err-based alloc wrappers, but
+# base/compat/estdlib.c - already in mk/base-port.mk's default COMPAT_SRCS -
+# provides it along with emalloc/ecalloc/estrdup, so this port needs no
+# COMPAT_SRCS line of its own.  It used to list base/compat/erealloc.c, which
+# defines the same four functions: two providers on one link line is
+# "duplicate symbol: emalloc", not a fallback.
 
 PORT_SRCS = usr.bin/unexpand/unexpand.c
