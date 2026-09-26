@@ -41,4 +41,4 @@ COMPAT_SRCS += $(FLX_COMPAT)/sigstub.c
 
 # at has its own stime.c parsedate(const char *); the three-argument BSD
 # declaration here made the declaration conflict and the call mis-typed.
-FLX_CPPFLAGS += -DFLX_BSD_DECL_PARSEDATE=1
+FLX_CPPFLAGS += -DFLX_BSD_SKIP_DECL_PARSEDATE=1

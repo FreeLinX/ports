@@ -12,6 +12,12 @@ INSTALL_RELPATH:= bin/timeout
 
 include ../../mk/base-port.mk
 
+# base/timeout/sys_signame.c builds its own table from musl's signal numbers, so
+# it names the signals FreeLinX actually delivers rather than BSD numbering.  The
+# forced-include header declared a const-qualified array of a different size, and
+# "const char *[]" against "const char *const[NSIG+1]" is a hard error.
+FLX_CPPFLAGS += -DFLX_BSD_SKIP_DECL_SYS_SIGNAME=1
+
 SRC_DIR  = $(FREELINX_BUILD_DIR)/work/$(NAME)
 OBJ_DIR  = $(FREELINX_BUILD_DIR)/obj/$(NAME)
 BUILD_BIN = $(SRC_DIR)/$(NAME)

@@ -13,6 +13,13 @@ INSTALL_RELPATH:= bin/mail
 
 include ../../mk/base-port.mk
 
+# mail has its own "struct group" (its recipient lists, def.h) and its own
+# "int ishead(const char [])" (extern.h, an RFC-822 header-line test on
+# narrow characters).  The forced-include header was supplying the system
+# struct group from <grp.h> and NetBSD libc's *wide* ishead, so both names
+# were already taken by the time mail's own headers got to them.
+FLX_CPPFLAGS += -DFLX_BSD_SKIP_INCLUDE_GRP_H=1 -DFLX_BSD_SKIP_DECL_ISHEAD=1
+
 SRC_DIR  = $(FREELINX_BUILD_DIR)/work/$(NAME)
 OBJ_DIR  = $(FREELINX_BUILD_DIR)/obj/$(NAME)
 BUILD_BIN = $(SRC_DIR)/$(NAME)
@@ -106,7 +113,12 @@ PORT_SRCS = usr.bin/mail/cmd1.c \
 	usr.bin/mail/version.c
 COMPAT_SRCS += $(FLX_COMPAT)/vis.c
 
-COMPAT_SRCS += $(FLX_COMPAT)/erealloc.c
+# NOTE: base/compat/erealloc.c is deliberately not listed.  estdlib.c - which
+# mk/base-port.mk already puts in the default COMPAT_SRCS - defines emalloc,
+# ecalloc, erealloc and estrdup, so naming erealloc.c as well put all four on
+# the link line twice and the link died with "duplicate symbol: emalloc".
+# erealloc.c, emalloc.c and estr.c are alternatives to estdlib.c, not layers
+# on top of it; list one or the other, never both.
 
 # NOTE: easprintf.c is already in the base-port.mk COMPAT_SRCS default set, so
 # adding it here used to list it twice and the link died with

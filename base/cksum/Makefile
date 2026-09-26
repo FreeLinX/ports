@@ -42,4 +42,4 @@ PORT_SRCS = usr.bin/cksum/cksum.c usr.bin/cksum/crc.c \
 
 # cksum/crc.c defines its own file-local be32dec, which collided with the
 # copy flx_bsd.h force-includes into every translation unit.
-FLX_CPPFLAGS += -DFLX_BSD_DECL_ENDIAN=1
+FLX_CPPFLAGS += -DFLX_BSD_SKIP_DECL_ENDIAN=1
