@@ -8,7 +8,7 @@
  
  #include <err.h>
  #include <errno.h>
-@@ -50,9 +51,17 @@
+@@ -50,10 +51,18 @@
  #include <stdlib.h>
  #include <string.h>
  #include <time.h>
@@ -27,4 +27,4 @@
  #include "find.h"
  
  /* Derived from the print routines in the ls(1) source code. */
-
+ 

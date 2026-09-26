@@ -32,7 +32,7 @@
  	struct stat sb;
  
  	/*
-@@ -1113,14 +1122,24 @@
+@@ -1113,15 +1122,25 @@
  	if (fchmod(fd, sb.st_mode) < 0)
  		maybe_warn("couldn't fchmod: %s", file);
  
@@ -61,4 +61,4 @@
  }
  #endif
  
-
+ 

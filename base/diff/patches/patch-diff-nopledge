@@ -1,6 +1,6 @@
 --- a/usr.bin/diff/diff.c
 +++ b/usr.bin/diff/diff.c
-@@ -211,13 +211,6 @@ main(int argc, char **argv)
+@@ -211,13 +211,6 @@
  	argc -= optind;
  	argv += optind;
  
@@ -12,3 +12,5 @@
 -		err(2, "pledge");
 -
  	/*
+ 	 * Do sanity checks, fill in stb1 and stb2 and call the appropriate
+ 	 * driver routine.  Both drivers use the contents of stb1 and stb2.

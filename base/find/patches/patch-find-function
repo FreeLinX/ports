@@ -177,7 +177,7 @@
  	char *p, save[2];
  
  	memset(&save, 0, sizeof save);	/* XXX gcc */
-@@ -1098,8 +1132,11 @@
+@@ -1098,9 +1132,12 @@
  		 * Further tests may need both of these values, so
  		 * always copy both of them.
  		 */
@@ -191,4 +191,4 @@
  	}
  	switch (plan->flags) {
  	case F_MTFLAG:
-
+ 

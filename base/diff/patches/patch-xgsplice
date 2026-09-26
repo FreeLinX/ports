@@ -1,0 +1,39 @@
+--- a/usr.bin/diff/diff.h
++++ b/usr.bin/diff/diff.h
+@@ -88,7 +88,7 @@
+ extern struct	excludes *excludes_list;
+ extern regex_t	ignore_re;
+ 
+-char	*splice(char *, char *);
++char	*xgsplice(char *, char *);
+ int	diffreg(char *, char *, int);
+ void	diffdir(char *, char *, int);
+ void	print_only(const char *, size_t, const char *);
+--- a/usr.bin/diff/diffreg.c
++++ b/usr.bin/diff/diffreg.c
+@@ -479,7 +479,7 @@
+ }
+ 
+ char *
+-splice(char *dir, char *file)
++xgsplice(char *dir, char *file)
+ {
+ 	char *tail, *buf;
+ 	size_t dirlen;
+--- a/usr.bin/diff/diff.c
++++ b/usr.bin/diff/diff.c
+@@ -256,12 +256,12 @@
+ 		diffdir(argv[0], argv[1], dflags);
+ 	} else {
+ 		if (S_ISDIR(stb1.st_mode)) {
+-			argv[0] = splice(argv[0], argv[1]);
++			argv[0] = xgsplice(argv[0], argv[1]);
+ 			if (stat(argv[0], &stb1) == -1)
+ 				err(2, "%s", argv[0]);
+ 		}
+ 		if (S_ISDIR(stb2.st_mode)) {
+-			argv[1] = splice(argv[1], argv[0]);
++			argv[1] = xgsplice(argv[1], argv[0]);
+ 			if (stat(argv[1], &stb2) == -1)
+ 				err(2, "%s", argv[1]);
+ 		}

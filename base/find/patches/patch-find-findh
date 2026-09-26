@@ -1,6 +1,6 @@
 --- a/usr.bin/find/find.h	2026-08-31 02:12:38.946471462 +0400
 +++ b/usr.bin/find/find.h	2026-08-31 02:14:44.952320071 +0400
-@@ -37,6 +37,12 @@
+@@ -37,7 +37,13 @@
  #include <regex.h>
  #include <time.h>
  
@@ -13,4 +13,4 @@
  /* node type */
  enum ntype {
  	N_AND = 1, 				/* must start > 0 */
-
+ 

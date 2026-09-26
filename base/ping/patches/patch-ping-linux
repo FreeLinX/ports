@@ -1,6 +1,6 @@
 --- a/sbin/ping/ping.c
 +++ b/sbin/ping/ping.c
-@@ -44,6 +44,7 @@
+@@ -64,6 +64,7 @@
  #include <stdio.h>
  #include <stddef.h>
  #include <errno.h>
@@ -23,3 +23,4 @@
 -	sa->sin_len = sizeof(struct sockaddr_in);
  
  	/* If it is an IP address, try to convert it to a name to
+ 	 * have something nice to display.

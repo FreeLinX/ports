@@ -1,0 +1,65 @@
+--- a/bin/expr/expr.y	2026-09-26 15:37:08.164938041 +0400
++++ b/bin/expr/expr.y	2026-09-26 15:37:08.164938041 +0400
+@@ -70,14 +70,14 @@
+ 
+ %%
+ 
+-exp:	expr = {
++exp:	expr {
+ 		(void) printf("%s\n", $1);
+ 		return (is_zero_or_null($1));
+ 		}
+ 	;
+ 
+ expr:	item { $$ = $1; }
+-	| expr SPEC_OR expr = {
++	| expr SPEC_OR expr {
+ 		/*
+ 		 * Return evaluation of first expression if it is neither
+ 		 * an empty string nor zero; otherwise, returns the evaluation
+@@ -88,7 +88,7 @@
+ 		else
+ 			$$ = $3;
+ 		}
+-	| expr SPEC_AND expr = {
++	| expr SPEC_AND expr {
+ 		/*
+ 		 * Returns the evaluation of first expr if neither expression
+ 		 * evaluates to an empty string or zero; otherwise, returns
+@@ -99,7 +99,7 @@
+ 		else
+ 			$$ = "0";
+ 		}
+-	| expr SPEC_REG expr = {
++	| expr SPEC_REG expr {
+ 		/*
+ 		 * The ``:'' operator matches first expr against the second,
+ 		 * which must be a regular expression.
+@@ -140,7 +140,7 @@
+ 		}
+ 
+ 		}
+-	| expr ADD_SUB_OPERATOR expr = {
++	| expr ADD_SUB_OPERATOR expr {
+ 		/* Returns the results of addition, subtraction */
+ 		char *val;
+ 		int64_t res;
+@@ -152,7 +152,7 @@
+ 		$$ = val;
+                 }
+ 
+-	| expr MUL_DIV_MOD_OPERATOR expr = {
++	| expr MUL_DIV_MOD_OPERATOR expr {
+ 		/* 
+ 		 * Returns the results of multiply, divide or remainder of 
+ 		 * numeric-valued arguments.
+@@ -167,8 +167,8 @@
+ 		$$ = val;
+ 
+ 		}
+-	| expr COMPARE expr = {
++	| expr COMPARE expr {
+ 		/*
+ 		 * Returns the results of integer comparison if both arguments
+ 		 * are integers; otherwise, returns the results of string
+ 
