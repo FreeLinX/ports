@@ -568,6 +568,13 @@ struct uucred {
  * definitions (duplicate typedefs of the same type are legal C11, so a
  * kernel header that later defines one itself is harmless).
  * ------------------------------------------------------------------------- */
+/* <stdbool.h> supplies bool for the many ports that use it as a type.
+ * Do NOT #undef bool afterwards: most of the ports here - grep, indent,
+ * inetd, make, patch, pax, wc and a dozen more - use bool as a type while
+ * relying on this header to have pulled stdbool.h in, and taking the macro
+ * away breaks them with "unknown type name 'bool'".  A port that must
+ * declare its own bool instead (msgs.c has "typedef char bool") undefines
+ * the macro itself, immediately before the typedef. */
 #include <stdbool.h>
 
 #ifndef MAXCOMLEN
@@ -605,6 +612,7 @@ typedef u_int __cpu_simple_lock_t;
  * definitions (duplicate typedefs of the same type are legal C11, so a
  * kernel header that later defines one itself is harmless).
  * ------------------------------------------------------------------------- */
+/* bool itself: see the note at the first <stdbool.h> above. */
 #include <stdbool.h>
 
 #ifndef MAXCOMLEN
@@ -734,7 +742,15 @@ void   ereallocarr(void *, size_t, size_t);
 /* ---------------------------------------------------------------------------
  * endian helpers & termcap ospeed - NetBSD <sys/endian.h>/<term.h> members
  * missing from musl, used by libterminfo and tset.
+ *
+ * A port that ships its own copies of these (cksum's crc.c defines a
+ * file-local be32dec) must suppress this block with
+ * -DFLX_BSD_DECL_ENDIAN=1.  The old "does le16dec exist?" test below could not
+ * do that: crc.c defines be32dec but not le16dec, so the block was still
+ * entered and the two definitions collided with
+ * "error: redefinition of 'be32dec'".
  * ------------------------------------------------------------------------- */
+#ifndef FLX_BSD_DECL_ENDIAN
 #ifndef le16dec
 static inline uint16_t le16dec(const void *p){ const uint8_t *b=p; return (uint16_t)(b[0] | ((uint16_t)b[1]<<8)); }
 static inline uint32_t le32dec(const void *p){ const uint8_t *b=p; return (uint32_t)b[0]|((uint32_t)b[1]<<8)|((uint32_t)b[2]<<16)|((uint32_t)b[3]<<24); }
@@ -748,7 +764,8 @@ static inline uint64_t be64dec(const void *p){ const uint8_t *b=p; return ((uint
 static inline void be16enc(void *p, uint16_t v){ uint8_t *b=p; b[0]=(uint8_t)(v>>8); b[1]=(uint8_t)v; }
 static inline void be32enc(void *p, uint32_t v){ uint8_t *b=p; b[0]=(uint8_t)(v>>24); b[1]=(uint8_t)(v>>16); b[2]=(uint8_t)(v>>8); b[3]=(uint8_t)v; }
 static inline void be64enc(void *p, uint64_t v){ uint8_t *b=p; be32enc(b,(uint32_t)(v>>32)); be32enc(b+4,(uint32_t)v); }
-#endif
+#endif /* le16dec */
+#endif /* FLX_BSD_DECL_ENDIAN */
 
 #ifndef FLX_BSD_DECL_OSPEED
 extern short ospeed;
@@ -811,9 +828,17 @@ void mi_vector_hash(const void * __restrict, size_t, uint32_t, uint32_t[3]);
 
 
 
-#ifndef FLX_BSD_DECL_ESTRING2
+/* cut ships its own file-local static ecalloc()/erealloc() because musl has no
+ * NetBSD libutil versions of them.  Declaring them here as well made the port
+ * fail with "static declaration of 'erealloc' follows non-static declaration".
+ * A port that provides its own suppresses these with
+ * -DFLX_BSD_DECL_ECALLOC_EREALLOC=1. */
+#ifndef FLX_BSD_DECL_ECALLOC_EREALLOC
 void *ecalloc(size_t, size_t);
 void *erealloc(void *, size_t);
+#define FLX_BSD_DECL_ECALLOC_EREALLOC 1
+#endif
+#ifndef FLX_BSD_DECL_ESTRING2
 int easprintf(char ** __restrict, const char * __restrict, ...);
 #define FLX_BSD_DECL_ESTRING2 1
 #endif
@@ -832,6 +857,24 @@ uint32_t arc4random_uniform(uint32_t);
 
 /* fchroot(2): BSD-only (pax uses it); Linux has no analogue. */
 int fchroot(int);
+
+/* fmtcheck(3): NetBSD validates a printf format string against the arguments
+ * it is about to be used with, returning the destination on success and NULL
+ * on mismatch.  It is built on __sprintf_chk(3), which musl does not have and
+ * which has no Linux equivalent, so the check cannot be performed here.
+ *
+ * Approximated as "accept the format": the destination is handed back, so
+ * callers treat the format as well formed.  That is the safe direction - it
+ * skips a validation, it does not invent one.  man/manconf.c uses it to decide
+ * whether a command in /etc/man.conf (a root-owned config file) is acceptable.
+ *
+ * It is a macro so that it needs no library, and the vendored BSD <stdio.h>
+ * declaration is suppressed by the guard so the two do not collide.
+ */
+#ifndef FLX_BSD_FMTCHECK_MACRO
+#define FLX_BSD_FMTCHECK_MACRO 1
+#define fmtcheck(d, fmt) (d)
+#endif
 
 /* BSD ALLPERMS in <sys/stat.h>; musl does not provide it (many BSD tools). */
 #ifndef ALLPERMS
