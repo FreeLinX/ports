@@ -1,0 +1,113 @@
+--- a/usr.bin/login/login.c
++++ b/usr.bin/login/login.c
+@@ -58,6 +58,7 @@
+ 
+ #include <err.h>
+ #include <errno.h>
++#include <fcntl.h>
+ #include <grp.h>
+ #include <pwd.h>
+ #include <setjmp.h>
+@@ -93,6 +94,14 @@
+ #include "pathnames.h"
+ #include "common.h"
+ 
++/*
++ * FreeLinX: the four values login.c needs from the password database -
++ * the crypt(3) hash, the lock state, and struct passwd::pw_expire and
++ * pw_change - plus setlogin(3) and ttyaction(3), none of which musl has.
++ * They come from /etc/shadow.  See shadow_auth.h.
++ */
++#include "shadow_auth.h"
++
+ #ifdef KERBEROS5
+ int login_krb5_forwardable_tgt = 0;
+ static int login_krb5_get_tickets = 1;
+@@ -151,7 +160,9 @@
+ 	int need_chpass, require_chpass;
+ 	int login_retries = DEFAULT_RETRIES, 
+ 	    login_backoff = DEFAULT_BACKOFF;
+-	time_t pw_warntime = _PASSWORD_WARNDAYS * SECSPERDAY;
++	time_t pw_warntime = FLX_PASSWORD_WARNDAYS * SECSPERDAY;
++	time_t pw_expire, pw_change;
++	const char *pw_hash;
+ 	char *loginname = NULL;
+ #ifdef KERBEROS5
+ 	int Fflag;
+@@ -372,7 +383,9 @@
+ 					k5_read_creds(username);
+ #endif
+ 				break;
+-			} else if (pwd->pw_passwd[0] == '\0') {
++			} else if ((pw_hash = flx_shadow_hash(pwd->pw_name)) == NULL &&
++			    pwd->pw_passwd[0] != '\0' &&
++			    pwd->pw_passwd[0] != '*' && pwd->pw_passwd[0] != '!') {
+ 				/* pretend password okay */
+ 				rval = 0;
+ 				goto ttycheck;
+@@ -420,8 +433,8 @@
+ 			goto skip;
+ 		}
+ #endif
+-		if (!sflag && *pwd->pw_passwd != '\0' &&
+-		    !strcmp(crypt(p, pwd->pw_passwd), pwd->pw_passwd)) {
++		if (!sflag && (pw_hash = flx_shadow_hash(pwd->pw_name)) != NULL &&
++		    !strcmp(crypt(p, pw_hash), pw_hash)) {
+ 			rval = 0;
+ 			require_chpass = 1;
+ 			goto skip;
+@@ -528,30 +541,32 @@
+ 
+ #ifdef LOGIN_CAP
+ 	pw_warntime = login_getcaptime(lc, "password-warn",
+-		_PASSWORD_WARNDAYS * SECSPERDAY,
+-		_PASSWORD_WARNDAYS * SECSPERDAY);
++		FLX_PASSWORD_WARNDAYS * SECSPERDAY,
++		FLX_PASSWORD_WARNDAYS * SECSPERDAY);
+ #endif
+ 
+ 	(void)gettimeofday(&now, NULL);
+-	if (pwd->pw_expire) {
+-		if (now.tv_sec >= pwd->pw_expire) {
++	pw_expire = flx_shadow_account_expire(pwd->pw_name);
++	if (pw_expire != 0) {
++		if (now.tv_sec >= pw_expire) {
+ 			(void)printf("Sorry -- your account has expired.\n");
+ 			sleepexit(EXIT_FAILURE);
+-		} else if (pwd->pw_expire - now.tv_sec < pw_warntime && 
++		} else if (pw_expire - now.tv_sec < pw_warntime && 
+ 		    !quietlog)
+ 			(void)printf("Warning: your account expires on %s",
+-			    ctime(&pwd->pw_expire));
+-	}
+-	if (pwd->pw_change) {
+-		if (pwd->pw_change == _PASSWORD_CHGNOW)
++			    ctime(&pw_expire));
++	}
++	pw_change = flx_shadow_password_expire(pwd->pw_name);
++	if (pw_change != 0) {
++		if (pw_change == FLX_PASSWORD_CHGNOW)
+ 			need_chpass = 1;
+-		else if (now.tv_sec >= pwd->pw_change) {
++		else if (now.tv_sec >= pw_change) {
+ 			(void)printf("Sorry -- your password has expired.\n");
+ 			sleepexit(EXIT_FAILURE);
+-		} else if (pwd->pw_change - now.tv_sec < pw_warntime && 
++		} else if (pw_change - now.tv_sec < pw_warntime && 
+ 		    !quietlog)
+ 			(void)printf("Warning: your password expires on %s",
+-			    ctime(&pwd->pw_change));
++			    ctime(&pw_change));
+ 
+ 	}
+ 	/* Nothing else left to fail -- really log in. */
+@@ -589,6 +604,9 @@
+ 
+ 	initgroups(username, pwd->pw_gid);
+ 	
++	if (flx_shadow_locked(pwd->pw_name))
++		sleepexit(EXIT_FAILURE);
++
+ 	if (nested == NULL && setlogin(pwd->pw_name) < 0)
+ 		syslog(LOG_ERR, "setlogin() failure: %m");
+ 
