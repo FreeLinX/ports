@@ -27,6 +27,15 @@ PREFIX := /
 INSTALL_BIN:= dmesg
 INSTALL_RELPATH:= bin/dmesg
 
+# This port builds its binary straight into the tree, so strip it: unstripped
+# clang output carries the build path and is ~30% larger, which shows up as a
+# spurious diff on every build.
+#
+# Recursively expanded, not ':='.  mk/common.mk is what defines
+# FREELINX_STRIP, and it is pulled in by the include below, so a simple
+# assignment here would freeze an empty value and the strip would never run.
+STRIP_CMD = $(FREELINX_STRIP)
+
 # FreeLinX-native port: the source lives in this directory, not the NetBSD
 # src set.  Point the build at the port's own dir and skip NetBSD extraction.
 SRC_DIR = $(CURDIR)
