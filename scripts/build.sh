@@ -73,6 +73,16 @@ _flx_skip_list=""
 for p in "$@"; do
     _dir=$(flx_port_dir "$p") || flx_die "no such port: $p"
     if [ ! -f "$_dir/Makefile" ]; then
+        # A directory that is not a port must not be able to end a whole-tree
+        # run.  An empty leftover named after some other tool once stopped a
+        # 293-port build at the letter "t", after 200-odd ports had already
+        # built, and the summary never printed.  In a whole-tree run the
+        # directory is reported and skipped; naming it explicitly is still an
+        # error, because then the caller asked for something that is not there.
+        if [ -n "${_all:-}" ]; then
+            flx_warn "skipping $p: no Makefile; not a port"
+            continue
+        fi
         flx_die "$p: no Makefile; nothing to build"
     fi
 
