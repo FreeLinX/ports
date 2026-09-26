@@ -419,8 +419,13 @@ int	 setlinebuf(FILE *);
 int	 vasprintf(char ** __restrict, const char * __restrict,
     __va_list)
 		__printflike(2, 0);
+/* fmtcheck(3) is a macro in FreeLin's compat <stdio.h> (flx_bsd.h): musl has
+ * no __sprintf_chk(3) to base the real one on.  Declare the BSD prototype only
+ * when that macro is not in force, or the two collide. */
+#ifndef FLX_BSD_FMTCHECK_MACRO
 const char *fmtcheck(const char *, const char *)
 		__format_arg(2);
+#endif
 __END_DECLS
 
 /*
