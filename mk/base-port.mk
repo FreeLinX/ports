@@ -152,7 +152,18 @@ do-prepare:
 # Build: compile every source (upstream + FreeLinX compat) and statically
 # link the binary with clang + LLD + musl sysroot.  Any failure surfaces the
 # real compiler/linker error - nothing is faked.
+#
+# STRIP_CMD runs on the linked binary if set.  A port that commits its own
+# binary into the tree - the FreeLinX-native ones, with SRC_DIR = $(CURDIR) and
+# BUILD_BIN = $(SRC_DIR)/$(NAME) - dirties the tree on every build, so its
+# output has to be reproducible or the tree is permanently dirty.  Unstripped
+# clang output also carries the build path, so such a port sets STRIP_CMD to
+# keep the committed artifact the same size and content from one build to the
+# next.  Off by default: every other port builds into build/ and is staged
+# from there, and stripping 293 binaries at once is a separate decision.
 # ---------------------------------------------------------------------------
+STRIP_CMD ?=
+
 $(BUILD_BIN): do-prepare
 	@set -e; \
 	mkdir -p "$(OBJ_DIR)"; \
@@ -172,7 +183,8 @@ $(BUILD_BIN): do-prepare
 		esac; \
 	done; \
 	printf '[FreeLinX/ports] ld %s\n' "$@"; \
-	$(FLX_LD) -o "$@"
+	$(FLX_LD) -o "$@"; \
+	if [ -n "$(STRIP_CMD)" ]; then printf '[FreeLinX/ports] strip %s\n' "$@"; $(STRIP_CMD) "$@"; fi
 
 .PHONY: do-build
 do-build: $(BUILD_BIN)

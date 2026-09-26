@@ -102,9 +102,9 @@ main(int argc, char **argv)
 	if (rc > 0)
 		(void)fwrite(buf, 1, (size_t)rc, stdout);
 
-	free(buf);
 	if (cflags == 0 && rc > 0 && buf[rc-1] != '\n')
 		(void)putchar('\n');
+	free(buf);
 
 	return EXIT_SUCCESS;
 }
