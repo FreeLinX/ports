@@ -17,6 +17,17 @@ SRC_DIR  = $(FREELINX_BUILD_DIR)/work/$(NAME)
 OBJ_DIR  = $(FREELINX_BUILD_DIR)/obj/$(NAME)
 BUILD_BIN = $(SRC_DIR)/$(NAME)
 
-NETBSD_MEMBERS = usr/src/usr.bin/cdplay/cdplay.c
+NETBSD_MEMBERS = usr/src/usr.bin/cdplay/cdplay.c \
+	usr/src/lib/libedit/histedit.h
 
 PORT_SRCS = usr.bin/cdplay/cdplay.c
+
+# cdplay.c does #include "histedit.h" from libedit.
+# The member is extracted under $(SRC_DIR)/lib/libedit, which is not on the
+# default include path, so point the compiler at it.
+FLX_CPPFLAGS += -I$(SRC_DIR)/lib/libedit
+
+# Not portable to a Linux kernel: uses the NetBSD disk-partition API (getrawpartition) for CD layout
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= uses the NetBSD disk-partition API (getrawpartition) for CD layout

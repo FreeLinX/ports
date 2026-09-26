@@ -20,4 +20,5 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/shuffle/shuffle.c
 
 PORT_SRCS = usr.bin/shuffle/shuffle.c
-COMPAT_SRCS += $(FLX_COMPAT)/arc4random.c
+# arc4random.c comes from the base-port.mk COMPAT_SRCS default set; adding it
+# again here linked it twice ("duplicate symbol: arc4random").

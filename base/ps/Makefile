@@ -25,3 +25,8 @@ NETBSD_MEMBERS = usr/src/bin/ps/ps.c usr/src/bin/ps/ps.h usr/src/bin/ps/extern.h
 PORT_SRCS = bin/ps/ps.c bin/ps/fmt.c bin/ps/keyword.c bin/ps/print.c bin/ps/nlist.c
 FLX_CPPFLAGS = -I$(FLX_COMPAT) -I$(SRC_DIR) -D_EPOLL -DHAVE_KVM -DHAVE_SWAP
 FLX_LDADD =
+
+# Not portable to a Linux kernel: reads NetBSD kvm/kinfo_proc and BSD sysctl (CTL_VFS, KERN_PROC_*), which Linux does not provide
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= reads NetBSD kvm/kinfo_proc and BSD sysctl (CTL_VFS, KERN_PROC_*), which Linux does not provide

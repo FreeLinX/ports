@@ -29,3 +29,8 @@ PORT_SRCS = usr.bin/audiocfg/audiodev.c \
 	usr.bin/audiocfg/drvctl.c \
 	usr.bin/audiocfg/dtmf.c \
 	usr.bin/audiocfg/main.c
+
+# Not portable to a Linux kernel: needs the BSD audio framework (sys/audioio.h, libaudio.h) and proplib
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= needs the BSD audio framework (sys/audioio.h, libaudio.h) and proplib

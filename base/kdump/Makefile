@@ -23,3 +23,8 @@ NETBSD_MEMBERS = usr/src/usr.bin/kdump/kdump.c \
 
 PORT_SRCS = usr.bin/kdump/kdump.c \
 	usr.bin/kdump/setemul.c
+
+# Not portable to a Linux kernel: NetBSD kernel tracing (sys/ktrace.h, enum uio_rw) has no Linux analogue
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= NetBSD kernel tracing (sys/ktrace.h, enum uio_rw) has no Linux analogue

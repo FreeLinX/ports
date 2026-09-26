@@ -25,3 +25,8 @@ NETBSD_MEMBERS = usr/src/usr.bin/btkey/btkey.c \
 PORT_SRCS = usr.bin/btkey/btkey.c \
 	usr.bin/btkey/device.c \
 	usr.bin/btkey/file.c
+
+# Not portable to a Linux kernel: depends on the NetBSD Bluetooth stack (libbluetooth), which FreeLinX does not ship
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= depends on the NetBSD Bluetooth stack (libbluetooth), which FreeLinX does not ship

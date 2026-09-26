@@ -32,3 +32,8 @@ PORT_SRCS = usr.bin/chpass/chpass.c \
 	usr.bin/chpass/pw_yp.c \
 	usr.bin/chpass/table.c \
 	usr.bin/chpass/util.c
+
+# Not portable to Linux: see the reason below. Declared rather than left
+# to fail - an expected failure should not be reported as a regression, and
+# a port that cannot work here should say so instead of looking broken.
+PORT_NOT_PORTABLE:= Needs NetBSD's libutil passwd-database layer - pw_init/pw_scan/pw_error/

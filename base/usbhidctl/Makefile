@@ -20,3 +20,8 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/usbhidctl/usbhid.c
 
 PORT_SRCS = usr.bin/usbhidctl/usbhid.c
+
+# Not portable to a Linux kernel: uses the NetBSD USB HID stack and its uhid(4) interface
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= uses the NetBSD USB HID stack and its uhid(4) interface

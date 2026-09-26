@@ -20,3 +20,8 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/ktruss/dump.c
 
 PORT_SRCS = usr.bin/ktruss/dump.c
+
+# Not portable to a Linux kernel: NetBSD kernel tracing (sys/ktrace.h, enum uio_rw) has no Linux analogue
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= NetBSD kernel tracing (sys/ktrace.h, enum uio_rw) has no Linux analogue

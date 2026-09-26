@@ -34,3 +34,8 @@ PORT_SRCS = usr.bin/fstat/fstat.c \
 	usr.bin/fstat/ptyfs.c \
 	usr.bin/fstat/tmpfs.c \
 	usr.bin/fstat/zfs.c
+
+# Not portable to a Linux kernel: reads NetBSD kvm/kinfo_proc and BSD sysctl (CTL_VFS, KERN_PROC_*), which Linux does not provide
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= reads NetBSD kvm/kinfo_proc and BSD sysctl (CTL_VFS, KERN_PROC_*), which Linux does not provide

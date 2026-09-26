@@ -30,3 +30,8 @@ PORT_SRCS = usr.bin/rdist/docmd.c \
 	usr.bin/rdist/lookup.c \
 	usr.bin/rdist/main.c \
 	usr.bin/rdist/server.c
+
+# Not portable to a Linux kernel: uses NetBSD-only libc internals: glob_t.gl_matchc (man) / struct DIR (rdist)
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= uses NetBSD-only libc internals: glob_t.gl_matchc (man) / struct DIR (rdist)

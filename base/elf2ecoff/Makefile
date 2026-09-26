@@ -20,3 +20,8 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/elf2ecoff/elf2ecoff.c
 
 PORT_SRCS = usr.bin/elf2ecoff/elf2ecoff.c
+
+# Not portable to a Linux kernel: needs NetBSD machine/ecoff_machdep.h (ports architecture headers)
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= needs NetBSD machine/ecoff_machdep.h (ports architecture headers)

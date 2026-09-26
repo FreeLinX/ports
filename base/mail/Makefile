@@ -108,4 +108,6 @@ COMPAT_SRCS += $(FLX_COMPAT)/vis.c
 
 COMPAT_SRCS += $(FLX_COMPAT)/erealloc.c
 
-COMPAT_SRCS += $(FLX_COMPAT)/easprintf.c
+# NOTE: easprintf.c is already in the base-port.mk COMPAT_SRCS default set, so
+# adding it here used to list it twice and the link died with
+# "duplicate symbol: easprintf". Do not re-add a default compat source.

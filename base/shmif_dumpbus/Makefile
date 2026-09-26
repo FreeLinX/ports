@@ -20,3 +20,8 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/shmif_dumpbus/shmif_dumpbus.c
 
 PORT_SRCS = usr.bin/shmif_dumpbus/shmif_dumpbus.c
+
+# Not portable to a Linux kernel: part of the NetBSD rump virtual-router subsystem, which has no Linux counterpart
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= part of the NetBSD rump virtual-router subsystem, which has no Linux counterpart

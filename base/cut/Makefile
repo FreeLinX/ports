@@ -25,3 +25,7 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 # #include resolves, but only cut.c is compiled.
 NETBSD_MEMBERS = usr/src/usr.bin/cut/cut.c usr/src/usr.bin/cut/x_cut.c
 PORT_SRCS = usr.bin/cut/cut.c
+
+# cut.c defines its own static ecalloc()/erealloc() (musl has no NetBSD
+# libutil equivalents), which collided with the declarations here.
+FLX_CPPFLAGS += -DFLX_BSD_DECL_ECALLOC_EREALLOC=1

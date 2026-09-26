@@ -20,3 +20,8 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/unzip/unzip.c
 
 PORT_SRCS = usr.bin/unzip/unzip.c
+
+# Not portable to a Linux kernel: needs libarchive (archive.h), a separate library not present in the src set
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= needs libarchive (archive.h), a separate library not present in the src set

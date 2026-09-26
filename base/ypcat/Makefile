@@ -23,3 +23,8 @@ NETBSD_MEMBERS = usr/src/usr.bin/ypcat/ypalias_init.c \
 
 PORT_SRCS = usr.bin/ypcat/ypalias_init.c \
 	usr.bin/ypcat/ypcat.c
+
+# Not portable to a Linux kernel: needs SunRPC/XDR, externalised out of NetBSD 10 and absent from the FreeLinX tree
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= needs SunRPC/XDR, externalised out of NetBSD 10 and absent from the FreeLinX tree

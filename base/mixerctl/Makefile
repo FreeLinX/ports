@@ -20,3 +20,8 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/mixerctl/mixerctl.c
 
 PORT_SRCS = usr.bin/mixerctl/mixerctl.c
+
+# Not portable to a Linux kernel: needs the BSD audio framework (sys/audioio.h, libaudio.h) and proplib
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= needs the BSD audio framework (sys/audioio.h, libaudio.h) and proplib

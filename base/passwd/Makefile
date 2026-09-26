@@ -29,3 +29,8 @@ PORT_SRCS = usr.bin/passwd/krb5_passwd.c \
 	usr.bin/passwd/pam_passwd.c \
 	usr.bin/passwd/passwd.c \
 	usr.bin/passwd/yp_passwd.c
+
+# Not portable to a Linux kernel: needs Kerberos (krb5.h) for krb5_passwd.c, which FreeLinX does not ship
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= needs Kerberos (krb5.h) for krb5_passwd.c, which FreeLinX does not ship
