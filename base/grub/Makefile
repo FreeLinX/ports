@@ -25,6 +25,14 @@ PREFIX := /
 
 include ../../mk/port.mk
 
+# The blocker above, stated where the build actually reads it.  Declaring it
+# rather than only failing means a whole-tree run reports grub in the "cannot be
+# built, and here is why" bucket instead of counting it as broken: it is not
+# broken, it is a toolchain limitation, and a summary that calls it broken is
+# reporting something untrue.  The do-build recipe below stays as well, so
+# `make` in this directory still refuses out loud rather than doing nothing.
+PORT_NOT_PORTABLE:= needs a GCC+binutils cross toolchain for its freestanding boot code, and working objcopy/nm; the FreeLinX clang+musl toolchain provides neither, and llvm-objcopy/llvm-nm do not run on this build host (GLIBC_2.38 required, host has 2.36)
+
 .PHONY: do-build
 do-build:
 	@printf '[FreeLinX/ports][error] GRUB cannot be built with the FreeLinX clang+musl toolchain.\n'
