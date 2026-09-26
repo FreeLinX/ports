@@ -34,4 +34,6 @@ PORT_SRCS = usr.bin/nbperf/graph2.c \
 	usr.bin/nbperf/nbperf.c
 
 COMPAT_SRCS += $(FLX_LIBC)/mi_vector_hash.c
-COMPAT_SRCS += $(FLX_COMPAT)/arc4random.c
+# NOTE: arc4random.c is part of the base-port.mk COMPAT_SRCS default set. It
+# used to be added again here, which linked the same file twice and failed with
+# "duplicate symbol: arc4random". Only add compat sources the default omits.

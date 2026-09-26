@@ -32,3 +32,8 @@ PORT_SRCS = usr.bin/quota/printquota.c \
 # mount-table family (musl has no fstab.h) - all in compat/.
 COMPAT_SRCS = $(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/sigstub.c \
 	$(FLX_COMPAT)/fstab.c
+
+# Not portable to a Linux kernel: implements the BSD quota subsystem on BSD filesystems
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= implements the BSD quota subsystem on BSD filesystems

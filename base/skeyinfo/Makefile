@@ -20,3 +20,8 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/skeyinfo/skeyinfo.c
 
 PORT_SRCS = usr.bin/skeyinfo/skeyinfo.c
+
+# Not portable to a Linux kernel: S/Key one-time-password tools; obsolete and needs the removed skey.h
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= S/Key one-time-password tools; obsolete and needs the removed skey.h

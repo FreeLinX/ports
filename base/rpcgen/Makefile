@@ -41,3 +41,8 @@ PORT_SRCS = usr.bin/rpcgen/rpc_clntout.c \
 	usr.bin/rpcgen/rpc_svcout.c \
 	usr.bin/rpcgen/rpc_tblout.c \
 	usr.bin/rpcgen/rpc_util.c
+
+# Not portable to a Linux kernel: needs SunRPC/XDR, externalised out of NetBSD 10 and absent from the FreeLinX tree
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= needs SunRPC/XDR, externalised out of NetBSD 10 and absent from the FreeLinX tree

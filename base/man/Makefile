@@ -24,3 +24,8 @@ NETBSD_MEMBERS = usr/src/usr.bin/man/man.c \
 
 PORT_SRCS = usr.bin/man/man.c \
 	usr.bin/man/manconf.c
+
+# Not portable to a Linux kernel: uses NetBSD-only libc internals: glob_t.gl_matchc (man) / struct DIR (rdist)
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= uses NetBSD-only libc internals: glob_t.gl_matchc (man) / struct DIR (rdist)

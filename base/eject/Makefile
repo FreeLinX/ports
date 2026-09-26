@@ -23,3 +23,8 @@ NETBSD_MEMBERS = usr/src/usr.bin/eject/am_glue.c \
 
 PORT_SRCS = usr.bin/eject/am_glue.c \
 	usr.bin/eject/eject.c
+
+# Not portable to a Linux kernel: needs NetBSD automount private header am_defs.h, absent from the src set
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= needs NetBSD automount private header am_defs.h, absent from the src set

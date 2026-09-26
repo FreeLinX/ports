@@ -77,3 +77,8 @@ FLX_CPPFLAGS += -I$(SRC_DIR)/lib
 # implemented in sigstub.c.
 COMPAT_SRCS = $(FLX_COMPAT)/terminfo_stub.c $(FLX_COMPAT)/sigstub.c \
 	$(FLX_COMPAT)/reallocarr.c
+
+# Not portable to a Linux kernel: needs libtelnet, a separate NetBSD library not present in the src set
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= needs libtelnet, a separate NetBSD library not present in the src set

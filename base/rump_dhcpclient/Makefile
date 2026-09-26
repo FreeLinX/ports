@@ -39,3 +39,8 @@ PORT_SRCS = usr.bin/rump_dhcpclient/bpf.c \
 	usr.bin/rump_dhcpclient/if-bsd.c \
 	usr.bin/rump_dhcpclient/main.c \
 	usr.bin/rump_dhcpclient/net.c
+
+# Not portable to a Linux kernel: part of the NetBSD rump virtual-router subsystem, which has no Linux counterpart
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= part of the NetBSD rump virtual-router subsystem, which has no Linux counterpart

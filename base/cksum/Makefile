@@ -39,3 +39,7 @@ FLX_CPPFLAGS += -DHAVE_NBTOOL_CONFIG_H=1
 
 PORT_SRCS = usr.bin/cksum/cksum.c usr.bin/cksum/crc.c \
 	usr.bin/cksum/print.c usr.bin/cksum/sum1.c usr.bin/cksum/sum2.c
+
+# cksum/crc.c defines its own file-local be32dec, which collided with the
+# copy flx_bsd.h force-includes into every translation unit.
+FLX_CPPFLAGS += -DFLX_BSD_DECL_ENDIAN=1

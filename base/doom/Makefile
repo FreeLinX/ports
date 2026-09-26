@@ -96,6 +96,13 @@ do-prepare:
 # `doombench`.  Driven shell-side so make does not need the source tree
 # present at graph-build time.  Any failure surfaces the real compiler
 # / linker error - nothing is faked.
+#
+# The link list is derived from DG_SRCS, not from "ls $(OBJ_DIR)/*.o".  Every
+# doomgeneric video backend defines the same symbols (DG_Init, DG_StartFrame,
+# ...), so a backend object left in OBJ_DIR by an earlier build - a different
+# video backend, or a different variant of this port - was swept into the link
+# and the build died with "duplicate symbol: DG_Init".  Only the two backends
+# this port actually builds may be linked, so the list is stated explicitly.
 # ---------------------------------------------------------------------------
 .PHONY: do-build
 do-build: do-prepare
@@ -108,8 +115,9 @@ do-build: do-prepare
 	$(CC) $(FREELINX_CFLAGS) $(CFLAGS_LOCAL) -c "$(SRC_TREE)/doomgeneric/doomgeneric_linuxvt.c" -o "$(OBJ_DIR)/doomgeneric_linuxvt.o"; \
 	printf '[FreeLinX/ports] cc doomgeneric_ppm.c\n'; \
 	$(CC) $(FREELINX_CFLAGS) $(CFLAGS_LOCAL) -c "$(SRC_TREE)/doomgeneric/doomgeneric_ppm.c" -o "$(OBJ_DIR)/doomgeneric_ppm.o"; \
-	DOOM_LDOBJ="$$(ls $(OBJ_DIR)/*.o | grep -v doomgeneric_ppm.o | grep -v doomgeneric_linuxvt.o | tr '\n' ' ') $(OBJ_DIR)/doomgeneric_linuxvt.o"; \
-	BENCH_LDOBJ="$$(ls $(OBJ_DIR)/*.o | grep -v doomgeneric_linuxvt.o | grep -v doomgeneric_ppm.o | tr '\n' ' ') $(OBJ_DIR)/doomgeneric_ppm.o"; \
+	COMMON_OBJS="$$(for s in $(DG_SRCS); do printf '%s ' "$(OBJ_DIR)/$$s.o"; done)"; \
+	DOOM_LDOBJ="$$COMMON_OBJS $(OBJ_DIR)/doomgeneric_linuxvt.o"; \
+	BENCH_LDOBJ="$$COMMON_OBJS $(OBJ_DIR)/doomgeneric_ppm.o"; \
 	printf '[FreeLinX/ports] ld doom\n'; \
 	$(CC) $(FREELINX_CFLAGS) $(FREELINX_LDFLAGS) -nostdlib -static \
 		-L$(FREELINX_SYSROOT)/lib \

@@ -38,3 +38,8 @@ NETBSD_MEMBERS = usr/src/bin/mt/mt.c
 COMPAT_SRCS = $(FLX_COMPAT)/getprogname.c
 
 PORT_SRCS = bin/mt/mt.c
+
+# Not portable to a Linux kernel: uses BSD tape ioctls (MTGETSTATUS, struct mt_mblksiz) with no Linux equivalent
+# Declared rather than left to fail: building it on FreeLinX cannot
+# succeed, and an expected failure should not be reported as a regression.
+PORT_NOT_PORTABLE:= uses BSD tape ioctls (MTGETSTATUS, struct mt_mblksiz) with no Linux equivalent

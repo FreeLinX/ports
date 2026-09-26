@@ -20,3 +20,8 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/chflags/chflags.c
 
 PORT_SRCS = usr.bin/chflags/chflags.c
+
+# Not portable to Linux: see the reason below. Declared rather than left
+# to fail - an expected failure should not be reported as a regression, and
+# a port that cannot work here should say so instead of looking broken.
+PORT_NOT_PORTABLE:= BSD file-flag API: fchflags(2)/lchflags(2) and struct stat's st_flags
