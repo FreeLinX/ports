@@ -49,16 +49,60 @@ fi
 if [ "$#" -eq 0 ]; then
     flx_info "no PORT given; building all ports"
     set -- $(flx_all_ports)
+    _all=yes
 fi
+
+# A port may declare itself unbuildable on a Linux kernel by setting
+# PORT_NOT_PORTABLE to a reason in its Makefile (see mk/port.mk).  In a
+# whole-tree run those are skipped and counted, so the run ends with an honest
+# "N built, M skipped" instead of dying on the first NetBSD-kernel-only tool.
+# When a port is named explicitly the declaration is still respected, but it is
+# reported as an error rather than silently skipped.
+flx_not_portable() {
+    # prints the reason on stdout if the port declares one, else nothing
+    [ -f "$1/Makefile" ] || return 0
+    sed -n 's/^[[:space:]]*PORT_NOT_PORTABLE[[:space:]]*:*=[[:space:]]*//p' "$1/Makefile" \
+        | sed 's/[[:space:]]*\\$//' | head -1
+}
+
+_flx_built=0
+_flx_failed=0
+_flx_skipped=0
+_flx_skip_list=""
 
 for p in "$@"; do
     _dir=$(flx_port_dir "$p") || flx_die "no such port: $p"
-    flx_info "Building $p..."
     if [ ! -f "$_dir/Makefile" ]; then
         flx_die "$p: no Makefile; nothing to build"
     fi
-    ( cd "$_dir" && make FREELINX_ROOT="$FREELINX_ROOT" all ) || \
-        flx_die "$p: build failed (see above)"
-    flx_info "$p: build complete"
+
+    _reason=$(flx_not_portable "$_dir")
+    if [ -n "$_reason" ]; then
+        # In a whole-tree run this is expected, so skip and count it.  When the
+        # port was named explicitly it is still a failure the caller asked for,
+        # but keep going so one unbuildable port does not hide the rest of the
+        # list; the non-zero exit at the end still reports it.
+        if [ -n "${_all:-}" ]; then
+            flx_info "skipping $p: $_reason"
+            _flx_skipped=$((_flx_skipped + 1))
+        else
+            flx_warn "$p: not portable to a Linux kernel: $_reason"
+            _flx_failed=$((_flx_failed + 1))
+        fi
+        _flx_skip_list="$_flx_skip_list $p"
+        continue
+    fi
+
+    flx_info "Building $p..."
+    if ( cd "$_dir" && make FREELINX_ROOT="$FREELINX_ROOT" all ); then
+        flx_info "$p: build complete"
+        _flx_built=$((_flx_built + 1))
+    else
+        _flx_failed=$((_flx_failed + 1))
+        flx_warn "$p: build failed (see above)"
+    fi
 done
-flx_info "build finished"
+
+flx_info "build finished: $_flx_built built, $_flx_failed failed, $_flx_skipped skipped as not portable"
+[ -n "$_flx_skip_list" ] && flx_info "not portable:$_flx_skip_list"
+[ "$_flx_failed" -eq 0 ]

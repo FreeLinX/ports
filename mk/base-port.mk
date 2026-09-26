@@ -80,10 +80,40 @@ FLX_COMPILER_RT = $(filter %-musl/libclang_rt.builtins.a,$(wildcard $(FLX_RTDIR)
 # the port objects and libc, so a static archive's own libc references still
 # resolve.  A port sets it in its Makefile (never hard-coded paths).
 FLX_LDADD	 =
+
+# The object name a source file maps to inside OBJ_DIR.  The compile loop in
+# the build rule derives the same name in the shell, so the two MUST stay in
+# step: the absolute source path with every '/' turned into '_' and the '.c'
+# suffix replaced by '.o'.  It is a single definition used both to compile and
+# to link, so a rename can never leave the two out of sync.
+#   /src/bin/cat/cat.c  ->  $(OBJ_DIR)/_src_bin_cat_cat.o
+define flx_obj_of
+$(OBJ_DIR)/$(subst /,_,$(basename $(1))).o
+endef
+
+# Exactly the objects this port compiles, in ALL_SRCS order: the same
+# "absolute path, '/' -> '_', .c -> .o" mapping the compile loop below derives
+# in the shell with sed.  The two must agree, because the link line and the
+# stale-object prune both work off this list; the recipe below verifies it by
+# refusing to link a port whose freshly built objects are not all in it.
+#
+# This MUST stay lazily expanded (=).  A port assigns PORT_SRCS *after* it
+# includes this file, so a simply-expanded (:=) value would freeze an empty
+# PORT_SRCS and the link would see only the compat objects - surfacing as
+# "undefined symbol: main".
+FLX_OBJS        = $(foreach s,$(ALL_SRCS),$(call flx_obj_of,$(s)))
+
+# Link the port's OWN objects and nothing else.  This used to be the
+# $(OBJ_DIR)/*.o glob, which silently pulled in every stale object left in the
+# directory: an object from an earlier PORT_SRCS set, or one written by the
+# pre-2026-09 flat naming scheme (cat.o next to the current mangled name), was
+# linked alongside the freshly built one and the link died with
+# "duplicate symbol: main" / "duplicate symbol: getprogname".  The compile
+# rule below also prunes foreign objects, so a rebuild cannot inherit them.
 FLX_LD          = $(CC) $(FREELINX_CFLAGS) $(FREELINX_LDFLAGS) \
 			-nostdlib -L$(FREELINX_SYSROOT)/lib \
 			$(FLX_CRT) \
-			$(OBJ_DIR)/*.o \
+			$(FLX_OBJS) \
 			$(FLX_LDADD) \
 			-lc $(FLX_COMPILER_RT) \
 			$(FLX_CRT_END)
@@ -102,7 +132,9 @@ do-prepare:
 		rm -rf "$(SRC_DIR)"; \
 		mkdir -p "$(SRC_DIR)"; \
 		if [ -n "$(NETBSD_MEMBERS)" ]; then \
-			tar -xf "$(DIST_TGZ)" -C "$(SRC_DIR)" --strip-components=2 $(NETBSD_MEMBERS); \
+			tar -xf "$(DIST_TGZ)" -C "$(SRC_DIR)" --strip-components=2 \
+				--exclude=CVS --exclude=CVS/Root --exclude=CVS/Entries \
+				--no-same-owner $(NETBSD_MEMBERS); \
 		fi; \
 		for s in $(LOCAL_SRCS); do cp "$$s" "$(SRC_DIR)/"; done; \
 		printf '[FreeLinX/ports] applying FreeLinX patches\n'; \
@@ -128,6 +160,16 @@ $(BUILD_BIN): do-prepare
 		o="$(OBJ_DIR)/$$(printf '%s' "$$s" | sed 's|/|_|g')"; o="$${o%.c}.o"; \
 		printf '[FreeLinX/ports] cc %s\n' "$${s##*/}"; \
 		$(CC) $(FREELINX_CFLAGS) $(FLX_CPPFLAGS) -c -o "$$o" "$$s"; \
+		case " $(FLX_OBJS) " in \
+		*" $$o "*) ;; \
+		*) printf '[FreeLinX/ports][error] object name mismatch: %s\n' "$$o"; exit 1 ;; \
+		esac; \
+	done; \
+	for o in "$(OBJ_DIR)"/*.o; do \
+		case " $(FLX_OBJS) " in \
+		*" $$o "*) ;; \
+		*) printf '[FreeLinX/ports] rm stale object %s\n' "$${o##*/}"; rm -f "$$o" ;; \
+		esac; \
 	done; \
 	printf '[FreeLinX/ports] ld %s\n' "$@"; \
 	$(FLX_LD) -o "$@"
