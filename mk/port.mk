@@ -36,6 +36,29 @@ PREFIX?=/
 PORT_FULL?=$(CATEGORY)/$(NAME)
 
 # ---------------------------------------------------------------------------
+# The NetBSD compatibility overlay.
+#
+# base/compat/nbsys holds the NetBSD kernel-source headers and the public
+# headers musl does not have (sys/audioio.h, sys/proc.h, db.h, rpc/...).  It is
+# searched with -idirafter, never -I, and that is load-bearing: the overlay
+# deliberately re-declares types musl also declares - struct timespec, sigset_t,
+# the fixed-width integer typedefs, pid_t - because the NetBSD sources in this
+# tree expect NetBSD's versions.  With -I the overlay would be found *first* and
+# every one of those became a redefinition error; with -idirafter the musl
+# sysroot wins every name clash and the overlay only fills the gaps.
+#
+# This lives in port.mk rather than base-port.mk because it applies to every
+# port, including the project ports (lynx, dhcpcd) that drive their own
+# configure and sub-make and so have to name the overlay themselves.  When it
+# lived only in base-port.mk, a project port that wrote $(FLX_NBSYS_FLAGS) into
+# its CPPFLAGS expanded it to nothing at all - a silently missing include path
+# rather than a visible mistake.
+# ---------------------------------------------------------------------------
+FLX_COMPAT?=$(FREELINX_PORTS_ROOT)/base/compat
+FLX_NBSYS       := $(FLX_COMPAT)/nbsys
+FLX_NBSYS_FLAGS  = -idirafter $(FLX_NBSYS)/sys -idirafter $(FLX_NBSYS)/include
+
+# ---------------------------------------------------------------------------
 # Portability declaration.
 #
 # FreeLinX runs a Linux kernel, so a good part of the NetBSD base set cannot
@@ -50,6 +73,16 @@ PORT_FULL?=$(CATEGORY)/$(NAME)
 # and `make build` (all ports) skips it and counts it, so a run of the whole
 # tree reports the real number of buildable ports.
 #
+# The reasons are not all about the kernel.  A port declares this when FreeLinX
+# cannot build it, whatever the obstacle: a third-party stack it does not ship
+# (the cases this mechanism was introduced for), a toolchain that cannot produce
+# the artefact at all (grub needs GCC for its freestanding boot code), or a
+# required input that is not vendored and not fetched (linux-firmware's
+# tarball).  So every message that reports a declaration says "cannot be built
+# for FreeLinX" and quotes the port's own reason - the name is kept for
+# compatibility with the 50+ ports that already carry it, but the wording must
+# not imply the kernel is the cause when it is not.
+#
 # It is a statement about the *port*, not a suppression: the port stays in the
 # tree, keeps its metadata, and still shows up in list.sh / check.sh.
 # ---------------------------------------------------------------------------
@@ -59,7 +92,7 @@ PORT_NOT_PORTABLE_REASON?=$(PORT_NOT_PORTABLE)
 .PHONY: portability
 portability:
 	@if [ -n "$$PORT_NOT_PORTABLE" ]; then \
-	    printf '[FreeLinX/ports] %s is not portable to a Linux kernel: %s\n' "$$NAME" "$$PORT_NOT_PORTABLE"; \
+	    printf '[FreeLinX/ports] %s cannot be built for FreeLinX: %s\n' "$$NAME" "$$PORT_NOT_PORTABLE"; \
 	fi
 
 # ---------------------------------------------------------------------------
