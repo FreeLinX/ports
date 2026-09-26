@@ -16,8 +16,13 @@
 #                    $(SRC_DIR)/bin/cp/cp.c and usr/src/include/fts.h at
 #                    $(SRC_DIR)/include/fts.h).
 #   PORT_SRCS        upstream .c files to compile, relative to $(SRC_DIR).
-#   COMPAT_SRCS      FreeLinX musl-compat objects (default:
-#                    base/compat/getprogname.c; mkdir adds setmode.c).
+#   PORT_COMPAT_SRCS extra FreeLinX compat objects a port needs on top of the
+#                    defaults.  Prefer this over COMPAT_SRCS - see below.
+#   COMPAT_SRCS      the full set of FreeLinX musl-compat objects.  Defaults to
+#                    the list below; a port should add to it with
+#                    PORT_COMPAT_SRCS rather than assign this, because assigning
+#                    COMPAT_SRCS *replaces* the defaults and every object in
+#                    them is then silently absent from the link.
 #   FLX_CPPFLAGS     extra -D/-I flags (e.g. -DSMALL, -DHAVE_NBTOOL_CONFIG_H).
 #   BUILD_BIN        the delivered statically-linked binary; mk/install.mk
 #                    stages it at staging/$(INSTALL_RELPATH).
@@ -34,7 +39,33 @@ include $(FREELINX_PORTS_ROOT)/mk/port.mk
 SRC_DIR?=$(FREELINX_BUILD_DIR)/work/$(NAME)
 OBJ_DIR?=$(FREELINX_BUILD_DIR)/obj/$(NAME)
 DIST_TGZ?=$(FREELINX_DIST_DIR)/$(DISTINFO_ARCHIVE)
-COMPAT_SRCS?=$(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/estrlcpy.c $(FLX_COMPAT)/estdlib.c $(FLX_COMPAT)/arc4random.c $(FLX_COMPAT)/getttynam.c $(FLX_COMPAT)/easprintf.c
+#
+# Why the split: COMPAT_SRCS?=$(DEFAULT_COMPAT_SRCS) $(PORT_COMPAT_SRCS), and
+# PORT_COMPAT_SRCS is read here, before a port can assign it, because port
+# Makefiles are written to assign their variables *after* including this file
+# and PORT_SRCS already depends on that (a := here would freeze an empty list
+# and the port would fail to link with an undefined `main').  PORT_COMPAT_SRCS
+# is the one compat variable a port cannot set late and still have take effect,
+# so it has to be expanded on every reference rather than captured once.
+#
+# A port that assigns COMPAT_SRCS outright is not an error - a few genuinely
+# want a different set, e.g. to avoid the emalloc/ecalloc/erealloc overlap
+# between estdlib.c and the emalloc.c/emalloc-family sources - but it takes
+# responsibility for the whole list, including for the default objects it no
+# longer pulls in.  netbsd-ping is the worked example of what that costs: it
+# overrode COMPAT_SRCS to get getprogname.c and strlcpy.c, which silently
+# dropped arc4random.c, and the port then failed at link time with
+# `undefined symbol: arc4random' - a symbol nothing in its source ever
+# mentioned, coming from a default object it had unknowingly removed.
+FLX_DEFAULT_COMPAT_SRCS = \
+	$(FLX_COMPAT)/getprogname.c \
+	$(FLX_COMPAT)/estrlcpy.c \
+	$(FLX_COMPAT)/estdlib.c \
+	$(FLX_COMPAT)/arc4random.c \
+	$(FLX_COMPAT)/getttynam.c \
+	$(FLX_COMPAT)/easprintf.c
+PORT_COMPAT_SRCS?=
+COMPAT_SRCS?=$(FLX_DEFAULT_COMPAT_SRCS) $(PORT_COMPAT_SRCS)
 include $(FREELINX_PORTS_ROOT)/mk/flx-libc.mk
 PATCHES?=$(wildcard $(CURDIR)/patches/patch-*)
 

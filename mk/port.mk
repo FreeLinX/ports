@@ -132,7 +132,7 @@ all: check-portable check-toolchain do-build
 # `do-build` is provided by the port (or by mk/base-port.mk for the simple
 # utilities); see the make error if a port forgets to define it.
 
-install: $(STAGE_FILE)
+install: $(STAGE_FILE) install-aliases
 
 clean:
 	@true

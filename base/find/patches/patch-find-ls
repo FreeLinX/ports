@@ -1,5 +1,5 @@
---- a/usr.bin/find/ls.c	2026-08-31 02:12:38.946471462 +0400
-+++ b/usr.bin/find/ls.c	2026-08-31 02:13:04.058839881 +0400
+--- a/usr.bin/find/ls.c
++++ b/usr.bin/find/ls.c
 @@ -40,6 +40,7 @@
  
  #include <sys/param.h>
@@ -8,13 +8,13 @@
  
  #include <err.h>
  #include <errno.h>
-@@ -50,10 +51,18 @@
+@@ -50,8 +51,16 @@
  #include <stdlib.h>
  #include <string.h>
  #include <time.h>
 -#include <tzfile.h>
  #include <unistd.h>
- 
++
 +/* FreeLinX: musl has no <tzfile.h>; NetBSD defines these time literals
 + * there.  SIXMONTHS below is built from them. */
 +#ifndef SECSPERDAY
@@ -23,8 +23,6 @@
 +#ifndef DAYSPERNYEAR
 +#define	DAYSPERNYEAR	365
 +#endif
-+
- #include "find.h"
  
- /* Derived from the print routines in the ls(1) source code. */
+ #include "find.h"
  

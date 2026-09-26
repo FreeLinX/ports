@@ -281,6 +281,21 @@ struct icmp6_ifstat {
  * If you make changes that change the size of in6_ifreq,
  * make sure you fix compat/netinet6/in6_var.h
  */
+/*
+ * <net/if.h> defines ifr_name and a dozen siblings as macros reaching into
+ * struct ifreq's ifr_ifrn/ifr_ifru unions - the same macros NetBSD's own
+ * <net/if.h> defines, so this is not something musl invented.  They break here
+ * anyway, because in6_ifreq below is a *separate* struct that merely reuses the
+ * field names: with the macro in effect `char ifr_name[IFNAMSIZ]' expands to
+ * `char ifr_ifrn.ifrn_name[IFNAMSIZ]' and the declarator no longer parses
+ * ("expected ';' at end of declaration list", reported on the following line).
+ *
+ * So drop the one macro this struct needs.  The name is wanted as a plain
+ * member, and once it is undefined nothing in this header refers to
+ * struct ifreq again.
+ */
+#undef		ifr_name
+
 struct	in6_ifreq {
 	char	ifr_name[IFNAMSIZ];
 	union {

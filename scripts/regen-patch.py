@@ -50,7 +50,13 @@ def split_file(text):
 
 
 def parse(patch_path):
-    """Return [(target_path, [hunk, ...])] for a patch file."""
+    """Return [(target_path, [hunk, ...])] for a patch file.
+
+    A hunk is (start_line, entries) where entries is [(tag, content), ...] and
+    tag is ' ', '+' or '-'.  The tags are kept rather than being collapsed into
+    an old-list and a new-list, because one repair below is only safe on context
+    lines and needs to know which is which.
+    """
     text = patch_path.read_text(encoding='utf-8', errors='replace')
     lines = text.splitlines()
     files = []
@@ -79,20 +85,51 @@ def parse(patch_path):
                     break
                 body.append(bl)
                 j += 1
-            old, new = [], []
+            entries = []
             for bl in body:
                 if bl.startswith('\\'):
-                    continue
-                tag, content = bl[0], bl[1:]
-                if tag in ' -':
-                    old.append(content)
-                if tag in ' +':
-                    new.append(content)
-            cur[1].append((start, old, new))
+                    continue          # "\ No newline at end of file"
+                entries.append((bl[0], bl[1:]))
+            cur[1].append((start, entries))
             i = j
             continue
         i += 1
     return files
+
+
+def old_of(entries):
+    return [c for t, c in entries if t in ' -']
+
+
+def new_of(entries):
+    return [c for t, c in entries if t in ' +']
+
+
+def trim_trailing_context(entries):
+    """Drop trailing context lines, and say how many went.
+
+    A hunk that is hand framed routinely ends with one more context line than
+    the file has, because a context line that is empty is written as a bare
+    newline and then normalised to ' ' by whatever edited the file, so it looks
+    like any other context line and is easy to add by accident.  base/find's
+    patch-find-findh is the clean case: its hunk body ends
+
+        N_AND = 1,  ...  /* must start > 0 */
+        <empty context line>
+
+    and find.h has no blank line after N_AND - it goes straight to N_AMIN.  The
+    six lines above it do match, so the intent is unambiguous; the seventh line
+    is simply not there.
+
+    Only *context* is ever trimmed.  Dropping a trailing '-' line would discard
+    part of the change itself, and a patch that has lost a removal is not a
+    patch this tool can repair: it would quietly not do what it says.
+    """
+    n = 0
+    while entries and entries[-1][0] == ' ':
+        entries = entries[:-1]
+        n += 1
+    return entries, n
 
 
 def locate(haystack, needle, hint):
@@ -129,15 +166,22 @@ def main(argv):
         original = src_file.read_text(encoding='utf-8', errors='surrogateescape')
         lines = split_file(original)
         # Apply from the bottom up so earlier hunks keep their line numbers.
-        for start, old, new in sorted(hunks, key=lambda h: -h[0]):
-            at = locate(lines, old, start)
+        for start, entries in sorted(hunks, key=lambda h: -h[0]):
+            at = locate(lines, old_of(entries), start)
+            if at is None:
+                entries, dropped = trim_trailing_context(entries)
+                at = locate(lines, old_of(entries), start) if entries else None
+                if at is not None:
+                    print('%s: line %d: the hunk named %d trailing context '
+                          'line(s) the source does not have; dropped'
+                          % (patch_path, start, dropped), file=sys.stderr)
             if at is None:
                 print('%s: cannot locate the hunk that should start at line %d'
                       % (patch_path, start), file=sys.stderr)
-                for l in old:
+                for l in old_of(entries):
                     print('    %r' % l, file=sys.stderr)
                 return 1
-            lines[at:at + len(old)] = new
+            lines[at:at + len(old_of(entries))] = new_of(entries)
         trailing = original.endswith('\n')
         modified = '\n'.join(lines) + ('\n' if trailing else '')
 

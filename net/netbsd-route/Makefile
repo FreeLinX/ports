@@ -11,6 +11,11 @@
 # needs a genuine hostops rewrite (route_hostops.c -> netlink) plus NetBSD
 # header shims before it can link. Said work belongs in this port's patches/.
 # The scaffold below points at the genuine upstream sources.
+
+# Recorded so the build gate refuses with this reason instead of letting the
+# compile run on to 81 undeclared BSD routing-socket symbols in a 1819-line
+# file.  net/freelinx-route is the FreeLinX-native equivalent and does build.
+PORT_NOT_PORTABLE:= is an AF_ROUTE client (struct rt_msghdr, RTM_ADD/DELETE/CHANGE, SO_RERROR, CTL_NET sysctl); the Linux kernel has no AF_ROUTE, so this needs a netlink hostops rewrite, not a header shim - see net/freelinx-route for the FreeLinX-native equivalent
 NAME   := netbsd-route
 VERSION:= 10.1
 CATEGORY:= net

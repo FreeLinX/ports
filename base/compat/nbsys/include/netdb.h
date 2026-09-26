@@ -98,7 +98,14 @@
 /*
  * Data types
  */
-#ifndef socklen_t
+/*
+ * musl declares socklen_t in bits/socket.h via bits/alltypes.h,
+ * which records it in a __DEFINED_<name> marker.  A typedef name is not a
+ * macro, so `#ifndef socklen_t` cannot see musl's declaration and is always
+ * true - the overlay then redeclares the name with NetBSD's own type and the
+ * translation unit fails with a typedef redefinition.  Check the marker.
+ */
+#if !defined(socklen_t) && !defined(__DEFINED_socklen_t)
 typedef __socklen_t	socklen_t;
 #define	socklen_t	__socklen_t
 #endif
