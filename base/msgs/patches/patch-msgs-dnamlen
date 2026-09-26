@@ -8,3 +8,4 @@
 +			if (dp->d_name[0] == '\0')
  				continue;
  #endif
+ 

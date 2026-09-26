@@ -1,7 +1,7 @@
 diff -ruN a/usr.bin/sort/sort.c b/usr.bin/sort/sort.c
 --- a/usr.bin/sort/sort.c	2026-08-31 02:09:37.823814247 +0400
 +++ b/usr.bin/sort/sort.c	2026-08-31 02:09:44.159907203 +0400
-@@ -75,6 +75,11 @@
+@@ -75,7 +75,12 @@
  #include <sys/types.h>
  #include <sys/time.h>
  #include <sys/stat.h>
@@ -13,4 +13,4 @@ diff -ruN a/usr.bin/sort/sort.c b/usr.bin/sort/sort.c
  #include <sys/resource.h>
  
  #include <locale.h>
-
+ 

@@ -1,0 +1,13 @@
+--- a/usr.bin/msgs/msgs.c
++++ b/usr.bin/msgs/msgs.c
+@@ -105,6 +105,10 @@
+ #define MORE	"More? [ynq]"
+ #define NOMORE	"(No more) [q] ?"
+ 
++/* FreeLinX: <stdbool.h> defines bool as an object-like macro, so this
++ * file's own "typedef char bool" would expand to "typedef char _Bool" and
++ * clash with it.  Drop the macro for this declaration. */
++#undef bool
+ typedef	char	bool;
+ 
+ FILE	*msgsrc;

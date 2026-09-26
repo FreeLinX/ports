@@ -13,7 +13,7 @@ diff -ruN a/usr.bin/sort/sort.h b/usr.bin/sort/sort.h
  
  #include <err.h>
  #include <errno.h>
-@@ -74,6 +79,12 @@
+@@ -74,7 +79,13 @@
  #include <stdlib.h>
  #include <string.h>
  
@@ -26,4 +26,4 @@ diff -ruN a/usr.bin/sort/sort.h b/usr.bin/sort/sort.h
  #define NBINS		256
  
  /* values for masks, weights, and other flags. */
-
+ 

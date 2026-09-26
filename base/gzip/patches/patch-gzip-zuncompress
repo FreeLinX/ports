@@ -35,7 +35,7 @@
  
  	if ((zs = calloc(1, sizeof(struct s_zstate))) == NULL)
  		return (NULL);
-@@ -199,7 +216,12 @@
+@@ -199,8 +216,13 @@
  		return NULL;
  	}
  
@@ -49,4 +49,4 @@
  }
  
  /*
-
+ 

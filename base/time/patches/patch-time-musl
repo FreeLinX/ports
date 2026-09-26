@@ -1,8 +1,10 @@
---- a/usr.bin/time/time.c	2026-09-01 00:00:00.000000000 +0000
-+++ b/usr.bin/time/time.c	2026-09-01 00:00:00.000000000 +0000
-@@ -44,6 +44,7 @@
+--- a/usr.bin/time/time.c
++++ b/usr.bin/time/time.c
+@@ -43,6 +43,7 @@
+ #endif /* not lint */
  
  #include <sys/types.h>
 +#include <time.h>		/* FreeLinX/musl: clock_gettime/CLOCK_MONOTONIC */
  #include <sys/time.h>
  #include <sys/resource.h>
+ #include <sys/wait.h>

@@ -31,7 +31,7 @@ diff -ruN a/lib/libutil/efun.c b/lib/libutil/efun.c
  	if (e != 0) {
  		errno = e;
  		(*efunc)(1,
-@@ -191,8 +202,18 @@
+@@ -191,9 +202,19 @@
  uintmax_t
  estrtou(const char * nptr, int base, uintmax_t lo, uintmax_t hi)
  {
@@ -51,4 +51,4 @@ diff -ruN a/lib/libutil/efun.c b/lib/libutil/efun.c
  	if (e != 0) {
  		errno = e;
  		(*efunc)(1,
-
+ 
