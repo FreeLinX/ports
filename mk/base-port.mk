@@ -34,16 +34,15 @@ include $(FREELINX_PORTS_ROOT)/mk/port.mk
 SRC_DIR?=$(FREELINX_BUILD_DIR)/work/$(NAME)
 OBJ_DIR?=$(FREELINX_BUILD_DIR)/obj/$(NAME)
 DIST_TGZ?=$(FREELINX_DIST_DIR)/$(DISTINFO_ARCHIVE)
-FLX_COMPAT?=$(FREELINX_PORTS_ROOT)/base/compat
 COMPAT_SRCS?=$(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/estrlcpy.c $(FLX_COMPAT)/estdlib.c $(FLX_COMPAT)/arc4random.c $(FLX_COMPAT)/getttynam.c $(FLX_COMPAT)/easprintf.c
 include $(FREELINX_PORTS_ROOT)/mk/flx-libc.mk
 PATCHES?=$(wildcard $(CURDIR)/patches/patch-*)
 
-# NetBSD kernel-source + public-header overlay (base/compat/nbsys).  Provided
-# with -idirafter so the musl sysroot wins on name clashes and the BSD kernel/
-# userland headers fill every gap (sys/audioio.h, sys/proc.h, db.h, rpc/...).
-FLX_NBSYS      := $(FLX_COMPAT)/nbsys
-FLX_NBSYS_FLAGS = -idirafter $(FLX_NBSYS)/sys -idirafter $(FLX_NBSYS)/include
+# FLX_COMPAT, FLX_NBSYS and FLX_NBSYS_FLAGS come from mk/port.mk, which every
+# port includes.  They describe the compatibility overlay rather than the
+# single-binary build, so they are not defined here: leaving a second copy in
+# base-port.mk would let the two drift, and a project port that includes only
+# project-port.mk would silently get an empty $(FLX_NBSYS_FLAGS).
 
 # Per-port pre-build generator hook (yacc/lex output, generated tables, ...).
 # Runs inside do-prepare after patching; failures abort the build.
