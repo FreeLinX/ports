@@ -36,6 +36,33 @@ PREFIX?=/
 PORT_FULL?=$(CATEGORY)/$(NAME)
 
 # ---------------------------------------------------------------------------
+# Portability declaration.
+#
+# FreeLinX runs a Linux kernel, so a good part of the NetBSD base set cannot
+# work here at all: it is written against NetBSD kernel internals (kvm/kinfo,
+# BSD mbufs, BSD quotas, tape ioctls, the rump subsystem, ...) or against
+# third-party stacks FreeLinX does not ship (Bluetooth, Kerberos, libaudio).
+# Those ports used to be indistinguishable from real regressions: they simply
+# failed, one after another, with compiler errors deep in a NetBSD header.
+#
+# A port in that category sets PORT_NOT_PORTABLE to a one-line reason.  The
+# build gate then refuses with that reason instead of a confusing clang error,
+# and `make build` (all ports) skips it and counts it, so a run of the whole
+# tree reports the real number of buildable ports.
+#
+# It is a statement about the *port*, not a suppression: the port stays in the
+# tree, keeps its metadata, and still shows up in list.sh / check.sh.
+# ---------------------------------------------------------------------------
+PORT_NOT_PORTABLE?=
+PORT_NOT_PORTABLE_REASON?=$(PORT_NOT_PORTABLE)
+
+.PHONY: portability
+portability:
+	@if [ -n "$$PORT_NOT_PORTABLE" ]; then \
+	    printf '[FreeLinX/ports] %s is not portable to a Linux kernel: %s\n' "$$NAME" "$$PORT_NOT_PORTABLE"; \
+	fi
+
+# ---------------------------------------------------------------------------
 # Build gate: refuse to pretend a build happened without a toolchain.
 # ---------------------------------------------------------------------------
 check-toolchain:
@@ -47,9 +74,27 @@ check-toolchain:
 	fi
 	@printf '[FreeLinX/ports] toolchain available\n'
 
-.PHONY: all install check-toolchain clean do-build
+# Portability gate. Runs before the toolchain gate so the message names the
+# real blocker (a NetBSD-kernel dependency) rather than a missing compiler.
+#
+# The name and the reason are read from the environment, not spliced into the
+# shell command.  A reason is prose, so it contains apostrophes - "struct
+# stat's st_flags" - and interpolating one into a single-quoted shell string
+# closes the quote early and turns this gate into a syntax error, which reads
+# as a broken port instead of the deliberate refusal it is.
+check-portable:
+	@if [ -n "$$PORT_NOT_PORTABLE" ]; then \
+	    printf '[FreeLinX/ports][error] %s cannot be built for FreeLinX: %s\n' "$$NAME" "$$PORT_NOT_PORTABLE"; \
+	    printf '[FreeLinX/ports][error] this port targets NetBSD kernel internals/third-party stacks that have no Linux equivalent; it is expected to fail, not a regression\n'; \
+	    exit 1; \
+	fi
 
-all: check-toolchain do-build
+export NAME
+export PORT_NOT_PORTABLE
+
+.PHONY: all install check-toolchain check-portable clean do-build
+
+all: check-portable check-toolchain do-build
 
 # `do-build` is provided by the port (or by mk/base-port.mk for the simple
 # utilities); see the make error if a port forgets to define it.
