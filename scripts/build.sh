@@ -96,7 +96,7 @@ for p in "$@"; do
             flx_info "skipping $p: $_reason"
             _flx_skipped=$((_flx_skipped + 1))
         else
-            flx_warn "$p: not portable to a Linux kernel: $_reason"
+            flx_warn "$p: cannot be built for FreeLinX: $_reason"
             _flx_failed=$((_flx_failed + 1))
         fi
         _flx_skip_list="$_flx_skip_list $p"

@@ -29,6 +29,20 @@ INSTALL_RELPATH:= lib/firmware/.flx-firmware-marker
 
 include ../../mk/port.mk
 
+# Nothing in this tree vendors the firmware tarball, and nothing in the build
+# downloads it: dist/ holds the inputs for every other port, and this one is
+# ~500 MB of redistributable-but-not-Free blobs, which is a different decision
+# to make than "check the tarball in".  distinfo records the upstream URL and
+# the sha256, so the input is identified precisely; it is simply not here.
+#
+# So the port declares itself unbuildable rather than failing with tar's
+# "Cannot open: No such file or directory", which says nothing about why.  Two
+# ways to make it real, both one line each: vendor the tarball into dist/ under
+# the name distinfo already gives it, or teach the build to fetch and verify it
+# against DISTINFO_SHA256.  Whichever is chosen, deleting this line is the whole
+# fix - nothing else in the port changes.
+PORT_NOT_PORTABLE:= its ~500 MB upstream tarball is not vendored in ports/dist/ and the build does not download it (see distinfo for the URL and the sha256 it would be verified against)
+
 SRC_DIR = $(FREELINX_BUILD_DIR)/work/$(NAME)/$(DISTINFO_NAME)
 DIST_TGZ = $(FREELINX_DIST_DIR)/$(DISTINFO_ARCHIVE)
 BUILD_BIN = $(SRC_DIR)/.flx-extracted
