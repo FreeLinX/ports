@@ -33,8 +33,11 @@ NETBSD_MEMBERS = usr/src/usr.bin/hexdump/hexdump.c usr/src/usr.bin/hexdump/displ
 
 FLX_CPPFLAGS += -DHAVE_NBTOOL_CONFIG_H=1
 
-COMPAT_SRCS = $(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/erealloc.c \
-	$(FLX_COMPAT)/easprintf.c
+# The COMPAT_SRCS line this port used to carry is gone: getprogname.c and
+# easprintf.c are both in mk/base-port.mk's default set, and the third entry,
+# base/compat/erealloc.c, is an alternative to estdlib.c - also in the default
+# set - rather than an addition to it.  Naming both put emalloc, ecalloc,
+# erealloc and estrdup on the link line twice ("duplicate symbol: emalloc").
 
 PORT_SRCS = usr.bin/hexdump/hexdump.c usr.bin/hexdump/display.c \
 	usr.bin/hexdump/hexsyntax.c usr.bin/hexdump/odsyntax.c \
