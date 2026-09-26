@@ -22,6 +22,10 @@ INSTALL_RELPATH:= bin/stty
 
 include ../../mk/base-port.mk
 
+# key.c assigns ip->t.c_ispeed.  musl keeps that spelling out of reach on purpose -
+# it is a macro on other systems - and the member is __c_ispeed, so map the name.
+FLX_CPPFLAGS += -DFLX_BSD_TERMIOS_SPEED_NAMES=1
+
 SRC_DIR  = $(FREELINX_BUILD_DIR)/work/$(NAME)
 OBJ_DIR  = $(FREELINX_BUILD_DIR)/obj/$(NAME)
 BUILD_BIN = $(SRC_DIR)/$(NAME)

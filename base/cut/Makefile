@@ -28,4 +28,4 @@ PORT_SRCS = usr.bin/cut/cut.c
 
 # cut.c defines its own static ecalloc()/erealloc() (musl has no NetBSD
 # libutil equivalents), which collided with the declarations here.
-FLX_CPPFLAGS += -DFLX_BSD_DECL_ECALLOC_EREALLOC=1
+FLX_CPPFLAGS += -DFLX_BSD_SKIP_DECL_ECALLOC_EREALLOC=1

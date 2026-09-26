@@ -36,7 +36,15 @@
 #include <stdint.h>
 #include <endian.h>
 #include <pwd.h>
+/* <grp.h> is here because a good half the ports call getgrnam()/getgrgid(),
+ * and it is not the system header that declares them otherwise.  It also
+ * defines a system "struct group", and usr.bin/mail has an unrelated struct of
+ * exactly that name for its recipient lists, so it fails to compile with
+ * "redefinition of 'group'".  A port with its own struct group passes
+ * -DFLX_BSD_SKIP_INCLUDE_GRP_H=1. */
+#ifndef FLX_BSD_SKIP_INCLUDE_GRP_H
 #include <grp.h>
+#endif
 #include <time.h>
 #include <limits.h>
 
@@ -109,7 +117,17 @@
 #ifndef _PATH_CSHELL
 #define	_PATH_CSHELL	"/bin/csh"
 #endif
+/* NetBSD's <signal.h> globals sys_signame[]/sys_nsig, provided by
+ * base/compat/signalname.c.  A port that ships its own table - timeout does,
+ * deriving it from musl's signal numbers so it names the signals FreeLinX
+ * actually delivers - has a differently-typed array here, and the two
+ * declarations are not compatible: "const char *sys_signame[]" against
+ * "const char *const sys_signame[]" is a hard error, not a warning.  Such a
+ * port passes -DFLX_BSD_SKIP_DECL_SYS_SIGNAME=1. */
+#ifndef FLX_BSD_SKIP_DECL_SYS_SIGNAME
 extern const char * const sys_signame[NSIG + 1];
+#define FLX_BSD_SKIP_DECL_SYS_SIGNAME 1
+#endif
 #ifndef REG_BASIC
 #define	REG_BASIC	0
 #endif
@@ -289,8 +307,16 @@ struct _nls_msg_hdr {
 
 /* BSD stdio wide-line reader (musl lacks fgetwln(3)) (fgetwln.c). */
 wchar_t	*fgetwln(FILE *, size_t *);
-/* RFC-822 header-line detector (wide) as libc provides for fmt (fgetwln.c). */
+/* RFC-822 header-line detector (wide) as libc provides for fmt (fgetwln.c).
+ * "ishead" is NetBSD libc's name for it, and it is a common enough name for a
+ * file-local helper that declaring it for all 293 ports is a liability:
+ * usr.bin/mail has its own "int ishead(const char [])", which is a different
+ * function and fails with "conflicting types".  A port with its own ishead
+ * passes -DFLX_BSD_SKIP_DECL_ISHEAD=1. */
+#ifndef FLX_BSD_SKIP_DECL_ISHEAD
 int	ishead(const wchar_t *);
+#define FLX_BSD_SKIP_DECL_ISHEAD 1
+#endif
 
 /* Sun-style DES front-end (bdes) backed by OpenSSL libcrypto (des_sun.c). */
 int	des_setkey(char *);
@@ -745,12 +771,12 @@ void   ereallocarr(void *, size_t, size_t);
  *
  * A port that ships its own copies of these (cksum's crc.c defines a
  * file-local be32dec) must suppress this block with
- * -DFLX_BSD_DECL_ENDIAN=1.  The old "does le16dec exist?" test below could not
+ * -DFLX_BSD_SKIP_DECL_ENDIAN=1.  The old "does le16dec exist?" test below could not
  * do that: crc.c defines be32dec but not le16dec, so the block was still
  * entered and the two definitions collided with
  * "error: redefinition of 'be32dec'".
  * ------------------------------------------------------------------------- */
-#ifndef FLX_BSD_DECL_ENDIAN
+#ifndef FLX_BSD_SKIP_DECL_ENDIAN
 #ifndef le16dec
 static inline uint16_t le16dec(const void *p){ const uint8_t *b=p; return (uint16_t)(b[0] | ((uint16_t)b[1]<<8)); }
 static inline uint32_t le32dec(const void *p){ const uint8_t *b=p; return (uint32_t)b[0]|((uint32_t)b[1]<<8)|((uint32_t)b[2]<<16)|((uint32_t)b[3]<<24); }
@@ -765,11 +791,11 @@ static inline void be16enc(void *p, uint16_t v){ uint8_t *b=p; b[0]=(uint8_t)(v>
 static inline void be32enc(void *p, uint32_t v){ uint8_t *b=p; b[0]=(uint8_t)(v>>24); b[1]=(uint8_t)(v>>16); b[2]=(uint8_t)(v>>8); b[3]=(uint8_t)v; }
 static inline void be64enc(void *p, uint64_t v){ uint8_t *b=p; be32enc(b,(uint32_t)(v>>32)); be32enc(b+4,(uint32_t)v); }
 #endif /* le16dec */
-#endif /* FLX_BSD_DECL_ENDIAN */
+#endif /* FLX_BSD_SKIP_DECL_ENDIAN */
 
-#ifndef FLX_BSD_DECL_OSPEED
+#ifndef FLX_BSD_SKIP_DECL_OSPEED
 extern short ospeed;
-#define FLX_BSD_DECL_OSPEED 1
+#define FLX_BSD_SKIP_DECL_OSPEED 1
 #endif
 
 
@@ -777,16 +803,36 @@ extern short ospeed;
  * libutil / terminfo / tty-defaults leftovers: emalloc/estrdup, libterminfo
  * putp + PC, NetBSD C* tty c_cc index aliases, NetBSD <search.h> hdestroy1.
  * ------------------------------------------------------------------------- */
-#ifndef emalloc
+/* emalloc/estrdup: a port that brings its own file-local statics suppresses
+ * these with -DFLX_BSD_SKIP_DECL_EMALLOC=1.  The old guard here was
+ * "#ifndef emalloc", which tests whether a *macro* of that name exists - and
+ * emalloc is a function, so the test was never true and the declaration was
+ * emitted for every port, including the ones that define their own.  tsort
+ * failed with "static declaration of 'emalloc' follows non-static
+ * declaration" because of it. */
+#ifndef FLX_BSD_SKIP_DECL_EMALLOC
 void *emalloc(size_t);
-#endif
-#ifndef estrdup
 char  *estrdup(const char *);
+#define FLX_BSD_SKIP_DECL_EMALLOC 1
 #endif
 #ifndef putp_decl
 int putp(const char *);
 #endif
 extern char PC;
+
+/* musl's struct termios holds the two line speeds as __c_ispeed/__c_ospeed
+ * and offers no c_ispeed/c_ospeed macro: on the systems that do define those
+ * as macros, a member with the same name would be rewritten by them, so musl
+ * keeps the plain spellings out of reach.  NetBSD source uses the BSD spelling
+ * as a struct member - stty's key.c assigns ip->t.c_ispeed - so a port that
+ * touches the speeds maps the names with
+ * -DFLX_BSD_TERMIOS_SPEED_NAMES=1.  On musl there is one speed for both
+ * directions, so mapping c_ispeed onto __c_ispeed is exact, not a
+ * approximation. */
+#ifdef FLX_BSD_TERMIOS_SPEED_NAMES
+#define c_ispeed __c_ispeed
+#define c_ospeed __c_ospeed
+#endif
 
 /* NetBSD <sys/ttydefaults.h>: C* aliases for the c_cc indexes. */
 #ifndef CEOF
@@ -808,9 +854,9 @@ extern char PC;
 #define OXTABS 0
 #endif
 
-#ifndef FLX_BSD_DECL_HDESTROY1
+#ifndef FLX_BSD_SKIP_DECL_HDESTROY1
 void hdestroy1(void (*)(void *), void (*)(void *));
-#define FLX_BSD_DECL_HDESTROY1 1
+#define FLX_BSD_SKIP_DECL_HDESTROY1 1
 #endif
 
 
@@ -821,9 +867,9 @@ void hdestroy1(void (*)(void *), void (*)(void *));
 #ifndef __unused
 #define __unused __attribute__((unused))
 #endif
-#ifndef FLX_BSD_DECL_MIVEC
+#ifndef FLX_BSD_SKIP_DECL_MIVEC
 void mi_vector_hash(const void * __restrict, size_t, uint32_t, uint32_t[3]);
-#define FLX_BSD_DECL_MIVEC 1
+#define FLX_BSD_SKIP_DECL_MIVEC 1
 #endif
 
 
@@ -832,21 +878,21 @@ void mi_vector_hash(const void * __restrict, size_t, uint32_t, uint32_t[3]);
  * NetBSD libutil versions of them.  Declaring them here as well made the port
  * fail with "static declaration of 'erealloc' follows non-static declaration".
  * A port that provides its own suppresses these with
- * -DFLX_BSD_DECL_ECALLOC_EREALLOC=1. */
-#ifndef FLX_BSD_DECL_ECALLOC_EREALLOC
+ * -DFLX_BSD_SKIP_DECL_ECALLOC_EREALLOC=1. */
+#ifndef FLX_BSD_SKIP_DECL_ECALLOC_EREALLOC
 void *ecalloc(size_t, size_t);
 void *erealloc(void *, size_t);
-#define FLX_BSD_DECL_ECALLOC_EREALLOC 1
+#define FLX_BSD_SKIP_DECL_ECALLOC_EREALLOC 1
 #endif
-#ifndef FLX_BSD_DECL_ESTRING2
+#ifndef FLX_BSD_SKIP_DECL_ESTRING2
 int easprintf(char ** __restrict, const char * __restrict, ...);
-#define FLX_BSD_DECL_ESTRING2 1
+#define FLX_BSD_SKIP_DECL_ESTRING2 1
 #endif
-#ifndef FLX_BSD_DECL_ARC4RANDOM
+#ifndef FLX_BSD_SKIP_DECL_ARC4RANDOM
 uint32_t arc4random(void);
 void arc4random_buf(void *, size_t);
 uint32_t arc4random_uniform(uint32_t);
-#define FLX_BSD_DECL_ARC4RANDOM 1
+#define FLX_BSD_SKIP_DECL_ARC4RANDOM 1
 #endif
 
 /* musl glob(3) has no GLOB_BRACE (BSD kick); make it a no-op flag so other
@@ -882,9 +928,9 @@ int fchroot(int);
 #endif
 
 /* parsedate(3) (BSD libutil); musl lacks it - base/compat/parsedate.c. */
-#ifndef FLX_BSD_DECL_PARSEDATE
+#ifndef FLX_BSD_SKIP_DECL_PARSEDATE
 time_t parsedate(const char *, const time_t *, const int *);
-#define FLX_BSD_DECL_PARSEDATE 1
+#define FLX_BSD_SKIP_DECL_PARSEDATE 1
 #endif
 
 /* UID_MAX/GID_MAX live in <limits.h> on BSD/glibc; musl omits them. */
@@ -897,12 +943,12 @@ time_t parsedate(const char *, const time_t *, const int *);
 
 /* pwcache user/group DB register calls (base/compat/pwcache.c); grp.h/
  * pwd.h are included above so struct group/passwd are complete here. */
-#ifndef FLX_BSD_DECL_PWCACHE
+#ifndef FLX_BSD_SKIP_DECL_PWCACHE
 int pwcache_userdb(int (*)(int), void (*)(void),
     struct passwd *(*)(const char *), struct passwd *(*)(uid_t));
 int pwcache_groupdb(int (*)(int), void (*)(void),
     struct group *(*)(const char *), struct group *(*)(gid_t));
-#define FLX_BSD_DECL_PWCACHE 1
+#define FLX_BSD_SKIP_DECL_PWCACHE 1
 #endif
 
 /* BSD accept filter (inetd SO_ACCEPTFILTER); Linux lacks the feature, the
@@ -929,17 +975,17 @@ struct accept_filter_arg {
 #define IPV6_FAITH 29
 #endif
 /* pidfile(3) (BSD libutil); base/compat/pidfile.c. */
-#ifndef FLX_BSD_DECL_PIDFILE
+#ifndef FLX_BSD_SKIP_DECL_PIDFILE
 int pidfile(const char *);
-#define FLX_BSD_DECL_PIDFILE 1
+#define FLX_BSD_SKIP_DECL_PIDFILE 1
 #endif
 
 /* strtoi(3)/strtou(3) (NetBSD libc intmax parsers); musl lacks both -
  * base/compat/strtoi.c + strtou.c (template _strtoi.h). */
-#ifndef FLX_BSD_DECL_STRTOI
+#ifndef FLX_BSD_SKIP_DECL_STRTOI
 intmax_t strtoi(const char *, char **, int, intmax_t, intmax_t, int *);
 uintmax_t strtou(const char *, char **, int, uintmax_t, uintmax_t, int *);
-#define FLX_BSD_DECL_STRTOI 1
+#define FLX_BSD_SKIP_DECL_STRTOI 1
 #endif
 
 #endif /* !_FREELINX_FLX_BSD_H_ */

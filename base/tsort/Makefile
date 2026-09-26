@@ -12,6 +12,13 @@ INSTALL_RELPATH:= bin/tsort
 
 include ../../mk/base-port.mk
 
+# patch-tsort-musl gives this port file-local static emalloc/ecalloc/erealloc
+# (musl has no NetBSD libutil versions), which collided with the
+# non-static declarations the forced-include header made for every port.
+FLX_CPPFLAGS += -DFLX_BSD_SKIP_DECL_EMALLOC=1
+# ecalloc/erealloc are declared under their own guard, so they need their own flag.
+FLX_CPPFLAGS += -DFLX_BSD_SKIP_DECL_ECALLOC_EREALLOC=1
+
 SRC_DIR  = $(FREELINX_BUILD_DIR)/work/$(NAME)
 OBJ_DIR  = $(FREELINX_BUILD_DIR)/obj/$(NAME)
 BUILD_BIN = $(SRC_DIR)/$(NAME)
