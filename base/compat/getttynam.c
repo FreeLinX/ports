@@ -55,9 +55,10 @@ getttynam(const char *name)
 			p++;
 		if (*p == '#' || *p == '\n')
 			continue;
-		/* tty name (strip leading /dev/ and 'tty' prefix) */
-		if (strchr(p, ' ') != NULL)
-			*strchr(p, ' ') = '\0';
+		/* tty name (strip leading /dev/) */
+		char *rest = p + strcspn(p, " \t\n");
+		if (*rest != '\0')
+			*rest++ = '\0';
 		if (p[0] == '\0')
 			continue;
 		ent.ty_name = strdup(p + (strncmp(p, "/dev/", 5) == 0 ? 5 : 0));
@@ -66,6 +67,19 @@ getttynam(const char *name)
 			ent.ty_speed = 0;
 			ent.ty_baudrate = 0;
 			ent.ty_status = 0;
+			/*
+			 * ttys(5) flags after the getty and type fields: "on",
+			 * "secure", ...  Without parsing them no terminal was ever
+			 * secure and login(1) refused root everywhere.  A quoted
+			 * getty command may contain spaces, so match whole words.
+			 */
+			for (char *w = strtok(rest, " \t\n"); w != NULL;
+			    w = strtok(NULL, " \t\n")) {
+				if (strcmp(w, "on") == 0)
+					ent.ty_status |= TTY_ON;
+				else if (strcmp(w, "secure") == 0)
+					ent.ty_status |= TTY_SECURE;
+			}
 			return &ent;
 		}
 	}
