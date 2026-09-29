@@ -298,6 +298,19 @@ package_one_port() {
         return 0
     fi
 
+    # A program staged as a directory (bin/foo/foo, from copying a build
+    # directory named after it) would install /bin/foo/foo and collide with
+    # /bin/foo: flatten it to bin/foo.
+    for _bdir in bin sbin usr/bin usr/sbin usr/games; do
+        [ -d "$_temp_stage/$_bdir" ] || continue
+        for _d in "$_temp_stage/$_bdir"/*; do
+            _n=$(basename "$_d")
+            if [ -d "$_d" ] && [ ! -h "$_d" ] && [ -f "$_d/$_n" ]; then
+                mv "$_d/$_n" "$_d.flat" && rm -rf "$_d" && mv "$_d.flat" "$_d"
+            fi
+        done
+    done
+
     _out_pkg="$PKG_DIR/${_pname}-${_version}.xpkg"
     printf '[FreeLinX/ports] Creating package: %s\n' "$_out_pkg"
     if [ -n "$_depends" ]; then
