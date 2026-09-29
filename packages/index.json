@@ -1,5 +1,5 @@
 {
-  "generated": 1790711639,
+  "generated": 1790712401,
   "packages": {
     "abduco": {
       "version": "0.6",
@@ -307,6 +307,15 @@
       "size": 45102,
       "sha256": "2fca8b594d7412af415d1c03409af75b43361c45cd133511848035550642dadc"
     },
+    "cowsay": {
+      "version": "3.7.0-1",
+      "description": "cowsay 3.7.0 (talking cow generator).",
+      "arch": "x86_64",
+      "depends": [],
+      "file": "cowsay-3.7.0-1.xpkg",
+      "size": 18104,
+      "sha256": "a21003efe8a5860e348017115d6fb7c470aac14b7c300c9034304aebd9f6ad54"
+    },
     "cp": {
       "version": "10.1",
       "description": "FreeLinX cp (NetBSD 10.1 src)",
@@ -532,6 +541,15 @@
       "size": 205523,
       "sha256": "f672a897883c6e60c9ecb1747be6bb451f4149702a6ff0b378a466e0a1ba2a00"
     },
+    "dzen2": {
+      "version": "0.9.5-1",
+      "description": "dzen2 0.9.5 general purpose messaging utility.",
+      "arch": "x86_64",
+      "depends": ["libXft", "libX11", "musl"],
+      "file": "dzen2-0.9.5-1.xpkg",
+      "size": 20770,
+      "sha256": "822de856927d9fcb4582f62c51b83d15d6584c1c8239b3499c9de05f5a2173c7"
+    },
     "e2fsprogs": {
       "version": "1.47.3",
       "description": "e2fsprogs 1.47.3 (ext2/3/4 tools).",
@@ -658,6 +676,15 @@
       "size": 10535192,
       "sha256": "ad32ccb26c13698621676108f8e76ce5973cd704381f69f80a86ce502cf22de9"
     },
+    "figlet": {
+      "version": "2.2.5-1",
+      "description": "figlet 2.2.5 (banner generator).",
+      "arch": "x86_64",
+      "depends": [],
+      "file": "figlet-2.2.5-1.xpkg",
+      "size": 139116,
+      "sha256": "ab810ce93048236bb4d7b7c6c031dc0212380091ec8218af94a5e32c39f81967"
+    },
     "file": {
       "version": "5.46",
       "description": "file type identification (5.46, static)",
@@ -739,6 +766,15 @@
       "size": 1456,
       "sha256": "e6392b3864b6565ae0aff9933b61fd68298fd7f7be65b3cf58cb897150b916b2"
     },
+    "flxbar-bottom": {
+      "version": "1.0-1",
+      "description": "FreeLinX bottom status bar (i3status → lemonbar).",
+      "arch": "x86_64",
+      "depends": ["i3status", "lemonbar", "xrandr"],
+      "file": "flxbar-bottom-1.0-1.xpkg",
+      "size": 627,
+      "sha256": "c7cf4da83ddea04a907f822390f08611de92ee6027981a61e33412b383ac6f6e"
+    },
     "flxt": {
       "version": "1.0",
       "description": "1990s Unix Motif/X11 Text Editor",
@@ -783,6 +819,15 @@
       "file": "fonts-1.0-1.xpkg",
       "size": 5401835,
       "sha256": "5e1d13a80160b19ba56f457b1c0b4f74ee6f5007230bab6474f004aa208083a9"
+    },
+    "fortune": {
+      "version": "10.1-1",
+      "description": "NetBSD fortune 10.1 (random quotes generator).",
+      "arch": "x86_64",
+      "depends": [],
+      "file": "fortune-10.1-1.xpkg",
+      "size": 1237839,
+      "sha256": "c09d6e5b96a7731d50f67af4983e651a96495d4db3ac3fcfd1c11fc536773792"
     },
     "fpr": {
       "version": "10.1-1",
@@ -1152,6 +1197,15 @@
       "file": "leave-10.1-1.xpkg",
       "size": 32038,
       "sha256": "95c5efd20b4c047d5b9e0538f929b35effe26c3094eaf0a795371787b41c1d56"
+    },
+    "lemonbar": {
+      "version": "1.4-1",
+      "description": "Lemonbar 1.4 (Xft) status bar.",
+      "arch": "x86_64",
+      "depends": ["libxcb", "libX11", "libXft", "musl", "fonts"],
+      "file": "lemonbar-1.4-1.xpkg",
+      "size": 15856,
+      "sha256": "4726ea75bcaa9975c9d70bf87edc5432811d429bb754034a2dcf45b58f1e1d80"
     },
     "less": {
       "version": "661",
