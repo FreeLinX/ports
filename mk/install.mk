@@ -67,6 +67,11 @@ ROOTFS_DIR?=$(FREELINX_ROOTFS_DIR)
 # Full path of a port's staged artifact.
 STAGE_FILE=$(STAGE_ROOT)/$(INSTALL_RELPATH)
 
+# What the generic install targets depend on.  Empty for a library port: those
+# set PROJECT_LIB rather than BUILD_BIN and stage themselves, so there is no
+# single staged file for the framework to name.
+STAGE_DEP := $(if $(or $(strip $(STAGE_TREE)),$(strip $(BUILD_BIN))),$(STAGE_FILE))
+
 # Full path of the same artifact once copied into the FreeLinX/src rootfs.
 ROOTFS_FILE=$(ROOTFS_DIR)/$(INSTALL_RELPATH)
 
@@ -92,10 +97,23 @@ $(STAGE_FILE): $(STAGE_TREE)
 
 else
 
+# Only when the port has a single binary to stage.  A library port sets
+# PROJECT_LIB (freetype2, libxml2, pcre2) instead of BUILD_BIN and stages
+# itself in its own install: recipe.  Without this guard the rule below still
+# exists for it, with an empty $(BUILD_BIN), so make runs
+#
+#     install -m 755  staging/usr/lib
+#
+# and fails with "missing destination file operand".  INSTALL_RELPATH is still
+# set on those ports, so STAGE_FILE is a real path and the rule looks valid.
+ifneq ($(strip $(BUILD_BIN)),)
+
 $(STAGE_FILE): $(BUILD_BIN)
 	@printf '[FreeLinX/ports] staging %s -> %s\n' "$(NAME)" "$@"
 	$(MKDIR) -p $(dir $@)
 	$(INSTALL) -m 755 $(BUILD_BIN) $@
+
+endif
 
 endif
 
@@ -115,7 +133,7 @@ $(foreach _flx_al,$(INSTALL_ALIASES),\
     $(warning INSTALL_ALIASES entry is not <alias>=<target>: $(_flx_al)),))
 
 .PHONY: install-aliases
-install-aliases: $(STAGE_FILE)
+install-aliases: $(if $(strip $(BUILD_BIN)),$(STAGE_FILE))
 	@if [ -n "$(INSTALL_ALIASES)" ]; then \
 	    set -e; \
 	    d="$(dir $(STAGE_FILE))"; \
@@ -165,11 +183,13 @@ check-install-rootfs:
 # rootfs template. This is the ports<->src bridge. It only runs explicitly and
 # only after the destination guard above has cleared.
 # ---------------------------------------------------------------------------
-install-rootfs: check-install-rootfs $(STAGE_FILE) install-aliases
+# STAGE_DEP is empty for a library port, which stages itself and has no single
+# staged file for the generic rules to depend on.
+install-rootfs: check-install-rootfs $(STAGE_DEP) install-aliases
 	@printf '[FreeLinX/ports] installing %s into rootfs %s\n' "$(NAME)" "$(ROOTFS_FILE)"
 	$(MKDIR) -p $(dir $(ROOTFS_FILE))
 ifeq ($(strip $(STAGE_TREE)),)
-	$(INSTALL) -m 755 $(STAGE_FILE) $(ROOTFS_FILE)
+	$(if $(strip $(BUILD_BIN)),$(INSTALL) -m 755 $(STAGE_FILE) $(ROOTFS_FILE),:)
 else
 	# A tree, so it is replaced as a directory.  rm -rf first: copying over
 	# the top of an existing tree leaves files that the new build no longer

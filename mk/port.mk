@@ -132,7 +132,11 @@ all: check-portable check-toolchain do-build
 # `do-build` is provided by the port (or by mk/base-port.mk for the simple
 # utilities); see the make error if a port forgets to define it.
 
-install: $(STAGE_FILE) install-aliases
+# STAGE_DEP is empty for a library port.  Those set PROJECT_LIB instead of
+# BUILD_BIN and stage themselves in their own install: recipe; naming
+# $(STAGE_FILE) here would make GNU make merge it into their prerequisites and
+# then stop with "No rule to make target staging/usr/lib, needed by install".
+install: $(STAGE_DEP) install-aliases
 
 clean:
 	@true
