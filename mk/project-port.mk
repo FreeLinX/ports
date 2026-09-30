@@ -39,9 +39,6 @@ FLX_PROJECT_CPPFLAGS?=
 FLX_PROJECT_CFLAGS?=-O2
 FLX_PROJECT_CXXFLAGS?=-O2 -stdlib=libc++
 FLX_PROJECT_LDFLAGS?=
-FLX_PROJECT_LIBDIR?=$(FREELINX_TOOLCHAIN_DIR)/lib/$(FREELINX_TRIPLE)
-# musl libc++/libc++abi/libunwind are static; expose them for linking C++.
-FLX_PROJECT_LIBS?=-L$(FLX_PROJECT_LIBDIR) -lc++ -lc++abi -lunwind
 
 FLX_SHA256_CMD?=sha256sum
 
@@ -55,9 +52,38 @@ export STRIP:=$(FREELINX_TOOLCHAIN_BIN)/llvm-strip
 export CFLAGS:=$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FLX_PROJECT_STATIC) $(FLX_PROJECT_CFLAGS) $(FLX_PROJECT_CPPFLAGS)
 export CXXFLAGS:=$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FLX_PROJECT_STATIC) $(FLX_PROJECT_CXXFLAGS) $(FLX_PROJECT_CPPFLAGS)
 export CPPFLAGS:=$(FLX_PROJECT_CPPFLAGS)
-# --rtlib=compiler-rt: musl has no crtbeginT.o/crtend.o/-lgcc; compiler-rt keeps
-# the link GNU-crt free.  -static + -fuse-ld=lld give the static LLVM link.
-export LDFLAGS:=$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) --rtlib=compiler-rt -static -fuse-ld=lld $(FLX_PROJECT_LDFLAGS) $(FLX_PROJECT_LIBS)
+
+# --- the link line ---------------------------------------------------------
+#
+# -nostdlib, and the musl startup objects named explicitly, because without
+# them the toolchain's clang links the *host's* crt objects.  Verified: a
+# hello.c built with the default line and no -nostdlib comes out
+# "statically linked, for GNU/Linux" with `GCC: (GNU) 16.2.1' in its .comment,
+# because the host's /usr/lib64/crt1.o and crti.o win the search.  The binary
+# links and runs and is quietly the wrong build, which is worse than a link
+# error.  base-port.mk has always done this; this is the same rule applied to
+# the framework that was not doing it.
+#
+# -nostdlib also means -lc and the rest have to be named, so LIBS carries musl
+# rather than being empty.
+FLX_SYSROOT_LIB?=$(FREELINX_SYSROOT)/lib
+FLX_CRT:=$(FLX_SYSROOT_LIB)/crt1.o $(FLX_SYSROOT_LIB)/crti.o
+FLX_CRT_END:=$(FLX_SYSROOT_LIB)/crtn.o
+
+# -lc++/-lc++abi/-lunwind only for a port that is actually C++.  Naming them
+# for a C port fails the link with "unable to find library -lc++", which is
+# what stopped awk, git and vim from building at all.  A C++ port sets
+# FLX_PROJECT_CXX=yes before the include; a C port never sees these.
+ifeq ($(strip $(FLX_PROJECT_CXX)),)
+FLX_PROJECT_LIBS?=
+else
+FLX_PROJECT_LIBDIR?=$(FREELINX_TOOLCHAIN_DIR)/lib/$(FREELINX_TRIPLE)
+FLX_PROJECT_LIBS?=-L$(FLX_PROJECT_LIBDIR) -lc++ -lc++abi -lunwind
+endif
+
+# --rtlib=compiler-rt: musl has no crtbeginT.o/crtend.o/-lgcc.  -static and
+# -fuse-ld=lld give the static LLVM link.
+export LDFLAGS:=$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -nostdlib --rtlib=compiler-rt -static -fuse-ld=lld $(FLX_CRT) $(FLX_PROJECT_LDFLAGS) $(FLX_PROJECT_LIBS) -lc $(FLX_CRT_END)
 export LIBS:=
 
 # The delivered artifact; install.mk stages THIS path.

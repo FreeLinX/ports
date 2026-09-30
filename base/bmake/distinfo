@@ -2,7 +2,21 @@
 #
 # Real upstream source: https://www.crufty.net/ftp/pub/sjg/bmake.tar.gz
 # Portable version of NetBSD's make utility by Simon J. Gerraty.
+#
+# NOTE on the checksum.  The URL is a *rolling* one: there is no
+# bmake-<version>.tar.gz on that server, only bmake.tar.gz, which changes
+# whenever Simon Gerraty publishes.  So the checksum below is pinned to one
+# specific build, 20260912, and it will stop matching the moment he releases
+# the next one.
+#
+# That is the intended failure, not a defect: the sha256 check in
+# mk/project-port.mk stops the build rather than silently compiling whatever
+# the server happens to be serving, which is the only thing worth having from
+# a moving URL.  The port cannot be pinned properly without a versioned
+# archive, and the server does not publish one.  When it next fails, the fix
+# is to fetch the new tarball, read the version out of bmake/ChangeLog, and
+# put that checksum here.
 DISTINFO_NAME=bmake
 DISTINFO_ARCHIVE=bmake.tar.gz
 DISTINFO_URL=https://www.crufty.net/ftp/pub/sjg/bmake.tar.gz
-DISTINFO_SHA256=0810781d24ad6efe010a8ce91c5c529dc8dd95a561d6c93b30e56b8d679cce65
+DISTINFO_SHA256=b6bd32964cbe451be2838822c9d200b7c7e76a2a5947c03feb71dc6bd72988bd

@@ -486,9 +486,14 @@ dev_reread(struct dev *d)
 
 /* --- the operations ------------------------------------------------------- */
 
-/* create_standard - the FreeLinX layout on an already-sized device. */
-static void
-create_standard(struct dev *d, unsigned long esp_mb)
+/* create_standard - the FreeLinX layout on an already-sized device.
+ *
+ * dry_run computes and reports the layout without writing a byte, which is
+ * what an installer needs in order to show a plan on a machine where the
+ * answer is not yet a partitioned disk.  The geometry is the real one: the
+ * same code and the same arithmetic, only the writes are skipped. */
+static int
+create_standard(struct dev *d, unsigned long esp_mb, int dry_run)
 {
 	struct ptable t;
 	unsigned char arr[ARRAY_BYTES];
@@ -571,48 +576,53 @@ create_standard(struct dev *d, unsigned long esp_mb)
 	build_array(&t, arr);
 	array_crc = crc32_ieee(arr, ARRAY_BYTES);
 
-	/* The MBR. */
-	build_mbr(sector, total);
-	dev_write_sector(d, 0, sector);
+	if (!dry_run) {
+		/* The MBR. */
+		build_mbr(sector, total);
+		dev_write_sector(d, 0, sector);
 
-	/* Primary header and array.
-	 *
-	 * The array goes at LBA 2, not at FIRST_USABLE.  FIRST_USABLE is 34,
-	 * which is where the first *partition* may start, and confusing the
-	 * two puts the first sector at LBA 2 and the remaining 31 at LBA
-	 * 35-65, leaving 3-33 empty.  fdisk still reads that, because it
-	 * walks the partition entries and the header CRC covers only the
-	 * header; parted compares the array against the CRC in the header
-	 * and reports the primary table as corrupt, then falls back to the
-	 * backup.  The disk works on fdisk and not on parted, which is the
-	 * worst kind of wrong: it looks fine until the tool you actually use
-	 * to look at it does not. */
-	build_header(sector, &t, 1, total - 1, PRIMARY_ARRAY_LBA, array_crc);
-	dev_write_sector(d, 1, sector);
-	{
-		int i;
+		/* Primary header and array.
+		 *
+		 * The array goes at LBA 2, not at FIRST_USABLE.  FIRST_USABLE
+		 * is 34, which is where the first *partition* may start, and
+		 * confusing the two puts the first sector at LBA 2 and the
+		 * remaining 31 at LBA 35-65, leaving 3-33 empty.  fdisk still
+		 * reads that, because it walks the partition entries and the
+		 * header CRC covers only the header; parted compares the
+		 * array against the CRC in the header and reports the primary
+		 * table as corrupt, then falls back to the backup.  The disk
+		 * works on fdisk and not on parted, which is the worst kind of
+		 * wrong. */
+		build_header(sector, &t, 1, total - 1, PRIMARY_ARRAY_LBA,
+		    array_crc);
+		dev_write_sector(d, 1, sector);
+		{
+			int i;
 
-		for (i = 0; i < ARRAY_SECTORS; i++) {
-			memcpy(sector, arr + i * SECTOR, SECTOR);
-			dev_write_sector(d, (uint64_t)PRIMARY_ARRAY_LBA + i,
-			    sector);
+			for (i = 0; i < ARRAY_SECTORS; i++) {
+				memcpy(sector, arr + i * SECTOR, SECTOR);
+				dev_write_sector(d,
+				    (uint64_t)PRIMARY_ARRAY_LBA + i, sector);
+			}
 		}
-	}
 
-	/* Backup array, then backup header. */
-	{
-		uint64_t arr_lba = total - 1 - ARRAY_SECTORS;
-		int i;
+		/* Backup array, then backup header. */
+		{
+			uint64_t arr_lba = total - 1 - ARRAY_SECTORS;
+			int i;
 
-		for (i = 0; i < ARRAY_SECTORS; i++) {
-			memcpy(sector, arr + i * SECTOR, SECTOR);
-			dev_write_sector(d, arr_lba + (uint64_t)i, sector);
+			for (i = 0; i < ARRAY_SECTORS; i++) {
+				memcpy(sector, arr + i * SECTOR, SECTOR);
+				dev_write_sector(d, arr_lba + (uint64_t)i,
+				    sector);
+			}
+			build_header(sector, &t, total - 1, 1, arr_lba,
+			    array_crc);
+			dev_write_sector(d, total - 1, sector);
 		}
-		build_header(sector, &t, total - 1, 1, arr_lba, array_crc);
-		dev_write_sector(d, total - 1, sector);
-	}
 
-	dev_reread(d);
+		dev_reread(d);
+	}
 
 	/* Report in a form a caller can parse, so an installer does not have
 	 * to read this program's human output. */
@@ -632,6 +642,9 @@ create_standard(struct dev *d, unsigned long esp_mb)
 	printf("FLX_DISK_SECTORS=%" PRIu64 "\n", total);
 	printf("FLX_DISK_FIRST_USABLE=%" PRIu64 "\n", t.first_usable);
 	printf("FLX_DISK_LAST_USABLE=%" PRIu64 "\n", t.last_usable);
+	if (dry_run)
+		printf("FLX_DRY_RUN=1\n");
+	return 0;
 }
 
 /* show - read the table back and print it.  Reads, never writes. */
@@ -718,7 +731,7 @@ static void
 usage_text(FILE *f)
 {
 	fprintf(f,
-	    "usage: %s --create-standard [--esp-size MB] DEVICE\n"
+	    "usage: %s --create-standard [--esp-size MB] [--dry-run] DEVICE\n"
 	    "       %s --show DEVICE\n"
 	    "       %s --help | --version\n"
 	    "\n"
@@ -728,7 +741,11 @@ usage_text(FILE *f)
 	    "  2  BIOS boot    1 MiB, where a BIOS bootloader goes\n"
 	    "  3  FreeLinX     the rest of the disk\n"
 	    "\n"
-	    "--create-standard erases any existing partition table.\n",
+	    "  --dry-run      report the layout without writing anything\n"
+	    "\n"
+	    "--create-standard erases any existing partition table.  With\n"
+	    "--dry-run it writes nothing, so it is safe to run to see what a\n"
+	    "disk would be given.\n",
 	    prog, prog, prog);
 }
 
@@ -742,7 +759,7 @@ usage(void)
 int
 main(int argc, char **argv)
 {
-	int create = 0, do_show = 0, help = 0;
+	int create = 0, do_show = 0, help = 0, dry_run = 0;
 	unsigned long esp_mb = 256;
 	const char *devpath = NULL;
 	struct dev d;
@@ -759,6 +776,8 @@ main(int argc, char **argv)
 			do_show = 1;
 		else if (strcmp(argv[i], "--esp-size") == 0 && i + 1 < argc)
 			esp_mb = strtoul(argv[++i], NULL, 10);
+		else if (strcmp(argv[i], "--dry-run") == 0)
+			dry_run = 1;
 		else if (strcmp(argv[i], "-q") == 0 || strcmp(argv[i], "--quiet") == 0)
 			quiet = 1;
 		else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0)
@@ -818,9 +837,11 @@ main(int argc, char **argv)
 			    devpath);
 	}
 
-	dev_open(&d, devpath, 1);
-	say("partitioning %s (%" PRIu64 " bytes)", devpath, d.size);
-	create_standard(&d, esp_mb);
+	dev_open(&d, devpath, dry_run ? 0 : 1);
+	say("%s %s (%" PRIu64 " bytes)", dry_run ? "planning" : "partitioning",
+	    devpath, d.size);
+	if (create_standard(&d, esp_mb, dry_run) != 0)
+		return 1;
 	dev_close(&d);
 	return 0;
 }
