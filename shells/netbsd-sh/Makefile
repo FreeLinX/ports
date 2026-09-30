@@ -127,8 +127,8 @@ MKTEMP   = $(FLX_COMPAT)/netbsd-mktemp
 # wherever it is installed.
 FLX_CRT         = $(FREELINX_SYSROOT)/lib/crt1.o $(FREELINX_SYSROOT)/lib/crti.o
 FLX_CRT_END     = $(FREELINX_SYSROOT)/lib/crtn.o
-FLX_RTDIR       := $(shell $(CC) $(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -print-resource-dir 2>/dev/null)
-FLX_COMPILER_RT = $(filter %-musl/libclang_rt.builtins.a,$(wildcard $(FLX_RTDIR)/lib/*/libclang_rt.builtins.a))
+FLX_RTDIR       := $(FREELINX_RESOURCE_DIR)
+FLX_COMPILER_RT = $(firstword $(wildcard $(FLX_RTDIR)/lib/*/libclang_rt.builtins-*.a) $(wildcard $(FLX_RTDIR)/lib/*/libclang_rt.builtins.a))
 FLX_LD         = $(CC) $(FREELINX_CFLAGS) $(FREELINX_LDFLAGS) \
 			-nostdlib -L$(FREELINX_SYSROOT)/lib \
 			$(FLX_CRT) \

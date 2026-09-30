@@ -45,8 +45,8 @@ PROJECT_CFG_CMDS = \
 		--enable-png=no \
 		--with-pixman-prefix="$(PIXMAN_PREFIX)" \
 		CC="$(FREELINX_CC)" \
-		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2" \
-		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt"
+		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2" \
+		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt"
 
 BUILD_CMDS = \
 	make -j"$(FREELINX_JOBS)" && make install

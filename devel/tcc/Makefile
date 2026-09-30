@@ -31,8 +31,8 @@ PROJECT_CFG_CMDS = \
 		--triplet=$(FREELINX_TRIPLE) \
 		--cc="$(FREELINX_CC)" \
 		--ar="ar" \
-		--extra-cflags="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2 -DTCC_MUSL=1" \
-		--extra-ldflags="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -unwindlib=none"
+		--extra-cflags="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -DTCC_MUSL=1" \
+		--extra-ldflags="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -unwindlib=none"
 
 BUILD_CMDS = \
 	make -j"$(FREELINX_JOBS)" tcc libtcc1.a

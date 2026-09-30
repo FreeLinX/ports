@@ -28,8 +28,8 @@ PROJECT_CFG_CMDS = \
 	$(FREELINX_CC) --target=x86_64-linux-musl --sysroot=$(FREELINX_TOOLCHAIN_DIR)/$(FREELINX_TRIPLE) -I$(NCURSES_PREFIX)/include/ncurses -c $(FREELINX_PORTS_ROOT)/dist/musl_compat.c -o $(BUILD_DIR)/musl_compat.o && \
 	cd "$(BUILD_DIR)" && \
 	CC="$(FREELINX_CC)" \
-	CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2 -I$(NCURSES_PREFIX)/include/ncurses -I$(NCURSES_PREFIX)/include -Wno-int-conversion -Wno-implicit-function-declaration" \
-	LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -fuse-ld=lld --rtlib=compiler-rt -L$(NCURSES_PREFIX)/lib -ldb -lpthread $(BUILD_DIR)/musl_compat.o" \
+	CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(NCURSES_PREFIX)/include/ncurses -I$(NCURSES_PREFIX)/include -Wno-int-conversion -Wno-implicit-function-declaration" \
+	LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -fuse-ld=lld --rtlib=compiler-rt -L$(NCURSES_PREFIX)/lib -ldb -lpthread $(BUILD_DIR)/musl_compat.o" \
 	cmake "$(SRC_TREE)" \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \

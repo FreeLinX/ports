@@ -44,8 +44,8 @@ BUILD_BIN   = $(PROJECT_BIN)
 PROJECT_BUILD_DIR = $(FREELINX_BUILD_DIR)/obj/$(NAME)
 
 # Static-link flags for CMake-driven project builds (git/ninja convention).
-FF_LDFLAGS = $(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) --rtlib=compiler-rt -static -fuse-ld=lld
-FF_CFLAGS  = $(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2
+FF_LDFLAGS = $(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) --rtlib=compiler-rt -static -fuse-ld=lld
+FF_CFLAGS  = $(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2
 
 # Apply the single FreeLinX patch (idempotent), then configure out-of-source.
 define FF_PATCH_AND_CONFIGURE

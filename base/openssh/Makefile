@@ -59,8 +59,8 @@ PROJECT_CFG_CMDS = \
 		--disable-lastlog \
 		--with-privsep-path=/var/empty \
 		CC="$(FREELINX_CC)" \
-		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2 -I$(OSSL_PREFIX)/include -I$(ZLIB_PREFIX)/include" \
-		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(OSSL_PREFIX)/lib64 -L$(ZLIB_PREFIX)/lib" \
+		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(OSSL_PREFIX)/include -I$(ZLIB_PREFIX)/include" \
+		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(OSSL_PREFIX)/lib64 -L$(ZLIB_PREFIX)/lib" \
 		AR="$(FLX_HOST_AR)" RANLIB="$(FLX_HOST_RANLIB)"
 
 BUILD_CMDS = \

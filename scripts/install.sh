@@ -90,20 +90,26 @@ for p in "$@"; do
             || exit 1
         _rootfs="$_rootfs_base/$_relpath"
 
-        if [ -d "$_stage" ]; then
-            # A tree port: the copy has to be recursive and has to replace the
-            # destination rather than merge into it.  Delegated to the
-            # Makefile's own install-rootfs target, which knows how to do both.
-            # The old test here was `[ ! -d "$_stage" ]', so a tree port was
-            # skipped silently: it staged correctly and then never landed in
-            # the rootfs, with no error anywhere.
-            ( cd "$_dir" && make FREELINX_ROOT="$FREELINX_ROOT" install-rootfs ) || \
-                flx_die "$p: install-rootfs failed (see above)"
-        else
-            flx_info "  copying into FreeLinX/src rootfs -> $_rootfs"
-            mkdir -p "$(dirname "$_rootfs")"
-            cp -f "$_stage" "$_rootfs"
-        fi
+        # Always delegate to the Makefile's install-rootfs, for a tree port and
+        # for a plain file alike.  install.mk supplies a default target that
+        # copies one file, and a port that ships more than one binary overrides
+        # it with a recipe that copies the rest too.
+        #
+        # The old test here was `[ -d "$_stage" ]', so a multi-binary file port
+        # took the else branch: it staged wpa_cli, wpa_passphrase, bsdcat and
+        # cpio correctly, and then copied only the primary, because the branch
+        # that would have called the port's own rule was the one reserved for
+        # trees.  install.mk's default is a superset of the plain copy, so
+        # delegating unconditionally is correct for both shapes and cannot
+        # lose the extra binaries.
+        #
+        # FREELINX_ROOT, not FREELINUX_ROOT: the old spelling was a typo, and
+        # under `set -u` an unbound variable killed the script, so the one path
+        # that was supposed to land extra binaries in the rootfs failed with
+        # "unbound variable" for every multi-binary port.
+        ( cd "$_dir" && make FREELINX_ROOT="$FREELINX_ROOT" install-rootfs ) || \
+            flx_die "$p: install-rootfs failed (see above)"
+        _rootfs_base=$(dirname "$_rootfs")
     fi
 
     # Optional per-port front-ends/aliases (space-separated names, e.g.

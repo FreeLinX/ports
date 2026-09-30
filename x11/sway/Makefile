@@ -46,8 +46,8 @@ ar = '$(FLX_HOST_AR)'
 ranlib = '$(FLX_HOST_RANLIB)'
 strip = 'true'
 [built-in options]
-c_args = ['$(FREELINX_TARGET_FLAGS)', '$(FREELINX_SYSROOT_FLAGS)', '-O2', '-I$(WAYLAND_PREFIX)/include', '-I$(WLPROTO_PREFIX)/include', '-I$(XKBCOMMON_PREFIX)/include', '-I$(WLROOTS_PREFIX)/include']
-c_link_args = ['$(FREELINX_TARGET_FLAGS)', '$(FREELINX_SYSROOT_FLAGS)', '-static', '-fuse-ld=lld', '--rtlib=compiler-rt', '-L$(WAYLAND_PREFIX)/lib', '-L$(XKBCOMMON_PREFIX)/lib', '-L$(WLROOTS_PREFIX)/lib']
+c_args = ['$(FREELINX_TARGET_FLAGS)', '$(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS)', '-O2', '-I$(WAYLAND_PREFIX)/include', '-I$(WLPROTO_PREFIX)/include', '-I$(XKBCOMMON_PREFIX)/include', '-I$(WLROOTS_PREFIX)/include']
+c_link_args = ['$(FREELINX_TARGET_FLAGS)', '$(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS)', '-static', '-fuse-ld=lld', '--rtlib=compiler-rt', '-L$(WAYLAND_PREFIX)/lib', '-L$(XKBCOMMON_PREFIX)/lib', '-L$(WLROOTS_PREFIX)/lib']
 [host_machine]
 system = 'linux'
 cpu_family = 'x86_64'

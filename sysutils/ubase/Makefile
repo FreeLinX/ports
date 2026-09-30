@@ -34,9 +34,9 @@ BUILD_CMDS = \
 	cd "$(SRC_TREE)" && \
 	for bin in $(UBASE_BINS); do \
 		$(MAKE) CC="$(FREELINX_CC)" AR="$(FREELINX_AR)" \
-			CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -std=c99 -Wall -Wextra" \
+			CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -std=c99 -Wall -Wextra" \
 			CPPFLAGS="-D_XOPEN_SOURCE=700" \
-			LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt" \
+			LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt" \
 			LDLIBS="" \
 			$$bin || true; \
 	done

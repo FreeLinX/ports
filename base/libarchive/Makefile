@@ -56,8 +56,8 @@ PROJECT_CFG_CMDS = \
 		--without-lz4 --without-zstd --without-cng \
 		--without-openssl --without-xml2 --without-expat \
 		CC="$(FREELINX_CC)" \
-		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2 -I$(ZLIB_PREFIX)/include" \
-		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(ZLIB_PREFIX)/lib" \
+		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(ZLIB_PREFIX)/include" \
+		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(ZLIB_PREFIX)/lib" \
 		AR="$(FLX_HOST_AR)" RANLIB="$(FLX_HOST_RANLIB)"
 
 BUILD_CMDS = \

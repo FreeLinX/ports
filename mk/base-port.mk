@@ -98,13 +98,15 @@ FLX_CPPFLAGS+=-I$(FLX_COMPAT) -I$(SRC_DIR)/include -include flx_bsd.h $(FLX_NBSY
 # Static-link set, identical to shells/netbsd-sh: crt1.o + crti.o at the
 # front, crtn.o at the very end, -lc in between, and clang compiler-rt in
 # place of the libgcc a GCC toolchain would add.  compiler-rt lives in the
-# clang resource tree (lib/clang/<ver>/lib/) under the compiler's normalized
-# target triple; it is looked up through `clang -print-resource-dir` so the
-# path follows the toolchain wherever it is installed.
+# clang resource tree under lib/<os>/, named for the target triple
+# (libclang_rt.builtins-x86_64.a), which is what the LLVM build installs.  The
+# older `libclang_rt.builtins.a` under a `-musl/` subdirectory is a different
+# layout that the FreeLinX toolchain does not produce, so matching only that
+# silently resolved to nothing and every port linked with no builtins at all.
 FLX_CRT         = $(FREELINX_SYSROOT)/lib/crt1.o $(FREELINX_SYSROOT)/lib/crti.o
 FLX_CRT_END     = $(FREELINX_SYSROOT)/lib/crtn.o
-FLX_RTDIR       := $(shell $(CC) $(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -print-resource-dir 2>/dev/null)
-FLX_COMPILER_RT = $(filter %-musl/libclang_rt.builtins.a,$(wildcard $(FLX_RTDIR)/lib/*/libclang_rt.builtins.a))
+FLX_RTDIR       := $(FREELINX_RESOURCE_DIR)
+FLX_COMPILER_RT = $(firstword $(wildcard $(FLX_RTDIR)/lib/*/libclang_rt.builtins-*.a) $(wildcard $(FLX_RTDIR)/lib/*/libclang_rt.builtins.a))
 # FLX_LDADD: extra statically-linked archives/libs for a port (e.g. the
 # FreeLinX openssl port's libcrypto.a for dc's BIGNUM math).  Placed between
 # the port objects and libc, so a static archive's own libc references still

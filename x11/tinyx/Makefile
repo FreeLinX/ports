@@ -57,8 +57,8 @@ PROJECT_CFG_CMDS = \
 		--disable-unit-tests \
 		--with-fontdir=$(TINYX_PREFIX)/share/fonts \
 		CC="$(FREELINX_CC)" \
-		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2 -I$(PIXMAN_PREFIX)/include/pixman-1" \
-		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(PIXMAN_PREFIX)/lib" \
+		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(PIXMAN_PREFIX)/include/pixman-1" \
+		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(PIXMAN_PREFIX)/lib" \
 		AR="$(FLX_HOST_AR)" \
 		RANLIB="$(FLX_HOST_RANLIB)"
 

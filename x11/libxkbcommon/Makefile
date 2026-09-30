@@ -42,8 +42,8 @@ ar = '$(FLX_HOST_AR)'
 ranlib = '$(FLX_HOST_RANLIB)'
 strip = 'true'
 [built-in options]
-c_args = ['$(FREELINX_TARGET_FLAGS)', '$(FREELINX_SYSROOT_FLAGS)', '-O2']
-c_link_args = ['$(FREELINX_TARGET_FLAGS)', '$(FREELINX_SYSROOT_FLAGS)', '-static', '-fuse-ld=lld', '--rtlib=compiler-rt']
+c_args = ['$(FREELINX_TARGET_FLAGS)', '$(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS)', '-O2']
+c_link_args = ['$(FREELINX_TARGET_FLAGS)', '$(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS)', '-static', '-fuse-ld=lld', '--rtlib=compiler-rt']
 [host_machine]
 system = 'linux'
 cpu_family = 'x86_64'

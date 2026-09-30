@@ -21,6 +21,6 @@ PROJECT_BIN = $(FREELINX_BUILD_DIR)/work/$(NAME)/cowsay
 BUILD_BIN   = $(PROJECT_BIN)
 
 BUILD_CMDS = \
-	$(FREELINX_CC) $(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2 -static -fuse-ld=lld \
+	$(FREELINX_CC) $(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -static -fuse-ld=lld \
 		-o $(PROJECT_BIN) $(FREELINX_ROOT)/games/cowsay/cowsay.c && \
 	ln -sf cowsay $(FREELINX_BUILD_DIR)/work/$(NAME)/cowthink
