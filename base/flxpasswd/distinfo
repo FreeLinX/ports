@@ -1,0 +1,11 @@
+# FreeLinX/ports - base/flxpasswd : FreeLinX-native port (no upstream archive).
+#
+# This port is a FreeLinX-native implementation of "set a password in
+# /etc/shadow"; it is NOT built from NetBSD source, so there is no upstream
+# archive or checksum to pin.  base/passwd is not usable here: it is
+# PORT_NOT_PORTABLE because krb5_passwd.c needs Kerberos, and its passwd is
+# an interactive program the installer cannot drive.
+DISTINFO_NAME=freelinx-native
+DISTINFO_ARCHIVE=
+DISTINFO_URL=(native FreeLinX implementation)
+DISTINFO_SHA256=native

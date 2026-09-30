@@ -1,0 +1,11 @@
+# FreeLinX/ports - base/flxuseradd : FreeLinX-native port (no upstream archive).
+#
+# This port is a FreeLinX-native implementation of "create a user account"; it
+# is NOT built from NetBSD source, so there is no upstream archive or checksum
+# to pin.  The NetBSD src.tgz has useradd, but it is written against NetBSD's
+# pwd(3) and its login.defs, and the interactive flow cannot be driven by the
+# installer anyway.
+DISTINFO_NAME=freelinx-native
+DISTINFO_ARCHIVE=
+DISTINFO_URL=(native FreeLinX implementation)
+DISTINFO_SHA256=native
