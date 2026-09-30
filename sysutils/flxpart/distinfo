@@ -1,0 +1,10 @@
+# FreeLinX/ports - sysutils/flxpart : FreeLinX-native port (no upstream archive).
+#
+# This port is a FreeLinX-native GPT writer; it is NOT built from NetBSD source,
+# so there is no upstream archive or checksum to pin.  It exists because the
+# portable tools for the job are GPL and the FreeLinX flxpart that shipped in
+# the rootfs template was a static GCC binary with no source anywhere.
+DISTINFO_NAME=freelinx-native
+DISTINFO_ARCHIVE=
+DISTINFO_URL=(native FreeLinX implementation)
+DISTINFO_SHA256=native

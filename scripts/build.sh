@@ -9,11 +9,22 @@
 set -eu
 . "$(dirname "$0")/common.sh"
 
+# The category directories a port may live in.  Listed once here and derived
+# from the tree below, because the earlier hard-coded list of four was never
+# extended when sysutils, security, x11 and the rest were added: 131 ports were
+# in the tree and unreachable by name, so `build.sh flxpart` and every other
+# name outside base/shells/net/firmware reported "no such port".
+flx_categories() {
+    find "$FREELINX_ROOT" -mindepth 1 -maxdepth 1 -type d \
+        ! -name mk ! -name scripts ! -name packages ! -name config \
+        ! -name build ! -name dist ! -name staging ! -name .git -printf '%f\n' 2>/dev/null | sort
+}
+
 flx_port_dir() {
     case "$1" in
         */*) printf '%s/%s/%s\n' "$FREELINX_ROOT" "${1%%/*}" "${1##*/}" ;;
         *)
-            for _cat in base shells net firmware; do
+            for _cat in $(flx_categories); do
                 [ -d "$FREELINX_ROOT/$_cat/$1" ] && { printf '%s/%s/%s\n' "$FREELINX_ROOT" "$_cat" "$1"; return 0; }
             done
             return 1
@@ -22,7 +33,11 @@ flx_port_dir() {
 }
 
 flx_all_ports() {
-    find "$FREELINX_ROOT/base" "$FREELINX_ROOT/shells" "$FREELINX_ROOT/net" "$FREELINX_ROOT/firmware" -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
+    # Every category, for the same reason flx_port_dir searches every one:
+    # a build-all that skipped 131 ports would report a fraction of the work
+    # as a complete build.
+    find $(for _c in $(flx_categories); do printf '%s ' "$FREELINX_ROOT/$_c"; done) \
+        -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
         | sed 's#^.*/##' | sort -u
 }
 
