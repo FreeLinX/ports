@@ -64,6 +64,17 @@ for p in "$@"; do
     flx_info "Staging $p..."
     ( cd "$_dir" && make FREELINX_ROOT="$FREELINX_ROOT" install ) || \
         flx_die "$p: install failed (see above)"
+    # A dependency-only port exists to put headers or a .a where the next port
+    # in the chain can find them (xproto, xextproto, libX11, freetype2).  It
+    # stages nothing into the overlay and nothing into the rootfs, because a
+    # build-time header is dead weight in a static image.  Without this branch
+    # it fell through to the check below and died with "install target did not
+    # create expected staged output at staging/bin/xproto" -- having staged its
+    # 24 headers correctly one line earlier.
+    if [ "$(flx_port_var DEPS_ONLY "$_dir")" = yes ]; then
+        flx_info "  $p is dependency-only; nothing to stage into the overlay"
+        continue
+    fi
 
     # Resolve the port's own staging metadata so it matches mk/install.mk.
     _relpath=$(flx_port_var INSTALL_RELPATH "$_dir")

@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/xextproto : X11 extension protocol headers 7.3.0.
+#
+# Real upstream source:
+#   https://www.x.org/pub/individual/proto/xextproto-7.3.0.tar.gz
+DISTINFO_NAME=xextproto-7.3.0
+DISTINFO_ARCHIVE=xextproto-7.3.0.tar.gz
+DISTINFO_URL=https://www.x.org/pub/individual/proto/xextproto-7.3.0.tar.gz
+DISTINFO_SHA256=1b1bcdf91221e78c6c33738667a57bd9aaa63d5953174ad8ed9929296741c9f5

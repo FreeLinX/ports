@@ -1,0 +1,9 @@
+# FreeLinX/ports - x11/libX11 : libX11 1.8.12 (upstream project port).
+#
+# Real upstream source, from the xorg release archive:
+#   https://www.x.org/pub/individual/lib/libX11-1.8.12.tar.xz
+# Built statically with FreeLinX clang + LLD + musl.
+DISTINFO_NAME=libX11-1.8.12
+DISTINFO_ARCHIVE=libX11-1.8.12.tar.xz
+DISTINFO_URL=https://www.x.org/pub/individual/lib/libX11-1.8.12.tar.xz
+DISTINFO_SHA256=fa026f9bb0124f4d6c808f9aef4057aad65e7b35d8ff43951cef0abe06bb9a9a

@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/xorgproto : X11 extension protocol headers 2024.1.
+#
+# Real upstream source:
+#   https://www.x.org/pub/individual/proto/xorgproto-2024.1.tar.gz
+DISTINFO_NAME=xorgproto-2024.1
+DISTINFO_ARCHIVE=xorgproto-2024.1.tar.gz
+DISTINFO_URL=https://www.x.org/pub/individual/proto/xorgproto-2024.1.tar.gz
+DISTINFO_SHA256=4f6b9b4faf91e5df8265b71843a91fc73dc895be6210c84117a996545df296ce

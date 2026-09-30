@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/xproto : X11 protocol headers 7.0.31 (header-only port).
+#
+# Real upstream source:
+#   https://www.x.org/pub/individual/proto/xproto-7.0.31.tar.gz
+DISTINFO_NAME=xproto-7.0.31
+DISTINFO_ARCHIVE=xproto-7.0.31.tar.gz
+DISTINFO_URL=https://www.x.org/pub/individual/proto/xproto-7.0.31.tar.gz
+DISTINFO_SHA256=6d755eaae27b45c5cc75529a12855fed5de5969b367ed05003944cf901ed43c7

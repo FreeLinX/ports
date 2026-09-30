@@ -1,0 +1,9 @@
+# FreeLinX/ports - x11/libXau : libXau 1.0.12 (upstream project port).
+#
+# Real upstream source, from the xorg release archive:
+#   https://www.x.org/pub/individual/lib/libXau-1.0.12.tar.xz
+# Built statically with FreeLinX clang + LLD + musl.
+DISTINFO_NAME=libXau-1.0.12
+DISTINFO_ARCHIVE=libXau-1.0.12.tar.xz
+DISTINFO_URL=https://www.x.org/pub/individual/lib/libXau-1.0.12.tar.xz
+DISTINFO_SHA256=74d0e4dfa3d39ad8939e99bda37f5967aba528211076828464d2777d477fc0fb

@@ -70,6 +70,22 @@ include ../../mk/port.mk
 
 SRC_ROOT = $(FREELINX_BUILD_DIR)/work/runit/admin/runit-$(VERSION)
 SV_DIR   = $(SRC_ROOT)/compile
+# Two different directories, which is the whole bug.
+#
+# compile/ is where package/compile *puts* the binaries -- it creates that
+# directory itself, so SV_DIR is correct for BUILD_BIN and for the staged
+# runsv/sv/chpst prerequisites.
+#
+# conf-cc and conf-ld are the other direction: they are what package/compile
+# *reads*, they ship in the tarball as src/conf-cc and src/conf-ld, and
+# nothing creates compile/ until after the build has already needed them.
+# Writing them to $(SV_DIR) fails with "/compile/conf-cc: No such file or
+# directory", or if the directory does happen to exist, runit compiles
+# everything with the host cc and the result is not a FreeLinX binary at all.
+#
+# So: CONF_DIR is where the compiler configuration goes, SV_DIR is where the
+# output lands.
+CONF_DIR = $(SRC_ROOT)/src
 DIST_TGZ = $(FREELINX_DIST_DIR)/$(DISTINFO_ARCHIVE)
 
 BUILD_BIN = $(SV_DIR)/runsvdir
@@ -92,16 +108,16 @@ do-prepare:
 
 # ---------------------------------------------------------------------------
 # do-configure: point runit's own build scripts at the FreeLinX toolchain.
-# conf-cc/conf-ld are plain one-line files; src/compile and src/load wrap
-# whatever is in them with the actual source/object arguments at build time.
+# conf-cc/conf-ld are plain one-line files that package/compile wraps with the
+# actual source/object arguments at build time.
 # ---------------------------------------------------------------------------
 do-configure: do-prepare
 	@set -e; \
 	printf '[FreeLinX/ports] writing conf-cc / conf-ld for %s\n' "$(FREELINX_TRIPLE)"; \
 	printf '%s %s -rtlib=compiler-rt -unwindlib=none -O2\n' \
-		"$(CC)" "$(FREELINX_CFLAGS)" > "$(SV_DIR)/conf-cc"; \
+		"$(CC)" "$(FREELINX_CFLAGS)" > "$(CONF_DIR)/conf-cc"; \
 	printf '%s %s -rtlib=compiler-rt -unwindlib=none\n' \
-		"$(CC)" "$(FREELINX_LDFLAGS)" > "$(SV_DIR)/conf-ld"
+		"$(CC)" "$(FREELINX_LDFLAGS)" > "$(CONF_DIR)/conf-ld"
 
 # ---------------------------------------------------------------------------
 # Build: run runit's own package/compile inside the prepared/configured
@@ -122,7 +138,17 @@ do-build: $(BUILD_BIN)
 # to the `install: $(STAGE_FILE)` rule already declared by mk/port.mk; both
 # accumulate, since neither has a conflicting recipe body.
 # ---------------------------------------------------------------------------
-install: $(STAGE_ROOT)/sbin/runsv $(STAGE_ROOT)/usr/bin/sv $(STAGE_ROOT)/usr/bin/chpst
+install: $(STAGE_ROOT)/sbin/runit $(STAGE_ROOT)/sbin/runsv $(STAGE_ROOT)/usr/bin/sv $(STAGE_ROOT)/usr/bin/chpst
+
+# runit itself, not just the tools that drive it.  runsvdir is the
+# INSTALL_BIN so mk/install.mk stages that one by itself, but runit is the
+# stage-1 init -- the program the kernel executes as PID 1 and the thing
+# that starts runsvdir in the first place.  Without it in the rootfs an
+# installed system boots to a rescue shell and never reaches a login.
+$(STAGE_ROOT)/sbin/runit: $(SV_DIR)/runit
+	@printf '[FreeLinX/ports] staging runit -> %s\n' "$@"
+	$(MKDIR) -p $(dir $@)
+	$(INSTALL) -m 755 $< $@
 
 $(STAGE_ROOT)/sbin/runsv: $(SV_DIR)/runsv
 	@printf '[FreeLinX/ports] staging runsv -> %s\n' "$@"
@@ -144,7 +170,12 @@ $(STAGE_ROOT)/usr/bin/chpst: $(SV_DIR)/chpst
 # `install-rootfs` here ADDS to mk/install.mk's own install-rootfs rule
 # (which handles runsvdir via check-install-rootfs + ROOTFS_FILE).
 # ---------------------------------------------------------------------------
-install-rootfs: $(ROOTFS_DIR)/sbin/runsv $(ROOTFS_DIR)/usr/bin/sv $(ROOTFS_DIR)/usr/bin/chpst
+install-rootfs: $(ROOTFS_DIR)/sbin/runit $(ROOTFS_DIR)/sbin/runsv $(ROOTFS_DIR)/usr/bin/sv $(ROOTFS_DIR)/usr/bin/chpst
+
+$(ROOTFS_DIR)/sbin/runit: $(STAGE_ROOT)/sbin/runit check-install-rootfs
+	@printf '[FreeLinX/ports] installing runit into rootfs %s\n' "$@"
+	$(MKDIR) -p $(dir $@)
+	$(INSTALL) -m 755 $(STAGE_ROOT)/sbin/runit $@
 
 $(ROOTFS_DIR)/sbin/runsv: $(STAGE_ROOT)/sbin/runsv check-install-rootfs
 	@printf '[FreeLinX/ports] installing runsv into rootfs %s\n' "$@"
@@ -160,3 +191,5 @@ $(ROOTFS_DIR)/usr/bin/chpst: $(STAGE_ROOT)/usr/bin/chpst check-install-rootfs
 	@printf '[FreeLinX/ports] installing chpst into rootfs %s\n' "$@"
 	$(MKDIR) -p $(dir $@)
 	$(INSTALL) -m 755 $(STAGE_ROOT)/usr/bin/chpst $@
+
+

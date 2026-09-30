@@ -14,6 +14,12 @@ PREFIX  := /
 
 INSTALL_RELPATH:= usr/lib
 
+# LIBRARY_PORT: freetype ships no binary, only libfreetype.a and headers, so
+# the framework's staging rules are skipped and the install: target below does
+# it.  Declared before the include, because make reads prerequisite lists at
+# parse time -- see the STAGE_DEP note in mk/install.mk.
+LIBRARY_PORT := yes
+
 include ../../mk/project-port.mk
 
 SRC_TREE = $(FREELINX_BUILD_DIR)/work/$(NAME)/freetype-VER-$(shell echo $(VERSION) | tr '.' '-')

@@ -67,16 +67,28 @@ ROOTFS_DIR?=$(FREELINX_ROOTFS_DIR)
 # Full path of a port's staged artifact.
 STAGE_FILE=$(STAGE_ROOT)/$(INSTALL_RELPATH)
 
-# What the generic install targets depend on.  Empty for a library port: those
-# set PROJECT_LIB rather than BUILD_BIN and stage themselves, so there is no
-# single staged file for the framework to name.
-# Recursive (=), not immediate (:=), and the ordering is the whole reason:
-# install.mk is read from project-port.mk near the top of a port Makefile,
-# long before the port assigns PROJECT_BIN/BUILD_BIN lower down.  With := this
-# expanded to the empty string every time, so STAGE_DEP was empty for *every*
-# port and the dependency was silently dropped -- dbus then failed with "No
-# rule to make target staging/usr/bin/dbus-daemon, needed by install".
-STAGE_DEP = $(if $(or $(strip $(STAGE_TREE)),$(strip $(BUILD_BIN))),$(STAGE_FILE))
+# What the generic install targets depend on: the single staged file a binary
+# port copies, or nothing at all for a library port that stages itself.
+#
+# This test cannot depend on BUILD_BIN, and it took a day to work out why.
+# GNU make expands a rule's PREREQUISITE LIST when it reads the rule, not when
+# it runs it.  install.mk is included from mk/port.mk near the top of a port
+# Makefile, long before the port assigns BUILD_BIN further down.  So
+#
+#     STAGE_DEP = $(if $(strip $(BUILD_BIN)),$(STAGE_FILE))
+#
+# expanded to the empty string for every port in the tree, always.  The
+# dependency was silently dropped, `make install' exited 0 having staged
+# nothing, and the next step died with "cannot stat staging/sbin/runsvdir".
+#
+# The same $(if ...) inside a RECIPE behaves the opposite way -- recipes are
+# expanded at execution time, once every variable is bound -- which is why the
+# identical test in the rule body worked and the one in the prerequisite list
+# did not.  Recipe bodies are not a place to generalise from.
+#
+# So: LIBRARY_PORT, which a library port declares before the include, exactly
+# as it declares NAME and INSTALL_RELPATH.
+STAGE_DEP = $(if $(strip $(LIBRARY_PORT)),,$(STAGE_FILE))
 
 # Full path of the same artifact once copied into the FreeLinX/src rootfs.
 ROOTFS_FILE=$(ROOTFS_DIR)/$(INSTALL_RELPATH)
@@ -142,7 +154,7 @@ $(foreach _flx_al,$(INSTALL_ALIASES),\
     $(warning INSTALL_ALIASES entry is not <alias>=<target>: $(_flx_al)),))
 
 .PHONY: install-aliases
-install-aliases: $(if $(strip $(BUILD_BIN)),$(STAGE_FILE))
+install-aliases: $(STAGE_DEP)
 	@if [ -n "$(INSTALL_ALIASES)" ]; then \
 	    set -e; \
 	    d="$(dir $(STAGE_FILE))"; \

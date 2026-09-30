@@ -1,0 +1,9 @@
+# FreeLinX/ports - x11/libXext : libXext 1.3.6 (upstream project port).
+#
+# Real upstream source, from the xorg release archive:
+#   https://www.x.org/pub/individual/lib/libXext-1.3.6.tar.gz
+# Built statically with FreeLinX clang + LLD + musl.
+DISTINFO_NAME=libXext-1.3.6
+DISTINFO_ARCHIVE=libXext-1.3.6.tar.gz
+DISTINFO_URL=https://www.x.org/pub/individual/lib/libXext-1.3.6.tar.gz
+DISTINFO_SHA256=1a0ac5cd792a55d5d465ced8dbf403ed016c8e6d14380c0ea3646c4415496e3d

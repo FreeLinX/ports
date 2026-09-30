@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/renderproto : RENDER extension protocol headers 0.11.1.
+#
+# Real upstream source:
+#   https://www.x.org/pub/individual/proto/renderproto-0.11.1.tar.gz
+DISTINFO_NAME=renderproto-0.11.1
+DISTINFO_ARCHIVE=renderproto-0.11.1.tar.gz
+DISTINFO_URL=https://www.x.org/pub/individual/proto/renderproto-0.11.1.tar.gz
+DISTINFO_SHA256=a0a4be3cad9381ae28279ba5582e679491fc2bec9aab8a65993108bf8dbce5fe

@@ -1,0 +1,9 @@
+# FreeLinX/ports - x11/libxcb : libxcb 1.17.0 (upstream project port).
+#
+# Real upstream source, from the xorg release archive:
+#   https://www.x.org/pub/individual/xcb/libxcb-1.17.0.tar.xz
+# Built statically with FreeLinX clang + LLD + musl.
+DISTINFO_NAME=libxcb-1.17.0
+DISTINFO_ARCHIVE=libxcb-1.17.0.tar.xz
+DISTINFO_URL=https://www.x.org/pub/individual/xcb/libxcb-1.17.0.tar.xz
+DISTINFO_SHA256=599ebf9996710fea71622e6e184f3a8ad5b43d0e5fa8c4e407123c88a59a6d55
