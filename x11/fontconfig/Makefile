@@ -1,0 +1,121 @@
+# FreeLinX/ports - x11/fontconfig : font configuration 2.15.0 (upstream port).
+#
+# Real upstream source:
+#   https://distfiles.macports.org/fontconfig/fontconfig-2.15.0.tar.xz
+#
+# fontconfig is not an xorg package, which is why it is not on www.xorg at all:
+# /pub/individual/ has no fontconfig-*.  This is the upstream release tarball,
+# taken from the Gentoo/MacPorts distfiles mirror.
+#
+# Produces libfontconfig.a.  libXft links against it and lemonbar needs libXft.
+#
+# DEPS_ONLY and LIBRARY_PORT both: a .a is build-time only, and a runtime font
+# cache is machine-specific data, not something to bake into a rootfs template.
+#
+# ---- STATUS: builds up to the final link, then stops on zlib ----------------
+#
+# The three ac_cv_* answers below are load-bearing, and each one was arrived at
+# by reading config.log rather than by guessing:
+#
+# fontconfig detects expat with ac_fn_c_check_func on XML_SetDoctypeDeclHandler.
+# That emits `char XML_SetDoctypeDeclHandler ();`, links -lexpat, and answers
+# "no" here -- so configure dies with
+#
+#     *** expat is required. or try to use --enable-libxml2
+#
+# on a system where the header compiles, the archive links by hand, and
+# pkg-config reports expat 2.6.4.  Answering the probe directly leaves the rest
+# of configure's real probing intact.  Setting LIBS=-lexpat instead is worse:
+# LIBS rides on every link test configure runs, and the first one then fails
+# with "C compiler cannot create executables", which says even less about why.
+#
+# ac_cv_header_xmlparse_h is for the same reason: the probe wants xmlparse.h,
+# the expat 1.x name that 2.x dropped.  devel/expat stages a one-line shim.
+#
+# Two library-name facts that cost most of the time here:
+#
+#   -l must be in LIBS, not LDFLAGS.  A link line is
+# CC $(LDFLAGS) $(OBJECTS) $(LIBS), so a library named in LDFLAGS is listed
+# before the objects it is meant to resolve and is silently dropped.  fc-cache
+# wants -lz and died on "undefined symbol: inflateInit2_" with -L set correctly.
+#
+#   LDFLAGS= passed to ./configure *replaces* the framework's exported LDFLAGS
+# rather than adding to it, so FLX_PROJECT_LDFLAGS never arrives.  Every -L has
+# to be repeated in the inline LDFLAGS, which is why the -L list appears twice
+# in this file.
+#
+# ---- STATUS: needs one more port, json-c ------------------------------------
+#
+# The build now gets all the way to linking and stops at
+#
+#     ld.lld: error: unable to find library -ljson-c
+#
+# fontconfig 2.15 moved its cache format to json-c.  So the dependency chain for
+# a desktop text panel is: expat (done), fontconfig (one port away), libXft
+# (not started), lemonbar (not started) -- for something base does not use.
+# json-c is a small C library and would very likely close this out, but it is
+# the fourth and fifth ports in service of one binary, and that is worth a
+# decision rather than another cycle.
+
+# The -L flags are repeated in the inline LDFLAGS below on purpose.  Passing
+# LDFLAGS= to ./configure *replaces* the framework's exported LDFLAGS rather
+# than adding to it, so FLX_PROJECT_LDFLAGS never reaches this build and the
+# link fails at "unable to find library -lfreetype" with the flags visible
+# in the Makefile the whole time.
+NAME    := fontconfig
+VERSION := 2.15.0
+CATEGORY:= x11
+LICENSE := MIT-like (fontconfig)
+DEPENDENCIES:= freetype2 expat zlib
+BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot), freetype2 (devel/freetype2)
+TARGET  := $(FREELINX_TRIPLE)
+PREFIX  := /
+DEPS_ONLY := yes
+LIBRARY_PORT := yes
+
+# freetype2's install: target stages into the overlay, not build/deps, so this
+# points at where the file actually is: -L.../deps/freetype2/lib holds nothing
+# and the link fails with "unable to find library -lfreetype".
+PREFIX_freetype2 = $(FREELINX_STAGING_ROOT)/usr
+PREFIX_expat = $(FREELINX_BUILD_DIR)/deps/expat
+PREFIX_zlib = $(FREELINX_BUILD_DIR)/deps/zlib
+
+# fontconfig is C; do NOT pull in the C++/libc++ link libraries.
+FLX_PROJECT_CXX :=
+FLX_PROJECT_LIBS :=
+FLX_PROJECT_CPPFLAGS = -I$(PREFIX_freetype2)/include -I$(PREFIX_expat)/include -I$(PREFIX_zlib)/include
+FLX_PROJECT_LDFLAGS  = -L$(PREFIX_freetype2)/lib -L$(PREFIX_expat)/lib -L$(PREFIX_zlib)/lib
+
+include ../../mk/project-port.mk
+
+PROJECT_LIB = $(firstword $(wildcard $(SRC_TREE)/src/libfontconfig.la $(SRC_TREE)/src/.libs/libfontconfig.a))
+BUILD_BIN   = $(PROJECT_LIB)
+
+PKG_PATH = $(FREELINX_BUILD_DIR)/deps/expat/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/freetype2/lib/pkgconfig
+
+PROJECT_CFG_CMDS = \
+	./configure \
+		--prefix=/usr \
+		--host=$(FREELINX_TRIPLE) \
+		--enable-static --disable-shared \
+		--without-docbook \
+		--without-iconv \
+		--disable-docs \
+		PKG_CONFIG_PATH="$(PKG_PATH)" \
+		ac_cv_header_expat_h=yes \
+		ac_cv_header_xmlparse_h=yes \
+		ac_cv_func_XML_SetDoctypeDeclHandler=yes \
+		PKG_CONFIG="/usr/bin/pkg-config" \
+		CC="$(FREELINX_CC)" \
+		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -fPIC -I$(PREFIX_freetype2)/include -I$(PREFIX_expat)/include -I$(PREFIX_zlib)/include" \
+		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(PREFIX_freetype2)/lib -L$(PREFIX_expat)/lib -L$(PREFIX_zlib)/lib"
+
+BUILD_CMDS = \
+	make -j"$(FREELINX_JOBS)" LIBS="-lexpat -lz"
+
+install: all
+	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/fontconfig/lib" "$(FREELINX_BUILD_DIR)/deps/fontconfig/include"
+	@test -n "$(PROJECT_LIB)" || printf '[FreeLinX/ports][error] %s: libfontconfig was not built\n' "$(NAME)" >&2
+	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREELINX_BUILD_DIR)/deps/fontconfig/lib/libfontconfig.a"
+	@cp -R "$(SRC_TREE)/fontconfig/." "$(FREELINX_BUILD_DIR)/deps/fontconfig/include/"
+	@printf '[FreeLinX/ports] staged fontconfig into %s\n' "$(FREELINX_BUILD_DIR)/deps/fontconfig"

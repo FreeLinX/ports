@@ -1,0 +1,12 @@
+# FreeLinX/ports - x11/fontconfig : font configuration 2.15.0.
+#
+# Real upstream source:
+#   https://distfiles.macports.org/fontconfig/fontconfig-2.15.0.tar.xz
+#
+# Not on www.x.org: fontconfig is not an xorg package and is not under
+# /pub/individual/.  This is the Gentoo/MacPorts distfiles mirror of the
+# tarball fontconfig's own release page used to serve.
+DISTINFO_NAME=fontconfig-2.15.0
+DISTINFO_ARCHIVE=fontconfig-2.15.0.tar.xz
+DISTINFO_URL=https://distfiles.macports.org/fontconfig/fontconfig-2.15.0.tar.xz
+DISTINFO_SHA256=63a0658d0e06e0fa886106452b58ef04f21f58202ea02a94c39de0d3335d7c0e

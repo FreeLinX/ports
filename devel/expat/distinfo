@@ -1,0 +1,8 @@
+# FreeLinX/ports - devel/expat : XML parser 2.6.4.
+#
+# Real upstream source:
+#   https://github.com/libexpat/libexpat/releases/download/R_2_6_4/expat-2.6.4.tar.xz
+DISTINFO_NAME=expat-2.6.4
+DISTINFO_ARCHIVE=expat-2.6.4.tar.xz
+DISTINFO_URL=https://github.com/libexpat/libexpat/releases/download/R_2_6_4/expat-2.6.4.tar.xz
+DISTINFO_SHA256=a695629dae047055b37d50a0ff4776d1d45d0a4c842cf4ccee158441f55ff7ee

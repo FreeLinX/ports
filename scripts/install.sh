@@ -114,7 +114,7 @@ for p in "$@"; do
         # delegating unconditionally is correct for both shapes and cannot
         # lose the extra binaries.
         #
-        # FREELINX_ROOT, not FREELINUX_ROOT: the old spelling was a typo, and
+        # FREELINX_ROOT, not FREELINX_ROOT: the old spelling was a typo, and
         # under `set -u` an unbound variable killed the script, so the one path
         # that was supposed to land extra binaries in the rootfs failed with
         # "unbound variable" for every multi-binary port.

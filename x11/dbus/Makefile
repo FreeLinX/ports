@@ -75,7 +75,7 @@ include ../../mk/project-port.mk
 # -Dc_args/-Dcpp_*-args carry $(FREELINX_RESOURCE_FLAGS): meson invokes the
 # compiler directly rather than through a configure script, so nothing else
 # puts -resource-dir on the line and the link picks up the host's GCC-built
-# compiler-rt.  $(FREELINUX_CXX_FLAGS) is -nostdinc++ plus the sysroot's libc++
+# compiler-rt.  $(FREELINX_CXX_FLAGS) is -nostdinc++ plus the sysroot's libc++
 # include directory, which keeps the host's /usr/include/c++ out; without it
 # clang++ falls back to libstdc++ and dbus comes out GCC-built.
 # --rtlib=compiler-rt is not optional here, and its absence is invisible.
@@ -121,7 +121,7 @@ PROJECT_CFG_CMDS = \
 		-Dtools=true \
 		-Dmessage_bus=true \
 		-Dc_args="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) $(FREELINX_RESOURCE_FLAGS)" \
-		-Dcpp_args="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) $(FREELINX_RESOURCE_FLAGS) -stdlib=libc++ $(FREELINUX_CXX_FLAGS)" \
+		-Dcpp_args="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) $(FREELINX_RESOURCE_FLAGS) -stdlib=libc++ $(FREELINX_CXX_FLAGS)" \
 		-Dc_link_args="$(FLX_LINK_ARGS)" \
 		-Dcpp_link_args="$(FLX_LINK_ARGS)"
 
