@@ -194,6 +194,31 @@ do-prepare:
 # ---------------------------------------------------------------------------
 STRIP_CMD ?=
 
+ifneq ($(strip $(STAGE_TREE)),)
+
+# A tree port, not a binary port.  base/tzdata and base/keymaps compile no
+# source: they turn downloaded data into a directory of files.  Without this
+# branch the framework tries to link the empty $(PORT_SRCS) and reports
+# "undefined symbol: main" from crt1.o, which is a data port being described
+# as an executable.
+#
+# The stamp is what the rule produces, rather than the directory itself: a
+# directory's mtime changes whenever anything inside it is written, so making
+# the tree the target means make can never decide it is up to date and
+# re-runs zic on every build.
+ZONE_STAMP = $(BUILD_TREE).stamp
+
+$(ZONE_STAMP): do-prepare
+	@rm -f "$@"
+
+# The port's own rule hangs the work off $(BUILD_TREE), so that is what
+# do-build has to wait for.  Waiting on the stamp instead would build nothing
+# at all and still report success.
+do-build: $(BUILD_TREE)
+	@printf '[FreeLinX/ports] built: %s\n' "$(BUILD_TREE)"
+
+else
+
 $(BUILD_BIN): do-prepare
 	@set -e; \
 	mkdir -p "$(OBJ_DIR)"; \
@@ -219,6 +244,8 @@ $(BUILD_BIN): do-prepare
 .PHONY: do-build
 do-build: $(BUILD_BIN)
 	@printf '[FreeLinX/ports] built: %s\n' "$(BUILD_BIN)"
+
+endif # STAGE_TREE
 
 # ncurses from the deps tree (host-built): -I include/ncursesw for
 # <curses.h>/<term.h>/<term_private.h>, and static link set for CU_* tools.

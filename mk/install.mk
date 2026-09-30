@@ -43,6 +43,24 @@ INSTALL_RELPATH?=bin/$(INSTALL_BIN)
 # Default staged binary name within bin/ (a port may override, e.g. INSTALL_BIN=sh).
 INSTALL_BIN?=$(NAME)
 
+# ---------------------------------------------------------------------------
+# A port that produces a directory instead of a single file.
+#
+# Most ports build one binary, so staging is a copy of $(BUILD_BIN) to
+# $(STAGE_FILE).  That is wrong for a data port: base/tzdata and
+# base/keymaps are trees of hundreds of files, and copying one of them to a
+# file path would stage a file where a directory belongs.  A tree port sets
+# STAGE_TREE to the directory it built, and the rules below copy the whole
+# tree to $(INSTALL_RELPATH) instead.
+#
+# The opt-in is the existence of STAGE_TREE, not a flag, so a port that does
+# not know about this keeps the single-file behaviour with no change.
+#
+# Recursive (=) because a tree port sets it after including base-port.mk, and
+# ':=' would freeze an empty value at parse time.
+# ---------------------------------------------------------------------------
+STAGE_TREE?=
+
 # The rootfs source template that consumes staged output (default: src/rootfs).
 ROOTFS_DIR?=$(FREELINX_ROOTFS_DIR)
 
@@ -55,11 +73,31 @@ ROOTFS_FILE=$(ROOTFS_DIR)/$(INSTALL_RELPATH)
 # ---------------------------------------------------------------------------
 # Rule: stage an already-built binary into the staging overlay. This only copies;
 # it never rebuilds, so it never claims success for a compile that did not happen.
+#
+# A tree port stages $(STAGE_TREE) into $(STAGE_FILE) as a directory, and stages
+# nothing at all when it has no tree, so the two cannot both fire for one port.
 # ---------------------------------------------------------------------------
+ifneq ($(strip $(STAGE_TREE)),)
+
+# The tree is copied, not moved: build/ is the port's own output and deleting
+# it here would make the next build redo work that has not changed.  cp -a
+# because the mode and the hard links inside a zoneinfo or keymap tree are
+# part of the data, not packaging noise: zoneinfo hard-links the zones that
+# have not changed, and losing the links doubles it.
+$(STAGE_FILE): $(STAGE_TREE)
+	@printf '[FreeLinX/ports] staging %s tree -> %s\n' "$(NAME)" "$@"
+	$(MKDIR) -p $(dir $@)
+	rm -rf $@
+	cp -a $(STAGE_TREE) $@
+
+else
+
 $(STAGE_FILE): $(BUILD_BIN)
 	@printf '[FreeLinX/ports] staging %s -> %s\n' "$(NAME)" "$@"
 	$(MKDIR) -p $(dir $@)
 	$(INSTALL) -m 755 $(BUILD_BIN) $@
+
+endif
 
 # ---------------------------------------------------------------------------
 # Stage the port's aliases as symlinks beside the staged binary.
@@ -130,7 +168,16 @@ check-install-rootfs:
 install-rootfs: check-install-rootfs $(STAGE_FILE) install-aliases
 	@printf '[FreeLinX/ports] installing %s into rootfs %s\n' "$(NAME)" "$(ROOTFS_FILE)"
 	$(MKDIR) -p $(dir $(ROOTFS_FILE))
+ifeq ($(strip $(STAGE_TREE)),)
 	$(INSTALL) -m 755 $(STAGE_FILE) $(ROOTFS_FILE)
+else
+	# A tree, so it is replaced as a directory.  rm -rf first: copying over
+	# the top of an existing tree leaves files that the new build no longer
+	# produces, and a stale zone left in zoneinfo is a zone the system will
+	# happily read and get wrong.
+	rm -rf $(ROOTFS_FILE)
+	cp -a $(STAGE_FILE) $(ROOTFS_FILE)
+endif
 	@if [ -n "$(INSTALL_ALIASES)" ]; then \
 	    set -e; \
 	    d="$(dir $(ROOTFS_FILE))"; \

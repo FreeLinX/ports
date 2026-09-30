@@ -73,14 +73,26 @@ for p in "$@"; do
 
     flx_info "Installing $p to staging overlay: $_stage"
 
-    if [ "$INSTALL_TO_ROOTFS" -eq 1 ] && [ ! -d "$_stage" ]; then
+    if [ "$INSTALL_TO_ROOTFS" -eq 1 ]; then
         # Validate the configured rootfs destination once, before any copy.
         _rootfs_base=$(flx_validate_rootfs_dir "$FREELINX_ROOTFS_DIR") \
             || exit 1
         _rootfs="$_rootfs_base/$_relpath"
-        flx_info "  copying into FreeLinX/src rootfs -> $_rootfs"
-        mkdir -p "$(dirname "$_rootfs")"
-        cp -f "$_stage" "$_rootfs"
+
+        if [ -d "$_stage" ]; then
+            # A tree port: the copy has to be recursive and has to replace the
+            # destination rather than merge into it.  Delegated to the
+            # Makefile's own install-rootfs target, which knows how to do both.
+            # The old test here was `[ ! -d "$_stage" ]', so a tree port was
+            # skipped silently: it staged correctly and then never landed in
+            # the rootfs, with no error anywhere.
+            ( cd "$_dir" && make FREELINX_ROOT="$FREELINX_ROOT" install-rootfs ) || \
+                flx_die "$p: install-rootfs failed (see above)"
+        else
+            flx_info "  copying into FreeLinX/src rootfs -> $_rootfs"
+            mkdir -p "$(dirname "$_rootfs")"
+            cp -f "$_stage" "$_rootfs"
+        fi
     fi
 
     # Optional per-port front-ends/aliases (space-separated names, e.g.
