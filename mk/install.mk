@@ -70,7 +70,13 @@ STAGE_FILE=$(STAGE_ROOT)/$(INSTALL_RELPATH)
 # What the generic install targets depend on.  Empty for a library port: those
 # set PROJECT_LIB rather than BUILD_BIN and stage themselves, so there is no
 # single staged file for the framework to name.
-STAGE_DEP := $(if $(or $(strip $(STAGE_TREE)),$(strip $(BUILD_BIN))),$(STAGE_FILE))
+# Recursive (=), not immediate (:=), and the ordering is the whole reason:
+# install.mk is read from project-port.mk near the top of a port Makefile,
+# long before the port assigns PROJECT_BIN/BUILD_BIN lower down.  With := this
+# expanded to the empty string every time, so STAGE_DEP was empty for *every*
+# port and the dependency was silently dropped -- dbus then failed with "No
+# rule to make target staging/usr/bin/dbus-daemon, needed by install".
+STAGE_DEP = $(if $(or $(strip $(STAGE_TREE)),$(strip $(BUILD_BIN))),$(STAGE_FILE))
 
 # Full path of the same artifact once copied into the FreeLinX/src rootfs.
 ROOTFS_FILE=$(ROOTFS_DIR)/$(INSTALL_RELPATH)
@@ -97,23 +103,26 @@ $(STAGE_FILE): $(STAGE_TREE)
 
 else
 
-# Only when the port has a single binary to stage.  A library port sets
-# PROJECT_LIB (freetype2, libxml2, pcre2) instead of BUILD_BIN and stages
-# itself in its own install: recipe.  Without this guard the rule below still
-# exists for it, with an empty $(BUILD_BIN), so make runs
+# The rule is defined unconditionally.  install.mk is read *before* the port
+# assigns BUILD_BIN lower down in its Makefile, so a parse-time
+# `ifneq ($(strip $(BUILD_BIN)),)' guard here tested an empty variable, never
+# fired, and no rule existed at all: dbus failed with "No rule to make target
+# staging/usr/bin/dbus-daemon, needed by install".
 #
-#     install -m 755  staging/usr/lib
-#
-# and fails with "missing destination file operand".  INSTALL_RELPATH is still
-# set on those ports, so STAGE_FILE is a real path and the rule looks valid.
-ifneq ($(strip $(BUILD_BIN)),)
-
+# The check therefore belongs in the recipe, where $(BUILD_BIN) is bound by
+# then.  A library port (freetype2, libxml2, pcre2) sets PROJECT_LIB instead and
+# stages itself in its own install: recipe; STAGE_DEP is empty for it, so this
+# recipe is not reached.  If it is reached by accident, say so, rather than
+# running `install -m 755  staging/usr/lib` and failing with "missing
+# destination file operand".
 $(STAGE_FILE): $(BUILD_BIN)
+	@if [ -z "$(BUILD_BIN)" ]; then \
+		printf '[FreeLinX/ports][error] %s: BUILD_BIN is empty; a library port must stage itself in its own install: target\n' "$(NAME)" >&2; \
+		exit 1; \
+	fi
 	@printf '[FreeLinX/ports] staging %s -> %s\n' "$(NAME)" "$@"
 	$(MKDIR) -p $(dir $@)
 	$(INSTALL) -m 755 $(BUILD_BIN) $@
-
-endif
 
 endif
 

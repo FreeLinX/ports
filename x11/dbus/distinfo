@@ -1,0 +1,11 @@
+# FreeLinX/ports - x11/dbus : D-Bus message bus 1.16.2.
+#
+# Real upstream source, from dbus's own release server rather than a GitHub
+# mirror: github.com/freedesktop/dbus and the GitLab archive URLs both answer
+# 404 now, and only dbus.freedesktop.org still serves the release tarballs.
+#   https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz
+# Built statically with FreeLinX clang + LLD + musl + libc++.
+DISTINFO_NAME=dbus-1.16.2
+DISTINFO_ARCHIVE=dbus-1.16.2.tar.xz
+DISTINFO_URL=https://dbus.freedesktop.org/releases/dbus/dbus-1.16.2.tar.xz
+DISTINFO_SHA256=0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2
