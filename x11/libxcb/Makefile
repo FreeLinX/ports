@@ -100,8 +100,27 @@ install: all
 	# because PKG_CHECK_MODULES(XCB_SHM, xcb-shm) resolved to the header-only
 	# module and gave it no -l at all.  libxcb sorts before xcb-proto, so these
 	# win.
+	# Only the extensions that were actually built.  libxcb generates a
+	# module for every extension it knows, not just the enabled ones, and four
+	# of them name archives this configuration does not produce:
+	#
+	#   Libs: -L${libdir} -lxcb-ge
+	#   Libs: -L${libdir} -lxcb-xevie
+	#   Libs: -L${libdir} -lxcb-xprint
+	#   Libs: -L${libdir} -lxcb-xselinux
+	#
+	# Staging those is worse than leaving them out.  A consumer asking for xcb-ge
+	# is then told the extension exists, hands the linker -lxcb-ge, and gets
+	#
+	#   ld.lld: error: unable to find library -lxcb-ge
+	#
+	# where an unstaged module would have said Package 'xcb-ge' not found.  The
+	# test is whether the archive is in .libs/ at all, so this stays right when
+	# the extension list changes.
 	@for pc in "$(SRC_TREE)"/xcb-*.pc; do \
-		test ! -f "$$pc" || $(INSTALL) -m 644 "$$pc" "$(FREELINX_BUILD_DIR)/deps/libxcb/lib/pkgconfig/"; \
+		m=$$(basename "$$pc" .pc); \
+		test ! -f "$$pc" || test -f "$(SRC_TREE)/src/.libs/lib$$m.a" || continue; \
+		$(INSTALL) -m 644 "$$pc" "$(FREELINX_BUILD_DIR)/deps/libxcb/lib/pkgconfig/"; \
 	done
 	# The extension archives, staged beside libxcb.a.  These are what back the
 	# randr.h and xinerama.h copied just above; without them a consumer that

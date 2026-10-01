@@ -52,7 +52,27 @@ unset PKG_CONFIG_PATH
 bad=0
 
 # --- 1. generated but not staged ------------------------------------------
-printf 'generated .pc files that are not staged:\n'
+# Only a gap when the module describes a library this tree actually staged.
+#
+# The distinction matters, and getting it wrong in either direction is wrong.
+# A package generates a .pc for every variant it can build, not just the one it
+# was built as, so libXaw 1.0.16 emits
+#
+#   Libs: -L${libdir} -lXaw6
+#
+# next to xaw7.pc's -lXaw7, and the tree has libXaw7.a and no libXaw6.a.  Staging
+# xaw6.pc would be worse than not staging it: a consumer asking pkg-config for
+# xaw6 would be told about a library, hand the linker -lXaw6, and get
+#
+#   ld.lld: error: unable to find library -lXaw6
+#
+# instead of the honest "Package 'xaw6' not found".  pcre2's libpcre2-16.pc and
+# libpcre2-32.pc, libevent's libevent_openssl.pc and libXmu's xmuu.pc are the same
+# shape: variants this tree did not build.
+#
+# So the test is not "is the file staged" but "does its Libs: name something in
+# the tree".
+printf 'generated .pc files that are not staged but describe a staged library:\n'
 for d in "$DEPS"/*/; do
     name=$(basename "$d")
     staged=$(ls "$d"lib/pkgconfig 2>/dev/null | sort)
@@ -65,11 +85,47 @@ for d in "$DEPS"/*/; do
         case "$pc" in
             *-uninstalled.pc) continue ;;
         esac
+        src=$(find "build/work/$name" -maxdepth 3 -name "$pc" -print -quit)
+        [ -n "$src" ] || continue
+        have=0
+        for lib in $(sed -n '/^Libs/{s/^Libs[^:=]*[:=][ ]*//;p;}' "$src" | tr ' \t' '\n\n' \
+                     | sed -n 's|^-l||p'); do
+            find "$DEPS" -name "lib$lib.a" -print -quit | grep -q . && have=1
+        done
+        [ "$have" -eq 1 ] || continue
         printf '  %-16s %s\n' "$name" "$pc"
         bad=1
     done
 done
 [ "$bad" -eq 0 ] && printf '  (none)\n'
+
+# --- 1b. generated variants this tree did not build --------------------------
+# Listed, not an error.  It is the difference between a port that made a choice
+# and a port that forgot, and it is the list to read when a consumer says
+# "Package 'xaw6' not found".
+printf 'generated .pc files for variants this tree did not build (not staged):\n'
+variants=0
+for d in "$DEPS"/*/; do
+    name=$(basename "$d")
+    staged=$(ls "$d"lib/pkgconfig 2>/dev/null | sort)
+    for pc in $(find "build/work/$name" -maxdepth 2 -name '*.pc' -printf '%f\n' 2>/dev/null | sort -u); do
+        printf '%s\n' "$staged" | grep -qx "$pc" && continue
+        find "$DEPS" -path "*/lib/pkgconfig/$pc" -print -quit | grep -q . && continue
+        case "$pc" in
+            *-uninstalled.pc) continue ;;
+        esac
+        src=$(find "build/work/$name" -maxdepth 3 -name "$pc" -print -quit)
+        [ -n "$src" ] || continue
+        for lib in $(sed -n '/^Libs/{s/^Libs[^:=]*[:=][ ]*//;p;}' "$src" | tr ' \t' '\n\n' \
+                     | sed -n 's|^-l||p'); do
+            find "$DEPS" -name "lib$lib.a" -print -quit | grep -q . && continue 2
+        done
+        printf '  %-16s %s -> %s\n' "$name" "$pc" \
+            "$(sed -n '/^Libs/{s/^Libs[^:=]*[:=][ ]*//;p;}' "$src" | head -1 | tr -d '"')"
+        variants=$((variants + 1))
+    done
+done
+[ "$variants" -eq 0 ] && printf '  (none)\n'
 
 # --- 2. staged but unresolvable -------------------------------------------
 printf 'staged .pc files whose requirements do not resolve in the tree:\n'
@@ -108,5 +164,32 @@ for pc in $(find "$DEPS" -name '*.pc' -path '*/lib/pkgconfig/*' | sort); do
     bad=1
 done
 [ "$badprefix" -eq 0 ] && printf '  (none)\n'
+
+# --- 4. a staged .pc naming a library that is not in the tree -----------------
+# The mirror of check 1.  A staged module whose Libs: names an archive nobody
+# built passes checks 2 and 3 and then fails at link time:
+#
+#   ld.lld: error: unable to find library -lXaw7
+#
+# with nothing in the module's own file to explain it.  Check 1 asks whether an
+# unstaged file should have been staged; this asks whether a staged one lies.
+#
+# The musl sysroot's own libraries are exempt: -lc, -lm, -lpthread and the rest
+# are not in build/deps and never will be, and pkg-config's Libs.private for
+# almost every module here names some of them.
+printf 'staged .pc files whose Libs name a library that is not in the tree:\n'
+SYSROOT=${FREELINX_SYSROOT:-}
+nolib=0
+for pc in $(find "$DEPS" -name '*.pc' -path '*/lib/pkgconfig/*' | sort); do
+    for lib in $(sed -n '/^Libs/{s/^Libs[^:=]*[:=][ ]*//;p;}' "$pc" | tr ' \t' '\n\n' \
+                 | sed -n 's|^-l||p' | sort -u); do
+        find "$DEPS" -name "lib$lib.a" -print -quit | grep -q . && continue
+        [ -n "$SYSROOT" ] && [ -f "$SYSROOT/lib/lib$lib.a" ] && continue
+        printf '  %-46s -l%s\n' "${pc#$DEPS/}" "$lib"
+        nolib=1
+        bad=1
+    done
+done
+[ "$nolib" -eq 0 ] && printf '  (none)\n'
 
 exit "$bad"

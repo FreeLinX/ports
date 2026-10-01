@@ -26,6 +26,10 @@ XORG_LIB_DEPS := libX11 libXext libXt libXmu libXpm libICE libSM
 XORG_LIB_CPPFLAGS += -I$(PREFIX_libX11)/include -I$(PREFIX_libX11)/include/X11
 
 XORG_PC_NAME := xaw7
+# xaw6.pc names -lXaw6, and libXaw 1.0.16 does build libXaw6.a alongside
+# libXaw7.a -- both are staged in src/.libs/, which is why XORG_EXTRA_LIBS
+# above pulls the Xaw6 one in.  Both modules are real, so both are staged.
+XORG_PC_ALIASES := xaw6
 
 # Two archives, and the one consumers want is the second: libXaw7.pc, the
 # X11R6-then-R7 widget set, is what PKG_CHECK_MODULES names.

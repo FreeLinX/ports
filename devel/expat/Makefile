@@ -32,6 +32,7 @@ BUILD_BIN   = $(PROJECT_LIB)
 
 PROJECT_CFG_CMDS = \
 	cmake -S "$(SRC_TREE)" -B "$(SRC_TREE)/build" \
+		-DCMAKE_INSTALL_PREFIX=$(FREELINX_BUILD_DIR)/deps/expat \
 		-DCMAKE_SYSTEM_NAME=Linux \
 		-DCMAKE_SYSTEM_PROCESSOR=x86_64 \
 		-DCMAKE_C_COMPILER="$(FREELINX_CC)" \
@@ -65,6 +66,9 @@ install: all
 	@# expat.pc, because fontconfig finds expat with pkg-config and not with a
 	@# -I/-L pair: its configure stops at "*** expat is required. or try to use
 	@# --enable-libxml2" when the .pc is not on PKG_CONFIG_PATH.
+	@# CMAKE_INSTALL_PREFIX is what expat.pc says, and the default
+	@# /usr/local makes pkg-config drop its "Cflags: -I/usr/local/include" as a
+	@# system path, so the module hands a consumer no include flags at all.
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/expat/lib/pkgconfig"
 	@$(INSTALL) -m 644 "$(SRC_TREE)/build/NoConfig/expat.pc" "$(FREELINX_BUILD_DIR)/deps/expat/lib/pkgconfig/"
 	# xmlparse.h, the expat 1.x header name.  expat 2.x dropped it: 2.6.4 ships

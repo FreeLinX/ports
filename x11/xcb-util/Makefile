@@ -22,6 +22,15 @@ LIBRARY_PORT := yes
 # The archive is -lxcb-util, not -lxcb-util-anything: the port name and the
 # -l name agree here, unlike the other four xcb-util packages.
 XORG_ARCHIVE := libxcb-util
+# xcb-util generates one module per source file, all three naming the same
+# archive:
+#
+#   Libs: -L${libdir} -lxcb-util
+#
+# xcb-util.pc is the one a consumer names, and xcb-atom.pc, xcb-aux.pc and
+# xcb-event.pc are the same library described three more ways.  All four are
+# staged: unlike libXaw's xaw6.pc there is no variant here that was not built.
+XORG_PC_ALIASES := xcb-atom xcb-aux xcb-event
 
 XORG_LIB_DEPS := libxcb
 

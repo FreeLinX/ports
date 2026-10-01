@@ -1,0 +1,34 @@
+--- a/configure
+# Reentrant ncurses names its library libncursestw.a (base/ncurses) and readline 8.2.13 has
+# never heard of that name: its chain stops at libncurses and the else arm
+# guesses -lncurses, which is not a library in this tree.  Without the arm
+# below, bash_cv_termcap_lib=libncursestw silently becomes -lncurses and
+# readline.pc records
+#
+#   Requires.private: ncurses
+#
+# for an archive nobody built.  With --without-curses, which is what this port
+# used to pass, there is no detection at all and it records
+#
+#   Requires.private: termcap
+#
+# for one that does not exist either.
++++ b/configure
+@@ -7308,6 +7308,9 @@
+ elif test $bash_cv_termcap_lib = libc; then
+ TERMCAP_LIB=
+ TERMCAP_DEP=
++elif test $bash_cv_termcap_lib = libncursestw; then
++TERMCAP_LIB=-lncursestw
++TERMCAP_DEP=
+ else
+ # we assume ncurses is installed somewhere the linker can find it
+ TERMCAP_LIB=-lncurses
+@@ -7340,6 +7343,7 @@
+ -ltinfo)  TERMCAP_PKG_CONFIG_LIB=tinfo ;;
+ -lcurses) TERMCAP_PKG_CONFIG_LIB=ncurses ;;
+ -lncurses) TERMCAP_PKG_CONFIG_LIB=ncurses ;;
++-lncursestw) TERMCAP_PKG_CONFIG_LIB=ncursestw ;;
+ -ltermcap) TERMCAP_PKG_CONFIG_LIB=termcap ;;
+ *) TERMCAP_PKG_CONFIG_LIB=termcap ;;
+ esac
