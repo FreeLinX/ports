@@ -17,7 +17,20 @@
 set -u
 
 HERE=$(cd "$(dirname "$0")" && pwd)
-FLXPART=${FLXPART:-/tmp/fp}
+# The binary beside this script, not /tmp/fp.  The old default named a path
+# nothing in the tree ever produced, so every case ran /bin/sh: /tmp/fp and
+# came back 127 -- "command not found" -- and 33 of 39 checks failed on
+# that alone:
+#
+#   FAIL exit status
+#         want [0]
+#         got  [127]
+#   FAIL no complaints
+#         want []
+#         got  [test-flxpart.sh: line 45: /tmp/fp: No such file or directory]
+#
+# FLXPART still overrides it, so a test can point at a freshly built binary.
+FLXPART=${FLXPART:-$HERE/flxpart}
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
