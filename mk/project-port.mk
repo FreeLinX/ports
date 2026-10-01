@@ -210,7 +210,23 @@ do-build: do-config
 # install.mk's `$(STAGE_FILE): $(BUILD_BIN)` drives do-build here.  The
 # no-op recipe means the binary itself is produced by do-build (BUILD_CMDS),
 # not by a per-object compile-and-link rule in this framework.
-$(PROJECT_BIN): do-build
+# $$(PROJECT_BIN), not $(PROJECT_BIN), for the reason install.mk documents at
+# length: a target list is expanded when the rule is read, and PROJECT_BIN is
+# `?=` empty until the port sets it after its include.  So the rule was
+# registered against the empty string and make dropped it without a word:
+#
+#   $ make -p install | grep -E '^: do-build'
+#   (nothing)
+#
+# and installing the port then failed with
+#
+#   make: *** No rule to make target
+#       '.../build/work/mdevd/mdevd', needed by '.../staging/sbin/mdevd'
+#
+# .SECONDEXPANSION, set in mk/install.mk, defers the target to the point where
+# make needs it.  The recipe needs no change: a recipe is expanded when it runs,
+# by which time PROJECT_BIN is bound.
+$$(PROJECT_BIN): do-build
 	@test -f "$(PROJECT_BIN)" || { \
 		printf '[FreeLinX/ports][error] %s did not produce %s\n' "$(NAME)" "$(PROJECT_BIN)"; \
 		exit 1; }

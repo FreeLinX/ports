@@ -49,6 +49,38 @@ INSTALL_ALIASES?=
 # install rule names is invisible from both ends.
 INSTALL_EXTRA_RELPATHS?=
 
+# stage-extra: the hook for a port that builds more than one file.
+#
+# A port used to override `install:` wholesale to stage its other binaries, and
+# overriding `install:` loses do-build, check-portable, check-toolchain and the
+# alias loop, so `make install` on such a port no longer built anything --
+# sysutils/dosfstools and sysutils/e2fsprogs both did, and both then failed on
+#
+#   make: *** No rule to make target '.../src/mkfs.fat'
+#
+# because nothing had run do-build to produce it.  Overriding install-rootfs: to
+# match is worse still: it earns
+#
+#   Makefile:52: warning: overriding recipe for target 'install-rootfs'
+#   mk/install.mk:282: warning: ignoring old recipe for target 'install-rootfs'
+#
+# which is make telling the port that the rule it thinks it installed is not the
+# rule that runs.
+#
+# So a multi-file port stages in stage-extra and lists the paths in
+# INSTALL_EXTRA_RELPATHS, and install-rootfs copies them.  The empty recipe here
+# is overridden by the port; the prerequisite is what matters.
+# No recipe here on purpose.  An empty `@:` would make every port that stages
+# extra files earn
+#
+#   Makefile:49: warning: overriding recipe for target 'stage-extra'
+#
+# which is the same class of noise as the install-rootfs: warnings this replaced,
+# just moved.  A rule with no recipe is a prerequisite declaration, and the port's
+# recipe is then the only one.
+.PHONY: stage-extra
+stage-extra:
+
 # Rootfs-relative destination for a port's staged output. Ports override this
 # when they install into a different location, e.g. INSTALL_RELPATH:=bin/sh.
 # Recursive (=) so $(INSTALL_BIN) -- defined after include -- resolves lazily.

@@ -14,6 +14,8 @@ PREFIX  := /
 
 INSTALL_BIN:= mkfs.fat
 INSTALL_RELPATH:= sbin/mkfs.fat
+# The other binaries, staged by stage-extra and copied by install-rootfs.
+INSTALL_EXTRA_RELPATHS:= sbin/fsck.fat sbin/fatlabel
 
 FLX_PROJECT_LIBS :=
 FLX_PROJECT_CPPFLAGS =
@@ -22,8 +24,7 @@ FLX_PROJECT_LDFLAGS  =
 include ../../mk/project-port.mk
 
 SRC_TREE = $(FREELINX_BUILD_DIR)/work/$(NAME)/dosfstools-$(VERSION)
-BUILD_BIN = $(SRC_TREE)/src/mkfs.fat
-
+PROJECT_BIN = $(SRC_TREE)/src/mkfs.fat
 PROJECT_CFG_CMDS = \
 	./configure \
 		--prefix=/ \
@@ -38,7 +39,13 @@ BUILD_CMDS = \
 	make -j"$(FREELINX_JOBS)"
 
 # dosfstools produces 3 binaries: mkfs.fat, fsck.fat, fatlabel
-install: $(STAGE_FILE)
+# Stages the other two binaries dosfstools builds.  This used to be an
+# `install:` override, which loses do-build and made `make install`
+# fail with "No rule to make target '.../src/mkfs.fat'" -- nothing had
+# built anything.  An `install-rootfs:` override alongside it earned two
+# make warnings about overriding the rule that actually runs.
+.PHONY: stage-extra
+stage-extra:
 	@if [ -f "$(SRC_TREE)/src/fsck.fat" ]; then \
 		mkdir -p "$(STAGE_ROOT)/sbin"; \
 		install -m 755 "$(SRC_TREE)/src/fsck.fat" "$(STAGE_ROOT)/sbin/fsck.fat"; \
@@ -46,16 +53,4 @@ install: $(STAGE_FILE)
 	@if [ -f "$(SRC_TREE)/src/fatlabel" ]; then \
 		mkdir -p "$(STAGE_ROOT)/sbin"; \
 		install -m 755 "$(SRC_TREE)/src/fatlabel" "$(STAGE_ROOT)/sbin/fatlabel"; \
-	fi
-
-install-rootfs: check-install-rootfs $(STAGE_FILE)
-	$(MKDIR) -p $(dir $(ROOTFS_FILE))
-	$(INSTALL) -m 755 $(STAGE_FILE) $(ROOTFS_FILE)
-	@if [ -f "$(SRC_TREE)/src/fsck.fat" ]; then \
-		mkdir -p "$(ROOTFS_DIR)/sbin"; \
-		install -m 755 "$(SRC_TREE)/src/fsck.fat" "$(ROOTFS_DIR)/sbin/fsck.fat"; \
-	fi
-	@if [ -f "$(SRC_TREE)/src/fatlabel" ]; then \
-		mkdir -p "$(ROOTFS_DIR)/sbin"; \
-		install -m 755 "$(SRC_TREE)/src/fatlabel" "$(ROOTFS_DIR)/sbin/fatlabel"; \
 	fi

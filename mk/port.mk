@@ -156,7 +156,7 @@ all: check-portable check-toolchain do-build
 # check-portable and check-toolchain come along because installing a port that
 # cannot be built portably, or on a host without the toolchain, should say so
 # rather than produce a staging tree that lies about it.
-install: check-portable check-toolchain do-build $(STAGE_DEP) install-aliases
+install: check-portable check-toolchain do-build $(STAGE_DEP) install-aliases stage-extra
 
 clean:
 	@true
