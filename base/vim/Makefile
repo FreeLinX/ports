@@ -52,7 +52,7 @@ BUILD_BIN   = $(PROJECT_BIN)
 PROJECT_CFG_CMDS = \
 	./configure \
 		--prefix=/ \
-		--with-tlib=ncursesw \
+		--with-tlib=ncursestw \
 		--with-features=normal \
 		--enable-multibyte \
 		--disable-gui --without-x --without-wayland \

@@ -1,5 +1,17 @@
 # FreeLinX/ports - www/w3m : upstream source reference.
-DISTINFO_NAME=w3m-0.5.3
-DISTINFO_ARCHIVE=w3m-sf.tar.gz
-DISTINFO_URL=https://sourceforge.net/projects/w3m/files/w3m/w3m-0.5.3/w3m-0.5.3.tar.gz/download
-DISTINFO_SHA256=e994d263f2fd2c22febfbe45103526e00145a7674a0fda79c822b97c2770a9e3
+#
+# The GitHub tag archive, not the SourceForge release tarball: SourceForge's
+# /download URL answers with a 16-byte redirect stub rather than the tarball, and
+# the sha256 this port used to record for the release tarball matched nothing
+# that URL serves.  The tag archive is the same 0.5.3 tree with the post-release
+# fixes applied.
+#
+# Real upstream source:
+#   https://github.com/tats/w3m/archive/refs/tags/v0.5.3%2Bgit20230121.tar.gz
+#
+# Development repository:
+#   https://github.com/tats/w3m
+DISTINFO_NAME=w3m-0.5.3-git20230121
+DISTINFO_ARCHIVE=w3m-0.5.3-git20230121.tar.gz
+DISTINFO_URL=https://github.com/tats/w3m/archive/refs/tags/v0.5.3%2Bgit20230121.tar.gz
+DISTINFO_SHA256=fdc7d55d3c0104db26aa9759db34f37e5eee03f44c868796e3bbfb8935c96e39

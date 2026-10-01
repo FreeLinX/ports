@@ -59,21 +59,99 @@ FLX_HOST_RANLIB  ?= /usr/bin/ranlib
 # generated into $(NCURSES_PREFIX)/share/terminfo by tic at install time
 # (--with-progs builds the terminfo compiler tic, which Vim reads via
 # -lncursesw) for manual staging into the rootfs later.
+# --enable-reentrant is not optional here, and the default is off.  ncurses 6.5's
+# configure says
+#
+#   if test "${enable_reentrant+set}" = set; then
+#     with_reentrant=$enableval
+#   else
+#     with_reentrant=no
+#   fi
+#
+# and only turns it on by itself for --with-pthreads.  Non-reentrant ncurses
+# defines the two global integers
+#
+#   $ nm --defined-only deps/ncurses/lib/libncursesw.a | grep -E ' B (LINES|COLS)$'
+#   0000000000000100 B LINES
+#   0000000000000104 B COLS
+#
+# so every consumer that owns those names collides with it at link time:
+#
+#   ld.lld: error: duplicate symbol: LINES
+#   ld.lld: error: duplicate symbol: COLS
+#
+# www/w3m is one: terms.c says
+#
+#   int LINES, COLS;
+#
+# and drives them itself from the terminfo `lines' and `cols' capabilities.
+# Reentrant ncurses renames its copies to lines_reentrant and cols_reentrant, the
+# library stops defining the plain names, and the consumer's own definition is
+# the only one left.  Reentrant is also what ncurses recommends; the default here
+# is only a default.
+#
+# Reentrant ncurses renames its libraries as well as its globals, and the name is
+# libncursestw.a rather than libncursesw.a.  configure.in says so:
+#
+#   # when not using weak symbols but with_reentrant,
+#   # add 't' to the library suffix on all platforms
+#
+# --disable-lib-suffixes turns that off, but it also turns off the 'w' from
+# --enable-widec on the next line of the same block, so the archive becomes
+# libncurses.a and the wide one is lost.  There is no switch for w-without-t, so
+# the name is libncursestw.a and PROJECT_BIN, base/vim's --with-tlib and
+# www/w3m's --with-termlib all say that.
+# --datarootdir, and not --with-terminfo, for the database path that ends up in
+# every program linking this library.  configure.in has
+#
+#   if test "$use_database" = no ; then
+#       TERMINFO="${datadir}/terminfo"
+#
+# and ncurses 6.5 has no --with-terminfo option at all: naming one is silently
+# ignored and TERMINFO comes from datadir, which is ${datarootdir}.  So
+# --prefix alone puts the build tree in it -- include/ncurses_cfg.h came out with
+#
+#   #define TERMINFO "/home/kanan/FreeLinX/ports/build/deps/ncurses/share/terminfo"
+#
+# --datarootdir moves datadir to /usr/share while leaving libdir and includedir
+# under $prefix, which is what keeps install.includes and install.libs writing
+# inside the tree.
+#
+# --with-terminfo-dirs is the *list* ncurses searches, and is a real option.
+# it, and it used to name this build tree:
+#
+#   --with-terminfo-dirs="$(NCURSES_PREFIX)/share/terminfo:/usr/share/terminfo"
+#
+# so /home/kanan/FreeLinX/ports/build/deps/ncurses/share/terminfo ended up in the
+# strings of the shipped usr/bin/w3m:
+#
+#   $ strings -a rootfs/usr/bin/w3m | grep terminfo
+#   /home/kanan/FreeLinX/ports/build/deps/ncurses/share/terminfo:/usr/share/terminfo
+#
+# A development path in a shipped binary is not reproducible and is not a path the
+# installed system has.  The two directories that are real are /lib/terminfo,
+# which the rootfs carries, and /usr/share/terminfo, which is where the ncurses
+# port's own tic output is meant to be staged.  The build tree's copy of the
+# database is still found during the build, through --prefix and TERMINFO.
 PROJECT_CFG_CMDS = \
 	AR="$(FLX_HOST_AR)" RANLIB="$(FLX_HOST_RANLIB)" ./configure \
 		--prefix="$(NCURSES_PREFIX)" \
 		--host=x86_64-linux-musl \
 		--enable-widec \
+		--enable-reentrant \
 		--with-normal --without-shared \
 		--without-debug --without-ada --without-cxx \
 		--without-manpages --without-tests \
-		--with-progs --with-terminfo-dirs="$(NCURSES_PREFIX)/share/terminfo:/usr/share/terminfo" \
+		--with-progs \
+		--datarootdir=/usr/share \
+		--with-terminfo-dirs=/lib/terminfo:/usr/share/terminfo \
 		--without-cxx-binding --disable-stripping
 
 BUILD_CMDS = \
 	make -j"$(FREELINX_JOBS)" && \
-	make install
+	make -C include install.includes && \
+	make -C ncurses install.libs
 
 # The delivered artifact is the static archive (never staged to rootfs).
-PROJECT_BIN = $(NCURSES_PREFIX)/lib/libncursesw.a
+PROJECT_BIN = $(NCURSES_PREFIX)/lib/libncursestw.a
 BUILD_BIN   = $(PROJECT_BIN)

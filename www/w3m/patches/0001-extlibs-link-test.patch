@@ -1,0 +1,38 @@
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -404,16 +404,26 @@
+ [lib=$1
+  AC_MSG_CHECKING(for -l$lib)
+  extlib="not found"
+- for dir in /lib /usr/lib /usr/local/lib /usr/ucblib /usr/ccslib /usr/ccs/lib /lib64 /usr/lib64
+- do
+-   if test -f $dir/lib$lib.a -o -f $dir/lib$lib.so ; then 
+-    LIBS="$LIBS -l$lib"
+-    extlib="found at $dir"
+-    break
+-   fi
+- done
++ w3m_save_LIBS=$LIBS
++ LIBS="-l$lib $LIBS"
++ dnl A link test, not a file-existence test.  Looking for lib$lib.a in /lib
++ dnl and /usr/lib is what puts host libraries in LIBS in a cross build: this
++ dnl build machine has /usr/lib/libbsd.a and /usr/lib/libnsl.so, the search
++ dnl finds them, and then every link test after this one stops with
++ dnl
++ dnl   ld.lld: error: unable to find library -lbsd
++ dnl   ld.lld: error: unable to find library -lnsl
++ dnl
++ dnl because the musl sysroot has neither.  A host library is not a target
++ dnl library.  musl folds bsd, nsl, socket, dld and dl into libc, so for this
++ dnl target the answer is "not found" and the right thing is to add nothing.
++ dnl
++ dnl An empty program is enough: if the library cannot be found the link fails
++ dnl on the library itself, before any symbol in it is of any use.
++ AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],[[]])],
++                [extlib="found"],
++                [LIBS=$w3m_save_LIBS])
+  AC_MSG_RESULT($extlib)])
+-#
+ # ----------------------------------------------------------------
+ # AC_W3M_TERMLIB
+ # ----------------------------------------------------------------
