@@ -24,7 +24,26 @@ set -eu
 DEPS=build/deps
 [ -d "$DEPS" ] || { printf 'no %s; build something first\n' "$DEPS" >&2; exit 2; }
 
-PCDIRS=$(find "$DEPS" -type d -name pkgconfig -path '*/lib/*' | sort | tr '\n' ':')
+# xorgproto's directory first, then everything else sorted -- the same order
+# mk/common.mk builds FREELINX_PKGCONFIG_LIBDIR in.  This has to agree with the
+# build, because the point of the check is to report what a consumer sees.  Sorted
+# on its own it does not: xorgproto stages an inputproto.pc at 2.4.0 and
+# x11/inputproto stages one at 2.3.2, and plain sort puts the 2.3.2 first, so
+#
+#   Package dependency requirement 'inputproto >= 2.3.99.1' could not be
+#   satisfied.  Package 'inputproto' has version '2.3.2'
+#
+# is reported against xorg/lib/pkgconfig/xorg-server.pc, while
+#
+#   PKG_CONFIG_LIBDIR=<the build's order> pkg-config --exists 'xorg-server >= 1.18'
+#
+# exits 0.
+XORGPROTO_PC="$DEPS/xorgproto/lib/pkgconfig"
+PCDIRS=$(find "$DEPS" -type d -name pkgconfig -path '*/lib/*' | sort \
+    | grep -vx "$XORGPROTO_PC" | tr '\n' ':')
+if [ -d "$XORGPROTO_PC" ]; then
+    PCDIRS="$XORGPROTO_PC:$PCDIRS"
+fi
 PCDIRS=${PCDIRS%:}
 PKG_CONFIG_LIBDIR="$PWD/$PCDIRS"
 export PKG_CONFIG_LIBDIR
@@ -67,5 +86,27 @@ for pc in $(find "$DEPS" -name '*.pc' -path '*/lib/pkgconfig/*' | sort); do
     fi
 done
 [ "$unresolved" -eq 0 ] && printf '  (none)\n'
+
+# --- 3. a .pc whose prefix is not the staged tree ----------------------------
+# A pkg-config file that says prefix=/usr has its "Cflags: -I/usr/include"
+# dropped by pkg-config as a system path, so the module contributes no include
+# flags at all.  The build then compiles against whatever the host has, and
+# fails on a header the port believed it had provided:
+#
+#   -Ideps/xproto/include ... and no xorgproto at all, so XKBproto.h's
+#   _X_NONSTRING is undefined and xorg-server stops at
+#   "XKBproto.h:679:33: error: expected ';' at end of declaration list"
+printf 'staged .pc files whose prefix is not inside the tree:\n'
+badprefix=0
+for pc in $(find "$DEPS" -name '*.pc' -path '*/lib/pkgconfig/*' | sort); do
+    prefix=$(sed -n 's|^prefix=||p' "$pc" | head -1 | tr -d '"')
+    case "$prefix" in
+        "$DEPS"/*|"$PWD/$DEPS"/*) continue ;;
+    esac
+    printf '  %-46s prefix=%s\n' "${pc#$DEPS/}" "${prefix:-<empty>}"
+    badprefix=1
+    bad=1
+done
+[ "$badprefix" -eq 0 ] && printf '  (none)\n'
 
 exit "$bad"

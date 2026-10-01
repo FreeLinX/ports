@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/xcb-util-image : xcb-util-image 0.4.1.
+#
+# Real upstream source:
+#   https://xorg.freedesktop.org/archive/individual/lib/xcb-util-image-0.4.1.tar.xz
+DISTINFO_NAME=xcb-util-image-0.4.1
+DISTINFO_ARCHIVE=xcb-util-image-0.4.1.tar.xz
+DISTINFO_URL=https://xorg.freedesktop.org/archive/individual/lib/xcb-util-image-0.4.1.tar.xz
+DISTINFO_SHA256=ccad8ee5dadb1271fd4727ad14d9bd77a64e505608766c4e98267d9aede40d3d

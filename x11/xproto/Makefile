@@ -47,7 +47,7 @@ include ../../mk/project-port.mk
 #
 # There is nothing to compile, so BUILD_CMDS stays a no-op.
 PROJECT_CFG_CMDS = \
-	./configure --prefix=/usr
+	./configure --prefix=$(FREELINX_BUILD_DIR)/deps/$(NAME)
 BUILD_CMDS := :
 
 install: all

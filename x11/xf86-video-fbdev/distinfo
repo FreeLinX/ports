@@ -1,0 +1,11 @@
+# FreeLinX/ports - x11/xf86-video-fbdev : xf86-video-fbdev 0.5.1.
+#
+# Real upstream source:
+#   https://www.x.org/releases/individual/driver/xf86-video-fbdev-0.5.1.tar.xz
+#
+# Development repository:
+#   https://gitlab.freedesktop.org/xorg/driver/xf86-video-fbdev
+DISTINFO_NAME=xf86-video-fbdev-0.5.1
+DISTINFO_ARCHIVE=xf86-video-fbdev-0.5.1.tar.xz
+DISTINFO_URL=https://www.x.org/releases/individual/driver/xf86-video-fbdev-0.5.1.tar.xz
+DISTINFO_SHA256=9c2bc0fb9af092804138e8d5cb5627cabf2919ef60f0d1544a95c4ac2047f387

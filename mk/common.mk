@@ -78,9 +78,55 @@ FREELINX_WORK_DIR?=$(FREELINX_BUILD_DIR)/work
 # Where two deps stage the same module name the first sorted directory wins,
 # and that is the one wanted: xorgproto's xproto.pc, Version 2024.1, is what
 # satisfies the xproto >= 7.0.33 that no released xproto does.
+# pkg-config for a static-only build: --static so Requires.private and
+# Libs.private are followed.  Without it a module reports the library and not
+# what the library needs, and a static link stops at
+#
+#   ld.lld: error: undefined symbol: XauGetBestAuthByAddr
+#
+# with nothing in the log about pkg-config.  Upstream does not notice, because
+# with shared libraries the dependency is recorded in the .so itself.
+#
+# The flag is delivered by scripts/flx-toolshim/pkg-config, which is first on
+# PATH, rather than by putting it in the PKG_CONFIG variable.  pkg.m4's
+# PKG_PROG_PKG_CONFIG runs AC_PATH_TOOL, and AC_PATH_TOOL reduces the variable to
+# "the first word of pkg-config, so it can be a program name with args" --
+#
+#     PKG_CONFIG=$ac_pt_PKG_CONFIG
+#
+# -- so a PKG_CONFIG="/usr/bin/pkg-config --static" on the configure line loses
+# the flag before the first PKG_CHECK_MODULES runs, and a build log can record
+#
+#     ac_cv_env_PKG_CONFIG_value='/usr/bin/pkg-config --static'
+#
+# while the resolved flags show no sign of it.  Presetting ac_cv_path_PKG_CONFIG
+# does not help either: the branch that reaches ac_pt_PKG_CONFIG is chosen by
+# whether that variable is empty, not by what it contains.
+#
+# A shim on PATH cannot be rewritten that way, because AC_PATH_TOOL finds the
+# program by searching PATH and all it keeps is the path it found.
+FLX_PKG_CONFIG ?= pkg-config
+FLX_AC_PATH_PKG_CONFIG ?= $(FREELINX_PORTS_ROOT)/scripts/flx-toolshim/pkg-config
+FLX_AC_PATH_AC_PT_PKG_CONFIG ?= $(FREELINX_PORTS_ROOT)/scripts/flx-toolshim/pkg-config
+export PATH := $(FREELINX_PORTS_ROOT)/scripts/flx-toolshim:$(PATH)
+
 empty :=
 space := $(empty) $(empty)
-FREELINX_DEPS_PKGCONFIG_DIRS := $(sort $(wildcard $(FREELINX_BUILD_DIR)/deps/*/lib/pkgconfig))
+# xorgproto first, deliberately, and then everything else sorted.  xorgproto
+# absorbed the individual *-proto packages and ships a .pc for each of them, at
+# their current versions: its inputproto.pc says 2.4.0 where the x11/inputproto
+# port's says 2.3.2.  Sorted by name, inputproto comes first, and xorg-server's
+# configure then stops with
+#
+#   Package dependency requirement 'inputproto >= 2.3.99.1' could not be
+#   satisfied.  Package 'inputproto' has version '2.3.2'
+#
+# which names a version nobody can satisfy rather than the directory that was
+# in the way.  The include order in mk/xorg-lib.mk puts xorgproto first for the
+# same reason: its headers are the newer ones.
+FREELINX_ALL_PKGCONFIG_DIRS := $(sort $(wildcard $(FREELINX_BUILD_DIR)/deps/*/lib/pkgconfig))
+FREELINX_DEPS_PKGCONFIG_DIRS := $(FREELINX_BUILD_DIR)/deps/xorgproto/lib/pkgconfig \
+	$(filter-out $(FREELINX_BUILD_DIR)/deps/xorgproto/lib/pkgconfig,$(FREELINX_ALL_PKGCONFIG_DIRS))
 FREELINX_PKGCONFIG_LIBDIR := $(subst $(space),:,$(strip $(FREELINX_DEPS_PKGCONFIG_DIRS)))
 
 # Rootfs-overlay staging + src rootfs template (configurable, not hard-coded).

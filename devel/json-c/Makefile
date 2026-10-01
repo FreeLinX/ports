@@ -71,11 +71,28 @@ install: all
 
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/json-c/lib/pkgconfig" "$(FREELINX_BUILD_DIR)/deps/json-c/include/json"
 	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREELINX_BUILD_DIR)/deps/json-c/lib/libjson-c.a"
-	@cp $(SRC_TREE)/json_object.h $(SRC_TREE)/json_tokener.h \
-		$(SRC_TREE)/json_util.h $(SRC_TREE)/json_object_iterator.h \
-		$(SRC_TREE)/json_pointer.h $(SRC_TREE)/arraylist.h \
-		$(SRC_TREE)/linkhash.h $(SRC_TREE)/printbuf.h \
-		$(SRC_TREE)/debug.h "$(FREELINX_BUILD_DIR)/deps/json-c/include/json/"
+	@# The public header list is upstream's own, from CMakeLists.txt's
+	@# JSON_C_PUBLIC_HEADERS, and it has to be: two of the fourteen are
+	@# generated into the build directory rather than shipped, and the hand-picked
+	@# nine that were here before were missing them.
+	@#
+	@# json.h is generated from json.h.cmakein, which is why it is nowhere in the
+	@# source tree, and fontconfig's test/test-conf.c includes exactly that:
+	@#
+	@#   test-conf.c:28:10: fatal error: 'json.h' file not found
+	@#
+	@# json_config.h, json_types.h, json_inttypes.h, json_c_version.h and
+	@# json_visit.h are the others json_object.h includes and that were absent, so
+	@# even a consumer that asked for json_object.h by name failed on the next
+	@# #include.
+	@for h in json_config.h json.h; do \
+		$(INSTALL) -m 644 "$(SRC_TREE)/build/$$h" "$(FREELINX_BUILD_DIR)/deps/json-c/include/json/"; \
+	done
+	@for h in arraylist.h debug.h json_c_version.h json_inttypes.h json_object.h \
+	         json_object_iterator.h json_tokener.h json_types.h json_util.h \
+	         json_visit.h linkhash.h printbuf.h; do \
+		$(INSTALL) -m 644 "$(SRC_TREE)/$$h" "$(FREELINX_BUILD_DIR)/deps/json-c/include/json/"; \
+	done
 	@# All four placeholders, not two.  @exec_prefix@, @libdir@, @LIBS@ and
 	@# @VERSION@ reach pkg-config verbatim otherwise, and pkg-config's Cflags
 	@# and Libs.private then contain the text @LIBS@ -- silently, because

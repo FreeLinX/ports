@@ -90,7 +90,7 @@ BUILD_BIN   = $(PROJECT_LIB)
 
 PROJECT_CFG_CMDS = \
 	./configure \
-		--prefix=/usr \
+		--prefix=$(FREELINX_BUILD_DIR)/deps/$(NAME) \
 		--host=$(FREELINX_TRIPLE) \
 		--enable-static --disable-shared \
 		--without-docbook \
@@ -100,13 +100,58 @@ PROJECT_CFG_CMDS = \
 		ac_cv_header_expat_h=yes \
 		ac_cv_header_xmlparse_h=yes \
 		ac_cv_func_XML_SetDoctypeDeclHandler=yes \
-		PKG_CONFIG="/usr/bin/pkg-config" \
+		PKG_CONFIG="$(FLX_PKG_CONFIG)" \
+		ac_cv_path_PKG_CONFIG="$(FLX_AC_PATH_PKG_CONFIG)" \
+		ac_cv_path_ac_pt_PKG_CONFIG="$(FLX_AC_PATH_AC_PT_PKG_CONFIG)" \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -fPIC -I$(PREFIX_freetype2)/include -I$(PREFIX_expat)/include -I$(PREFIX_zlib)/include -I$(PREFIX_jsonc)/include" \
 		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(PREFIX_freetype2)/lib -L$(PREFIX_expat)/lib -L$(PREFIX_zlib)/lib -L$(PREFIX_jsonc)/lib"
 
+# CPPFLAGS carries json-c's include directory for the test/ subdirectory.
+# fontconfig's own configure records JSON_CFLAGS but its test/Makefile.am never
+# refers to them, and the test includes <json.h> directly, so with json-c
+# support on -- which fontconfig 2.15 always has -- that is where the build stops:
+#
+#   test-conf.c:28:10: fatal error: 'json.h' file not found
+#
+# The tests are noinst_PROGRAMS, so plain make builds them.  The path is
+# include/json: json-c's headers are all under that directory.  The include
+# itself is patches/0001, because fontconfig 2.15.0 asks for a <json.h> that
+# json-c does not ship.
+# Only the library, and that is deliberate rather than a shortcut.
+#
+# A plain make walks SUBDIRS into test/, whose programs are noinst_PROGRAMS and
+# are therefore built by "all".  test/test-conf.c reaches into fontconfig's own
+# structs and calls lh_table_head() on a json-c linkhash, and json-c's
+# *installed* linkhash.h is the opaque one: the declarations moved into
+# json_object_private.h, which is not public.  So the test does not compile
+# against a correctly installed json-c:
+#
+#   test-conf.c:50:5: error: call to undeclared function 'lh_table_head'
+#
+# Building src/ alone gives the libfontconfig.a this port stages and installs,
+# and leaves a broken upstream test where it belongs -- out of the product.
+#
+# CPPFLAGS is not needed here any more: devel/json-c stages json.h, which is
+# what test-conf.c asks for, so the patches/0001 include swap is belt to that.
+# SUBDIRS with test/ dropped, deliberately rather than as a shortcut.
+#
+# A plain make walks SUBDIRS into test/, whose programs are noinst_PROGRAMS and
+# so are built by "all".  test/test-conf.c reaches into fontconfig's own structs
+# and calls lh_table_head() on a json-c linkhash, and json-c's *installed*
+# linkhash.h is the opaque one -- the declarations moved into
+# json_object_private.h, which is not public.  So the test does not compile
+# against a correctly installed json-c:
+#
+#   test-conf.c:50:5: error: call to undeclared function 'lh_table_head'
+#
+# Everything else is built, including the generated headers src/ needs --
+# fcalias.h among them, which is why "make -C src" on its own stops at
+#   ./fcint.h:123:10: fatal error: 'fcalias.h' file not found
 BUILD_CMDS = \
-	make -j"$(FREELINX_JOBS)" LIBS="-lexpat -lz -ljson-c"
+	make -j"$(FREELINX_JOBS)" \
+		SUBDIRS="fontconfig fc-case fc-lang src fc-cache fc-cat fc-conflist \
+			fc-list fc-match fc-pattern fc-query fc-scan fc-validate conf.d its po"
 
 install: all
 	$(call flx-stage-pc,fontconfig,fontconfig)

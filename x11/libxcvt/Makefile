@@ -57,7 +57,7 @@ PROJECT_CFG_CMDS = \
 	meson setup build/flx \
 		--cross-file=flx-cross.ini \
 		--default-library=static \
-		--prefix=/usr
+		--prefix=$(FREELINX_BUILD_DIR)/deps/$(NAME)
 
 BUILD_CMDS = \
 	ninja -C build/flx -j"$(FREELINX_JOBS)"

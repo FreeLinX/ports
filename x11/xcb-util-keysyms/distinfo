@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/xcb-util-keysyms : xcb-util-keysyms 0.4.1.
+#
+# Real upstream source:
+#   https://xorg.freedesktop.org/archive/individual/lib/xcb-util-keysyms-0.4.1.tar.xz
+DISTINFO_NAME=xcb-util-keysyms-0.4.1
+DISTINFO_ARCHIVE=xcb-util-keysyms-0.4.1.tar.xz
+DISTINFO_URL=https://xorg.freedesktop.org/archive/individual/lib/xcb-util-keysyms-0.4.1.tar.xz
+DISTINFO_SHA256=7c260a5294412aed429df1da2f8afd3bd07b7cba3fec772fba15a613a6d5c638

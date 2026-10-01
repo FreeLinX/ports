@@ -63,7 +63,9 @@ PROJECT_CFG_CMDS = \
 		--prefix=/usr \
 		--host=$(FREELINX_TRIPLE) \
 		--enable-static --disable-shared \
-		PKG_CONFIG="/usr/bin/pkg-config" \
+		PKG_CONFIG="$(FLX_PKG_CONFIG)" \
+		ac_cv_path_PKG_CONFIG="$(FLX_AC_PATH_PKG_CONFIG)" \
+		ac_cv_path_ac_pt_PKG_CONFIG="$(FLX_AC_PATH_AC_PT_PKG_CONFIG)" \
 		PKG_CONFIG_LIBDIR="$(FREELINX_PKGCONFIG_LIBDIR)" \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(PREFIX_xorgproto)/include -I$(PREFIX_libX11)/include -I$(PREFIX_libXkbfile)/include" \

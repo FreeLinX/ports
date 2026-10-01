@@ -56,7 +56,7 @@ BUILD_BIN   = $(PROJECT_LIB)
 
 PROJECT_CFG_CMDS = \
 	./configure \
-		--prefix=/usr \
+		--prefix=$(FREELINX_BUILD_DIR)/deps/$(NAME) \
 		--host=$(FREELINX_TRIPLE) \
 		--enable-static --disable-shared \
 		CC="$(FREELINX_CC)" \

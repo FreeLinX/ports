@@ -1,0 +1,43 @@
+Define _X_NONSTRING to nothing.
+
+XKBproto.h and XKBstr.h use it in the position
+
+    CARD8	name[XkbKeyNameLength]	_X_NONSTRING;
+
+and Xfuncproto.h defines it as __attribute__((nonstring)) when
+__has_attribute(nonstring) answers true, which clang's does.  clang accepts
+that attribute in neither position a C declarator can hold -- after the array
+bound, as here:
+
+    XKBproto.h:679:23: error: expected ';' at end of declaration list
+
+or in front of the declarator name:
+
+    XKBproto.h:703:10: error: duplicate member '_X_NONSTRING'
+
+so xorg-server does not compile.  GCC takes the trailing form; clang has no
+position for it.
+
+The attribute is a diagnostic hint: it tells the compiler that the array is not
+NUL-terminated, so that a strlen or a strcpy of it is warned about.  Nothing in
+the struct layout, the field name, the type or the XKB protocol depends on it,
+and the six declarations that use it are read as fixed-length key names, not as
+strings.  Dropping it costs a missing warning on code that does not exist here.
+
+Defining it to nothing rather than editing the six declarations is the smaller
+change and the one that cannot go stale when the headers are updated.
+diff -urN porig/xorgproto-2024.1/include/X11/Xfuncproto.h ptest/xorgproto-2024.1/include/X11/Xfuncproto.h
+--- a/include/X11/Xfuncproto.h
++++ b/include/X11/Xfuncproto.h
+@@ -207,10 +207,6 @@
+ 
+ /* Mark a char array/pointer as not containing a NUL-terminated string */
+ /* requires xproto >= 7.0.33 */
+-#if __has_attribute(nonstring)
+-# define _X_NONSTRING __attribute__((nonstring))
+-#else
+-# define _X_NONSTRING
+-#endif
++#define _X_NONSTRING
+ 
+ #endif /* _XFUNCPROTO_H_ */

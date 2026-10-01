@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/xorg : xorg-server 21.1.16.
+#
+# Real upstream source:
+#   https://xorg.freedesktop.org/archive/individual/xserver/xorg-server-21.1.16.tar.xz
+DISTINFO_NAME=xorg-server-21.1.16
+DISTINFO_ARCHIVE=xorg-server-21.1.16.tar.xz
+DISTINFO_URL=https://xorg.freedesktop.org/archive/individual/xserver/xorg-server-21.1.16.tar.xz
+DISTINFO_SHA256=b14a116d2d805debc5b5b2aac505a279e69b217dae2fae2dfcb62400471a9970

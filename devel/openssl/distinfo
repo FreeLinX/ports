@@ -1,0 +1,8 @@
+# FreeLinX/ports - devel/openssl : OpenSSL 3.3.2.
+#
+# Real upstream source:
+#   https://www.openssl.org/source/openssl-3.3.2.tar.gz
+DISTINFO_NAME=openssl-3.3.2
+DISTINFO_ARCHIVE=openssl-3.3.2.tar.gz
+DISTINFO_URL=https://www.openssl.org/source/openssl-3.3.2.tar.gz
+DISTINFO_SHA256=2e8a40b01979afe8be0bbfb3de5dc1c6709fedb46d6c89c10da114ab5fc3d281

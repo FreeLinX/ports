@@ -30,7 +30,7 @@ include ../../mk/project-port.mk
 # headers generated from a .h.in, and copying "*.h" without running configure
 # silently stages an incomplete set.
 PROJECT_CFG_CMDS = \
-	./configure --prefix=/usr
+	./configure --prefix=$(FREELINX_BUILD_DIR)/deps/$(NAME)
 BUILD_CMDS := :
 
 install: all

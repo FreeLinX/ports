@@ -55,7 +55,7 @@ include ../../mk/project-port.mk
 #
 # which names the consumer's requirement rather than the absent file.
 PROJECT_CFG_CMDS = \
-	./configure --prefix=/usr
+	./configure --prefix=$(FREELINX_BUILD_DIR)/deps/$(NAME)
 BUILD_CMDS := :
 
 install: all

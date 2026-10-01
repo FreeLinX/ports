@@ -52,7 +52,7 @@ BUILD_BIN   = $(PROJECT_LIB)
 
 PROJECT_CFG_CMDS = \
 	./configure \
-		--prefix=/usr \
+		--prefix=$(FREELINX_BUILD_DIR)/deps/$(NAME) \
 		--host=$(FREELINX_TRIPLE) \
 		--enable-static --disable-shared \
 		--disable-doxygen-docs \
@@ -64,7 +64,9 @@ PROJECT_CFG_CMDS = \
 		--enable-util \
 		--disable-composite-output \
 		PKG_CONFIG_LIBDIR="$(FREELINX_PKGCONFIG_LIBDIR)" \
-		PKG_CONFIG="/usr/bin/pkg-config" \
+		PKG_CONFIG="$(FLX_PKG_CONFIG)" \
+		ac_cv_path_PKG_CONFIG="$(FLX_AC_PATH_PKG_CONFIG)" \
+		ac_cv_path_ac_pt_PKG_CONFIG="$(FLX_AC_PATH_AC_PT_PKG_CONFIG)" \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -fPIC -I$(PREFIX_xproto)/include -I$(PREFIX_xextproto)/include" \
 		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt"
@@ -83,6 +85,24 @@ install: all
 	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREELINX_BUILD_DIR)/deps/libxcb/lib/libxcb.a"
 	@cp $(SRC_TREE)/src/*.h "$(FREELINX_BUILD_DIR)/deps/libxcb/include/X11/xcb/"
 	@$(INSTALL) -m 644 "$(SRC_TREE)/xcb.pc" "$(FREELINX_BUILD_DIR)/deps/libxcb/lib/pkgconfig/"
+	# The extension pkg-config files go out too, and libxcb's own rather than
+	# xcb-proto's.  Both sets exist for every enabled extension; xcb-proto's say
+	# headers only, and libxcb's say
+	#
+	#   Libs: -L${libdir} -lxcb-shm
+	#
+	# which is the difference between a consumer being told where the extension
+	# is and not being told.  xcb-util-image's test links xcb_shm_put_image and
+	# stopped with
+	#
+	#   ld.lld: error: undefined symbol: xcb_shm_put_image
+	#
+	# because PKG_CHECK_MODULES(XCB_SHM, xcb-shm) resolved to the header-only
+	# module and gave it no -l at all.  libxcb sorts before xcb-proto, so these
+	# win.
+	@for pc in "$(SRC_TREE)"/xcb-*.pc; do \
+		test ! -f "$$pc" || $(INSTALL) -m 644 "$$pc" "$(FREELINX_BUILD_DIR)/deps/libxcb/lib/pkgconfig/"; \
+	done
 	# The extension archives, staged beside libxcb.a.  These are what back the
 	# randr.h and xinerama.h copied just above; without them a consumer that
 	# includes either header links against nothing.

@@ -1,0 +1,28 @@
+#!/bin/sh
+# FreeLinX/ports - a pkg-config that always runs with --static.
+#
+# Every link in this tree is static, so a module's Requires.private and
+# Libs.private have to be followed or the consumer is told about the library and
+# not about what the library needs.  xorg-server's configure is the case in
+# point: with plain pkg-config it resolves xfont2 to -lXfont2 and nothing else,
+# and the link then stops at
+#
+#   undefined reference to `FontEncFromXLFD'
+#
+# Passing PKG_CONFIG="/usr/bin/pkg-config --static" on the configure line does
+# not fix it, and the reason is worth recording.  pkg.m4 runs AC_PATH_TOOL, and
+# AC_PATH_TOOL ends with
+#
+#     PKG_CONFIG=$ac_pt_PKG_CONFIG
+#
+# where ac_pt_PKG_CONFIG is "the first word of pkg-config, so it can be a program
+# name with args".  The flag is not the first word, so it is dropped -- and
+# presetting ac_cv_path_PKG_CONFIG does not help either, because the branch that
+# reaches ac_pt_PKG_CONFIG is chosen by whether ac_cv_path_PKG_CONFIG is empty,
+# not by what it contains.
+#
+# A shim on PATH cannot be rewritten that way: AC_PATH_TOOL finds the program by
+# searching PATH, and all it gets to keep is the path.
+set -eu
+
+exec /usr/bin/pkg-config --static "$@"

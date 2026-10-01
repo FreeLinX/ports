@@ -49,6 +49,36 @@ install: all
 			"$(XCBPROTO_PREFIX)" "$$n" "$$n" "$(VERSION)" \
 			> "$(XCBPROTO_PREFIX)/lib/pkgconfig/xcb-$$n.pc"; \
 	done
+	@# xcb-proto.pc comes from the package's own xcb-proto.pc.in, not from a
+	@# hand-written file.  libxcb does not read a Cflags line out of it -- it
+	@# asks for two variables,
+	@#
+	@#   pkg-config --variable=xcbincludedir xcb-proto
+	@#   pkg-config --variable=pythondir      xcb-proto
+	@#
+	@# and uses them as the argument list for src/c_client.py, which generates
+	@# every extension source file.  A hand-written file with only Cflags leaves
+	@# both variables empty, c_client.py is called with no XML path, and the build
+	@# dies at
+	@#
+	@#   File "./c_client.py", line 3388, in <module>
+	@#     module = Module(args[0], output)
+	@# IndexError: list index out of range
+	@#
+	@# with no mention of pkg-config anywhere near it.
+	@sed -e 's|@prefix@|$(XCBPROTO_PREFIX)|' \
+	    -e 's|@exec_prefix@|$${prefix}|' \
+	    -e 's|@datarootdir@|$${prefix}/share|' \
+	    -e 's|@datadir@|$${datarootdir}|' \
+	    -e 's|@xcbincludedir@|$${prefix}/include/xcb|' \
+	    -e 's|@PYTHON_PREFIX@||' \
+	    -e 's|@pythondir@|$${prefix}/share/python|' \
+	    -e 's|@PACKAGE_VERSION@|$(VERSION)|' \
+	    "$(SRC_TREE)/xcb-proto.pc.in" > "$(XCBPROTO_PREFIX)/lib/pkgconfig/xcb-proto.pc"
+	@if ! grep -q '^xcbincludedir=' "$(XCBPROTO_PREFIX)/lib/pkgconfig/xcb-proto.pc"; then \
+		printf '[FreeLinX/ports][error] %s: xcb-proto.pc has no xcbincludedir\n' "$(NAME)" >&2; \
+		exit 1; \
+	fi
 	@printf '[FreeLinX/ports] staged %s protocol descriptions and %s pkg-config files\n' \
 		"$$(ls "$(XCBPROTO_PREFIX)/include/xcb"/*.xml | wc -l)" \
 		"$$(ls "$(XCBPROTO_PREFIX)/lib/pkgconfig" | wc -l)"

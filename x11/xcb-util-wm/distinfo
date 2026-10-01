@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/xcb-util-wm : xcb-util-wm 0.4.2.
+#
+# Real upstream source:
+#   https://xorg.freedesktop.org/archive/individual/lib/xcb-util-wm-0.4.2.tar.xz
+DISTINFO_NAME=xcb-util-wm-0.4.2
+DISTINFO_ARCHIVE=xcb-util-wm-0.4.2.tar.xz
+DISTINFO_URL=https://xorg.freedesktop.org/archive/individual/lib/xcb-util-wm-0.4.2.tar.xz
+DISTINFO_SHA256=62c34e21d06264687faea7edbf63632c9f04d55e72114aa4a57bb95e4f888a0b
