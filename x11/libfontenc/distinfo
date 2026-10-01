@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/libfontenc : libfontenc 1.1.9.
+#
+# Real upstream source:
+#   https://xorg.freedesktop.org/archive/individual/lib/libfontenc-1.1.9.tar.xz
+DISTINFO_NAME=libfontenc-1.1.9
+DISTINFO_ARCHIVE=libfontenc-1.1.9.tar.xz
+DISTINFO_URL=https://xorg.freedesktop.org/archive/individual/lib/libfontenc-1.1.9.tar.xz
+DISTINFO_SHA256=9d8392705cb10803d5fe1d27d236cbab3f664e26841ce01916bbbe430cf273e2

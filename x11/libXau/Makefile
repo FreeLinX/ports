@@ -44,7 +44,7 @@ PROJECT_LIB = $(firstword $(wildcard $(SRC_TREE)/./libXau.a) $(wildcard $(SRC_TR
 BUILD_BIN   = $(PROJECT_LIB)
 
 # Only our own .pc files, in dependency order.  Nothing from the host.
-PKG_PATH = $(FREELINX_BUILD_DIR)/deps/libXau/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xextproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xextproto/lib/pkgconfig
+
 
 PROJECT_CFG_CMDS = \
 	./configure \
@@ -53,7 +53,7 @@ PROJECT_CFG_CMDS = \
 		--enable-static --disable-shared \
 		--without-xml \
 		--without-iconv \
-		PKG_CONFIG_PATH="$(PKG_PATH)" \
+		PKG_CONFIG_LIBDIR="$(FREELINX_PKGCONFIG_LIBDIR)" \
 		PKG_CONFIG="/usr/bin/pkg-config" \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -fPIC -I$(PREFIX_xproto)/include -I$(PREFIX_xextproto)/include " \
@@ -66,12 +66,13 @@ BUILD_CMDS = \
 # One command per line -- a multi-line shell if here needs a backslash
 # continuation that does not survive being generated.
 install: all
+	$(call flx-stage-pc,libXau,xau)
+
 	$(call flx-require-archive,$(PROJECT_LIB))
 
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libXau/lib" "$(FREELINX_BUILD_DIR)/deps/libXau/include/."
 	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREELINX_BUILD_DIR)/deps/libXau/lib/libXau.a"
 	@cp -R "$(SRC_TREE)/include/." "$(FREELINX_BUILD_DIR)/deps/libXau/include/./"
 	@test -d "$(SRC_TREE)/include" || printf '[FreeLinX/ports][error] %s: no headers at include/\n' "$(NAME)" >&2
-	@test ! -f "$(firstword $(wildcard $(SRC_TREE)/./libXau.pc $(SRC_TREE)/./.libs/libXau.pc))" || $(INSTALL) -m 644 "$(firstword $(wildcard $(SRC_TREE)/./libXau.pc $(SRC_TREE)/./.libs/libXau.pc))" "$(FREELINX_BUILD_DIR)/deps/libXau/lib/"
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libXau/bin"; test ! -f "$(firstword $(wildcard $(SRC_TREE)/./libXau-config $(SRC_TREE)/./.libs/libXau-config))" || $(INSTALL) -m 755 "$(firstword $(wildcard $(SRC_TREE)/./libXau-config $(SRC_TREE)/./.libs/libXau-config))" "$(FREELINX_BUILD_DIR)/deps/libXau/bin/"
 	@printf '[FreeLinX/ports] staged libXau into %s\n' "$(FREELINX_BUILD_DIR)/deps/libXau"

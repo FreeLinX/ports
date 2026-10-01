@@ -36,7 +36,11 @@ BUILD_CMDS := :
 install: all
 	@printf '[FreeLinX/ports] staging inputproto headers\n'
 	@mkdir -p "$(INPUTPROTO_PREFIX)/include/X11" "$(INPUTPROTO_PREFIX)/lib/pkgconfig"
-	@cp $(SRC_TREE)/*.h "$(INPUTPROTO_PREFIX)/include/X11/"
+	# include/X11/extensions/, because that is where libXtst looks: its
+	# XTest.h does #include <X11/extensions/XInput.h>.  A flat copy has every
+	# header present and still fails there.
+	@mkdir -p "$(INPUTPROTO_PREFIX)/include/X11/extensions"
+	@cp $(SRC_TREE)/*.h "$(INPUTPROTO_PREFIX)/include/X11/extensions/"
 	@mkdir -p "$(INPUTPROTO_PREFIX)/lib/pkgconfig"
-	@printf 'prefix=%s\nexec_prefix=$${prefix}\nincludedir=$${prefix}/include\nincludex11dir=$${prefix}/include/X11\n\nName: inputproto\nDescription: inputproto headers\nVersion: $(VERSION)\nCflags: -I$${includedir}\n' "$(INPUTPROTO_PREFIX)" > "$(INPUTPROTO_PREFIX)/lib/pkgconfig/inputproto.pc"
-	@printf '[FreeLinX/ports] staged %s headers\n' "$$(ls "$(INPUTPROTO_PREFIX)/include/X11" | wc -l)"
+	@printf 'prefix=%s\nexec_prefix=$${prefix}\nincludedir=$${prefix}/include\nincludex11dir=$${prefix}/include/X11/extensions\n\nName: inputproto\nDescription: inputproto headers\nVersion: $(VERSION)\nCflags: -I$${includedir}\n' "$(INPUTPROTO_PREFIX)" > "$(INPUTPROTO_PREFIX)/lib/pkgconfig/inputproto.pc"
+	@printf '[FreeLinX/ports] staged %s headers\n' "$$(ls "$(INPUTPROTO_PREFIX)/include/X11/extensions" | wc -l)"

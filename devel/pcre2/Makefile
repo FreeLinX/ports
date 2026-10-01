@@ -47,6 +47,8 @@ BUILD_CMDS = \
 
 .PHONY: install
 install: all
+	$(call flx-stage-pc,pcre2,libpcre2-8)
+
 	@mkdir -p "$(STAGE_ROOT)/usr/lib"
 	@$(INSTALL) -m 644 "$(PROJECT_BIN)" "$(STAGE_ROOT)/usr/lib/libpcre2-8.a"
 	@mkdir -p "$(STAGE_ROOT)/usr/include"

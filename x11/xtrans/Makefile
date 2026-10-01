@@ -45,5 +45,28 @@ install: all
 	@# none of the sources stops at
 	@#   xim_trans.c:30:10: fatal error: 'X11/Xtrans/transport.c' file not found
 	@cp $(SRC_TREE)/*.c "$(XTRANS_PREFIX)/include/X11/Xtrans/"
-	@sed -e "s|@prefix@|$(XTRANS_PREFIX)|g" -e "s|@exec_prefix@|$${prefix}|g" -e "s|@includedir@|$${prefix}/include|g" -e "s|@PACKAGE_VERSION@|$(VERSION)|g" "$(SRC_TREE)/xtrans.pc.in" > "$(XTRANS_PREFIX)/lib/pkgconfig/xtrans.pc"
+	@# Every @placeholder@ has to be resolved here, because this port has no
+	@# configure to resolve them.  Upstream's xtrans.pc.in also carries
+	@# @libdir@ and @fchown_define@ and @sticky_bit_define@; the first is a
+	@# plain path, the other two are AC_DEFINE results that musl does not need
+	@# (it declares fchown and honours the sticky bit), so they expand to
+	@# nothing.  Left alone they reach every consumer's compiler line verbatim,
+	@# and the build stops at
+	@#   clang: error: no such file or directory: '@fchown_define@'
+	@# The sed expressions are single-quoted on purpose.  Double quotes let the
+	@# shell expand ${prefix} before sed sees it, and an unset ${prefix} expands
+	@# to nothing: the file then says includedir=/include and every consumer
+	@# compiles against a path that does not exist.
+	@sed -e 's|@prefix@|$(XTRANS_PREFIX)|g' \
+	    -e 's|@exec_prefix@|$${prefix}|g' \
+	    -e 's|@libdir@|$${prefix}/lib|g' \
+	    -e 's|@includedir@|$${prefix}/include|g' \
+	    -e 's|@PACKAGE_VERSION@|$(VERSION)|g' \
+	    -e 's|@[a-z_]*_define@||g' \
+	    "$(SRC_TREE)/xtrans.pc.in" > "$(XTRANS_PREFIX)/lib/pkgconfig/xtrans.pc"
+	@if grep -q '@[a-zA-Z_]*@' "$(XTRANS_PREFIX)/lib/pkgconfig/xtrans.pc"; then \
+	    printf '[FreeLinX/ports][error] %s: unsubstituted placeholder left in xtrans.pc\n' "$(NAME)" >&2; \
+	    grep -o '@[a-zA-Z_]*@' "$(XTRANS_PREFIX)/lib/pkgconfig/xtrans.pc" | sort -u >&2; \
+	    exit 1; \
+	fi
 	@printf '[FreeLinX/ports] staged %s headers\n' "$$(ls "$(XTRANS_PREFIX)/include/X11/Xtrans" | wc -l)"

@@ -53,7 +53,7 @@ PROJECT_LIB = $(firstword $(wildcard $(SRC_TREE)/src/libXext.a) $(wildcard $(SRC
 BUILD_BIN   = $(PROJECT_LIB)
 
 # Only our own .pc files, in dependency order.  Nothing from the host.
-PKG_PATH = $(FREELINX_BUILD_DIR)/deps/xorgproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/libX11/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xextproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xproto/lib/pkgconfig
+
 
 PROJECT_CFG_CMDS = \
 	./configure \
@@ -62,7 +62,7 @@ PROJECT_CFG_CMDS = \
 		--enable-static --disable-shared \
 		--without-xml \
 		--without-iconv \
-		PKG_CONFIG_PATH="$(PKG_PATH)" \
+		PKG_CONFIG_LIBDIR="$(FREELINX_PKGCONFIG_LIBDIR)" \
 		PKG_CONFIG="/usr/bin/pkg-config" \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -fPIC -I$(PREFIX_libX11)/include -I$(PREFIX_libXau)/include -I$(PREFIX_xproto)/include -I$(PREFIX_xextproto)/include " \
@@ -75,12 +75,13 @@ BUILD_CMDS = \
 # One command per line -- a multi-line shell if here needs a backslash
 # continuation that does not survive being generated.
 install: all
+	$(call flx-stage-pc,libXext,xext)
+
 	$(call flx-require-archive,$(PROJECT_LIB))
 
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libXext/lib" "$(FREELINX_BUILD_DIR)/deps/libXext/include/."
 	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREELINX_BUILD_DIR)/deps/libXext/lib/libXext.a"
 	@cp -R "$(SRC_TREE)/include/." "$(FREELINX_BUILD_DIR)/deps/libXext/include/./"
 	@test -d "$(SRC_TREE)/include" || printf '[FreeLinX/ports][error] %s: no headers at include/\n' "$(NAME)" >&2
-	@test ! -f "$(firstword $(wildcard $(SRC_TREE)/src/libXext.pc $(SRC_TREE)/src/.libs/libXext.pc))" || $(INSTALL) -m 644 "$(firstword $(wildcard $(SRC_TREE)/src/libXext.pc $(SRC_TREE)/src/.libs/libXext.pc))" "$(FREELINX_BUILD_DIR)/deps/libXext/lib/"
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libXext/bin"; test ! -f "$(firstword $(wildcard $(SRC_TREE)/src/libXext-config $(SRC_TREE)/src/.libs/libXext-config))" || $(INSTALL) -m 755 "$(firstword $(wildcard $(SRC_TREE)/src/libXext-config $(SRC_TREE)/src/.libs/libXext-config))" "$(FREELINX_BUILD_DIR)/deps/libXext/bin/"
 	@printf '[FreeLinX/ports] staged libXext into %s\n' "$(FREELINX_BUILD_DIR)/deps/libXext"

@@ -12,13 +12,18 @@ BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot)
 TARGET  := $(FREELINX_TRIPLE)
 PREFIX  := /
 
-INSTALL_RELPATH:= usr/lib
-
-# LIBRARY_PORT: freetype ships no binary, only libfreetype.a and headers, so
-# the framework's staging rules are skipped and the install: target below does
-# it.  Declared before the include, because make reads prerequisite lists at
-# parse time -- see the STAGE_DEP note in mk/install.mk.
+# DEPS_ONLY: freetype ships no binary, only libfreetype.a and headers, so it
+# belongs in build/deps with the other libraries and not in the rootfs overlay.
+# It used to stage into staging/usr, where nothing could find a pkg-config file
+# for it, so fontconfig's configure failed with
+#   Package requirements (freetype2 >= 21.0.15) were not met
+# and named fontconfig's own requirement rather than the absent freetype2.pc.
+# LIBRARY_PORT is declared for the same reason as in every other library port:
+# make reads prerequisite lists at parse time -- see STAGE_DEP in mk/install.mk.
+DEPS_ONLY := yes
 LIBRARY_PORT := yes
+
+FREETYPE_PREFIX = $(FREELINX_BUILD_DIR)/deps/freetype2
 
 include ../../mk/project-port.mk
 
@@ -74,9 +79,9 @@ BUILD_CMDS = \
 install: all
 	$(call flx-require-archive,$(PROJECT_LIB))
 
-	@mkdir -p "$(STAGE_ROOT)/usr/lib"
-	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(STAGE_ROOT)/usr/lib/libfreetype.a"
-	@mkdir -p "$(STAGE_ROOT)/usr/include/freetype"
-	@cp -r "$(SRC_TREE)/include/freetype/." "$(STAGE_ROOT)/usr/include/freetype/"
-	@$(INSTALL) -m 644 "$(SRC_TREE)/include/ft2build.h" "$(STAGE_ROOT)/usr/include/ft2build.h"
-	@printf '[FreeLinX/ports] staged freetype2\n'
+	@mkdir -p "$(FREETYPE_PREFIX)/lib/pkgconfig" "$(FREETYPE_PREFIX)/include"
+	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREETYPE_PREFIX)/lib/libfreetype.a"
+	@cp -r "$(SRC_TREE)/include/freetype/." "$(FREETYPE_PREFIX)/include/freetype/"
+	@$(INSTALL) -m 644 "$(SRC_TREE)/include/ft2build.h" "$(FREETYPE_PREFIX)/include/ft2build.h"
+	@$(call flx-stage-pc,freetype2,freetype2)
+	@printf '[FreeLinX/ports] staged freetype2 into %s\n' "$(FREETYPE_PREFIX)"

@@ -86,7 +86,7 @@ include ../../mk/project-port.mk
 PROJECT_LIB = $(firstword $(wildcard $(SRC_TREE)/src/.libs/libfontconfig.a $(SRC_TREE)/src/libfontconfig.a))
 BUILD_BIN   = $(PROJECT_LIB)
 
-PKG_PATH = $(FREELINX_BUILD_DIR)/deps/expat/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/freetype2/lib/pkgconfig
+
 
 PROJECT_CFG_CMDS = \
 	./configure \
@@ -96,7 +96,7 @@ PROJECT_CFG_CMDS = \
 		--without-docbook \
 		--without-iconv \
 		--disable-docs \
-		PKG_CONFIG_PATH="$(PKG_PATH)" \
+		PKG_CONFIG_LIBDIR="$(FREELINX_PKGCONFIG_LIBDIR)" \
 		ac_cv_header_expat_h=yes \
 		ac_cv_header_xmlparse_h=yes \
 		ac_cv_func_XML_SetDoctypeDeclHandler=yes \
@@ -109,6 +109,8 @@ BUILD_CMDS = \
 	make -j"$(FREELINX_JOBS)" LIBS="-lexpat -lz -ljson-c"
 
 install: all
+	$(call flx-stage-pc,fontconfig,fontconfig)
+
 	$(call flx-require-archive,$(PROJECT_LIB))
 
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/fontconfig/lib" "$(FREELINX_BUILD_DIR)/deps/fontconfig/include"

@@ -51,6 +51,19 @@ done
 
 flx_load_config
 flx_setup_dirs
+_lint=$(mktemp)
+trap 'rm -f "$_lint"' EXIT
+
+# The port lint runs before anything is built, not on request.  A FREELINUX_
+# where FREELINX_ was meant expands to nothing, so CC= is empty and configure
+# says "C compiler cannot create executables" or the install target mkdirs
+# /deps; either way the error names a compiler or a path rather than the
+# variable that is undefined, and that is hours to find from the log alone.
+flx_info "Checking port Makefiles..."
+if ! python3 "$FREELINX_ROOT/scripts/check-port-makefiles.py" > "$_lint" 2>&1; then
+    cat "$_lint" >&2
+    flx_die "port Makefile problems above; run scripts/check-port-makefiles.py --fix"
+fi
 
 flx_info "Checking toolchain..."
 if flx_detect_toolchain; then

@@ -54,14 +54,14 @@ include ../../mk/project-port.mk
 PROJECT_LIB = $(firstword $(wildcard $(SRC_TREE)/src/.libs/libXft.a $(SRC_TREE)/src/libXft.a))
 BUILD_BIN   = $(PROJECT_LIB)
 
-PKG_PATH = $(FREELINX_BUILD_DIR)/deps/fontconfig/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/freetype2/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xorgproto/lib/pkgconfig
+
 
 PROJECT_CFG_CMDS = \
 	./configure \
 		--prefix=/usr \
 		--host=$(FREELINX_TRIPLE) \
 		--enable-static --disable-shared \
-		PKG_CONFIG_PATH="$(PKG_PATH)" \
+		PKG_CONFIG_LIBDIR="$(FREELINX_PKGCONFIG_LIBDIR)" \
 		PKG_CONFIG="/usr/bin/pkg-config" \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -fPIC $(FLX_PROJECT_CPPFLAGS)" \
@@ -71,6 +71,8 @@ BUILD_CMDS = \
 	make -j"$(FREELINX_JOBS)" LIBS="-lXrender -lfontconfig -lfreetype"
 
 install: all
+	$(call flx-stage-pc,libXft,xft)
+
 	$(call flx-require-archive,$(PROJECT_LIB))
 
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libXft/lib" "$(FREELINX_BUILD_DIR)/deps/libXft/include/X11"

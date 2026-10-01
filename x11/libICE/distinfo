@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/libICE : libICE 1.1.2.
+#
+# Real upstream source:
+#   https://xorg.freedesktop.org/archive/individual/lib/libICE-1.1.2.tar.xz
+DISTINFO_NAME=libICE-1.1.2
+DISTINFO_ARCHIVE=libICE-1.1.2.tar.xz
+DISTINFO_URL=https://xorg.freedesktop.org/archive/individual/lib/libICE-1.1.2.tar.xz
+DISTINFO_SHA256=974e4ed414225eb3c716985df9709f4da8d22a67a2890066bc6dfc89ad298625

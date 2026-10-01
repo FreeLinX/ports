@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/libpciaccess : libpciaccess 0.17.
+#
+# Real upstream source:
+#   https://xorg.freedesktop.org/archive/individual/lib/libpciaccess-0.17.tar.xz
+DISTINFO_NAME=libpciaccess-0.17
+DISTINFO_ARCHIVE=libpciaccess-0.17.tar.xz
+DISTINFO_URL=https://xorg.freedesktop.org/archive/individual/lib/libpciaccess-0.17.tar.xz
+DISTINFO_SHA256=74283ba3c974913029e7a547496a29145b07ec51732bbb5b5c58d5025ad95b73

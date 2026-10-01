@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/libxcvt : libxcvt 0.1.2.
+#
+# Real upstream source:
+#   https://xorg.freedesktop.org/archive/individual/lib/libxcvt-0.1.2.tar.xz
+DISTINFO_NAME=libxcvt-0.1.2
+DISTINFO_ARCHIVE=libxcvt-0.1.2.tar.xz
+DISTINFO_URL=https://xorg.freedesktop.org/archive/individual/lib/libxcvt-0.1.2.tar.xz
+DISTINFO_SHA256=0561690544796e25cfbd71806ba1b0d797ffe464e9796411123e79450f71db38

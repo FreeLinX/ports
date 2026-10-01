@@ -42,6 +42,8 @@ FLX_PROJECT_LDFLAGS?=
 
 FLX_SHA256_CMD?=sha256sum
 
+include $(FREELINX_PORTS_ROOT)/mk/stage-pc.mk
+
 # flx-require-archive FILE -- abort the install recipe unless FILE is a real ar
 # archive.  Use in a library port's install: target in place of
 #

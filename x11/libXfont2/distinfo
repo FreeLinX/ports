@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/libXfont2 : libXfont2 2.0.8.
+#
+# Real upstream source:
+#   https://xorg.freedesktop.org/archive/individual/lib/libXfont2-2.0.8.tar.xz
+DISTINFO_NAME=libXfont2-2.0.8
+DISTINFO_ARCHIVE=libXfont2-2.0.8.tar.xz
+DISTINFO_URL=https://xorg.freedesktop.org/archive/individual/lib/libXfont2-2.0.8.tar.xz
+DISTINFO_SHA256=f556c0e1093a4e6911cc90bc4b106d201902ee187fd74af206ff162f7e6a24d5

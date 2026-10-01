@@ -48,7 +48,7 @@ PROJECT_LIB = $(firstword $(wildcard $(SRC_TREE)/src/.libs/libxcb.a $(SRC_TREE)/
 FLX_EXT_LIBS = $(wildcard $(SRC_TREE)/src/.libs/libxcb-*.a)
 BUILD_BIN   = $(PROJECT_LIB)
 
-PKG_PATH = $(FREELINX_BUILD_DIR)/deps/libXdmcp/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/libXau/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xextproto/lib/pkgconfig
+
 
 PROJECT_CFG_CMDS = \
 	./configure \
@@ -63,7 +63,7 @@ PROJECT_CFG_CMDS = \
 		--enable-xkb \
 		--enable-util \
 		--disable-composite-output \
-		PKG_CONFIG_PATH="$(PKG_PATH)" \
+		PKG_CONFIG_LIBDIR="$(FREELINX_PKGCONFIG_LIBDIR)" \
 		PKG_CONFIG="/usr/bin/pkg-config" \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -fPIC -I$(PREFIX_xproto)/include -I$(PREFIX_xextproto)/include" \

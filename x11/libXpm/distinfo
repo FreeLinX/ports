@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/libXpm : libXpm 3.5.19.
+#
+# Real upstream source:
+#   https://xorg.freedesktop.org/archive/individual/lib/libXpm-3.5.19.tar.xz
+DISTINFO_NAME=libXpm-3.5.19
+DISTINFO_ARCHIVE=libXpm-3.5.19.tar.xz
+DISTINFO_URL=https://xorg.freedesktop.org/archive/individual/lib/libXpm-3.5.19.tar.xz
+DISTINFO_SHA256=ad3576d689221a39dc728f0e0dc02ca7bb6a0d724c9a77fd1bfa1e9af83be900

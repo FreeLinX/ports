@@ -1,23 +1,36 @@
-# FreeLinX/ports - x11/xorgproto : X11 extension protocol headers 2024.1.
+# FreeLinX/ports - x11/xorgproto : X.Org protocol headers 2024.1 (header-only port).
 #
 # Real upstream source:
 #   https://www.x.org/pub/individual/proto/xorgproto-2024.1.tar.gz
 #
-# xorgproto is the modern single package for the X11 *extension* protocol
-# headers.  The individual packages (xextproto, kbproto, inputproto, and the
-# many more per-extension ones) are still published and several are still what
-# configure asks for by name, but the ones a server or client actually #includes
-# -- XKBproto.h, XInput.h, Xrandr.h, Xinerama.h, Xfixes.h, Xdamage.h,
-# Xcomposite.h, Xpresent.h and the rest, 116 of them -- all live here now.
+# Not a library and not a program: the headers of every X11 protocol extension,
+# under include/X11/extensions/ mostly, plus Xproto.h itself.
 #
-# libX11 needs XKBproto.h and stops at
+# It is the single most important port in the X build and the one that replaced
+# a dozen others, so this needs saying.
 #
-#   XKB.c:32:10: fatal error: 'X11/extensions/XKBproto.h' file not found
+#   * xproto 7.0.31 and xextproto 7.3.0 are still published, and every release
+#     tarball of libX11, libXext, libXrender and libXfixes asks pkg-config for
+#     "xproto >= 7.0.33".  The newest xproto the x.org archive publishes is
+#     7.0.31, so no release satisfies it.  xorgproto's own xproto.pc says
+#     Version: 7.0.33 -- upstream kept the name and the version so the
+#     requirement resolves to the package that succeeded xproto, and it does.
 #
-# and it is not on the xorg archive under its own name: there is no
-# "xkbproto-" tarball at all.
+#   * The separate *-proto packages -- xextproto, kbproto, renderproto,
+#     inputproto, fontsproto, bigreqsproto, dri2proto, presentproto,
+#     randrproto, recordproto, resourceproto, saverproto, xcmiscproto,
+#     xineramaproto, compositeproto, damageproto, videoproto -- were all merged
+#     into xorgproto, and xorgproto ships a .pc for every one of them.  The
+#     ports for the individual packages still exist and still stage their own
+#     .pc, but xorgproto sorts first in the search path and its copies win,
+#     which is the wanted outcome: its headers are the same files, newer.
 #
-# Header-only, into build/deps, never into the rootfs.
+#   * xorgproto's Xfuncproto.h and Xmd.h are newer than xproto 7.0.31's, and
+#     Xlib.h wants the newer macros.  So the include order matters and every
+#     X.Org library port puts this one first; see mk/xorg-lib.mk.
+#
+# Headers into build/deps, never into the rootfs, because nothing at runtime
+# reads them.
 
 NAME    := xorgproto
 VERSION := 2024.1
@@ -26,6 +39,7 @@ LICENSE := MIT (X11)
 BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot)
 TARGET  := $(FREELINX_TRIPLE)
 PREFIX  := /
+# Nothing is staged into the overlay or the rootfs; see x11/renderproto.
 DEPS_ONLY := yes
 LIBRARY_PORT := yes
 
@@ -33,32 +47,29 @@ XORGPROTO_PREFIX = $(FREELINX_BUILD_DIR)/deps/xorgproto
 
 include ../../mk/project-port.mk
 
-# configure exists but only generates xorgproto.pc, which nothing in this build
-# asks for by name; the headers are already in include/X11 as shipped.
-PROJECT_CFG_CMDS := :
+# configure is not optional.  It is what turns the 36 <module>.pc.in files into
+# <module>.pc: every X.Org library's PKG_CHECK_MODULES resolves a *-proto module
+# through them, and without them a build stops at
+#
+#   Package 'fixesproto' not found
+#
+# which names the consumer's requirement rather than the absent file.
+PROJECT_CFG_CMDS = \
+	./configure --prefix=/usr
 BUILD_CMDS := :
 
 install: all
-	@printf '[FreeLinX/ports] staging xorgproto headers\n'
-	@mkdir -p "$(XORGPROTO_PREFIX)/include"
+	@printf '[FreeLinX/ports] staging xorgproto headers and %s pkg-config files\n' \
+		"$$(ls "$(SRC_TREE)"/*.pc.in 2>/dev/null | wc -l)"
+	@mkdir -p "$(XORGPROTO_PREFIX)/include" "$(XORGPROTO_PREFIX)/lib/pkgconfig"
 	@cp -R "$(SRC_TREE)/include/." "$(XORGPROTO_PREFIX)/include/"
-	@# An xproto.pc as well, and this needs saying plainly.
-	@#
-	@# Every release tarball on the xorg archive -- libX11, libXext, libXrender --
-	@# has a configure that asks for "xproto >= 7.0.33", and the newest xproto the
-	@# same archive publishes is 7.0.31.  There is no release that satisfies it,
-	@# and 7.0.33 is not on any mirror reachable from here, so version-picking
-	@# inside the archive does not help.
-	@#
-	@# xorgproto is what xproto became.  It ships Xproto.h itself, along with
-	@# newer Xfuncproto.h and Xmd.h that the old xproto cannot satisfy, and it is
-	@# what the extension headers in this very tree need.  So the port also
-	@# installs an xproto.pc pointing at these headers, and pkg-config compares
-	@# Version 2024.1 against ">= 7.0.33" numerically -- 2024 > 7 -- and it
-	@# passes.  The dependency is genuinely met; it is met by the package that
-	@# replaced the one being asked for.
-	@mkdir -p "$(XORGPROTO_PREFIX)/lib/pkgconfig"
-	@printf 'prefix=%s\nexec_prefix=$${prefix}\nincludedir=$${prefix}/include\nincludex11dir=$${prefix}/include/X11\n\nName: Xproto\nDescription: X11 protocol headers (xorgproto)\nVersion: $(VERSION)\nCflags: -I$${includedir}\n' "$(XORGPROTO_PREFIX)" > "$(XORGPROTO_PREFIX)/lib/pkgconfig/xproto.pc"
-	@cp "$(XORGPROTO_PREFIX)/lib/pkgconfig/xproto.pc" "$(XORGPROTO_PREFIX)/lib/pkgconfig/xorgproto.pc"
-	@printf '[FreeLinX/ports] staged %s headers\n' \
-		"$$(find "$(XORGPROTO_PREFIX)/include" -name '*.h' | wc -l)"
+	@for pc in "$(SRC_TREE)"/*.pc; do \
+		test ! -f "$$pc" || $(INSTALL) -m 644 "$$pc" "$(XORGPROTO_PREFIX)/lib/pkgconfig/"; \
+	done
+	@if [ -z "$(firstword $(wildcard $(XORGPROTO_PREFIX)/lib/pkgconfig/xproto.pc))" ]; then \
+		printf '[FreeLinX/ports][error] %s: no pkg-config files were configured\n' "$(NAME)" >&2; \
+		exit 1; \
+	fi
+	@printf '[FreeLinX/ports] staged %s headers, %s pkg-config files\n' \
+		"$$(find "$(XORGPROTO_PREFIX)/include" -name '*.h' | wc -l)" \
+		"$$(ls "$(XORGPROTO_PREFIX)/lib/pkgconfig" | wc -l)"

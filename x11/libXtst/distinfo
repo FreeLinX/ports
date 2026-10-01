@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/libXtst : libXtst 1.2.5.
+#
+# Real upstream source:
+#   https://xorg.freedesktop.org/archive/individual/lib/libXtst-1.2.5.tar.xz
+DISTINFO_NAME=libXtst-1.2.5
+DISTINFO_ARCHIVE=libXtst-1.2.5.tar.xz
+DISTINFO_URL=https://xorg.freedesktop.org/archive/individual/lib/libXtst-1.2.5.tar.xz
+DISTINFO_SHA256=b50d4c25b97009a744706c1039c598f4d8e64910c9fde381994e1cae235d9242

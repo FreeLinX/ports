@@ -76,9 +76,21 @@ install: all
 		$(SRC_TREE)/json_pointer.h $(SRC_TREE)/arraylist.h \
 		$(SRC_TREE)/linkhash.h $(SRC_TREE)/printbuf.h \
 		$(SRC_TREE)/debug.h "$(FREELINX_BUILD_DIR)/deps/json-c/include/json/"
-	@if [ -f "$(SRC_TREE)/json-c.pc.in" ]; then \
-		sed -e 's|@prefix@|$(FREELINX_BUILD_DIR)/deps/json-c|g' \
-		    -e 's|@includedir@|$${prefix}/include|g' \
-		    "$(SRC_TREE)/json-c.pc.in" > "$(FREELINX_BUILD_DIR)/deps/json-c/lib/pkgconfig/json-c.pc"; \
+	@# All four placeholders, not two.  @exec_prefix@, @libdir@, @LIBS@ and
+	@# @VERSION@ reach pkg-config verbatim otherwise, and pkg-config's Cflags
+	@# and Libs.private then contain the text @LIBS@ -- silently, because
+	@# nothing reads them until a consumer does.  The sed expressions are
+	@# single-quoted so the shell does not expand $${prefix} before sed sees it.
+	@sed -e 's|@prefix@|$(FREELINX_BUILD_DIR)/deps/json-c|g' \
+	    -e 's|@exec_prefix@|$${prefix}|g' \
+	    -e 's|@libdir@|$${prefix}/lib|g' \
+	    -e 's|@includedir@|$${prefix}/include|g' \
+	    -e 's|@VERSION@|$(VERSION)|g' \
+	    -e 's|@LIBS@||g' \
+	    "$(SRC_TREE)/json-c.pc.in" > "$(FREELINX_BUILD_DIR)/deps/json-c/lib/pkgconfig/json-c.pc"
+	@if grep -q '@[a-zA-Z_]*@' "$(FREELINX_BUILD_DIR)/deps/json-c/lib/pkgconfig/json-c.pc"; then \
+	    printf '[FreeLinX/ports][error] %s: unsubstituted placeholder left in json-c.pc\n' "$(NAME)" >&2; \
+	    grep -o '@[a-zA-Z_]*@' "$(FREELINX_BUILD_DIR)/deps/json-c/lib/pkgconfig/json-c.pc" | sort -u >&2; \
+	    exit 1; \
 	fi
 	@printf '[FreeLinX/ports] staged json-c into %s\n' "$(FREELINX_BUILD_DIR)/deps/json-c"

@@ -1,0 +1,17 @@
+# FreeLinX/ports - x11/libXi : libXi 1.7.10.
+#
+# Real upstream source:
+#   https://xorg.freedesktop.org/archive/individual/lib/libXi-1.7.10.tar.gz
+#
+# 1.7.10 rather than 1.8.3, and not for the code.  libXi 1.8.x asks
+# PKG_CHECK_MODULES for "inputproto >= 2.3.99.1", which is the 2.4 development
+# series: inputproto has never been released past 2.3.2, so that requirement
+# cannot be met by any inputproto tarball that exists.  1.7.10 asks for
+# "inputproto >= 2.2.99.1", which 2.3.2 satisfies.
+#
+# The 1.8.x releases exist only as .tar.xz; this one is .tar.gz, which is why
+# the archive name is not the usual pattern.
+DISTINFO_NAME=libXi-1.7.10
+DISTINFO_ARCHIVE=libXi-1.7.10.tar.gz
+DISTINFO_URL=https://xorg.freedesktop.org/archive/individual/lib/libXi-1.7.10.tar.gz
+DISTINFO_SHA256=b51e106c445a49409f3da877aa2f9129839001b24697d75a54e5c60507e9a5e3

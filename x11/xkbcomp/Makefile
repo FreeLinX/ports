@@ -56,7 +56,7 @@ BUILD_BIN   = $(PROJECT_BIN)
 # assignment becomes a space, so a wrapped colon-separated list reaches
 # pkg-config as "dir1: dir2:" and every element after the first names a
 # directory that does not exist.
-PKG_PATH = $(FREELINUX_BUILD_DIR)/deps/libX11/lib/pkgconfig:$(FREELINUX_BUILD_DIR)/deps/libXkbfile/lib/pkgconfig:$(FREELINUX_BUILD_DIR)/deps/xorgproto/lib/pkgconfig
+
 
 PROJECT_CFG_CMDS = \
 	./configure \
@@ -64,7 +64,7 @@ PROJECT_CFG_CMDS = \
 		--host=$(FREELINX_TRIPLE) \
 		--enable-static --disable-shared \
 		PKG_CONFIG="/usr/bin/pkg-config" \
-		PKG_CONFIG_PATH="$(PKG_PATH)" \
+		PKG_CONFIG_LIBDIR="$(FREELINX_PKGCONFIG_LIBDIR)" \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(PREFIX_xorgproto)/include -I$(PREFIX_libX11)/include -I$(PREFIX_libXkbfile)/include" \
 		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(PREFIX_libX11)/lib -L$(PREFIX_libxcb)/lib -L$(PREFIX_libXau)/lib -L$(PREFIX_libXdmcp)/lib -L$(PREFIX_libXkbfile)/lib"
@@ -72,4 +72,4 @@ PROJECT_CFG_CMDS = \
 # libX11 needs libxcb behind it: x11.pc says only -lX11, and libX11.a calls
 # xcb_disconnect, xcb_get_setup and xcb_get_maximum_request_length.
 BUILD_CMDS = \
-	make -j"$(FREELINUX_JOBS)" LIBS="-lX11 -lX11-xcb -lxcb -lXau -lXdmcp -lxkbfile"
+	make -j"$(FREELINX_JOBS)" LIBS="-lX11 -lX11-xcb -lxcb -lXau -lXdmcp -lxkbfile"

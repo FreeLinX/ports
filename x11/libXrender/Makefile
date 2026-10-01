@@ -53,7 +53,7 @@ PROJECT_LIB = $(firstword $(wildcard $(SRC_TREE)/src/libXrender.a) $(wildcard $(
 BUILD_BIN   = $(PROJECT_LIB)
 
 # Only our own .pc files, in dependency order.  Nothing from the host.
-PKG_PATH = $(FREELINX_BUILD_DIR)/deps/xorgproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/libX11/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xextproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/renderproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xproto/lib/pkgconfig
+
 
 PROJECT_CFG_CMDS = \
 	./configure \
@@ -62,7 +62,7 @@ PROJECT_CFG_CMDS = \
 		--enable-static --disable-shared \
 		--without-xml \
 		--without-iconv \
-		PKG_CONFIG_PATH="$(PKG_PATH)" \
+		PKG_CONFIG_LIBDIR="$(FREELINX_PKGCONFIG_LIBDIR)" \
 		PKG_CONFIG="/usr/bin/pkg-config" \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -fPIC -I$(PREFIX_libX11)/include -I$(PREFIX_renderproto)/include -I$(PREFIX_xproto)/include -I$(PREFIX_xextproto)/include " \
@@ -75,12 +75,13 @@ BUILD_CMDS = \
 # One command per line -- a multi-line shell if here needs a backslash
 # continuation that does not survive being generated.
 install: all
+	$(call flx-stage-pc,libXrender,xrender)
+
 	$(call flx-require-archive,$(PROJECT_LIB))
 
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libXrender/lib" "$(FREELINX_BUILD_DIR)/deps/libXrender/include/."
 	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREELINX_BUILD_DIR)/deps/libXrender/lib/libXrender.a"
 	@cp -R "$(SRC_TREE)/include/." "$(FREELINX_BUILD_DIR)/deps/libXrender/include/./"
 	@test -d "$(SRC_TREE)/include" || printf '[FreeLinX/ports][error] %s: no headers at include/\n' "$(NAME)" >&2
-	@test ! -f "$(firstword $(wildcard $(SRC_TREE)/src/libXrender.pc $(SRC_TREE)/src/.libs/libXrender.pc))" || $(INSTALL) -m 644 "$(firstword $(wildcard $(SRC_TREE)/src/libXrender.pc $(SRC_TREE)/src/.libs/libXrender.pc))" "$(FREELINX_BUILD_DIR)/deps/libXrender/lib/"
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libXrender/bin"; test ! -f "$(firstword $(wildcard $(SRC_TREE)/src/libXrender-config $(SRC_TREE)/src/.libs/libXrender-config))" || $(INSTALL) -m 755 "$(firstword $(wildcard $(SRC_TREE)/src/libXrender-config $(SRC_TREE)/src/.libs/libXrender-config))" "$(FREELINX_BUILD_DIR)/deps/libXrender/bin/"
 	@printf '[FreeLinX/ports] staged libXrender into %s\n' "$(FREELINX_BUILD_DIR)/deps/libXrender"

@@ -57,6 +57,20 @@ def split_meson_args(match):
     return "%s%s%s%s%s" % (indent, name, eq, ", ".join(out), close)
 
 
+def any_assigns_prefix(text, portdir):
+    """True if an included mk assigns PREFIX_ names with $(eval) from a list.
+
+    mk/xorg-lib.mk does exactly that, one per name in XORG_LIB_DEPS.  The eval
+    is invisible to a regex, so a port that includes such a file gets the
+    benefit of the doubt rather than a dozen reports of names it does have.
+    """
+    for inc in re.findall(r"^\s*include\s+(\S+)", text, re.M):
+        path = os.path.normpath(os.path.join(portdir, inc))
+        if os.path.isfile(path) and "PREFIX_$(_d)" in open(path).read():
+            return True
+    return False
+
+
 fix = "--fix" in sys.argv
 problems = []
 
@@ -95,17 +109,27 @@ for pat in ("*/Makefile", "*/*/Makefile", "mk/*.mk"):
             for l in lines
             if l.startswith("PREFIX_") and "=" in l
         }
-        for d in sorted(used - defined):
-            problems.append((f, f"PREFIX_{d} used but never assigned"))
-            if fix:
-                last = max(i for i, l in enumerate(lines) if l.startswith("PREFIX_"))
-                lines.insert(last + 1, f"PREFIX_{d} = $(FREELINX_BUILD_DIR)/deps/{d}")
-                open(f, "w").write("\n".join(lines))
-                lines = open(f).read().split("\n")
-                # The value just written may itself carry the misspelling.
-                s = "\n".join(lines)
-                if BAD in s:
-                    open(f, "w").write(s.replace(BAD, GOOD))
+        # A port may get its PREFIX_ lines from an included mk that assigns them
+        # with $(eval) from a list -- mk/xorg-lib.mk does exactly that for each
+        # name in XORG_LIB_DEPS.  The eval is not visible here, so take the
+        # includes at their word rather than report a dozen phantom gaps.
+        if not any_assigns_prefix(text, os.path.dirname(f) or "."):
+                for d in sorted(used - defined):
+                    problems.append((f, f"PREFIX_{d} used but never assigned"))
+                    if fix:
+                        at = [i for i, l in enumerate(lines) if l.startswith("PREFIX_")]
+                        # Nothing to anchor to -- put them above the include,
+                        # which is where every other declaration lives.
+                        if not at:
+                            at = [next(i for i, l in enumerate(lines)
+                                       if l.startswith("include "))]
+                        lines.insert(max(at) + 1, f"PREFIX_{d} = $(FREELINUX_BUILD_DIR)/deps/{d}")
+                        open(f, "w").write("\n".join(lines))
+                        lines = open(f).read().split("\n")
+                        # The value just written may itself carry the misspelling.
+                        s = "\n".join(lines)
+                        if BAD in s:
+                            open(f, "w").write(s.replace(BAD, GOOD))
 
         # Does the port's own SRC_TREE agree with what the tarball unpacks to?
         if re.search(r"^SRC_TREE\s*[:?+]?=", text, re.M):

@@ -64,7 +64,7 @@ FLX_XCB_LIB = $(firstword $(wildcard $(SRC_TREE)/src/.libs/libX11-xcb.a $(SRC_TR
 BUILD_BIN   = $(PROJECT_LIB)
 
 # Only our own .pc files, in dependency order.  Nothing from the host.
-PKG_PATH = $(FREELINX_BUILD_DIR)/deps/xorgproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/libX11/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/libxcb/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/libXau/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/libXdmcp/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xextproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/kbproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/inputproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xtrans/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xextproto/lib/pkgconfig
+
 
 PROJECT_CFG_CMDS = \
 	./configure \
@@ -73,7 +73,7 @@ PROJECT_CFG_CMDS = \
 		--enable-static --disable-shared \
 		--without-xml \
 		--without-iconv \
-		PKG_CONFIG_PATH="$(PKG_PATH)" \
+		PKG_CONFIG_LIBDIR="$(FREELINX_PKGCONFIG_LIBDIR)" \
 		PKG_CONFIG="/usr/bin/pkg-config" \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -fPIC -I$(PREFIX_libxcb)/include -I$(PREFIX_libXau)/include -I$(PREFIX_libXdmcp)/include -I$(PREFIX_xproto)/include -I$(PREFIX_xextproto)/include " \
@@ -86,13 +86,26 @@ BUILD_CMDS = \
 # One command per line -- a multi-line shell if here needs a backslash
 # continuation that does not survive being generated.
 install: all
+	$(call flx-stage-pc,libX11,x11)
+
 	$(call flx-require-archive,$(PROJECT_LIB))
 
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libX11/lib" "$(FREELINX_BUILD_DIR)/deps/libX11/include/."
 	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREELINX_BUILD_DIR)/deps/libX11/lib/libX11.a"
 	@cp -R "$(SRC_TREE)/include/." "$(FREELINX_BUILD_DIR)/deps/libX11/include/./"
 	@test -d "$(SRC_TREE)/include" || printf '[FreeLinX/ports][error] %s: no headers at include/\n' "$(NAME)" >&2
-	@test ! -f "$(firstword $(wildcard $(SRC_TREE)/src/libX11.pc $(SRC_TREE)/src/.libs/libX11.pc))" || $(INSTALL) -m 644 "$(firstword $(wildcard $(SRC_TREE)/src/libX11.pc $(SRC_TREE)/src/.libs/libX11.pc))" "$(FREELINX_BUILD_DIR)/deps/libX11/lib/"
+	@# The pkg-config files are at the top of the tree and are called x11.pc
+	@# and x11-xcb.pc, not libX11.pc: the module name every other port asks
+	@# configure for is "x11", and PKG_CHECK_MODULES(x11) never looks at
+	@# libX11.pc.  Looking only for libX11.pc staged nothing, and every
+	@# downstream configure then failed with
+	@#   Package 'x11' not found
+	@# which names the consumer's requirement rather than the missing file.
+	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libX11/lib/pkgconfig"
+	@for pc in x11 x11-xcb; do \
+		test -f "$(SRC_TREE)/$$pc.pc" || { printf '[FreeLinX/ports][error] %s: %s.pc was not generated\n' "$(NAME)" "$$pc" >&2; exit 1; }; \
+		$(INSTALL) -m 644 "$(SRC_TREE)/$$pc.pc" "$(FREELINX_BUILD_DIR)/deps/libX11/lib/pkgconfig/"; \
+	done
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libX11/bin"; test ! -f "$(firstword $(wildcard $(SRC_TREE)/src/libX11-config $(SRC_TREE)/src/.libs/libX11-config))" || $(INSTALL) -m 755 "$(firstword $(wildcard $(SRC_TREE)/src/libX11-config $(SRC_TREE)/src/.libs/libX11-config))" "$(FREELINX_BUILD_DIR)/deps/libX11/bin/"
 	# libX11-xcb.a is a second archive, not part of libX11.a.  Its header
 	# Xlib-xcb.h is staged above, so a consumer can include it and then fail

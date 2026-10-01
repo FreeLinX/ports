@@ -1,0 +1,8 @@
+# FreeLinX/ports - x11/libXmu : libXmu 1.2.0.
+#
+# Real upstream source:
+#   https://xorg.freedesktop.org/archive/individual/lib/libXmu-1.2.0.tar.xz
+DISTINFO_NAME=libXmu-1.2.0
+DISTINFO_ARCHIVE=libXmu-1.2.0.tar.xz
+DISTINFO_URL=https://xorg.freedesktop.org/archive/individual/lib/libXmu-1.2.0.tar.xz
+DISTINFO_SHA256=072026fe305889538e5b0c5f9cbcd623d2c27d2b85dcd37ca369ab21590b6963

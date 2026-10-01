@@ -33,31 +33,33 @@ include ../../mk/project-port.mk
 PROJECT_LIB = $(firstword $(wildcard $(SRC_TREE)/libXdmcp.a $(SRC_TREE)/.libs/libXdmcp.a))
 BUILD_BIN   = $(PROJECT_LIB)
 
-# ac_cv_func_arc4random_buf=yes is required, and is not a guess.
-#
-# musl does declare arc4random_buf, but only under _BSD_SOURCE or _GNU_SOURCE.
-# configure probes for it with a default-flags program that calls it, so the
-# declaration is not visible, the probe fails, HAVE_ARC4RANDOM_BUF stays unset,
-# and Key.c falls back to defining its own:
-#
-#     static void arc4random_buf (void *auth, int len)
-#
-# Key.c does define _GNU_SOURCE, so by then musl's declaration is visible too
-# and the build dies with
-#
-#     Key.c:77:1: error: static declaration of 'arc4random_buf' follows
-#     non-static declaration
-#
-# Telling configure the truth is the whole fix: it then uses libc's.
-PKG_PATH = $(FREELINX_BUILD_DIR)/deps/xproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xextproto/lib/pkgconfig
 
+
+# Nothing is forced here about arc4random_buf, and deliberately so.
+#
+# This port used to pass ac_cv_func_arc4random_buf=yes on the stated grounds that
+# "musl does declare arc4random_buf, but only under _BSD_SOURCE or _GNU_SOURCE".
+# That is not true of this musl.  1.2.5 has no arc4random at all --
+#
+#     $ nm -D --defined-only .../lib/libc.so | grep -i arc4random
+#     (nothing)
+#
+# -- so configure answered yes from the forced variable, config.h said
+# HAVE_ARC4RANDOM_BUF, and Key.c skipped its own definition and then called a
+# function that does not exist:
+#
+#     Key.c:96:5: error: call to undeclared function 'arc4random_buf'
+#
+# Left to itself the probe answers no, HAVE_ARC4RANDOM_BUF stays undefined, and
+# Key.c compiles the fallback it ships for exactly this case -- a static
+# arc4random_buf that calls getentropy(), which musl does have, and falls back
+# to srandom/random only if that fails.
 PROJECT_CFG_CMDS = \
 	./configure \
 		--prefix=/usr \
 		--host=$(FREELINX_TRIPLE) \
 		--enable-static --disable-shared \
-		ac_cv_func_arc4random_buf=yes \
-		PKG_CONFIG_PATH="$(PKG_PATH)" \
+		PKG_CONFIG_LIBDIR="$(FREELINX_PKGCONFIG_LIBDIR)" \
 		PKG_CONFIG="/usr/bin/pkg-config" \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -fPIC -I$(PREFIX_xproto)/include -I$(PREFIX_xextproto)/include" \
@@ -68,6 +70,8 @@ BUILD_CMDS = \
 
 # A library stages itself: there is no single binary for install.mk to copy.
 install: all
+	$(call flx-stage-pc,libXdmcp,xdmcp)
+
 	$(call flx-require-archive,$(PROJECT_LIB))
 
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libXdmcp/lib" "$(FREELINX_BUILD_DIR)/deps/libXdmcp/include"
