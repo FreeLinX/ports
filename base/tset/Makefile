@@ -32,3 +32,6 @@ PORT_SRCS = usr.bin/tset/map.c \
 
 FLX_CPPFLAGS+= $(FLX_TERMINFO_CPPFLAGS)
 COMPAT_SRCS += $(FLX_LTERMINFO_SRCS)
+
+# BSD meaning of the leading "-" in the getopt optstring (see the header)
+FLX_CPPFLAGS += -include $(FLX_COMPAT)/flx_getopt_dash.h

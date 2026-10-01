@@ -23,3 +23,6 @@ NETBSD_MEMBERS = usr/src/usr.bin/newgrp/grutil.c \
 
 PORT_SRCS = usr.bin/newgrp/grutil.c \
 	usr.bin/newgrp/newgrp.c
+
+# BSD meaning of the leading "-" in the getopt optstring (see the header)
+FLX_CPPFLAGS += -include $(FLX_COMPAT)/flx_getopt_dash.h
