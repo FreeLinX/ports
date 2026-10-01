@@ -54,8 +54,9 @@ BUILD_CMDS = \
 	cmake --build "$(SRC_TREE)/build" -j"$(FREELINX_JOBS)"
 
 install: all
+	$(call flx-require-archive,$(PROJECT_LIB))
+
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/expat/lib" "$(FREELINX_BUILD_DIR)/deps/expat/include"
-	@test -n "$(PROJECT_LIB)" || printf '[FreeLinX/ports][error] %s: libexpat.a was not built\n' "$(NAME)" >&2
 	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREELINX_BUILD_DIR)/deps/expat/lib/libexpat.a"
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/expat/include"
 	# The public headers are under lib/, not at the top level: the top level has

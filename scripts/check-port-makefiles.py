@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """check-port-mkfiles.py [--fix]
 
-Report (and optionally repair) two mistakes that keep recurring in this tree and
-that make make fail in ways which name neither the file nor the variable:
-
+Report (and optionally repair) four mistakes that keep recurring in this tree
+and that make make fail in ways which name neither the file nor the variable:
   1. FREELINUX_ where FREELINX_ was meant.  Every FREELINX_* variable is
      undefined, so the line expands to nothing: CC= becomes empty and configure
      reports "C compiler cannot create executables"; -j"" makes ninja abort.
@@ -14,16 +13,49 @@ that make make fail in ways which name neither the file nor the variable:
      silently wrong rather than an error -- the build then stops at the next
      "file not found" and blames the header.
 
+  3. Two compiler flags sharing one element of a meson *_args list.  Meson hands
+     each element to the compiler as a single argument, so
+     '$(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS)' arrives as one
+     argument with a space inside it, --sysroot is swallowed, and the build
+     quietly compiles against the host's glibc headers.  The symptom is
+     "fatal error: 'stdio.h' file not found" in a sysroot that has stdio.h.
+     Repaired, because splitting on whitespace is exactly right here: both
+     variables are already single flags.
+
+  4. A port whose distinfo does not spell its tarball's root directory.  SRC_TREE
+     defaults to work/$(NAME)/$(DISTINFO_NAME), and DISTINFO_NAME defaults to
+     $(NAME), so a distinfo that spells the versioned tarball root -- which is
+     what the framework needs -- while naming neither the port nor the version
+     points every recipe at a directory that was never extracted, and the build
+     stops at "cd: .../foo-1.2.3: No such file or directory".  Reported with the
+     override that fixes it, never applied: only the tarball knows the answer.
+
 Run from the ports root.
 """
 
 import glob
 import os
 import re
+import shlex
+import subprocess
 import sys
 
 BAD = "FREEL" + "INUX_"      # F R E E L I N U X _
 GOOD = "FREEL" + "INX_"     # F R E E L I N X _
+
+# A *_args = ['a', 'b c'] line: one element of the list holds two flags.
+MESON_ARGS = re.compile(r"^(\s*)(\w*_args)(\s*=\s*\[)(.*)(\])")
+
+
+def split_meson_args(match):
+    """One list element per flag, so meson hands each flag to the compiler."""
+    indent, name, eq, body, close = match.groups()
+    elements = re.findall(r"'[^']*'", body)
+    out = []
+    for e in elements:
+        out.extend("'%s'" % w for w in e[1:-1].split())
+    return "%s%s%s%s%s" % (indent, name, eq, ", ".join(out), close)
+
 
 fix = "--fix" in sys.argv
 problems = []
@@ -42,6 +74,21 @@ for pat in ("*/Makefile", "*/*/Makefile", "mk/*.mk"):
                 text = open(f).read()
                 lines = text.split("\n")
 
+        for i, l in enumerate(lines):
+            m = MESON_ARGS.match(l)
+            if not m:
+                continue
+            elements = re.findall(r"'[^']*'", m.group(4))
+            if not any(" " in e[1:-1] for e in elements):
+                continue
+            problems.append((f, "line %d: two flags in one meson %s element" % (i + 1, m.group(2))))
+            if fix:
+                lines[i] = MESON_ARGS.sub(split_meson_args, l)
+        if fix:
+            open(f, "w").write("\n".join(lines))
+            text = open(f).read()
+            lines = text.split("\n")
+
         used = set(re.findall(r"\bPREFIX_(\w+)", text))
         defined = {
             l.split("=", 1)[0].strip()[len("PREFIX_"):]
@@ -59,6 +106,44 @@ for pat in ("*/Makefile", "*/*/Makefile", "mk/*.mk"):
                 s = "\n".join(lines)
                 if BAD in s:
                     open(f, "w").write(s.replace(BAD, GOOD))
+
+        # Does the port's own SRC_TREE agree with what the tarball unpacks to?
+        if re.search(r"^SRC_TREE\s*[:?+]?=", text, re.M):
+            continue
+        # SRC_TREE defaults to $(SRC_DIR)/$(DISTINFO_NAME), and DISTINFO_NAME
+        # defaults to $(NAME).  Either the distinfo or the Makefile may set it.
+        distinfo = os.path.join(os.path.dirname(f), "distinfo")
+        if not os.path.exists(distinfo):
+            continue
+        dinfo = open(distinfo).read()
+        d = re.search(r"^DISTINFO_ARCHIVE\s*[:?+]?=\s*(\S+)", dinfo, re.M)
+        n = re.search(r"^DISTINFO_NAME\s*[:?+]?=\s*(\S+)", dinfo, re.M) \
+            or re.search(r"^DISTINFO_NAME\s*[:?+]?=\s*(\S+)", text, re.M)
+        if not (d and n):
+            continue
+        tarball = os.path.join("dist", d.group(1))
+        if not os.path.exists(tarball):
+            continue
+        # Only ports that let the framework do the extracting.  Several roll
+        # their own with a different variable -- runit unpacks to admin/runit/,
+        # the NetBSD ports to usr/ -- and are then their own authority.
+        if "SRC_TREE" not in text:
+            continue
+        # Only the first entries are read.  One is enough to name the archive's
+        # top directory, which is the case that actually bites, and a full
+        # listing of a 1 GB tarball makes this lint slower than the builds.  The
+        # head is in the pipeline so tar stops reading, not just stops storing.
+        head = subprocess.run(
+            "tar -tf %s 2>/dev/null | head -64" % shlex.quote(tarball),
+            shell=True, stdout=subprocess.PIPE, text=True,
+        ).stdout.split("\n")
+        roots = sorted({l.split("/")[0] for l in head if "/" in l})
+        if n.group(1) in roots:
+            continue
+        problems.append((f, "tarball unpacks to %s, not %r: set DISTINFO_NAME=%s "
+                            "or SRC_TREE = $(SRC_DIR)/%s"
+                         % (", ".join(roots[:3]) or "nothing", n.group(1),
+                            n.group(1), roots[0] if roots else "?")))
 
 for f, what in problems:
     print(f"  {f}: {what}")

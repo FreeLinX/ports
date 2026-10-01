@@ -75,7 +75,8 @@ BUILD_CMDS = \
 # One command per line -- a multi-line shell if here needs a backslash
 # continuation that does not survive being generated.
 install: all
-	@test -n "$(PROJECT_LIB)" || printf '[FreeLinX/ports][error] %s: libXrender.a was not built\n' "$(NAME)" >&2
+	$(call flx-require-archive,$(PROJECT_LIB))
+
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libXrender/lib" "$(FREELINX_BUILD_DIR)/deps/libXrender/include/."
 	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREELINX_BUILD_DIR)/deps/libXrender/lib/libXrender.a"
 	@cp -R "$(SRC_TREE)/include/." "$(FREELINX_BUILD_DIR)/deps/libXrender/include/./"

@@ -48,6 +48,8 @@ BUILD_CMDS = \
 
 .PHONY: install
 install: all
+	$(call flx-require-archive,$(PROJECT_LIB))
+
 	@mkdir -p "$(STAGE_ROOT)/usr/lib"
 	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(STAGE_ROOT)/usr/lib/libtiff.a"
 	@mkdir -p "$(STAGE_ROOT)/usr/include"

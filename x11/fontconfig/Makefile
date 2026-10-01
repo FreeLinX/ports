@@ -44,18 +44,8 @@
 # to be repeated in the inline LDFLAGS, which is why the -L list appears twice
 # in this file.
 #
-# ---- STATUS: needs one more port, json-c ------------------------------------
-#
-# The build now gets all the way to linking and stops at
-#
-#     ld.lld: error: unable to find library -ljson-c
-#
-# fontconfig 2.15 moved its cache format to json-c.  So the dependency chain for
-# a desktop text panel is: expat (done), fontconfig (one port away), libXft
-# (not started), lemonbar (not started) -- for something base does not use.
-# json-c is a small C library and would very likely close this out, but it is
-# the fourth and fifth ports in service of one binary, and that is worth a
-# decision rather than another cycle.
+# -ljson-c because fontconfig 2.15 moved its cache format to json-c.
+# devel/json-c is the port for it.
 
 # The -L flags are repeated in the inline LDFLAGS below on purpose.  Passing
 # LDFLAGS= to ./configure *replaces* the framework's exported LDFLAGS rather
@@ -66,7 +56,7 @@ NAME    := fontconfig
 VERSION := 2.15.0
 CATEGORY:= x11
 LICENSE := MIT-like (fontconfig)
-DEPENDENCIES:= freetype2 expat zlib
+DEPENDENCIES:= freetype2 expat zlib json-c
 BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot), freetype2 (devel/freetype2)
 TARGET  := $(FREELINX_TRIPLE)
 PREFIX  := /
@@ -79,16 +69,21 @@ LIBRARY_PORT := yes
 PREFIX_freetype2 = $(FREELINX_STAGING_ROOT)/usr
 PREFIX_expat = $(FREELINX_BUILD_DIR)/deps/expat
 PREFIX_zlib = $(FREELINX_BUILD_DIR)/deps/zlib
+PREFIX_jsonc = $(FREELINX_BUILD_DIR)/deps/json-c
 
 # fontconfig is C; do NOT pull in the C++/libc++ link libraries.
 FLX_PROJECT_CXX :=
 FLX_PROJECT_LIBS :=
-FLX_PROJECT_CPPFLAGS = -I$(PREFIX_freetype2)/include -I$(PREFIX_expat)/include -I$(PREFIX_zlib)/include
-FLX_PROJECT_LDFLAGS  = -L$(PREFIX_freetype2)/lib -L$(PREFIX_expat)/lib -L$(PREFIX_zlib)/lib
+FLX_PROJECT_CPPFLAGS = -I$(PREFIX_freetype2)/include -I$(PREFIX_expat)/include -I$(PREFIX_zlib)/include -I$(PREFIX_jsonc)/include
+FLX_PROJECT_LDFLAGS  = -L$(PREFIX_freetype2)/lib -L$(PREFIX_expat)/lib -L$(PREFIX_zlib)/lib -L$(PREFIX_jsonc)/lib
 
 include ../../mk/project-port.mk
 
-PROJECT_LIB = $(firstword $(wildcard $(SRC_TREE)/src/libfontconfig.la $(SRC_TREE)/src/.libs/libfontconfig.a))
+# The .la is NOT a candidate.  libtool writes a 1 KB ASCII "libtool library
+# file" next to the real archive, and listing it first means PROJECT_LIB picks
+# that text file -- which then gets staged as libfontconfig.a and fails the
+# first port that links it.  Only the real archive counts.
+PROJECT_LIB = $(firstword $(wildcard $(SRC_TREE)/src/.libs/libfontconfig.a $(SRC_TREE)/src/libfontconfig.a))
 BUILD_BIN   = $(PROJECT_LIB)
 
 PKG_PATH = $(FREELINX_BUILD_DIR)/deps/expat/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/freetype2/lib/pkgconfig
@@ -107,15 +102,21 @@ PROJECT_CFG_CMDS = \
 		ac_cv_func_XML_SetDoctypeDeclHandler=yes \
 		PKG_CONFIG="/usr/bin/pkg-config" \
 		CC="$(FREELINX_CC)" \
-		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -fPIC -I$(PREFIX_freetype2)/include -I$(PREFIX_expat)/include -I$(PREFIX_zlib)/include" \
-		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(PREFIX_freetype2)/lib -L$(PREFIX_expat)/lib -L$(PREFIX_zlib)/lib"
+		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -fPIC -I$(PREFIX_freetype2)/include -I$(PREFIX_expat)/include -I$(PREFIX_zlib)/include -I$(PREFIX_jsonc)/include" \
+		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(PREFIX_freetype2)/lib -L$(PREFIX_expat)/lib -L$(PREFIX_zlib)/lib -L$(PREFIX_jsonc)/lib"
 
 BUILD_CMDS = \
-	make -j"$(FREELINX_JOBS)" LIBS="-lexpat -lz"
+	make -j"$(FREELINX_JOBS)" LIBS="-lexpat -lz -ljson-c"
 
 install: all
+	$(call flx-require-archive,$(PROJECT_LIB))
+
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/fontconfig/lib" "$(FREELINX_BUILD_DIR)/deps/fontconfig/include"
-	@test -n "$(PROJECT_LIB)" || printf '[FreeLinX/ports][error] %s: libfontconfig was not built\n' "$(NAME)" >&2
 	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREELINX_BUILD_DIR)/deps/fontconfig/lib/libfontconfig.a"
-	@cp -R "$(SRC_TREE)/fontconfig/." "$(FREELINX_BUILD_DIR)/deps/fontconfig/include/"
+	# The headers go into include/fontconfig/, not include/ flat.  Consumers
+	# include them as <fontconfig/fontconfig.h>, so a flat copy produces a tree
+	# where every header is present and libXft still stops at "fatal error:
+	# 'fontconfig/fontconfig.h' file not found".
+	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/fontconfig/include/fontconfig"
+	@cp $(SRC_TREE)/fontconfig/*.h "$(FREELINX_BUILD_DIR)/deps/fontconfig/include/fontconfig/"
 	@printf '[FreeLinX/ports] staged fontconfig into %s\n' "$(FREELINX_BUILD_DIR)/deps/fontconfig"

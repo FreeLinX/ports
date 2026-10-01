@@ -38,7 +38,14 @@ FLX_PROJECT_LDFLAGS  = -L$(PREFIX_libXdmcp)/lib -L$(PREFIX_libXau)/lib -L$(PREFI
 
 include ../../mk/project-port.mk
 
-PROJECT_LIB = $(firstword $(wildcard $(SRC_TREE)/src/libxcb.a $(SRC_TREE)/src/.libs/libxcb.a))
+PROJECT_LIB = $(firstword $(wildcard $(SRC_TREE)/src/.libs/libxcb.a $(SRC_TREE)/src/libxcb.a))
+
+# The extensions land in their own archives, not in libxcb.a: libxcb's build
+# prints "Randr...............: yes" and "GEN randr.c" and then produces
+# libxcb-randr.a beside libxcb.a.  Staging only $(PROJECT_LIB) leaves lemonbar
+# with the randr.h header present and no implementation behind it, which is a
+# link error a long way from the header that invited it.
+FLX_EXT_LIBS = $(wildcard $(SRC_TREE)/src/.libs/libxcb-*.a)
 BUILD_BIN   = $(PROJECT_LIB)
 
 PKG_PATH = $(FREELINX_BUILD_DIR)/deps/libXdmcp/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/libXau/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xproto/lib/pkgconfig:$(FREELINX_BUILD_DIR)/deps/xextproto/lib/pkgconfig
@@ -49,6 +56,12 @@ PROJECT_CFG_CMDS = \
 		--host=$(FREELINX_TRIPLE) \
 		--enable-static --disable-shared \
 		--disable-doxygen-docs \
+		--enable-randr \
+		--enable-xinerama \
+		--enable-present \
+		--enable-xinput \
+		--enable-xkb \
+		--enable-util \
 		--disable-composite-output \
 		PKG_CONFIG_PATH="$(PKG_PATH)" \
 		PKG_CONFIG="/usr/bin/pkg-config" \
@@ -64,9 +77,16 @@ BUILD_CMDS = \
 # archive under one name and its .pc under another breaks the next link in the
 # chain with a message that names neither.
 install: all
-	@test -n "$(PROJECT_LIB)" || printf '[FreeLinX/ports][error] %s: libxcb.a was not built\n' "$(NAME)" >&2
+	$(call flx-require-archive,$(PROJECT_LIB))
+
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libxcb/lib/pkgconfig" "$(FREELINX_BUILD_DIR)/deps/libxcb/include/X11/xcb"
 	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREELINX_BUILD_DIR)/deps/libxcb/lib/libxcb.a"
 	@cp $(SRC_TREE)/src/*.h "$(FREELINX_BUILD_DIR)/deps/libxcb/include/X11/xcb/"
 	@$(INSTALL) -m 644 "$(SRC_TREE)/xcb.pc" "$(FREELINX_BUILD_DIR)/deps/libxcb/lib/pkgconfig/"
+	# The extension archives, staged beside libxcb.a.  These are what back the
+	# randr.h and xinerama.h copied just above; without them a consumer that
+	# includes either header links against nothing.
+	@for e in $(FLX_EXT_LIBS); do \
+		$(INSTALL) -m 644 "$$e" "$(FREELINX_BUILD_DIR)/deps/libxcb/lib/"; \
+	done
 	@printf '[FreeLinX/ports] staged libxcb into %s\n' "$(FREELINX_BUILD_DIR)/deps/libxcb"

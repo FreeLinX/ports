@@ -1,5 +1,10 @@
-# FreeLinX/ports - x11/lemonbar : upstream source reference (silentz/lemonbar-xft master).
-DISTINFO_NAME=lemonbar-xft
-DISTINFO_ARCHIVE=lemonbar-xft.tar.gz
+# FreeLinX/ports - x11/lemonbar : lemonbar 1.4 (the Xft fork).
+#
+# Real upstream source.  silentz/lemonbar redirects to silentz/lemonbar-xft --
+# there is no plain build to fetch -- so this is the fork, which is what the
+# rootfs carried as a prebuilt binary before.
+#   https://github.com/silentz/lemonbar-xft/archive/refs/heads/master.tar.gz
+DISTINFO_NAME=lemonbar-xft-master
+DISTINFO_ARCHIVE=lemonbar-xft-master.tar.gz
 DISTINFO_URL=https://codeload.github.com/silentz/lemonbar-xft/tar.gz/refs/heads/master
 DISTINFO_SHA256=722642c648ba2ba679dc08ab3ead6dba3d388692dd8778f6163a04418229cf77

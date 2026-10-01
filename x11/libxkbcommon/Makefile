@@ -34,16 +34,26 @@ PROJECT_BIN = $(XKBCOMMON_PREFIX)/lib/libxkbcommon.a
 BUILD_BIN   = $(PROJECT_BIN)
 
 # Meson cross-compilation file for FreeLinX toolchain.
+#
+# One flag per list element.  Two flags sharing one element reach clang as a
+# single argument with a space inside it, the --sysroot is swallowed, and the
+# build compiles against the host's glibc headers -- which is what produced
+# "fatal error: 'stdio.h' file not found" for a sysroot that does have it.
+#
+# cpp is named explicitly: with no cpp entry meson falls back to a bare "cpp",
+# which on this host is GCC.
 define MESON_CROSS
 [binaries]
 c = '$(FREELINX_CC)'
+cpp = '$(FREELINX_CXX)'
 ld = '$(FREELINX_LD)'
 ar = '$(FLX_HOST_AR)'
 ranlib = '$(FLX_HOST_RANLIB)'
 strip = 'true'
+pkgconfig = 'false'
 [built-in options]
-c_args = ['$(FREELINX_TARGET_FLAGS)', '$(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS)', '-O2']
-c_link_args = ['$(FREELINX_TARGET_FLAGS)', '$(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS)', '-static', '-fuse-ld=lld', '--rtlib=compiler-rt']
+c_args = ['$(FREELINX_TARGET_FLAGS)', '$(FREELINX_SYSROOT_FLAGS)', '$(FREELINX_RESOURCE_FLAGS)', '-O2']
+c_link_args = ['$(FREELINX_TARGET_FLAGS)', '$(FREELINX_SYSROOT_FLAGS)', '$(FREELINX_RESOURCE_FLAGS)', '-static', '-fuse-ld=lld', '--rtlib=compiler-rt']
 [host_machine]
 system = 'linux'
 cpu_family = 'x86_64'
@@ -63,8 +73,7 @@ PROJECT_CFG_CMDS = \
 		-Denable-docs=false \
 		-Denable-tools=false \
 		-Denable-x11=false \
-		-Denable-wayland=false \
-		-Denable-tests=false
+		-Denable-wayland=false
 
 BUILD_CMDS = \
 	ninja -C flx-build -j"$(FREELINX_JOBS)" && \

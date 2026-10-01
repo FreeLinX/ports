@@ -1,0 +1,9 @@
+# FreeLinX/ports - devel/json-c : JSON parser 0.19.
+#
+# Real upstream source, from json-c's GitHub release.  The tags json-c-0.17 and
+# json-c-0.18 both answer 404 on GitHub; only the release assets exist.
+#   https://github.com/json-c/json-c/releases/download/json-c-0.19-20260627/json-c-0.19.tar.gz
+DISTINFO_NAME=json-c-0.19
+DISTINFO_ARCHIVE=json-c-0.19.tar.gz
+DISTINFO_URL=https://github.com/json-c/json-c/releases/download/json-c-0.19-20260627/json-c-0.19.tar.gz
+DISTINFO_SHA256=37ad0249902e301bd9052bf712e511fcc6acff4ecaad4b5900aad9ce564e26de

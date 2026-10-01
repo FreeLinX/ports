@@ -57,6 +57,10 @@ FLX_PROJECT_LDFLAGS  = -L$(PREFIX_libxcb)/lib -L$(PREFIX_libXau)/lib -L$(PREFIX_
 include ../../mk/project-port.mk
 
 PROJECT_LIB = $(firstword $(wildcard $(SRC_TREE)/src/libX11.a) $(wildcard $(SRC_TREE)/src/.libs/libX11.a) $(wildcard $(SRC_TREE)/libX11.a) $(wildcard $(SRC_TREE)/.libs/libX11.a))
+
+# .libs/ first: libtool writes a small ASCII "libtool library file" next to
+# the real archive in the source directory, and picking that stages text.
+FLX_XCB_LIB = $(firstword $(wildcard $(SRC_TREE)/src/.libs/libX11-xcb.a $(SRC_TREE)/src/libX11-xcb.a))
 BUILD_BIN   = $(PROJECT_LIB)
 
 # Only our own .pc files, in dependency order.  Nothing from the host.
@@ -82,11 +86,17 @@ BUILD_CMDS = \
 # One command per line -- a multi-line shell if here needs a backslash
 # continuation that does not survive being generated.
 install: all
-	@test -n "$(PROJECT_LIB)" || printf '[FreeLinX/ports][error] %s: libX11.a was not built\n' "$(NAME)" >&2
+	$(call flx-require-archive,$(PROJECT_LIB))
+
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libX11/lib" "$(FREELINX_BUILD_DIR)/deps/libX11/include/."
 	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREELINX_BUILD_DIR)/deps/libX11/lib/libX11.a"
 	@cp -R "$(SRC_TREE)/include/." "$(FREELINX_BUILD_DIR)/deps/libX11/include/./"
 	@test -d "$(SRC_TREE)/include" || printf '[FreeLinX/ports][error] %s: no headers at include/\n' "$(NAME)" >&2
 	@test ! -f "$(firstword $(wildcard $(SRC_TREE)/src/libX11.pc $(SRC_TREE)/src/.libs/libX11.pc))" || $(INSTALL) -m 644 "$(firstword $(wildcard $(SRC_TREE)/src/libX11.pc $(SRC_TREE)/src/.libs/libX11.pc))" "$(FREELINX_BUILD_DIR)/deps/libX11/lib/"
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libX11/bin"; test ! -f "$(firstword $(wildcard $(SRC_TREE)/src/libX11-config $(SRC_TREE)/src/.libs/libX11-config))" || $(INSTALL) -m 755 "$(firstword $(wildcard $(SRC_TREE)/src/libX11-config $(SRC_TREE)/src/.libs/libX11-config))" "$(FREELINX_BUILD_DIR)/deps/libX11/bin/"
+	# libX11-xcb.a is a second archive, not part of libX11.a.  Its header
+	# Xlib-xcb.h is staged above, so a consumer can include it and then fail
+	# to link XGetXCBConnection / XSetEventQueueOwner -- lemonbar includes it.
+	@test -n "$(FLX_XCB_LIB)" || printf '[FreeLinX/ports][error] %s: libX11-xcb.a was not built\n' "$(NAME)" >&2
+	@$(INSTALL) -m 644 "$(FLX_XCB_LIB)" "$(FREELINX_BUILD_DIR)/deps/libX11/lib/libX11-xcb.a"
 	@printf '[FreeLinX/ports] staged libX11 into %s\n' "$(FREELINX_BUILD_DIR)/deps/libX11"

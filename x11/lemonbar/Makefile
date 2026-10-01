@@ -1,20 +1,21 @@
 # FreeLinX/ports - x11/lemonbar : lemonbar 1.4 (upstream project port).
 #
 # Real upstream source:
-#   https://github.com/silentz/lemonbar/archive/refs/tags/1.4.tar.gz
+#   https://github.com/silentz/lemonbar-xft/archive/refs/heads/master.tar.gz
 # Built statically with FreeLinX clang + LLD + musl.
 #
 # MIT licensed.  A panel for displaying text on an X root window.
 #
-# This is upstream lemonbar, not the Xft fork that was here before.  The fork
-# exists to render with freetype and pulls in libXft, fontconfig, freetype and
-# expat behind it; the plain build needs libxcb and libX11 and nothing else.
+# Source note: the upstream repo is silentz/lemonbar-xft, and silentz/lemonbar
+# redirects to it -- there is no plain build to fetch.  So this is the Xft fork,
+# which is what the rootfs already had anyway; what changed is that every
+# library it needs is now built from source here:
 #
-# That is not only simpler, it is the right scope.  This is the base image, the
-# user asked for base only, and a text bar has no reason to drag a font stack in
-# to do it.  If an Xft lemonbar is ever wanted, x11/fontconfig and x11/libXft
-# are the ports to finish, and this Makefile's -lXft/-lfontconfig/-lexpat go
-# back with them.
+#   libX11  libxcb  libXrender  libXft  fontconfig  freetype2
+#
+# Before this, the rootfs's lemonbar was a committed prebuilt binary stamped
+# "GCC: (GNU) 16.1.1", kept there because x11/lemonbar pointed at
+# ../desktop-test/ports/build/deps/x11 -- a repo that has been deleted.
 #
 # Produces lemonbar.
 
@@ -22,21 +23,26 @@ NAME    := lemonbar
 VERSION := 1.4
 CATEGORY:= x11
 LICENSE := MIT
-DEPENDENCIES:= libX11 libxcb
-BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot), X11 client libs (x11/libX11, x11/libxcb)
+DEPENDENCIES:= libX11 libxcb libXft libXrender fontconfig freetype2
+BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot)
 TARGET  := $(FREELINX_TRIPLE)
 PREFIX  := /
 
 INSTALL_BIN := lemonbar
 INSTALL_RELPATH := usr/bin/lemonbar
 
-PREFIX_libX11 = $(FREELINX_BUILD_DIR)/deps/libX11
-PREFIX_libxcb = $(FREELINX_BUILD_DIR)/deps/libxcb
-PREFIX_libXau = $(FREELINX_BUILD_DIR)/deps/libXau
-PREFIX_libXdmcp = $(FREELINX_BUILD_DIR)/deps/libXdmcp
+PREFIX_libX11    = $(FREELINX_BUILD_DIR)/deps/libX11
+PREFIX_libxcb    = $(FREELINX_BUILD_DIR)/deps/libxcb
+PREFIX_libXau    = $(FREELINX_BUILD_DIR)/deps/libXau
+PREFIX_libXdmcp  = $(FREELINX_BUILD_DIR)/deps/libXdmcp
 PREFIX_libXrender = $(FREELINX_BUILD_DIR)/deps/libXrender
+PREFIX_libXft    = $(FREELINX_BUILD_DIR)/deps/libXft
+PREFIX_fontconfig = $(FREELINX_BUILD_DIR)/deps/fontconfig
 PREFIX_xorgproto = $(FREELINX_BUILD_DIR)/deps/xorgproto
-PREFIX_xtrans = $(FREELINX_BUILD_DIR)/deps/xtrans
+PREFIX_xtrans    = $(FREELINX_BUILD_DIR)/deps/xtrans
+PREFIX_freetype2 = $(FREELINX_STAGING_ROOT)/usr
+PREFIX_expat = $(FREELINX_BUILD_DIR)/deps/expat
+PREFIX_zlib = $(FREELINX_BUILD_DIR)/deps/zlib
 
 # lemonbar is C; do NOT pull in the C++/libc++ link libraries.
 FLX_PROJECT_CXX :=
@@ -47,17 +53,17 @@ include ../../mk/project-port.mk
 PROJECT_BIN = $(SRC_TREE)/lemonbar
 BUILD_BIN   = $(PROJECT_BIN)
 
-# Xorgproto's include directory comes first: it ships newer Xfuncproto.h and
-# Xmd.h than the xproto 7.0.31 the xorg archive publishes, and every X11
-# header in the stack needs the newer macros.
+# Upstream's own Makefile is a few lines, so the build runs its flags here
+# instead -- which also means the -I/-L list is one place rather than split
+# across a configure invocation that would have to be handed the same list.
 #
-# -lX11 -lxcb is the whole dependency list.  -lxcb-randr/-lxcb-xinerama are
-# avoided deliberately: they come from the xcb-util-compat port, which is not
-# here, and lemonbar links fine without them -- it just does not report RandR
-# and Xinerama geometry.  xtrans is needed because libX11's headers include
-# <X11/Xtrans/Xtrans.h>.
-PROJECT_CFG_CMDS = :
-
+# xorgproto first: its Xfuncproto.h and Xmd.h are newer than the xproto 7.0.31
+# the xorg archive publishes, and the X11 headers need the newer macros.
+#
+# lemonbar.c includes <xcb/randr.h> and <xcb/xinerama.h> and calls into both,
+# so -lxcb-randr and -lxcb-xinerama are not optional.  Those archives are
+# separate from libxcb.a: libxcb builds each enabled extension into its own
+# libxcb-<ext>.a, and x11/libxcb stages them.
 BUILD_CMDS = \
 	$(FREELINX_CC) \
 		--target=$(FREELINX_TRIPLE) \
@@ -67,15 +73,19 @@ BUILD_CMDS = \
 		-I$(PREFIX_xorgproto)/include \
 		-I$(PREFIX_libX11)/include \
 		-I$(PREFIX_libxcb)/include -I$(PREFIX_libxcb)/include/X11 \
-		-I$(PREFIX_libXau)/include \
-		-I$(PREFIX_libXdmcp)/include \
-		-I$(PREFIX_libXrender)/include \
+		-I$(PREFIX_libXau)/include -I$(PREFIX_libXdmcp)/include \
+		-I$(PREFIX_libXrender)/include -I$(PREFIX_libXft)/include \
+		-I$(PREFIX_fontconfig)/include -I$(PREFIX_freetype2)/include \
 		-I$(PREFIX_xtrans)/include \
 		-o "$(BUILD_BIN)" \
-		$(SRC_TREE)/main.c $(SRC_TREE)/parse.c $(SRC_TREE)/ipc.c \
-		$(SRC_TREE)/xcb.c $(SRC_TREE)/xcb_util.c \
+		$(SRC_TREE)/lemonbar.c $(SRC_TREE)/utils.c \
 		-L$(PREFIX_libX11)/lib -L$(PREFIX_libxcb)/lib \
 		-L$(PREFIX_libXau)/lib -L$(PREFIX_libXdmcp)/lib \
-		-L$(PREFIX_libXrender)/lib \
-		-lX11 -lxcb -lm \
+		-L$(PREFIX_libXrender)/lib -L$(PREFIX_libXft)/lib \
+		-L$(PREFIX_fontconfig)/lib -L$(PREFIX_freetype2)/lib \
+		-L$(PREFIX_expat)/lib -L$(PREFIX_zlib)/lib \
+		-Wl,--start-group \
+		-lXft -lXrender -lfontconfig -lfreetype -lX11 -lX11-xcb -lXau \
+		-lxcb -lxcb-randr -lxcb-xinerama -lexpat -lz -lm \
+		-Wl,--end-group \
 		-static -fuse-ld=lld --rtlib=compiler-rt

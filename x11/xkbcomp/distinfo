@@ -1,0 +1,12 @@
+# FreeLinX/ports - x11/xkbcomp : xkbcomp 1.4.7, from x11-xkb-utils 7.7+9.
+#
+# Real upstream source.  xkbcomp has lived in its own repository since 2008 and
+# is no longer published on x.org, so this is the release tarball from GitHub:
+#   https://codeload.github.com/freedesktop/xorg-x11-xkb-utils/tar.gz/refs/tags/X11R6-7.7+9
+#
+# The tarball's top directory is x11-xkb-utils.git, and the compiler is in the
+# xkbcomp/ directory inside it, so the port overrides SRC_TREE.
+DISTINFO_NAME=x11-xkb-utils-7.7+9
+DISTINFO_ARCHIVE=x11-xkb-utils-7.7+9.tar.xz
+DISTINFO_URL=https://codeload.github.com/freedesktop/xorg-x11-xkb-utils/tar.gz/refs/tags/X11R6-7.7+9
+DISTINFO_SHA256=27ae7efb512f3b816c66b7c7290f28de4ae811972e06c5e27a9124d2eab766d4

@@ -68,7 +68,8 @@ BUILD_CMDS = \
 
 # A library stages itself: there is no single binary for install.mk to copy.
 install: all
-	@test -n "$(PROJECT_LIB)" || printf '[FreeLinX/ports][error] %s: libXdmcp.a was not built\n' "$(NAME)" >&2
+	$(call flx-require-archive,$(PROJECT_LIB))
+
 	@mkdir -p "$(FREELINX_BUILD_DIR)/deps/libXdmcp/lib" "$(FREELINX_BUILD_DIR)/deps/libXdmcp/include"
 	@$(INSTALL) -m 644 "$(PROJECT_LIB)" "$(FREELINX_BUILD_DIR)/deps/libXdmcp/lib/libXdmcp.a"
 	@cp -R "$(SRC_TREE)/include/." "$(FREELINX_BUILD_DIR)/deps/libXdmcp/include/"

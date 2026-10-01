@@ -42,6 +42,26 @@ FLX_PROJECT_LDFLAGS?=
 
 FLX_SHA256_CMD?=sha256sum
 
+# flx-require-archive FILE -- abort the install recipe unless FILE is a real ar
+# archive.  Use in a library port's install: target in place of
+#
+#     @test -n "$(PROJECT_LIB)" || printf '...' >&2
+#
+# which does not abort: printf succeeds, so make runs the next line and reports
+# a cp error naming a file that was never built.  And in place of
+#
+#     @test "$(shell file -b "$(PROJECT_LIB)")" = "current ar archive" || ...
+#
+# which expands at recipe-expansion time, so an empty PROJECT_LIB leaves a
+# dangling quote and make dies with "unexpected EOF while looking for matching
+# `"' before it says anything about the archive.
+define flx-require-archive
+@test -n "$(strip $(1))" || { printf '[FreeLinX/ports][error] %s: no archive at "%s"\n' "$(NAME)" "$(strip $(1))" >&2; exit 1; }
+@case "$$(head -c 8 "$(strip $(1))" 2>/dev/null)" in "!<arch>"*) ;; \
+    *) printf '[FreeLinX/ports][error] %s: %s is not an ar archive\n' "$(NAME)" "$(strip $(1))" >&2; exit 1 ;; \
+esac
+endef
+
 export CC:=$(FREELINX_CC)
 export CXX:=$(FREELINX_CXX)
 export AR:=$(FREELINX_AR)
