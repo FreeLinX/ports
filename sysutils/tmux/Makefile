@@ -16,7 +16,7 @@ INSTALL_BIN:= tmux
 INSTALL_RELPATH:= usr/bin/tmux
 
 LIBEVENT_PREFIX = $(FREELINX_BUILD_DIR)/deps/libevent
-NCURSES_PREFIX = $(FREELINX_BUILD_DIR)/deps/ncurses
+NCURSES_PREFIX = $(FREELINX_BUILD_DIR)/deps/netbsd-curses
 
 FLX_PROJECT_LIBS :=
 FLX_PROJECT_CPPFLAGS =
@@ -31,6 +31,7 @@ BUILD_BIN   = $(PROJECT_BIN)
 PROJECT_CFG_CMDS = \
 	ac_cv_search_forkpty="none required" \
 	ac_cv_search_fdforkpty=no \
+	ac_cv_header_bitstring_h=no \
 	./configure \
 		--prefix=/usr \
 		--enable-static \

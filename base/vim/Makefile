@@ -2,33 +2,32 @@
 #
 # Real upstream Vim (github.com/vim/vim tag v9.2.1025) built with the FreeLinX
 # clang + LLD + musl toolchain, fully static.  Dependencies:
-#   - ncurses (base/ncurses, static, wide-char) for terminfo/tgetent
+#   - libterminfo from NetBSD curses (devel/netbsd-curses, static) for tgetent
 # Disabled: GUI (X11/GTK), all interpreter bindings (python/lua/ruby/perl/tcl),
 # clipboard, netbeans, channel, XSMP, NLS (gettext), gpm, selinux/smack.
 # The result is a genuine statically-linked musl Vim with NO GNU runtime
 # dependency.  Vim is licensed under the Vim License (charityware) and is NOT
 # a GNU component.
 #
-# Vim needs terminfo entries at runtime; base/ncurses generates
-# $(NCURSES_PREFIX)/share/terminfo which is staged into the rootfs at
-# /usr/share/terminfo by the install step below.
+# Terminal descriptions come from /usr/share/terminfo.cdb (netbsd-curses);
+# xterm, linux, screen, tmux and st are also compiled into libterminfo.
 
 NAME   := vim
 VERSION:= 9.2.1025
 CATEGORY:= base
 LICENSE:= Vim (charityware)
-DEPENDENCIES:= ncurses
-BUILD_DEPENDENCIES:= musl, ncurses (base/ncurses, static, wide-char)
+DEPENDENCIES:= netbsd-curses
+BUILD_DEPENDENCIES:= musl, netbsd-curses (devel/netbsd-curses)
 TARGET := $(FREELINX_TRIPLE)
 PREFIX := /
 
 INSTALL_BIN:= vim
 INSTALL_RELPATH:= bin/vim
 
-# Build-time dependency prefix from base/ncurses.
+# Build-time dependency prefix from devel/netbsd-curses.
 # `=` (recursive): FREELINX_BUILD_DIR is only bound during project-port.mk's
 # include, so this must resolve lazily.
-NCURSES_PREFIX = $(FREELINX_BUILD_DIR)/deps/ncurses
+NCURSES_PREFIX = $(FREELINX_BUILD_DIR)/deps/netbsd-curses
 
 # Vim is C; do NOT pull in the C++/libc++ link libraries.
 FLX_PROJECT_LIBS :=
@@ -46,13 +45,13 @@ include ../../mk/project-port.mk
 PROJECT_BIN = $(SRC_TREE)/src/vim
 BUILD_BIN   = $(PROJECT_BIN)
 
-# Vim's configure wants a terminal library for tgetent(); give it the static
-# wide-char ncurses from base/ncurses.  Everything a static headless editor
+# Vim's configure wants a terminal library for tgetent(); give it NetBSD's
+# static libterminfo.  Everything a static headless editor
 # does NOT need is turned off.
 PROJECT_CFG_CMDS = \
 	./configure \
 		--prefix=/ \
-		--with-tlib=ncursesw \
+		--with-tlib=terminfo \
 		--with-features=normal \
 		--enable-multibyte \
 		--disable-gui --without-x --without-wayland \

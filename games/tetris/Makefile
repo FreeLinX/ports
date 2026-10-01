@@ -5,7 +5,7 @@
 # toolchain (clang + LLD + musl sysroot), statically linked.
 #
 # FreeLinX porting notes:
-#   - Uses ncursesw from build/deps/ncurses for <term.h> and terminfo(3).
+#   - Uses ncursesw from build/deps/netbsd-curses for <term.h> and terminfo(3).
 #   - FLX_NCURSES_CPPFLAGS / FLX_NCURSES_LDADD come from base-port.mk.
 #   - pathnames.h hardcodes _PATH_SCOREFILE=/var/games/tetris.scores.
 

@@ -2,7 +2,7 @@
 #
 # Enhanced top-like process viewer. Autoconf build, GPL-2.0 license.
 # Built without unicode and sensors support. May link against ncurses if
-# available in build/deps/ncurses.
+# available in build/deps/netbsd-curses.
 
 NAME    := htop
 VERSION := 3.3.0
@@ -16,7 +16,7 @@ PREFIX  := /
 INSTALL_BIN:= htop
 INSTALL_RELPATH:= usr/bin/htop
 
-NCURSES_PREFIX=$(FREELINX_BUILD_DIR)/deps/ncurses
+NCURSES_PREFIX=$(FREELINX_BUILD_DIR)/deps/netbsd-curses
 
 include ../../mk/project-port.mk
 

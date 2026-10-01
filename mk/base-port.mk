@@ -220,8 +220,8 @@ $(BUILD_BIN): do-prepare
 do-build: $(BUILD_BIN)
 	@printf '[FreeLinX/ports] built: %s\n' "$(BUILD_BIN)"
 
-# ncurses from the deps tree (host-built): -I include/ncursesw for
+# NetBSD curses from the deps tree (devel/netbsd-curses): -I include/ncursesw for
 # <curses.h>/<term.h>/<term_private.h>, and static link set for CU_* tools.
-FLX_NCURSES        := $(FREELINX_PORTS_ROOT)/build/deps/ncurses
+FLX_NCURSES        := $(FREELINX_PORTS_ROOT)/build/deps/netbsd-curses
 FLX_NCURSES_CPPFLAGS = -I$(FLX_NCURSES)/include -I$(FLX_NCURSES)/include/ncursesw
-FLX_NCURSES_LDADD    = $(FLX_NCURSES)/lib/libncursesw.a $(FLX_NCURSES)/lib/libtinfo.a
+FLX_NCURSES_LDADD    = $(FLX_NCURSES)/lib/libcurses.a $(FLX_NCURSES)/lib/libterminfo.a

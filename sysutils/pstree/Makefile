@@ -18,7 +18,7 @@ INSTALL_RELPATH:= usr/bin/pstree
 
 include ../../mk/project-port.mk
 
-NCURSES_PREFIX = $(FREELINX_BUILD_DIR)/deps/ncurses
+NCURSES_PREFIX = $(FREELINX_BUILD_DIR)/deps/netbsd-curses
 
 SRC_TREE = $(FREELINX_BUILD_DIR)/work/$(NAME)/psmisc-$(VERSION)
 PROJECT_BIN = $(SRC_TREE)/src/pstree
