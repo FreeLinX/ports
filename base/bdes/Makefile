@@ -35,4 +35,4 @@ COMPAT_SRCS += $(FLX_COMPAT)/des_sun.c
 # objects correctly, so the whole override is unnecessary.
 OPENSSL_PREFIX = $(FREELINX_BUILD_DIR)/deps/openssl
 FLX_CPPFLAGS += -I$(OPENSSL_PREFIX)/include
-FLX_LDADD    += $(OPENSSL_PREFIX)/lib64/libcrypto.a -ldl -lpthread
+FLX_LDADD    += $(OPENSSL_PREFIX)/lib/libcrypto.a -ldl -lpthread

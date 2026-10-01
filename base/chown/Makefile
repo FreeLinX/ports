@@ -36,7 +36,13 @@ INSTALL_BIN:= chown
 INSTALL_RELPATH:= bin/chown
 
 # Install the same binary as bin/chgrp too (argv[0]-driven front-end).
-INSTALL_ALIASES:= chgrp
+#
+# alias=target, not a bare name.  Every other port in the tree writes it that
+# way -- gunzip=gzip, zcat=gzip, cu=tip -- because that is the form mk/install.mk
+# parses, and a bare `chgrp` is rejected before anything is installed:
+#
+#   [FreeLinX/ports][error] chown: INSTALL_ALIASES entry is not <alias>=<target>: chgrp
+INSTALL_ALIASES:= chgrp=chown
 
 include ../../mk/base-port.mk
 

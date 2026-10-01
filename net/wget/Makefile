@@ -44,7 +44,7 @@ PROJECT_CFG_CMDS = \
 		--disable-iri \
 		--disable-pcre2 \
 		OPENSSL_CFLAGS="-I$(OPENSSL_PREFIX)/include" \
-		OPENSSL_LIBS="$(OPENSSL_PREFIX)/lib64/libssl.a $(OPENSSL_PREFIX)/lib64/libcrypto.a -ldl -lpthread" \
+		OPENSSL_LIBS="$(OPENSSL_PREFIX)/lib/libssl.a $(OPENSSL_PREFIX)/lib/libcrypto.a -ldl -lpthread" \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(OPENSSL_PREFIX)/include -I$(ZLIB_PREFIX)/include" \
 		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(ZLIB_PREFIX)/lib" \

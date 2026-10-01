@@ -116,6 +116,21 @@ PROJECT_BIN?=
 BUILD_BIN=$(PROJECT_BIN)
 
 # --- phases -----------------------------------------------------------------
+# Every file in patches/, not just patches/*.patch.
+#
+# Six ports ship a patch named patches/patch-something with no .patch
+# suffix -- base/awk, base/fastfetch, base/libarchive, base/less,
+# base/mandoc and sysutils/kmod -- and a *.patch glob skipped every one of
+# them, silently, because a patch that was not applied looks exactly like a
+# patch that was not needed.  base/awk and base/libarchive are base ports and
+# do get theirs through mk/base-port.mk, which globs patches/patch-*
+# regardless of extension; this brings the project ports onto the same rule.
+#
+# The grep stays as the validity test: a patches/README or a stray .orig is
+# skipped because it is not a unified diff, which is a reason to skip it
+# rather than a reason to fail the build.
+
+
 .PHONY: do-fetch do-extract do-config do-build
 
 do-fetch:
@@ -145,7 +160,8 @@ do-extract: do-fetch
 		esac; \
 		if [ -d patches ]; then \
 			printf '[FreeLinX/ports] applying patches for %s\n' "$(NAME)"; \
-			for p in patches/*.patch; do \
+			for p in patches/*; do \
+				[ -f "$$p" ] || continue; \
 				if grep -q '^--- ' "$$p" 2>/dev/null; then \
 					patch -d "$(SRC_TREE)" -p1 < "$$p"; \
 				fi; \

@@ -1,0 +1,126 @@
+--- a/src/detection/gpu/gpu_linux.c
++++ b/src/detection/gpu/gpu_linux.c
+@@ -71,6 +71,24 @@
+     return "Failed to find render device";
+ }
+ 
++#if FF_HAVE_DRM || __has_include(<drm/drm.h>)
++    // FreeLinX: the DRM-using half of this file needs libdrm's headers, and
++    // musl has no drm/drm.h and the tree builds no libdrm, so the matching
++    // declarations in detection/gpu/gpu.h are compiled out by that same
++    // condition.  Upstream guards the declarations and the gpu_drm/*.c
++    // definitions but not the helpers here, so a build without DRM headers
++    // fails with
++    //
++    //   src/detection/gpu/gpu_linux.c:80:16: error: use of undeclared identifier
++    //       'ffDrmDetectRadeon'
++    //
++    // and the PCI and sysfs detection below -- which needs nothing -- never
++    // gets to run.  The DRM helpers are therefore compiled out here too, with
++    // stubs behind them so the call sites stay as upstream wrote them.  Each
++    // stub returns an error string, which is what the callers already treat as
++    // "this route did not work": drmDetectAmdSpecific's result is compared
++    // against nullptr to set ok, and the Intel and Nouveau ones are called for
++   // their side effects only.
+ static const char* drmDetectAmdSpecific(const FFGPUOptions* options, FFGPUResult* gpu, const char* drmKey, FFstrbuf* buffer) {
+     const char* error = drmFindRenderFromCard(drmKey, buffer);
+     if (error) {
+@@ -83,6 +101,16 @@
+     }
+ }
+ 
++#else
++    static const char* drmDetectAmdSpecific(const FFGPUOptions* options, FFGPUResult* gpu, const char* drmKey, FFstrbuf* buffer)
++{
++    (void) options;
++    (void) gpu;
++    (void) drmKey;
++    (void) buffer;
++    return "libdrm is not available in this build";
++}
++#endif
+ static void pciDetectAmdSpecific(const FFGPUOptions* options, FFGPUResult* gpu, FFstrbuf* pciDir, FFstrbuf* buffer) {
+     // https://www.kernel.org/doc/html/v5.10/gpu/amdgpu.html#mem-info-vis-vram-total
+     const uint32_t pciDirLen = pciDir->length;
+@@ -209,6 +237,24 @@
+     }
+ }
+ 
++#if FF_HAVE_DRM || __has_include(<drm/drm.h>)
++    // FreeLinX: the DRM-using half of this file needs libdrm's headers, and
++    // musl has no drm/drm.h and the tree builds no libdrm, so the matching
++    // declarations in detection/gpu/gpu.h are compiled out by that same
++    // condition.  Upstream guards the declarations and the gpu_drm/*.c
++    // definitions but not the helpers here, so a build without DRM headers
++    // fails with
++    //
++    //   src/detection/gpu/gpu_linux.c:80:16: error: use of undeclared identifier
++    //       'ffDrmDetectRadeon'
++    //
++    // and the PCI and sysfs detection below -- which needs nothing -- never
++    // gets to run.  The DRM helpers are therefore compiled out here too, with
++    // stubs behind them so the call sites stay as upstream wrote them.  Each
++    // stub returns an error string, which is what the callers already treat as
++    // "this route did not work": drmDetectAmdSpecific's result is compared
++    // against nullptr to set ok, and the Intel and Nouveau ones are called for
++   // their side effects only.
+ static const char* drmDetectIntelSpecific(FFGPUResult* gpu, const char* drmKey, FFstrbuf* buffer) {
+     ffStrbufSetS(buffer, "/dev/dri/");
+     ffStrbufAppendS(buffer, drmKey);
+@@ -225,6 +271,15 @@
+     return "Unknown Intel GPU driver";
+ }
+ 
++#else
++    static const char* drmDetectIntelSpecific(FFGPUResult* gpu, const char* drmKey, FFstrbuf* buffer)
++{
++    (void) gpu;
++    (void) drmKey;
++    (void) buffer;
++    return "libdrm is not available in this build";
++}
++#endif
+ static const char* pciDetectTempGeneral(const FFGPUOptions* options, FFGPUResult* gpu, FFstrbuf* pciDir, FFstrbuf* buffer) {
+     if (options->temp) {
+         const uint32_t pciDirLen = pciDir->length;
+@@ -252,6 +307,24 @@
+     return nullptr;
+ }
+ 
++#if FF_HAVE_DRM || __has_include(<drm/drm.h>)
++    // FreeLinX: the DRM-using half of this file needs libdrm's headers, and
++    // musl has no drm/drm.h and the tree builds no libdrm, so the matching
++    // declarations in detection/gpu/gpu.h are compiled out by that same
++    // condition.  Upstream guards the declarations and the gpu_drm/*.c
++    // definitions but not the helpers here, so a build without DRM headers
++    // fails with
++    //
++    //   src/detection/gpu/gpu_linux.c:80:16: error: use of undeclared identifier
++    //       'ffDrmDetectRadeon'
++    //
++    // and the PCI and sysfs detection below -- which needs nothing -- never
++    // gets to run.  The DRM helpers are therefore compiled out here too, with
++    // stubs behind them so the call sites stay as upstream wrote them.  Each
++    // stub returns an error string, which is what the callers already treat as
++    // "this route did not work": drmDetectAmdSpecific's result is compared
++    // against nullptr to set ok, and the Intel and Nouveau ones are called for
++   // their side effects only.
+ static const char* drmDetectNouveauSpecific(FFGPUResult* gpu, const char* drmKey, FFstrbuf* buffer) {
+     ffStrbufSetS(buffer, "/dev/dri/");
+     ffStrbufAppendS(buffer, drmKey);
+@@ -263,6 +336,15 @@
+     return ffDrmDetectNouveau(gpu, fd);
+ }
+ 
++#else
++    static const char* drmDetectNouveauSpecific(FFGPUResult* gpu, const char* drmKey, FFstrbuf* buffer)
++{
++    (void) gpu;
++    (void) drmKey;
++    (void) buffer;
++    return "libdrm is not available in this build";
++}
++#endif
+ static const char* pciDetectZxSpecific(const FFGPUOptions* options, FFGPUResult* gpu, FFstrbuf* pciDir, FFstrbuf* buffer) {
+     gpu->type = FF_GPU_TYPE_INTEGRATED;
+ 

@@ -3,9 +3,26 @@
 # NetBSD 10.1 ships no /usr/bin/diff (only tests and sdiff), so per FreeLinX
 # policy the same-named BSD utility is taken from OpenBSD's userland (the
 # classic Bell/Hunt diff, ISC/BSD-licensed, non-GNU).
-#   Source: OpenBSD src, usr.bin/diff (current master), github.com/openbsd/src
-DISTINFO_NAME=openbsd-diff
-DISTINFO_ARCHIVE=openbsd-diff.tgz
-DISTINFO_URL=https://github.com/openbsd/src/tree/master/usr.bin/diff
-SHA256=1a6a2eae2f8c925ac1f453a88fd8d380d01c760e46051228ed05380e5b9c5cea
-DISTINFO_SHA256=03df556ac41e3ade588054fe543d7714fc1ce1a0af47693ce2a00c5ebf6de969
+#
+# The URL used to be
+#
+#   https://github.com/openbsd/src/tree/master/usr.bin/diff
+#
+# which is a *web page*, not an archive.  fetch.sh downloaded the HTML, hashed
+# it, and reported a mismatch against the pinned hash; the build then failed on
+#
+#   tar (child): .../dist/openbsd-diff.tgz: Cannot open: No such file or directory
+#
+# for the separate reason that nothing had ever produced that filename.  A
+# source reference has to be something curl can save and tar can open.
+#
+# OpenBSD publishes one source tarball per release and it unpacks to the same
+# usr/src/... layout the port's NETBSD_MEMBERS name, so the members below are
+# real members of it.  The archive is named openbsd-7.9-src.tar.gz rather than
+# src.tar.gz because dist/ already holds the NetBSD 10.1 src.tgz under exactly
+# that name and the two must not collide.
+DISTINFO_NAME=openbsd-7.9-src
+DISTINFO_ARCHIVE=openbsd-7.9-src.tar.gz
+DISTINFO_URL=https://ftp.openbsd.org/pub/OpenBSD/7.9/src.tar.gz
+SHA256=fb305c553059b48e8ee64539f392b783cb38a67865823f6f6a94f3b220a1268b
+DISTINFO_SHA256=fb305c553059b48e8ee64539f392b783cb38a67865823f6f6a94f3b220a1268b

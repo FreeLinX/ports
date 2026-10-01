@@ -99,7 +99,43 @@ ROOTFS_FILE=$(ROOTFS_DIR)/$(INSTALL_RELPATH)
 #
 # A tree port stages $(STAGE_TREE) into $(STAGE_FILE) as a directory, and stages
 # nothing at all when it has no tree, so the two cannot both fire for one port.
+#
+# The prerequisites below are written $$(VAR), not $(VAR), and this is why.
+#
+# A prerequisite list is expanded when make *reads the rule*.  A recipe is not: it
+# is expanded when make runs it, which is why $(BUILD_BIN) inside a recipe works
+# even though the port assigns BUILD_BIN fifty lines further down.  A
+# prerequisite has no such second chance.
+#
+# mk/port.mk is included at base-port.mk line 37.  BUILD_BIN? is not assigned
+# until line 88, and most ports assign it themselves after their own include, so
+# when the rules below are read BUILD_BIN is empty.  The old
+#
+#     STAGE_FILE: $(BUILD_BIN)
+#
+# therefore defined a target with *no prerequisites at all*.  Make does not
+# complain about that; it runs the staging recipe against a binary that may never
+# have been built.
+#
+# What that costs, measured on base/banner from a clean build/work:
+#
+#     $ rm -rf build/work/banner build/obj/banner staging/bin/banner
+#     $ ./scripts/install.sh -r base/banner
+#     install: cannot stat '.../build/work/banner/banner': No such file or directory
+#     make: *** [mk/install.mk:134: .../staging/bin/banner] Error 1
+#
+# `make -p install` shows the target with nothing after the colon:
+#
+#     /home/.../ports/staging/bin/banner:
+#
+# Worse, once something has been built, `make install` re-stages whatever is
+# lying in build/work/ with no rebuild, so a stale binary is installed as though
+# it were current.  426 ports set BUILD_BIN.
+#
+# .SECONDEXPANSION with $$(VAR) defers the prerequisite until make needs it,
+# which is after the whole makefile is read and BUILD_BIN is bound.
 # ---------------------------------------------------------------------------
+.SECONDEXPANSION:
 ifneq ($(strip $(STAGE_TREE)),)
 
 # The tree is copied, not moved: build/ is the port's own output and deleting
@@ -107,7 +143,7 @@ ifneq ($(strip $(STAGE_TREE)),)
 # because the mode and the hard links inside a zoneinfo or keymap tree are
 # part of the data, not packaging noise: zoneinfo hard-links the zones that
 # have not changed, and losing the links doubles it.
-$(STAGE_FILE): $(STAGE_TREE)
+$(STAGE_FILE): $$(STAGE_TREE) | do-build
 	@printf '[FreeLinX/ports] staging %s tree -> %s\n' "$(NAME)" "$@"
 	$(MKDIR) -p $(dir $@)
 	rm -rf $@
@@ -127,7 +163,7 @@ else
 # recipe is not reached.  If it is reached by accident, say so, rather than
 # running `install -m 755  staging/usr/lib` and failing with "missing
 # destination file operand".
-$(STAGE_FILE): $(BUILD_BIN)
+$(STAGE_FILE): $$(BUILD_BIN) | do-build
 	@if [ -z "$(BUILD_BIN)" ]; then \
 		printf '[FreeLinX/ports][error] %s: BUILD_BIN is empty; a library port must stage itself in its own install: target\n' "$(NAME)" >&2; \
 		exit 1; \
@@ -206,19 +242,40 @@ check-install-rootfs:
 # ---------------------------------------------------------------------------
 # STAGE_DEP is empty for a library port, which stages itself and has no single
 # staged file for the generic rules to depend on.
-install-rootfs: check-install-rootfs $(STAGE_DEP) install-aliases
+# Three cases, decided in the recipe rather than by `ifeq` at parse time, for
+# the reason the prerequisites above are deferred: STAGE_TREE and BUILD_BIN are
+# both usually assigned by the port after its include, so at parse time they read
+# empty and the branch is chosen wrong.
+#
+#   STAGE_TREE set    a tree this port owns, replaced wholesale.  rm -rf first,
+#                     because copying over the top of an existing tree leaves
+#                     files the new build no longer produces, and a stale zone
+#                     left in zoneinfo is a zone the system will read and get
+#                     wrong.
+#   a directory       a directory the ports share, merged.  Every library port
+#                     with INSTALL_RELPATH=usr/lib stages into the same
+#                     staging/usr/lib, and that directory is not one port's to
+#                     replace: the rootfs usr/lib also holds libc.so,
+#                     libunwind.so and dillo/, and the rm -rf above would delete
+#                     all of them in order to install one .a file.  This is what
+#                     devel/libgc hit, and `install -m 755` on the directory
+#                     failed with "install: omitting directory".
+#   a file            the ordinary single-binary install.
+#
+# No `#` comments inside this recipe: a continued recipe is one shell command,
+# and a `#` on any of its lines comments out everything after it.
+install-rootfs: check-install-rootfs do-build $(STAGE_DEP) install-aliases
 	@printf '[FreeLinX/ports] installing %s into rootfs %s\n' "$(NAME)" "$(ROOTFS_FILE)"
-	$(MKDIR) -p $(dir $(ROOTFS_FILE))
-ifeq ($(strip $(STAGE_TREE)),)
-	$(if $(strip $(BUILD_BIN)),$(INSTALL) -m 755 $(STAGE_FILE) $(ROOTFS_FILE),:)
-else
-	# A tree, so it is replaced as a directory.  rm -rf first: copying over
-	# the top of an existing tree leaves files that the new build no longer
-	# produces, and a stale zone left in zoneinfo is a zone the system will
-	# happily read and get wrong.
-	rm -rf $(ROOTFS_FILE)
-	cp -a $(STAGE_FILE) $(ROOTFS_FILE)
-endif
+	@set -e; \
+	$(MKDIR) -p "$(dir $(ROOTFS_FILE))"; \
+	if [ -n "$(STAGE_TREE)" ]; then \
+		rm -rf "$(ROOTFS_FILE)"; \
+		cp -a "$(STAGE_FILE)" "$(ROOTFS_FILE)"; \
+	elif [ -d "$(STAGE_FILE)" ]; then \
+		cp -a "$(STAGE_FILE)/." "$(ROOTFS_FILE)/"; \
+	elif [ -n "$(BUILD_BIN)" ]; then \
+		$(INSTALL) -m 755 "$(STAGE_FILE)" "$(ROOTFS_FILE)"; \
+	fi
 	@if [ -n "$(INSTALL_ALIASES)" ]; then \
 	    set -e; \
 	    d="$(dir $(ROOTFS_FILE))"; \

@@ -169,6 +169,64 @@ for pat in ("*/Makefile", "*/*/Makefile", "mk/*.mk"):
                          % (", ".join(roots[:3]) or "nothing", n.group(1),
                             n.group(1), roots[0] if roots else "?")))
 
+# --- does a linked archive exist? -------------------------------------------
+# A port names its dependency archives by path.  When the producing port stages
+# them somewhere else, the link fails with a message that says nothing about the
+# port: base/bdes linked
+#
+#   FLX_LDADD += $(OPENSSL_PREFIX)/lib64/libcrypto.a
+#
+# and devel/openssl stages
+#
+#   $(INSTALL) -m 644 "$(PROJECT_LIB)" "$(OPENSSL_PREFIX)/lib/libcrypto.a"
+#
+# so the build died on
+#
+#   clang: error: no such file or directory:
+#       '.../build/deps/openssl/lib64/libcrypto.a'
+#
+# Five ports had it.  The check is only as good as its ability to resolve the
+# variable, so it handles the one shape the tree uses -- NAME = $(...)/deps/NAME
+# -- and stays quiet about anything else rather than guessing.
+LIB_REF = re.compile(r"\$\(([A-Z_][A-Z0-9_]*)\)(/[\w./+-]+/)([\w.+-]+\.a)\b")
+PREFIX_DEF = re.compile(r"^([A-Z_][A-Z0-9_]*)\s*[:?+]?=\s*\$\([^)]*\)/deps/([\w.+-]+)/?\s*$", re.M)
+
+for pat in ("*/Makefile", "*/*/Makefile"):
+    for f in sorted(glob.glob(pat)):
+        if "/build/" in f:
+            continue
+        text = open(f).read()
+        prefixes = dict(PREFIX_DEF.findall(text))
+        if not prefixes:
+            continue
+        for i, l in enumerate(text.split("\n")):
+            if l.lstrip().startswith("#"):
+                continue
+            for var, dirs, lib in LIB_REF.findall(l):
+                if var not in prefixes:
+                    continue
+                dep = os.path.join("build", "deps", prefixes[var])
+                if not os.path.isdir(dep):
+                    # The dependency has not been built, so there is nothing to
+                    # check against and saying so would be noise.
+                    continue
+                # dirs starts with "/", and os.path.join(dep, "/lib/", lib)
+                # throws dep away -- which made the report read "links
+                # /lib/libssl.a but openssl provides lib/libssl.a", naming the
+                # very path that exists.
+                want = os.path.join(dep, dirs.lstrip("/"), lib)
+                if os.path.exists(want):
+                    continue
+                have = sorted(
+                    os.path.relpath(os.path.join(r, n), dep)
+                    for r, _d, ns in os.walk(dep) for n in ns if n == lib
+                )
+                if not have:
+                    continue
+                problems.append((f, "line %d: links %s but %s provides %s"
+                                 % (i + 1, want, prefixes[var],
+                                    ", ".join(have))))
+
 for f, what in problems:
     print(f"  {f}: {what}")
 print(f"  {len(problems)} problem(s)" + ("  (repaired)" if fix and problems else ""))

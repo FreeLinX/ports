@@ -43,13 +43,33 @@ fetch_one() {
     : "${DISTINFO_NAME:?distinfo missing DISTINFO_NAME}"
     : "${DISTINFO_URL:?distinfo missing DISTINFO_URL}"
 
-    _dst="${FREELINX_DIST_DIR}/$(basename "$DISTINFO_URL")"
+    # Saved under DISTINFO_ARCHIVE, which is the name the build looks for, and
+    # not under basename "$DISTINFO_URL".  A GitHub branch archive has the
+    # basename of the branch and nothing else:
+    #
+    #   DISTINFO_URL=https://github.com/ozkl/doomgeneric/archive/refs/heads/master.tar.gz
+    #   DISTINFO_ARCHIVE=doomgeneric-master.tar.gz
+    #
+    # curl -O wrote dist/master.tar.gz, the build asked for
+    # dist/doomgeneric-master.tar.gz, and the two never met.  fetch.sh reported
+    # "sha256 verified" over the wrong file, so the fetch looked like it had
+    # worked:
+    #
+    #   [FreeLinX/ports] base/doom: already downloaded:
+    #       /home/kanan/FreeLinX/ports/dist/master.tar.gz
+    #   tar (child): .../dist/doomgeneric-master.tar.gz: Cannot open
+    #
+    # `-o "$DISTINFO_ARCHIVE"` also survives a URL with no basename at all,
+    # which basename would answer with "curl" or empty.
+    : "${DISTINFO_ARCHIVE:?distinfo missing DISTINFO_ARCHIVE}"
+    _dst="${FREELINX_DIST_DIR}/$DISTINFO_ARCHIVE"
     if [ -f "$_dst" ]; then
         flx_info "$_port: already downloaded: $_dst"
     else
         flx_info "$_port: fetching $DISTINFO_URL"
         mkdir -p "$FREELINX_DIST_DIR"
-        (cd "$FREELINX_DIST_DIR" && curl -fLSO "$DISTINFO_URL") || {
+        (cd "$FREELINX_DIST_DIR" && curl -fLS -o "$DISTINFO_ARCHIVE" "$DISTINFO_URL") || {
+            rm -f "${FREELINX_DIST_DIR:?}/$DISTINFO_ARCHIVE"
             flx_warn "$_port: download failed"
             return 1
         }

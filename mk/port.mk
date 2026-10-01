@@ -136,7 +136,27 @@ all: check-portable check-toolchain do-build
 # BUILD_BIN and stage themselves in their own install: recipe; naming
 # $(STAGE_FILE) here would make GNU make merge it into their prerequisites and
 # then stop with "No rule to make target staging/usr/lib, needed by install".
-install: $(STAGE_DEP) install-aliases
+# do-build, and the two checks, because `install` has to be able to build what it
+# stages.  It could not:
+#
+#   * a port with its own do-build recipe -- base/doom, base/fastfetch, and every
+#     project port, since mk/project-port.mk writes $(PROJECT_BIN) rather than a
+#     per-object rule -- leaves $(BUILD_BIN) with no rule at all, so install
+#     staged a path make could not order against anything:
+#
+#       make: *** No rule to make target
+#           '.../build/obj/doom/doom', needed by '.../staging/bin/doom'
+#
+#   * mk/project-port.mk's own rule was $(PROJECT_BIN): do-build, and
+#     PROJECT_BIN is `?=` empty until the port sets it after its include, so at
+#     the moment that rule was read the target was the empty string.  Make drops
+#     such a rule silently: `make -p install` shows do-build: do-config and no
+#     rule for the binary at all.
+#
+# check-portable and check-toolchain come along because installing a port that
+# cannot be built portably, or on a host without the toolchain, should say so
+# rather than produce a staging tree that lies about it.
+install: check-portable check-toolchain do-build $(STAGE_DEP) install-aliases
 
 clean:
 	@true

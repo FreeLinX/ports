@@ -36,7 +36,7 @@ NETBSD_MEMBERS = usr/src/usr.bin/dc/main.c usr/src/usr.bin/dc/dc.c \
 # OpenSSL headers (BIGNUM) + the FreeLinX openssl port's static libcrypto.a,
 # both under the configureable build dir (never hard-coded developer paths).
 FLX_CPPFLAGS += -I"$(FREELINX_BUILD_DIR)/deps/openssl/include"
-FLX_LDADD    += $(FREELINX_BUILD_DIR)/deps/openssl/lib64/libcrypto.a
+FLX_LDADD    += $(FREELINX_BUILD_DIR)/deps/openssl/lib/libcrypto.a
 
 # dc calls errc(1, EISDIR, ...) -- explicit-errno err(3) musl lacks -- and
 # mem.c's breallocarray() grows its BIGNUM stack with reallocarr(3) (also

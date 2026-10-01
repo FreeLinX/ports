@@ -30,4 +30,4 @@ PORT_SRCS = usr.bin/nbsvtool/nbsvtool.c
 # here would be one more place to forget the crt objects and compiler-rt.
 OPENSSL_PREFIX = $(FREELINX_BUILD_DIR)/deps/openssl
 FLX_CPPFLAGS += -I$(OPENSSL_PREFIX)/include
-FLX_LDADD    += $(OPENSSL_PREFIX)/lib64/libcrypto.a
+FLX_LDADD    += $(OPENSSL_PREFIX)/lib/libcrypto.a
