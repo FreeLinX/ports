@@ -209,8 +209,10 @@ char *	ttymsg(struct iovec *, int, const char *, int);
 /* musl only declares strcasestr under _GNU_SOURCE; NetBSD uses it plainly. */
 char *strcasestr(const char *, const char *);
 /* BSD regex flags that musl's <regex.h> does not define.  musl's
- * regcomp/regexec do not validate the flag bits (REG_STARTEND is honoured),
- * so defining these is safe; REG_NOSPEC degrades to a normal regex. */
+ * regcomp/regexec do not validate the flag bits, so defining these is safe,
+ * but musl IGNORES REG_STARTEND: regexec always reads up to the NUL.  A port
+ * that passes a line that is not NUL-terminated must copy it first (see
+ * grep's patch-grep-regstartend).  REG_NOSPEC degrades to a normal regex. */
 #ifndef REG_STARTEND
 #define	REG_STARTEND	0x40000000
 #endif

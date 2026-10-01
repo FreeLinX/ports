@@ -23,5 +23,6 @@ BUILD_BIN = $(SRC_DIR)/$(NAME)
 NETBSD_MEMBERS = usr/src/usr.bin/su/su.c usr/src/usr.bin/su/suutil.c usr/src/usr.bin/su/suutil.h
 PORT_SRCS = usr.bin/su/su.c usr.bin/su/suutil.c
 COMPAT_SRCS = $(FLX_COMPAT)/getprogname.c $(FLX_COMPAT)/consttime_memequal.c $(FLX_COMPAT)/estrlcpy.c $(FLX_COMPAT)/strlcpy.c $(FLX_COMPAT)/emalloc.c
-FLX_CPPFLAGS = -I$(FLX_COMPAT) -I$(SRC_DIR) -DUSE_SHADOW -DNO_PAM -include $(FLX_COMPAT)/su_compat.h
+FLX_CPPFLAGS += -I$(SRC_DIR) -DUSE_SHADOW -DNO_PAM -include $(FLX_COMPAT)/su_compat.h \
+	-include $(FLX_COMPAT)/flx_getopt_dash.h
 FLX_LDADD = -lcrypt
