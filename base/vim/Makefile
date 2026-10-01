@@ -49,6 +49,21 @@ BUILD_BIN   = $(PROJECT_BIN)
 # Vim's configure wants a terminal library for tgetent(); give it the static
 # wide-char ncurses from base/ncurses.  Everything a static headless editor
 # does NOT need is turned off.
+# The target triple and the sysroot go in CC, and not only in CFLAGS and LDFLAGS.
+# vim compiles some files from shell scripts -- src/osdef.sh builds osdef0.c and
+# os_unixx.h from there -- and those scripts call $CC with a CFLAGS of vim's own
+# making.  With the flags only in CFLAGS the configure CFLAGS, osdef.sh's compile
+# had no --sysroot and picked up the host's headers:
+#
+#   CC="/.../clang -Iproto -DHAVE_CONFIG_H -I.../ncurses/include"
+#   In file included from osdef0.c:7:
+#   ./os_unixx.h:38:11: fatal error: 'stropts.h' file not found
+#
+# and musl's stropts.h -- which the sysroot does have -- is not what it was
+# looking for.  In CC they reach every compile in the tree.
+VIM_CC = $(FREELINX_CC) $(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) \
+	$(FREELINX_RESOURCE_FLAGS)
+
 PROJECT_CFG_CMDS = \
 	./configure \
 		--prefix=/ \
@@ -61,10 +76,10 @@ PROJECT_CFG_CMDS = \
 		--disable-netbeans --disable-channel --disable-xsmp \
 		--disable-nls --without-gpm --without-selinux --without-smack \
 		--disable-option-checking \
-		CC="$(FREELINX_CC)" \
+		CC="$(VIM_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(NCURSES_PREFIX)/include" \
 		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(NCURSES_PREFIX)/lib" \
-		LIBS="-lncursesw" \
+		LIBS="-lncursestw" \
 		AR="$(FLX_HOST_AR)" RANLIB="$(FLX_HOST_RANLIB)"
 
 # configure detects host cairo/pango in auto/config.mk and ALL_LIBS always
