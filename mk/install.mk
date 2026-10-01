@@ -35,6 +35,20 @@ STAGE_ROOT?=$(FREELINX_STAGING_ROOT)
 # ---------------------------------------------------------------------------
 INSTALL_ALIASES?=
 
+# A port that delivers more than one *file* -- not another name for the same one,
+# which is INSTALL_ALIASES -- names the rest here as rootfs-relative paths.
+#
+# archivers/bzip2 builds two programs, stages both in its own install: recipe,
+# and declares only
+#
+#   INSTALL_RELPATH:= usr/bin/bzip2
+#
+# install-rootfs copies $(STAGE_FILE) and nothing else, so bzip2recover sat in
+# staging/usr/bin for ever.  `git status` on the rootfs never showed it as
+# deleted, because it was never there to begin with: a staged file that no
+# install rule names is invisible from both ends.
+INSTALL_EXTRA_RELPATHS?=
+
 # Rootfs-relative destination for a port's staged output. Ports override this
 # when they install into a different location, e.g. INSTALL_RELPATH:=bin/sh.
 # Recursive (=) so $(INSTALL_BIN) -- defined after include -- resolves lazily.
@@ -285,5 +299,19 @@ install-rootfs: check-install-rootfs do-build $(STAGE_DEP) install-aliases
 	            "$(NAME)" "$$_n" "$$_t"; \
 	        rm -f "$$d$$_n"; \
 	        $(LN) -s "$$_t" "$$d$$_n"; \
+	    done; \
+	fi
+	@if [ -n "$(INSTALL_EXTRA_RELPATHS)" ]; then \
+	    set -e; \
+	    for _r in $(INSTALL_EXTRA_RELPATHS); do \
+	        if [ ! -e "$(STAGE_ROOT)/$$_r" ]; then \
+	            printf '[FreeLinX/ports][error] %s: INSTALL_EXTRA_RELPATHS names %s, which the port did not stage\n' \
+	                "$(NAME)" "$$_r" >&2; \
+	            exit 1; \
+	        fi; \
+	        $(MKDIR) -p "$(ROOTFS_DIR)/$$(dirname $$_r)"; \
+	        rm -rf "$(ROOTFS_DIR)/$$_r"; \
+	        cp -a "$(STAGE_ROOT)/$$_r" "$(ROOTFS_DIR)/$$_r"; \
+	        printf '[FreeLinX/ports] installed %s -> rootfs %s\n' "$$_r" "$(ROOTFS_DIR)/$$_r"; \
 	    done; \
 	fi

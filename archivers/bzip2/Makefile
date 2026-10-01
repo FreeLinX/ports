@@ -14,6 +14,9 @@ PREFIX  := /
 
 INSTALL_BIN:= bzip2
 INSTALL_RELPATH:= usr/bin/bzip2
+# The port builds two programs.  Without this, bzip2recover was staged and never
+# installed: install-rootfs copies INSTALL_RELPATH and nothing else.
+INSTALL_EXTRA_RELPATHS:= usr/bin/bzip2recover
 
 BZIP2_PREFIX = $(FREELINX_BUILD_DIR)/deps/bzip2
 
@@ -33,13 +36,13 @@ BUILD_CMDS = \
 	make -j"$(FREELINX_JOBS)" clean all \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -O2" \
-		LDFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -static -fuse-ld=lld --rtlib=compiler-rt" \
-		LDFLAGS-STATIC="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -static -fuse-ld=lld --rtlib=compiler-rt" && \
+		LDFLAGS="$(FLX_LINK_FLAGS)" \
+		LDFLAGS-STATIC="$(FLX_LINK_FLAGS)" && \
 	make -j"$(FREELINX_JOBS)" bzip2recover \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -O2" \
-		LDFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -static -fuse-ld=lld --rtlib=compiler-rt" \
-		LDFLAGS-STATIC="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -static -fuse-ld=lld --rtlib=compiler-rt"
+		LDFLAGS="$(FLX_LINK_FLAGS)" \
+		LDFLAGS-STATIC="$(FLX_LINK_FLAGS)"
 
 .PHONY: install
 install: all

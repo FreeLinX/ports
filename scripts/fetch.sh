@@ -43,6 +43,18 @@ fetch_one() {
     : "${DISTINFO_NAME:?distinfo missing DISTINFO_NAME}"
     : "${DISTINFO_URL:?distinfo missing DISTINFO_URL}"
 
+    # A native port has no upstream to fetch: base/dmesg, base/flxpasswd,
+    # base/flxuseradd, base/mount, base/umount and sysutils/flxpart are written
+    # here and say so with DISTINFO_ARCHIVE= and a placeholder URL.  Asking for
+    # them used to fail, which put six working ports into a fetch failure report
+    # and made the report's count mean nothing.
+    case "$DISTINFO_URL" in
+        \(*\)|*native*|*"(local)"*)
+            flx_info "$_port: native port, nothing to fetch"
+            return 0
+            ;;
+    esac
+
     # Saved under DISTINFO_ARCHIVE, which is the name the build looks for, and
     # not under basename "$DISTINFO_URL".  A GitHub branch archive has the
     # basename of the branch and nothing else:

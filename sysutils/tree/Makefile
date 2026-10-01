@@ -28,5 +28,5 @@ BUILD_CMDS = \
 	cd "$(SRC_TREE)" && \
 	$(MAKE) CC="$(FREELINX_CC)" \
 		CFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -O2 -D_GNU_SOURCE" \
-		LDFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -static -fuse-ld=lld --rtlib=compiler-rt" \
+		LDFLAGS="$(FLX_LINK_FLAGS)" \
 		tree

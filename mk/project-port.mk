@@ -108,6 +108,27 @@ endif
 export LDFLAGS:=$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -nostdlib --rtlib=compiler-rt -static -fuse-ld=lld $(FLX_CRT) $(FLX_PROJECT_LDFLAGS) $(FLX_PROJECT_LIBS) -lc $(FLX_CRT_END)
 export LIBS:=
 
+# The same flags, named, for a port that has to hand LDFLAGS to an upstream build
+# system instead of relying on the export above.
+#
+# A port that passes LDFLAGS="..." on the upstream make command line replaces the
+# exported value rather than adding to it, and the hand-written string is always
+# missing something.  sysutils/tree and archivers/bzip2 both wrote
+#
+#   --target=... --sysroot=... -static -fuse-ld=lld --rtlib=compiler-rt
+#
+# which keeps --target and --sysroot and drops -nostdlib and the musl crt
+# objects, so clang linked GCC's crtbegin.o and crtend.o in and the binary came
+# out with both toolchains in .comment:
+#
+#   usr/bin/tree
+#       mixed build: GCC: (GNU) 16.1.1 alongside clang
+#
+# Use this instead.  $(FLX_CRT) names crt1.o and crti.o, $(FLX_CRT_END) names
+# crtn.o, and -lc puts libc back, because -nostdlib drops that too.
+FLX_LINK_FLAGS:=$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) \
+	-nostdlib $(FLX_CRT) -lc $(FLX_CRT_END) --rtlib=compiler-rt -static -fuse-ld=lld
+
 # The delivered artifact; install.mk stages THIS path.
 PROJECT_BIN?=
 # Recursive expansion is intentional: port Makefiles commonly declare
