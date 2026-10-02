@@ -26,7 +26,7 @@ INSTALL_RELPATH:= lib/libcurses.a
 include ../../mk/project-port.mk
 
 NC_PREFIX = $(FREELINX_BUILD_DIR)/deps/netbsd-curses
-NC_MAKE = $(MAKE) -f GNUmakefile HOSTCC=cc CC="$(FREELINX_CC)" AR="$(FREELINX_AR)" \
+NC_MAKE = $(MAKE) -f GNUmakefile HOSTCC="$(FREELINX_CC) $(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt" CC="$(FREELINX_CC)" AR="$(FREELINX_AR)" \
 	RANLIB="$(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib" \
 	CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2 -fPIC -DTERMINFO_COMPAT" \
 	CFLAGS_HOST="-O2 -DTERMINFO_COMPAT" \

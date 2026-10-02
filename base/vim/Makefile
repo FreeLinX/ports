@@ -34,11 +34,9 @@ FLX_PROJECT_LIBS :=
 FLX_PROJECT_CPPFLAGS = -I$(NCURSES_PREFIX)/include
 FLX_PROJECT_LDFLAGS  = -L$(NCURSES_PREFIX)/lib
 
-# The FreeLinX toolchain's llvm-ar/llvm-ranlib require GLIBC_2.38 (host has
-# 2.36) and cannot run here; archiving is libc-agnostic so host ar/ranlib
-# package the musl .o files.  The final Vim link uses ONLY clang+LLD.
-FLX_HOST_AR      ?= /usr/bin/ar
-FLX_HOST_RANLIB  ?= /usr/bin/ranlib
+# Archives: llvm-ar/llvm-ranlib from the FreeLinX toolchain (no GNU binutils).
+FLX_HOST_AR      ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ar
+FLX_HOST_RANLIB  ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib
 
 include ../../mk/project-port.mk
 

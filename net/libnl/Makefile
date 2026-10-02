@@ -29,10 +29,9 @@ FLX_PROJECT_LIBS :=
 FLX_PROJECT_CPPFLAGS =
 FLX_PROJECT_LDFLAGS  =
 
-# LLVM's llvm-ar/ranlib need GLIBC_2.38 (host has 2.36); archiving is
-# libc-agnostic, so host tools package the musl .o files (as openssl does).
-FLX_HOST_AR      ?= /usr/bin/ar
-FLX_HOST_RANLIB  ?= /usr/bin/ranlib
+# Archives: llvm-ar/llvm-ranlib from the FreeLinX toolchain (no GNU binutils).
+FLX_HOST_AR      ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ar
+FLX_HOST_RANLIB  ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib
 
 include ../../mk/project-port.mk
 

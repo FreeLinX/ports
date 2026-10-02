@@ -37,11 +37,9 @@ FLX_PROJECT_LIBS :=
 FLX_PROJECT_CPPFLAGS =
 FLX_PROJECT_LDFLAGS  =
 
-# The FreeLinX toolchain's llvm-ar/llvm-ranlib require GLIBC_2.38 (host has
-# 2.36) and cannot run here.  Not needed for awk (no archive step), but
-# keep consistent with the other ports.
-FLX_HOST_AR      ?= /usr/bin/ar
-FLX_HOST_RANLIB  ?= /usr/bin/ranlib
+# Archives: llvm-ar/llvm-ranlib from the FreeLinX toolchain (no GNU binutils).
+FLX_HOST_AR      ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ar
+FLX_HOST_RANLIB  ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib
 
 # One-true-awk source files (after bison/maketab generate the rest).
 AWK_SRCS = awkgram.tab.c b.c lex.c lib.c main.c parse.c proctab.c run.c tran.c
