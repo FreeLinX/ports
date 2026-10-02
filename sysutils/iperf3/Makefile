@@ -4,7 +4,7 @@
 # BSD-3-Clause license.
 
 NAME    := iperf3
-VERSION := 3.17.1
+VERSION := 3.22
 CATEGORY:= sysutils
 LICENSE := BSD-3-Clause
 DEPENDENCIES:=

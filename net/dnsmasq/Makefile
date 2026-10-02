@@ -1,11 +1,11 @@
-# FreeLinX/ports - net/dnsmasq : dnsmasq 2.90 (DNS/DHCP server).
+# FreeLinX/ports - net/dnsmasq : dnsmasq 2.93 (DNS/DHCP server).
 #
 # Lightweight DNS and DHCP server. Plain Makefile build, no autoconf.
 # GPL-2.0 license. Built with many optional features disabled for minimal
 # static binary.
 
 NAME    := dnsmasq
-VERSION := 2.90
+VERSION := 2.93
 CATEGORY:= net
 LICENSE := GPL-2.0
 DEPENDENCIES:=

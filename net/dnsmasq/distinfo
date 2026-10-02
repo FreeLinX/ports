@@ -1,5 +1,5 @@
 # FreeLinX/ports - net/dnsmasq : upstream source reference.
-DISTINFO_NAME=dnsmasq-2.90
-DISTINFO_ARCHIVE=dnsmasq-2.90.tar.xz
-DISTINFO_URL=https://thekelleys.org.uk/dnsmasq/releases/dnsmasq-2.90.tar.xz
-DISTINFO_SHA256=8e50309bd837bfec9649a812e066c09b6988b73d749b7d293c06c57d46a109e4
+DISTINFO_NAME=dnsmasq-2.93
+DISTINFO_ARCHIVE=dnsmasq-2.93.tar.xz
+DISTINFO_URL=https://thekelleys.org.uk/dnsmasq/dnsmasq-2.93.tar.xz
+DISTINFO_SHA256=0c00d4e5c97c8306e5fb932b348b34269c9c29a0e7df0e8e82958b407092bc19

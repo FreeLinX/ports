@@ -1,10 +1,10 @@
-# FreeLinX/ports - sysutils/tmux : tmux 3.4 (terminal multiplexer).
+# FreeLinX/ports - sysutils/tmux : tmux 3.7c (terminal multiplexer).
 #
 # tmux allows multiple terminal sessions to be accessed from a single
 # terminal. Depends on libevent (build dependency) and ncurses (via musl).
 
 NAME    := tmux
-VERSION := 3.4
+VERSION := 3.7c
 CATEGORY:= sysutils
 LICENSE := BSD-2-Clause
 DEPENDENCIES:= libevent
