@@ -14,7 +14,7 @@
 # `git-<builtin>` hardlinks.
 
 NAME   := git
-VERSION:= 2.47.1
+VERSION:= 2.56.0
 CATEGORY:= base
 LICENSE:= GPL-2.0
 DEPENDENCIES:= zlib

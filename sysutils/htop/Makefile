@@ -1,11 +1,11 @@
-# FreeLinX/ports - sysutils/htop : htop 3.3.0 (interactive process viewer).
+# FreeLinX/ports - sysutils/htop : htop 3.5.3 (interactive process viewer).
 #
 # Enhanced top-like process viewer. Autoconf build, GPL-2.0 license.
 # Built without unicode and sensors support. May link against ncurses if
 # available in build/deps/netbsd-curses.
 
 NAME    := htop
-VERSION := 3.3.0
+VERSION := 3.5.3
 CATEGORY:= sysutils
 LICENSE := GPL-2.0
 DEPENDENCIES:=
@@ -25,7 +25,7 @@ PROJECT_BIN = $(SRC_TREE)/htop
 BUILD_BIN   = $(PROJECT_BIN)
 
 PROJECT_CFG_CMDS = \
-	./autogen.sh && \
+	GIT_CEILING_DIRECTORIES="$(FREELINX_BUILD_DIR)/work" ./autogen.sh && \
 	./configure \
 		--host=$(FREELINX_TRIPLE) \
 		--prefix=/usr \

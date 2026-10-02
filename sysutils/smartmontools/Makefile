@@ -4,7 +4,7 @@
 # technology for hard disks, solid-state drives and NVMe storage.
 
 NAME    := smartmontools
-VERSION := 7.4
+VERSION := 7.5
 CATEGORY:= sysutils
 LICENSE := GPL-2.0-or-later
 DEPENDENCIES:=
