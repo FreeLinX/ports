@@ -63,10 +63,11 @@ PREFIX  := /
 DEPS_ONLY := yes
 LIBRARY_PORT := yes
 
-# freetype2's install: target stages into the overlay, not build/deps, so this
-# points at where the file actually is: -L.../deps/freetype2/lib holds nothing
-# and the link fails with "unable to find library -lfreetype".
-PREFIX_freetype2 = $(FREELINX_STAGING_ROOT)/usr
+# devel/freetype2 publishes build/deps/freetype2, like every other library port
+# in this tree.  The staging tree is where a port leaves what it installs into
+# the rootfs, and a -I or -L into it is a -I or -L into the build host's /usr as
+# well as ours.  x11/xorg already names the deps prefix.
+PREFIX_freetype2 = $(FREELINX_BUILD_DIR)/deps/freetype2
 PREFIX_expat = $(FREELINX_BUILD_DIR)/deps/expat
 PREFIX_zlib = $(FREELINX_BUILD_DIR)/deps/zlib
 PREFIX_jsonc = $(FREELINX_BUILD_DIR)/deps/json-c

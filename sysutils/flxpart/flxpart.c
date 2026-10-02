@@ -511,6 +511,19 @@ dev_reread(struct dev *d)
 
 /* --- the operations ------------------------------------------------------- */
 
+/* write_table - put the GPT on the device, or compute the arrays and write
+ * nothing when dry_run is set.  report_table - print the result in a form a
+ * caller can parse.  create_standard - the layout for a disk that boots.
+ * create_data - the layout for a disk that only holds state.
+ *
+ * Declared here because create_standard calls the first two and sits above
+ * them: they are its tail, factored out so that a second layout cannot come to
+ * disagree with the first about where the array goes. */
+static void write_table(struct dev *d, struct ptable *t, int dry_run);
+static void report_table(struct ptable *t, uint64_t total, int dry_run);
+static int create_standard(struct dev *d, unsigned long esp_mb, int dry_run);
+static int create_data(struct dev *d, int dry_run);
+
 /* create_standard - the FreeLinX layout on an already-sized device.
  *
  * dry_run computes and reports the layout without writing a byte, which is
@@ -521,9 +534,6 @@ static int
 create_standard(struct dev *d, unsigned long esp_mb, int dry_run)
 {
 	struct ptable t;
-	unsigned char arr[ARRAY_BYTES];
-	unsigned char sector[SECTOR];
-	uint32_t array_crc;
 	uint64_t total, first_free;
 	uint64_t esp_sectors, bios_sectors;
 	int n;
@@ -598,7 +608,26 @@ create_standard(struct dev *d, unsigned long esp_mb, int dry_run)
 	    (uint64_t)((t.part[n].last - t.part[n].first + 1) * SECTOR) / MB,
 	    t.part[n].first, t.part[n].last);
 
-	build_array(&t, arr);
+	write_table(d, &t, dry_run);
+	report_table(&t, total, dry_run);
+	return 0;
+}
+
+/* write_table - put the GPT on the device, or compute nothing but the arrays
+ * when dry_run is set.
+ *
+ * Shared by every layout so that a second layout cannot come to disagree with
+ * the first about where the array goes, which is the mistake the LBA 2 comment
+ * in the body of this function is about. */
+static void
+write_table(struct dev *d, struct ptable *t, int dry_run)
+{
+	unsigned char arr[ARRAY_BYTES];
+	unsigned char sector[SECTOR];
+	uint32_t array_crc;
+	uint64_t total = t->total_sectors;
+
+	build_array(t, arr);
 	array_crc = crc32_ieee(arr, ARRAY_BYTES);
 
 	if (!dry_run) {
@@ -618,7 +647,7 @@ create_standard(struct dev *d, unsigned long esp_mb, int dry_run)
 		 * table as corrupt, then falls back to the backup.  The disk
 		 * works on fdisk and not on parted, which is the worst kind of
 		 * wrong. */
-		build_header(sector, &t, 1, total - 1, PRIMARY_ARRAY_LBA,
+		build_header(sector, t, 1, total - 1, PRIMARY_ARRAY_LBA,
 		    array_crc);
 		dev_write_sector(d, 1, sector);
 		{
@@ -641,34 +670,91 @@ create_standard(struct dev *d, unsigned long esp_mb, int dry_run)
 				dev_write_sector(d, arr_lba + (uint64_t)i,
 				    sector);
 			}
-			build_header(sector, &t, total - 1, 1, arr_lba,
+			build_header(sector, t, total - 1, 1, arr_lba,
 			    array_crc);
 			dev_write_sector(d, total - 1, sector);
 		}
 
 		dev_reread(d);
 	}
+}
 
-	/* Report in a form a caller can parse, so an installer does not have
-	 * to read this program's human output. */
-	for (n = 0; n < t.npart; n++) {
+/* report_table - print the layout in a form a caller can parse, so an installer
+ * does not have to read this program's human output. */
+static void
+report_table(struct ptable *t, uint64_t total, int dry_run)
+{
+	int n;
+
+	for (n = 0; n < t->npart; n++) {
 		char g[37];
 
-		guid_text(t.part[n].type, g);
+		guid_text(t->part[n].type, g);
 		printf("FLX_PART%d_TYPE=%s\n", n + 1, g);
-		guid_text(t.part[n].guid, g);
+		guid_text(t->part[n].guid, g);
 		printf("FLX_PART%d_GUID=%s\n", n + 1, g);
-		printf("FLX_PART%d_FIRST=%" PRIu64 "\n", n + 1, t.part[n].first);
-		printf("FLX_PART%d_LAST=%" PRIu64 "\n", n + 1, t.part[n].last);
+		printf("FLX_PART%d_FIRST=%" PRIu64 "\n", n + 1, t->part[n].first);
+		printf("FLX_PART%d_LAST=%" PRIu64 "\n", n + 1, t->part[n].last);
 		printf("FLX_PART%d_SIZE_BYTES=%" PRIu64 "\n", n + 1,
-		    (t.part[n].last - t.part[n].first + 1) * SECTOR);
-		printf("FLX_PART%d_NAME=%s\n", n + 1, t.part[n].name);
+		    (t->part[n].last - t->part[n].first + 1) * SECTOR);
+		printf("FLX_PART%d_NAME=%s\n", n + 1, t->part[n].name);
 	}
 	printf("FLX_DISK_SECTORS=%" PRIu64 "\n", total);
-	printf("FLX_DISK_FIRST_USABLE=%" PRIu64 "\n", t.first_usable);
-	printf("FLX_DISK_LAST_USABLE=%" PRIu64 "\n", t.last_usable);
+	printf("FLX_DISK_FIRST_USABLE=%" PRIu64 "\n", t->first_usable);
+	printf("FLX_DISK_LAST_USABLE=%" PRIu64 "\n", t->last_usable);
 	if (dry_run)
 		printf("FLX_DRY_RUN=1\n");
+}
+
+/* create_data - the layout for a system that runs from RAM.
+ *
+ * One partition, the whole disk, and no boot chain at all.
+ *
+ * There is no EFI system partition and no BIOS boot partition here on purpose,
+ * not as an omission.  This layout is for a disk that holds state, not a
+ * system: the kernel and the boot chain live on the medium the machine booted
+ * from, every boot, and what this disk is for is surviving a reboot.  Laying
+ * out 256 MiB of ESP and a megabyte of BIOS boot on it would be 257 MiB of
+ * disk given to a bootloader that is never installed and never run.
+ *
+ * The partition carries the ordinary Linux root type GUID rather than one of
+ * its own, because that is what it is: a Linux filesystem partition that
+ * happens to be mounted at /var.  What makes it the data partition is the
+ * filesystem label the installer writes on it, and the boot code looks for that
+ * label and not for the type GUID - a GUID cannot say "this is /var" without
+ * every other Linux partition on the machine claiming the same thing.
+ */
+static int
+create_data(struct dev *d, int dry_run)
+{
+	struct ptable t;
+	uint64_t total;
+	int n;
+
+	memset(&t, 0, sizeof t);
+	total = d->size / SECTOR;
+	if (total < FIRST_USABLE + RESERVED_TAIL + 64)
+		die("%s is only %" PRIu64 " sectors; too small for a GPT with any "
+		    "room in it", d->path, total);
+
+	t.total_sectors = total;
+	t.first_usable = FIRST_USABLE;
+	t.last_usable = total - 1 - RESERVED_TAIL;
+
+	if (t.last_usable <= t.first_usable)
+		die("%s is too small to hold a partition", d->path);
+
+	random_guid(t.disk_guid);
+
+	n = add_part(&t, GUID_LINUX_ROOT, t.first_usable, t.last_usable,
+	    "FreeLinX data");
+	say("partition %d: FreeLinX data, %" PRIu64 " MiB, LBA %" PRIu64
+	    "-%" PRIu64, n + 1,
+	    (t.part[n].last - t.part[n].first + 1) * SECTOR / MB,
+	    t.part[n].first, t.part[n].last);
+
+	write_table(d, &t, dry_run);
+	report_table(&t, total, dry_run);
 	return 0;
 }
 
@@ -757,21 +843,32 @@ usage_text(FILE *f)
 {
 	fprintf(f,
 	    "usage: %s --create-standard [--esp-size MB] [--dry-run] DEVICE\n"
+	    "       %s --create-data [--dry-run] DEVICE\n"
 	    "       %s --show DEVICE\n"
 	    "       %s --help | --version\n"
 	    "\n"
-	    "Writes a GPT with a protective MBR, so the result boots on BIOS\n"
-	    "and on UEFI.  --create-standard lays out:\n"
+	    "Writes a GPT with a protective MBR.\n"
+	    "\n"
+	    "--create-standard lays out a disk that boots the system:\n"
 	    "  1  EFI system   FAT32, 256 MiB by default, the UEFI boot target\n"
 	    "  2  BIOS boot    1 MiB, where a BIOS bootloader goes\n"
-	    "  3  FreeLinX     the rest of the disk\n"
+	    "  3  FreeLinX     the rest of the disk, and the system on it\n"
+	    "\n"
+	    "--create-data lays out a disk that only holds state:\n"
+	    "  1  FreeLinX data  the whole disk\n"
+	    "\n"
+	    "  No EFI system partition and no BIOS boot partition, because\n"
+	    "  nothing boots from this disk: the kernel and the initramfs are on\n"
+	    "  the medium the machine booted from, every boot.  The partition is\n"
+	    "  meant to be formatted and labelled FREELINX_VAR, and the boot code\n"
+	    "  finds it by that label and mounts it at /var.\n"
 	    "\n"
 	    "  --dry-run      report the layout without writing anything\n"
 	    "\n"
-	    "--create-standard erases any existing partition table.  With\n"
-	    "--dry-run it writes nothing, so it is safe to run to see what a\n"
-	    "disk would be given.\n",
-	    prog, prog, prog);
+	    "Both create modes erase any existing partition table.  With --dry-run\n"
+	    "nothing is written, so it is safe to run to see what a disk would be\n"
+	    "given.\n",
+	    prog, prog, prog, prog);
 }
 
 static void
@@ -784,7 +881,8 @@ usage(void)
 int
 main(int argc, char **argv)
 {
-	int create = 0, do_show = 0, help = 0, dry_run = 0;
+	int create_standard_mode = 0, create_data_mode = 0;
+	int do_show = 0, help = 0, dry_run = 0;
 	unsigned long esp_mb = 256;
 	const char *devpath = NULL;
 	struct dev d;
@@ -796,7 +894,9 @@ main(int argc, char **argv)
 
 	for (i = 1; i < argc; i++) {
 		if (strcmp(argv[i], "--create-standard") == 0)
-			create = 1;
+			create_standard_mode = 1;
+		else if (strcmp(argv[i], "--create-data") == 0)
+			create_data_mode = 1;
 		else if (strcmp(argv[i], "--show") == 0)
 			do_show = 1;
 		else if (strcmp(argv[i], "--esp-size") == 0 && i + 1 < argc)
@@ -830,14 +930,23 @@ main(int argc, char **argv)
 
 	if (devpath == NULL)
 		usage();
-	if (create && do_show) {
-		fprintf(stderr, "%s: --create-standard and --show are "
+	if (create_standard_mode && create_data_mode) {
+		/* Both would write a table, and they write different ones.
+		 * Picking the one that was named first would be a coin toss
+		 * on the back of a working disk, so this is refused rather
+		 * than resolved. */
+		fprintf(stderr, "%s: --create-standard and --create-data are "
+		    "different layouts and cannot both be asked for\n", prog);
+		usage();
+	}
+	if ((create_standard_mode || create_data_mode) && do_show) {
+		fprintf(stderr, "%s: writing a layout and --show are "
 		    "different jobs\n", prog);
 		usage();
 	}
-	if (!create && !do_show) {
-		fprintf(stderr, "%s: nothing to do; pass --create-standard "
-		    "or --show\n", prog);
+	if (!create_standard_mode && !create_data_mode && !do_show) {
+		fprintf(stderr, "%s: nothing to do; pass --create-standard, "
+		    "--create-data or --show\n", prog);
 		usage();
 	}
 	if (esp_mb == 0)
@@ -865,8 +974,13 @@ main(int argc, char **argv)
 	dev_open(&d, devpath, dry_run ? 0 : 1);
 	say("%s %s (%" PRIu64 " bytes)", dry_run ? "planning" : "partitioning",
 	    devpath, d.size);
-	if (create_standard(&d, esp_mb, dry_run) != 0)
-		return 1;
+	if (create_standard_mode) {
+		if (create_standard(&d, esp_mb, dry_run) != 0)
+			return 1;
+	} else {
+		if (create_data(&d, dry_run) != 0)
+			return 1;
+	}
 	dev_close(&d);
 	return 0;
 }

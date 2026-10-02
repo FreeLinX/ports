@@ -29,8 +29,10 @@ PREFIX_libXrender = $(FREELINX_BUILD_DIR)/deps/libXrender
 PREFIX_xorgproto = $(FREELINX_BUILD_DIR)/deps/xorgproto
 PREFIX_xtrans    = $(FREELINX_BUILD_DIR)/deps/xtrans
 PREFIX_fontconfig = $(FREELINX_BUILD_DIR)/deps/fontconfig
-# freetype2 stages into the overlay, not build/deps.
-PREFIX_freetype2 = $(FREELINX_STAGING_ROOT)/usr
+# devel/freetype2 publishes build/deps/freetype2, like every other library
+# port here.  The staging tree is where a port puts what it installs into the
+# rootfs, and a -I into it reaches the build host's /usr as well as ours.
+PREFIX_freetype2 = $(FREELINX_BUILD_DIR)/deps/freetype2
 
 # libXft is C; do NOT pull in the C++/libc++ link libraries.
 FLX_PROJECT_CXX :=

@@ -40,7 +40,10 @@ PREFIX_libXft    = $(FREELINX_BUILD_DIR)/deps/libXft
 PREFIX_fontconfig = $(FREELINX_BUILD_DIR)/deps/fontconfig
 PREFIX_xorgproto = $(FREELINX_BUILD_DIR)/deps/xorgproto
 PREFIX_xtrans    = $(FREELINX_BUILD_DIR)/deps/xtrans
-PREFIX_freetype2 = $(FREELINX_STAGING_ROOT)/usr
+# build/deps/freetype2, not $(FREELINX_STAGING_ROOT)/usr: the staging tree is
+# where a port leaves what it installs into the rootfs, and a -I or -L into it
+# reaches the build host's /usr too.
+PREFIX_freetype2 = $(FREELINX_BUILD_DIR)/deps/freetype2
 PREFIX_expat = $(FREELINX_BUILD_DIR)/deps/expat
 PREFIX_zlib = $(FREELINX_BUILD_DIR)/deps/zlib
 

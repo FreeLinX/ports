@@ -13,7 +13,9 @@ NAME    := meson
 VERSION := 1.6.0
 CATEGORY:= devel
 LICENSE := Apache-2.0
-DEPENDENCIES:= python3 (host interpreter)
+# python3 is a build-host interpreter, not something this tree ports: meson
+# is a build tool that runs on the machine doing the build.
+DEPENDENCIES:= # no-dep-check: python3 is a host interpreter
 BUILD_DEPENDENCIES:= python3 (host interpreter)
 TARGET  := $(FREELINX_TRIPLE)
 PREFIX  := /

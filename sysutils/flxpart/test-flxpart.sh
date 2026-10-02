@@ -47,10 +47,46 @@ ok() {
 }
 
 # make_disk SIZE_MB -> path
+#
+# The name is unique per call, from mktemp, and not derived from the size.
+# Keyed on the size alone, two calls for the same size return the same path, so
+# a case that checks a disk was left untouched ends up looking at the disk an
+# earlier case wrote to:
+#
+#   == --create-data: one partition, whole disk, nothing bootable ==
+#   dd=$(make_disk 2048)          # <- real write here
+#   ...
+#   dr=$(make_disk 2048)          # <- same file
+#   ok 'the table area is untouched' ...
+#
+# which fails on a flxpart that writes nothing at all, and would pass on one
+# that writes more than it should.  A check of this kind has to be about the
+# disk it made.
+#
+# mktemp rather than a counter incremented in the function, because every caller
+# is `d=$(make_disk ...)`: command substitution runs the function in a subshell,
+# so a counter incremented here is discarded when the function returns and every
+# call comes back with the same value.
 make_disk() {
-	_d=$TMP/disk-$1.img
+	_d=$(mktemp "$TMP/disk-XXXXXX.img")
 	truncate -s "$1"M "$_d"
 	printf '%s' "$_d"
+}
+
+# table_area_untouched FILE - is the first 4096 bytes still all zero?
+#
+# Those 33 sectors are the protective MBR, the primary GPT header and the
+# primary partition array.  A --dry-run or a refused run that wrote anything at
+# all would leave bytes here.
+#
+# od collapses a run of identical lines to a single "*", and "*" is not a hex
+# digit, so a plain `od -An -tx1` read of an all-zero file reports the "*" as
+# content and this returns "no" for a file nothing ever wrote.  -v suppresses the
+# collapse.  Getting that wrong makes the check fail on every clean run, which
+# is the worst way for a test to be wrong: it reads as the thing it watches for.
+table_area_untouched() {
+	_n=$(od -An -v -tx1 -N4096 "$1" | tr -d ' \n' | tr -d '0' | wc -c | tr -d ' ')
+	[ "$_n" = 0 ] && printf 'yes\n' || printf 'no\n'
 }
 
 echo '== a 4 GiB disk, default layout =='
@@ -316,6 +352,83 @@ e1=$(make_disk 1024); e2=$(make_disk 1024)
 "$FLXPART" -q --create-standard "$e1" | grep '^FLX_PART1_GUID=' >"$TMP/g1"
 "$FLXPART" -q --create-standard "$e2" | grep '^FLX_PART1_GUID=' >"$TMP/g2"
 ok 'not the same GUID' "$(cmp -s "$TMP/g1" "$TMP/g2" && echo same || echo different)" 'different'
+
+echo '== --create-data: one partition, whole disk, nothing bootable =='
+dd=$(make_disk 2048)
+"$FLXPART" -q --create-data "$dd" >"$TMP/do.txt" 2>"$TMP/derr.txt"
+ok 'exit status' "$?" '0'
+ok 'no complaints' "$(cat "$TMP/derr.txt")" ''
+ok 'one partition reported' "$(grep -c '^FLX_PART[0-9]*_FIRST=' "$TMP/do.txt")" '1'
+ok 'it uses the Linux root type GUID' \
+	"$(sed -n 's/^FLX_PART1_TYPE=//p' "$TMP/do.txt")" \
+	'AF3DC60F-8384-7247-8E79-3D69D8477DE4'
+ok 'it is named as data' \
+	"$(sed -n 's/^FLX_PART1_NAME=//p' "$TMP/do.txt")" 'FreeLinX data'
+ok 'it starts at the first usable LBA' \
+	"$(sed -n 's/^FLX_PART1_FIRST=//p' "$TMP/do.txt")" '34'
+ok 'it ends at the last usable LBA' \
+	"$(sed -n 's/^FLX_PART1_LAST=//p' "$TMP/do.txt")" \
+	"$(sed -n 's/^FLX_DISK_LAST_USABLE=//p' "$TMP/do.txt")"
+
+# No ESP and no BIOS boot partition: the whole point of the layout, and the
+# thing that would silently stop being true if create_data were ever written to
+# reuse create_standard's partitioning.
+out=$("$FLXPART" -q --show "$dd")
+ok '--show reads it back' "$(printf '%s' "$out" | grep -c 'FreeLinX data')" '1'
+ok 'no EFI system partition' \
+	"$(printf '%s' "$out" | grep -ci 'EFI system')" '0'
+ok 'no BIOS boot partition' \
+	"$(printf '%s' "$out" | grep -ci 'BIOS boot')" '0'
+ok 'the table is a GPT' "$(printf '%s' "$out" | grep -c 'GPT')" '1'
+
+# The partition must fill the disk to the last usable LBA.  A layout that left
+# the tail outside the partition would be a disk with unusable space on it.
+first=$(sed -n 's/^FLX_PART1_FIRST=//p' "$TMP/do.txt")
+last=$(sed -n 's/^FLX_PART1_LAST=//p' "$TMP/do.txt")
+ok 'the partition starts where the disk does' \
+	"$([ "$first" = "$(sed -n 's/^FLX_DISK_FIRST_USABLE=//p' "$TMP/do.txt")" ] && echo yes || echo no)" 'yes'
+
+echo '== --create-data --dry-run writes nothing =='
+dr=$(make_disk 2048)
+"$FLXPART" -q --create-data --dry-run "$dr" >"$TMP/dr.txt" 2>&1
+ok 'exit status' "$?" '0'
+ok 'it reports a dry run' "$(grep -c '^FLX_DRY_RUN=1$' "$TMP/dr.txt")" '1'
+ok 'the geometry is still real' \
+	"$(sed -n 's/^FLX_PART1_LAST=//p' "$TMP/dr.txt")" \
+	"$(sed -n 's/^FLX_DISK_LAST_USABLE=//p' "$TMP/dr.txt")"
+# The first 33 sectors are the protective MBR, the primary header and the
+# primary array.  A dry run that touched any of them has written something.
+ok 'the table area is untouched' "$(table_area_untouched "$dr")" 'yes'
+
+echo '== the two layouts cannot both be asked for =='
+both=$(make_disk 2048)
+"$FLXPART" -q --create-standard --create-data "$both" >/dev/null 2>"$TMP/both.txt"
+ok 'it refuses' "$([ $? -ne 0 ] && echo yes || echo no)" 'yes'
+ok 'it says which keys collided' "$(grep -c 'cannot both be asked for' "$TMP/both.txt")" '1'
+ok 'it wrote nothing' "$(table_area_untouched "$both")" 'yes'
+
+echo '== --create-data still does not do --show, and vice versa =='
+"$FLXPART" -q --create-data --show "$both" >/dev/null 2>"$TMP/x.txt"
+ok 'create and show together are refused' "$([ $? -ne 0 ] && echo yes || echo no)" 'yes'
+
+echo '== --create-data on a disk too small for a GPT =='
+tiny="$TMP/tiny.img"
+truncate -s 64K "$tiny"
+"$FLXPART" -q --create-data "$tiny" >/dev/null 2>"$TMP/tiny.txt"
+ok 'it refuses' "$([ $? -ne 0 ] && echo yes || echo no)" 'yes'
+ok 'it says why' "$(grep -c 'too small' "$TMP/tiny.txt")" '1'
+
+echo '== --create-data reports the same layout as --create-standard for one disk =='
+# Same disk, both layouts: the data partition and the root partition end at the
+# same LBA, because both take everything up to the last usable sector.  If they
+# did not, one of the two is leaving space on the disk.
+d1=$(make_disk 3072)
+"$FLXPART" -q --create-standard --esp-size 256 "$d1" >"$TMP/s1.txt" 2>&1
+d2=$(make_disk 3072)
+"$FLXPART" -q --create-data "$d2" >"$TMP/s2.txt" 2>&1
+ok 'the root partition and the data partition end together' \
+	"$(sed -n 's/^FLX_PART3_LAST=//p' "$TMP/s1.txt")" \
+	"$(sed -n 's/^FLX_PART1_LAST=//p' "$TMP/s2.txt")"
 
 printf '\n%s passed, %s failed\n' "$pass" "$fail"
 [ "$fail" -eq 0 ]

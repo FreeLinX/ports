@@ -6,8 +6,8 @@ NAME    := setxkbmap
 VERSION := 1.3.5
 CATEGORY:= x11
 LICENSE := MIT
-DEPENDENCIES:= libxkbfile libXrandr libX11
-BUILD_DEPENDENCIES:= musl, libxkbfile, libX11
+DEPENDENCIES:= libXkbfile libXrandr libX11
+BUILD_DEPENDENCIES:= musl, libXkbfile, libX11
 TARGET  := $(FREELINX_TRIPLE)
 PREFIX  := /
 

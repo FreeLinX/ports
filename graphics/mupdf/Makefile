@@ -6,8 +6,8 @@ NAME    := mupdf
 VERSION := 1.24.10
 CATEGORY:= graphics
 LICENSE := AGPL-3.0-or-later
-DEPENDENCIES:= freetype harfbuzz libjpeg libpng zlib libX11
-BUILD_DEPENDENCIES:= musl, freetype, harfbuzz, libX11
+DEPENDENCIES:= freetype2 harfbuzz libjpeg libpng zlib libX11
+BUILD_DEPENDENCIES:= musl, freetype2, harfbuzz, libX11
 TARGET  := $(FREELINX_TRIPLE)
 PREFIX  := /
 

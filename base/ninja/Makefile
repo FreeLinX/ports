@@ -27,6 +27,16 @@ PREFIX := /
 INSTALL_BIN:= ninja
 INSTALL_RELPATH:= bin/ninja
 
+# Ninja's sources are C++, and the exported LDFLAGS has to carry the C++
+# runtime.  -nostdlib drops everything clang would have added for it, so -lc on
+# its own is a C library and libc++'s symbols stay unresolved:
+#
+#   ld.lld: error: undefined symbol: operator new(unsigned long)
+#   >>> referenced 233 more times
+#   ld.lld: error: undefined symbol: __cxa_begin_catch
+#   ld.lld: error: undefined symbol: std::terminate()
+FLX_PROJECT_CXX := yes
+
 # Source + build layout (project-port.mk derives SRC_TREE from this).
 # `=` (recursive): FREELINX_BUILD_DIR is only bound during project-port.mk's
 # include, so these must resolve lazily, not at Makefile-parse time.

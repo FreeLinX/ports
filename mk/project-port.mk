@@ -96,11 +96,26 @@ FLX_CRT_END:=$(FLX_SYSROOT_LIB)/crtn.o
 # for a C port fails the link with "unable to find library -lc++", which is
 # what stopped awk, git and vim from building at all.  A C++ port sets
 # FLX_PROJECT_CXX=yes before the include; a C port never sees these.
+#
+# FLX_CXX_RT is named rather than spelled twice because FLX_LINK_FLAGS below
+# needs it too, and a C++ port that hand-writes LDFLAGS="..." -- which is what
+# every CMake and meson port does -- replaces the exported LDFLAGS entirely and
+# so loses whatever this added.  base/ninja was the visible case:
+#
+#   ld.lld: error: undefined symbol: operator new(unsigned long)
+#   >>> referenced 233 more times
+#   ld.lld: error: undefined symbol: __cxa_begin_catch
+#   ld.lld: error: undefined symbol: std::terminate()
+#
+# -lc on its own is a C library; every one of those is libc++ or libc++abi.
+FLX_CXX_RT=-lc++ -lc++abi -lunwind
 ifeq ($(strip $(FLX_PROJECT_CXX)),)
 FLX_PROJECT_LIBS?=
+FLX_LINK_CXX_RT:=
 else
 FLX_PROJECT_LIBDIR?=$(FREELINX_SYSROOT)/lib
-FLX_PROJECT_LIBS?=-L$(FLX_PROJECT_LIBDIR) -lc++ -lc++abi -lunwind
+FLX_PROJECT_LIBS?=-L$(FLX_PROJECT_LIBDIR) $(FLX_CXX_RT)
+FLX_LINK_CXX_RT:=$(FLX_CXX_RT)
 endif
 
 # --rtlib=compiler-rt: musl has no crtbeginT.o/crtend.o/-lgcc.  -static and
@@ -126,8 +141,10 @@ export LIBS:=
 #
 # Use this instead.  $(FLX_CRT) names crt1.o and crti.o, $(FLX_CRT_END) names
 # crtn.o, and -lc puts libc back, because -nostdlib drops that too.
+# $(FLX_LINK_CXX_RT) is empty for a C port and the C++ runtime for a C++ one,
+# so the same variable serves both.
 FLX_LINK_FLAGS:=$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) \
-	-nostdlib $(FLX_CRT) -lc $(FLX_CRT_END) --rtlib=compiler-rt -static -fuse-ld=lld
+	-nostdlib $(FLX_CRT) $(FLX_LINK_CXX_RT) -lc $(FLX_CRT_END) --rtlib=compiler-rt -static -fuse-ld=lld
 
 # The delivered artifact; install.mk stages THIS path.
 PROJECT_BIN?=

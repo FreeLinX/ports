@@ -31,7 +31,10 @@ NAME   := doom
 VERSION:= 0.1
 CATEGORY:= base
 LICENSE:= GPL-2.0
-DEPENDENCIES:= musl (via FreeLinX toolchain sysroot); runtime: a DOOM .wad
+# No port dependency: the Doom engine needs the toolchain's musl and a
+# DOOM .wad at runtime, neither of which is a port.  Checked by name, so
+# the prose has to be opted out of explicitly.
+DEPENDENCIES:= # no-dep-check: musl and a DOOM .wad, not ports
 BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot)
 TARGET := $(FREELINX_TRIPLE)
 PREFIX := /

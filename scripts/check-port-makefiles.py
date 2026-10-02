@@ -43,6 +43,22 @@ and that make make fail in ways which name neither the file nor the variable:
      not matched: --prefix=/usr, --libdir=/usr/lib and --tccdir=/usr/lib/tcc
      name where to write, not where to look.
 
+  6. A name in DEPENDENCIES that is not a port in this tree and not a published
+     build/deps prefix.  DEPENDENCIES is the only place a port says what it
+     needs, and it names *libraries*, not paths: x11/libX11 writes
+     "libXau libXdmcp xorgproto" and the ports are x11/libXau, x11/libXdmcp and
+     x11/xorgproto.  So the name has to match a port's directory name or the
+     prefix a library port publishes, and nothing checked that.  Two case errors
+     survived in the tree, each of which silently drops a real dependency from
+     the build order:
+       x11/libXkbfile   libxau libxdmcp     -> libXau libXdmcp
+       x11/setxkbmap    libxkbfile          -> libXkbfile
+     and one name that is simply not this tree's word for the library:
+       graphics/mupdf   freetype            -> freetype2
+     A dropped dependency is not a build error where it is declared; it is a
+     missing -I or -L in a recipe two ports away, and it surfaces as
+     "X11/Xft/Xft.h: No such file or directory".
+
 Run from the ports root.
 """
 
@@ -282,6 +298,51 @@ for pat in ("*/Makefile", "*/*/Makefile"):
                                     "-%s $(%s)%s; use the dependency's own "
                                     "build/deps prefix, not the rootfs"
                                  % (i + 1, m2.group(1), m2.group(2), m2.group(3))))
+
+# --- check 6: a DEPENDENCIES name that resolves to nothing --------------------
+#
+# A name is resolvable if it is a port's directory name anywhere in the tree, or
+# the name of a prefix under build/deps.  The second is there for libraries that
+# a port builds without being a port of its own - a port that compiles a
+# dependency in-tree publishes build/deps/<name> and is depended on by that name.
+#
+# A host tool is not a port and is not a dependency of the build in that sense,
+# so a port that names one opts out with a comment on the DEPENDENCIES line.
+# deps/meson is the case: it needs python3, which is a build-host program and
+# cannot be a port.
+
+PORT_NAMES = set()
+for d in sorted(glob.glob("*/*/")):
+    if "/build/" in d or d.startswith("build/"):
+        continue
+    PORT_NAMES.add(os.path.basename(d.rstrip("/")))
+for d in glob.glob("build/deps/*/"):
+    PORT_NAMES.add(os.path.basename(d.rstrip("/")))
+
+# A word with a space or a bracket in it is prose in a wrapped comment, not a
+# dependency name: "doom" says "a FreeLinX musl toolchain runtime" across three
+# lines in a comment.  Only a bare identifier is checked.
+BARE_NAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_+-]*$")
+OPT_OUT = re.compile(r"#\s*no-dep-check")
+
+for pat in ("*/*/Makefile",):
+    for f in sorted(glob.glob(pat)):
+        if "/build/" in f:
+            continue
+        for i, l in enumerate(open(f).read().split("\n")):
+            m = re.match(r"^DEPENDENCIES\s*:?=\s*(.*)$", l)
+            if not m or OPT_OUT.search(l):
+                continue
+            body = m.group(1).split("#")[0]
+            for name in body.replace(",", " ").split():
+                if not BARE_NAME.match(name):
+                    continue
+                if name in PORT_NAMES:
+                    continue
+                problems.append((f, "line %d: DEPENDENCIES names \"%s\", which is "
+                                    "neither a port in this tree nor a published "
+                                    "build/deps prefix; the dependency is silently "
+                                    "dropped from the build order" % (i + 1, name)))
 
 for f, what in problems:
     print(f"  {f}: {what}")

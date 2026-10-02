@@ -112,6 +112,7 @@ export PATH := $(FREELINX_PORTS_ROOT)/scripts/flx-toolshim:$(PATH)
 
 empty :=
 space := $(empty) $(empty)
+comma := ,
 # xorgproto first, deliberately, and then everything else sorted.  xorgproto
 # absorbed the individual *-proto packages and ships a .pc for each of them, at
 # their current versions: its inputproto.pc says 2.4.0 where the x11/inputproto
@@ -128,6 +129,41 @@ FREELINX_ALL_PKGCONFIG_DIRS := $(sort $(wildcard $(FREELINX_BUILD_DIR)/deps/*/li
 FREELINX_DEPS_PKGCONFIG_DIRS := $(FREELINX_BUILD_DIR)/deps/xorgproto/lib/pkgconfig \
 	$(filter-out $(FREELINX_BUILD_DIR)/deps/xorgproto/lib/pkgconfig,$(FREELINX_ALL_PKGCONFIG_DIRS))
 FREELINX_PKGCONFIG_LIBDIR := $(subst $(space),:,$(strip $(FREELINX_DEPS_PKGCONFIG_DIRS)))
+
+# Exported for every port, not just the ones that go through mk/xorg-lib.mk.
+#
+# A port's own build system can call pkg-config from inside a recipe, where
+# neither PKG_CONFIG nor the shim on PATH has any say.  x11/st's config.mk has
+#
+#   CFLAGS += `pkg-config --cflags fontconfig`
+#   LDLIBS += `pkg-config --libs fontconfig`
+#
+# and with no PKG_CONFIG_LIBDIR in the environment those two run against the
+# build host's /usr/lib/pkgconfig.  Its fontconfig.pc is glibc fontconfig's, and
+# st's link line came out as
+#
+#   clang -o st st.o x.o ... `pkg-config --libs fontconfig` `pkg-config --libs freetype2`
+#   ld.lld: error: unable to find library -lbz2
+#   ld.lld: error: unable to find library -lpng16
+#   ld.lld: error: unable to find library -lz
+#   ld.lld: error: unable to find library -lbrotlidec
+#   ld.lld: error: unable to find library -lbrotlicommon
+#   ld.lld: error: unable to find library -lexpat
+#
+# Six host libraries, named by a module that describes the host's build.  On a
+# host that had the static archives this would have linked glibc's zlib, bzip2,
+# libpng, brotli and expat into a musl binary, and the host's fontconfig.pc
+# carries -I/usr/include/fontconfig, so the compile before it was against
+# host headers too.
+#
+# Recursive (=, not :=) so the directory list is globbed when a recipe's
+# environment is built rather than while this file is parsed: a port's
+# dependencies are built by earlier make invocations, and their lib/pkgconfig
+# directories do not exist yet at the moment the port's Makefile is first read.
+export PKG_CONFIG_LIBDIR = $(FREELINX_PKGCONFIG_LIBDIR)
+# PKG_CONFIG_PATH is *added* to PKG_CONFIG_LIBDIR rather than replaced by it, so
+# an inherited value would put the host's directories back.
+export PKG_CONFIG_PATH =
 
 # Rootfs-overlay staging + src rootfs template (configurable, not hard-coded).
 FREELINX_STAGING_ROOT?=$(FREELINX_PORTS_ROOT)/staging
