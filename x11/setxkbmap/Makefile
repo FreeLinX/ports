@@ -25,7 +25,7 @@ PROJECT_CFG_CMDS = \
 		--with-xkb-config-root=/usr/share/X11/xkb \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2" \
-		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -unwindlib=none" \
+		LDFLAGS="$(FLX_LINK_FLAGS)" \
 		SETXKBMAP_CFLAGS="-I$(FREELINX_PORTS_ROOT)/../desktop-test/ports/build/deps/x11/include" \
 		SETXKBMAP_LIBS="-L$(FREELINX_PORTS_ROOT)/../desktop-test/ports/build/deps/x11/lib -lxkbfile -lXrandr -lXrender -lXext -lX11 -lxcb -lXau -lXdmcp -lm"
 

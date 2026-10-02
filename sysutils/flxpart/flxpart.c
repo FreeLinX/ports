@@ -78,19 +78,44 @@
  * can boot. */
 #define	RESERVED_TAIL	33
 
-/* Partition type GUIDs, mixed-endian on disk: the first three fields are
- * little-endian and the last two big-endian. */
+/* Partition type GUIDs, in the mixed-endian order they are stored in on disk:
+ * Data1 and Data2 and Data3 are little-endian, Data4 and Data5 big-endian.
+ *
+ * Every one of these three had at least one wrong byte when they were written
+ * out by hand as byte arrays, which is not a thing to do twice.  The values now
+ * read back, through guid_text and through a real GPT reader, as:
+ *
+ *   ESP        C12A7328-F81F-11D2-BA4B-00A0C93EC93B
+ *   BIOS boot  21686148-6449-6E6F-744E-656564454649
+ *   root       0FC63DAF-8483-4772-8E79-3D69D8477DE4
+ *
+ * and test-flxpart.sh checks all three, byte for byte, because nothing else
+ * notices.  A wrong ESP type is invisible until firmware declines to mount the
+ * partition it was told was an ESP; a wrong BIOS boot type stops limine at:
+ *
+ *   error: Chosen partition for BIOS boot code is not of BIOS boot partition type.
+ */
+
+/* EFI System Partition: C12A7328-F81F-11D2-BA4B-00A0C93EC93B */
 static const unsigned char GUID_ESP[16] = {
-	0x28,0x73,0x2a,0xc1, 0x1f,0x81, 0xd2,0x11,
-	0x4b,0xba, 0xa0,0xa0, 0xc9,0x3e,0xc9,0x3b
+	0x28,0x73,0x2a,0xc1, 0x1f,0xf8, 0xd2,0x11,
+	0xba,0x4b, 0x00,0xa0, 0xc9,0x3e,0xc9,0x3b
 };
+/* BIOS Boot Partition: 21686148-6449-6E6F-744E-656564454649.  Limine
+ * bios-install reads this type and refuses to install without it, which it can
+ * tell from the type alone - so a wrong type here means the BIOS stages are
+ * never written even though the partition exists, is 1 MiB, and is named "BIOS
+ * boot". */
 static const unsigned char GUID_BIOSBOOT[16] = {
-	0x94,0xce,0x86,0x49, 0x99,0x64, 0x6e,0x6f,
-	0x74,0x4e, 0x65,0xed, 0x45,0x46,0x49,0x64
+	0x48,0x61,0x68,0x21, 0x49,0x64, 0x6f,0x6e,
+	0x74,0x4e, 0x65,0x65, 0x64,0x45,0x46,0x49
 };
+/* Linux filesystem data: 0FC63DAF-8483-4772-8E79-3D69D8477DE4.  The bytes
+ * here used to be 4F68EE06-F53D-D74B-1193-47F89EF89EF8, an unregistered value
+ * that matched nothing including this file's own header comment. */
 static const unsigned char GUID_LINUX_ROOT[16] = {
-	0x4f,0x68,0xee,0x06, 0xf5,0x3d, 0xd7,0x4b,
-	0x11,0x93, 0x47,0xf8, 0x9e,0xf8,0x9e,0xf8
+	0xaf,0x3d,0xc6,0x0f, 0x83,0x84, 0x72,0x47,
+	0x8e,0x79, 0x3d,0x69, 0xd8,0x47,0x7d,0xe4
 };
 
 static const char *prog;

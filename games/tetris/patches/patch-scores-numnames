@@ -1,0 +1,61 @@
+scores.c: rename a local variable that ncurses' term.h claims as a macro.
+
+FreeLinX builds tetris against ncurses 6.5 from build/deps/ncurses, and that
+term.h renames its accessor to keep it out of the global namespace:
+
+  #define numnames   NCURSES_PUBLIC_VAR(numnames())
+  #define NCURSES_PUBLIC_VAR(name) _nc_##name
+
+so the macro applies to identifiers, not only to uses.  checkscores() has an
+`int numnames` and the preprocessor rewrites the declaration too:
+
+  scores.c:778:15: error: conflicting types for '_nc_numnames'
+    778 |         int i, j, k, numnames;
+         |                      ^
+  term.h:773:20: note: expanded from macro 'numnames'
+  ncurses_dll.h:68:34: note: expanded from macro 'NCURSES_PUBLIC_VAR'
+    68 | #define NCURSES_PUBLIC_VAR(name) _nc_##name
+  term.h:763:1: note: previous declaration is here
+
+ncurses' macro exists so that a program calling numnames() gets a function and
+not the library's own variable.  tetris never calls it, so the macro is pure
+cost here.  Rename the local to what it counts - the distinct names among the
+high scores - and the collision is gone without -Dunnumames=..., which would
+also have renamed the ncurses accessor wherever it is used.
+--- a/games/tetris/scores.c
++++ b/games/tetris/scores.c
+@@ -775,7 +775,7 @@
+ checkscores(struct highscore *hs, int num)
+ {
+ 	struct highscore *sp;
+-	int i, j, k, numnames;
++	int i, j, k, distinct;
+ 	int levelfound[NLEVELS];
+ 	struct peruser {
+ 		char *name;
+@@ -792,21 +792,21 @@
+ 	qsort((void *)hs, nscores, sizeof(*hs), cmpscores);
+ 	for (i = MINLEVEL; i < NLEVELS; i++)
+ 		levelfound[i] = 0;
+-	numnames = 0;
++	distinct = 0;
+ 	for (i = 0, sp = hs; i < num;) {
+ 		/*
+ 		 * This is O(n^2), but do you think we care?
+ 		 */
+-		for (j = 0, pu = count; j < numnames; j++, pu++)
++		for (j = 0, pu = count; j < distinct; j++, pu++)
+ 			if (strcmp(sp->hs_name, pu->name) == 0)
+ 				break;
+-		if (j == numnames) {
++		if (j == distinct) {
+ 			/*
+ 			 * Add new user, set per-user count to 1.
+ 			 */
+ 			pu->name = sp->hs_name;
+ 			pu->times = 1;
+-			numnames++;
++			distinct++;
+ 		} else {
+ 			/*
+ 			 * Two ways to keep this score:

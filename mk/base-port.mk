@@ -249,8 +249,18 @@ do-build: $(BUILD_BIN)
 
 endif # STAGE_TREE
 
-# ncurses from the deps tree (host-built): -I include/ncursesw for
-# <curses.h>/<term.h>/<term_private.h>, and static link set for CU_* tools.
+# ncurses from the deps tree (host-built), for <curses.h>/<term.h> and the
+# CU_* tools.
+#
+# Both the header directory and the archive carry the 't' of --enable-reentrant,
+# because ncurses suffixes the library name when it renames LINES and COLS:
+# include/ncursestw/, libncursestw.a.  A consumer that says ncursesw compiles
+# against nothing at all and the error is "fatal error: 'term.h' file not
+# found", which reads like a missing dependency rather than a typo.
+#
+# There is no libtinfo.a here.  ncurses is built --without-shared, so the
+# terminfo entry points live inside libncursestw.a and -ltinfo resolves to
+# whatever tinfo the host has, if anything.
 FLX_NCURSES        := $(FREELINX_PORTS_ROOT)/build/deps/ncurses
-FLX_NCURSES_CPPFLAGS = -I$(FLX_NCURSES)/include -I$(FLX_NCURSES)/include/ncursesw
-FLX_NCURSES_LDADD    = $(FLX_NCURSES)/lib/libncursesw.a $(FLX_NCURSES)/lib/libtinfo.a
+FLX_NCURSES_CPPFLAGS = -I$(FLX_NCURSES)/include -I$(FLX_NCURSES)/include/ncursestw
+FLX_NCURSES_LDADD    = $(FLX_NCURSES)/lib/libncursestw.a

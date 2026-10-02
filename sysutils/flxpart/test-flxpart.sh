@@ -63,10 +63,28 @@ ok 'three partitions' "$(grep -c '^FLX_PART[0-9]*_NAME=' "$TMP/out.txt")" '3'
 echo '== the three keys the installer reads =='
 ok 'part 1 first'  "$(sed -n 's/^FLX_PART1_FIRST=//p' "$TMP/out.txt")" '2048'
 ok 'part 1 size'   "$(sed -n 's/^FLX_PART1_SIZE_BYTES=//p' "$TMP/out.txt")" '268435456'
+
+# These three are not this project's own values.  They are the GUIDs the UEFI
+# specification and Limine recognise, and flxpart has to write those and not
+# something that only flxpart and the installer agree on, because the two that
+# matter are read by software flxpart knows nothing about:
+#
+#   the ESP type is what firmware matches on when it mounts the ESP, so a wrong
+#   one is a partition the firmware leaves alone
+#
+#   the BIOS boot type is what limine bios-install checks before it writes
+#   anything, so a wrong one is a successful install with no BIOS stages in it
+#
+# Both of those went unnoticed for a while because these three checks were
+# written against whatever the code happened to emit, which made them a change
+# detector rather than a check.  The values below are the on-disk byte order,
+# which is what flxpart prints; the canonical readings are in the comment.
 ok 'part 1 is the ESP' "$(sed -n 's/^FLX_PART1_TYPE=//p' "$TMP/out.txt")" \
-	'28732AC1-1F81-D211-4BBA-A0A0C93EC93B'
+	'28732AC1-1FF8-D211-BA4B-00A0C93EC93B'
 ok 'part 2 is BIOS boot' "$(sed -n 's/^FLX_PART2_TYPE=//p' "$TMP/out.txt")" \
-	'94CE8649-9964-6E6F-744E-65ED45464964'
+	'48616821-4964-6F6E-744E-656564454649'
+ok 'part 3 is the Linux root' "$(sed -n 's/^FLX_PART3_TYPE=//p' "$TMP/out.txt")" \
+	'AF3DC60F-8384-7247-8E79-3D69D8477DE4'
 ok 'part 2 is 1 MiB' "$(sed -n 's/^FLX_PART2_SIZE_BYTES=//p' "$TMP/out.txt")" '1048576'
 
 echo '== alignment: every partition starts on a 1 MiB boundary =='
@@ -195,9 +213,42 @@ check("backup array matches the primary", barr == arr)
 check("backup array CRC", zlib.crc32(barr) & 0xffffffff == bstored and False or
       zlib.crc32(barr) & 0xffffffff == struct.unpack_from("<I", bh, 88)[0])
 
-# --- the ESP type GUID, byte for byte
-ESP = bytes([0x28,0x73,0x2a,0xc1,0x1f,0x81,0xd2,0x11,0x4b,0xba,0xa0,0xa0,0xc9,0x3e,0xc9,0x3b])
+# --- the three type GUIDs, byte for byte, as they are on disk
+#
+# Read from the array itself and not from a copy of what flxpart printed: this
+# is the only check in the file that looks at the bytes rather than at flxpart's
+# account of them, which is the whole point, since a wrong GUID is invisible to
+# everything that only reads flxpart's output.
+def disk_guid(d1, d2, d3, d4, d5):
+    return (d1.to_bytes(4, "little") + d2.to_bytes(2, "little") +
+            d3.to_bytes(2, "little") + bytes(d4) + bytes(d5))
+
+ESP = disk_guid(0xC12A7328, 0xF81F, 0x11D2, (0xBA, 0x4B),
+                (0x00, 0xA0, 0xC9, 0x3E, 0xC9, 0x3B))
+BIOSBOOT = disk_guid(0x21686148, 0x6449, 0x6E6F, (0x74, 0x4E),
+                     (0x65, 0x65, 0x64, 0x45, 0x46, 0x49))
+LINUX_ROOT = disk_guid(0x0FC63DAF, 0x8483, 0x4772, (0x8E, 0x79),
+                       (0x3D, 0x69, 0xD8, 0x47, 0x7D, 0xE4))
+
 check("part 1 type is the ESP GUID", parts[0][1] == ESP if parts else False)
+check("part 2 type is the BIOS boot GUID", parts[1][1] == BIOSBOOT if len(parts) > 1 else False)
+check("part 3 type is the Linux root GUID", parts[2][1] == LINUX_ROOT if len(parts) > 2 else False)
+
+# And the canonical reading of each, which is what the specification and the
+# Limine source are written in.  A GUID stored right still reads wrong if the
+# two halves are transposed, and this is the form to compare against a
+# specification with.
+def canonical(b):
+    return "%08X-%04X-%04X-%s-%s" % (
+        int.from_bytes(b[0:4], "little"), int.from_bytes(b[4:6], "little"),
+        int.from_bytes(b[6:8], "little"), b[8:10].hex().upper(), b[10:16].hex().upper())
+
+check("part 1 reads as the canonical ESP GUID",
+      canonical(parts[0][1]) == "C12A7328-F81F-11D2-BA4B-00A0C93EC93B" if parts else False)
+check("part 2 reads as the canonical BIOS boot GUID",
+      canonical(parts[1][1]) == "21686148-6449-6E6F-744E-656564454649" if len(parts) > 1 else False)
+check("part 3 reads as the canonical Linux root GUID",
+      canonical(parts[2][1]) == "0FC63DAF-8483-4772-8E79-3D69D8477DE4" if len(parts) > 2 else False)
 
 print("  --- %s ---" % ("all spec checks passed" if not fails else "FAILURES: %s" % fails))
 sys.exit(1 if fails else 0)

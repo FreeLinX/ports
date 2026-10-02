@@ -23,7 +23,7 @@ SRC_TREE = $(FREELINX_BUILD_DIR)/work/$(NAME)/st-$(VERSION)
 PROJECT_BIN = $(SRC_TREE)/st
 
 ST_CFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -O2 -I$(X11_PREFIX)/include"
-ST_LDFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -static -fuse-ld=lld --rtlib=compiler-rt -lX11 -lfreetype -lm"
+ST_LDFLAGS="$(FLX_LINK_FLAGS) -lX11 -lfreetype -lm"
 
 BUILD_CMDS = \
 	cd "$(SRC_TREE)" && \

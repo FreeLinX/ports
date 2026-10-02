@@ -184,3 +184,58 @@ stage-pc:
 		exit 1; \
 	}
 	@printf '[FreeLinX/ports] staged ncursestw.pc\n'
+
+# The same library under the other two names ncurses is normally installed
+# under, and the headers under an ncurses/ subdirectory.
+#
+# Not every consumer takes the library name as a variable.  sysutils/htop's
+# configure.ac walks a fixed list and gives up when none of them links:
+#
+#   HTOP_CHECK_LIB([ncursesw6], [addnwstr], ...)
+#    HTOP_CHECK_LIB([ncursesw],  [addnwstr], ...)
+#     HTOP_CHECK_LIB([ncurses],  [addnwstr], ...)
+#      AC_MSG_ERROR([can not find required library libncursesw; you may want to
+#                   use --disable-unicode])
+#
+# and with --disable-unicode it walks the narrow list instead -lncurses6,
+# -lncurses, -lcurses - and stops at
+#
+#   checking for doupdate in -lncurses6... no
+#   checking for doupdate in -lncurses... no
+#   checking for doupdate in -lcurses... no
+#   configure: error: can not find required curses/ncurses library
+#
+# sysutils/ncdu's generated Makefile says the same in a variable:
+#
+#   LIBS        =  -lncursesw
+#   NCURSES_LIBS = -lncursesw
+#
+# Both would need a patch to say ncursestw.  Symlinks are the smaller change
+# and they cannot go stale, because they point at the archive this same file
+# just built.  The ncurses/ include directory is the same idea for htop's
+# AC_CHECK_HEADERS([ncursesw/curses.h]) and friends.
+#
+# Nothing links two of these at once -- configure probes and picks one -- so
+# the alias cannot cause a duplicate archive on a link line.
+.PHONY: stage-names
+install: stage-names
+
+NCURSES_LIB_ALIASES = libncurses.a libncursesw.a libcurses.a
+NCURSES_HDR_ALIASES = curses.h ncurses.h term.h termcap.h unctrl.h ncurses_dll.h term_entry.h
+
+stage-names:
+	@set -e; \
+	for l in $(NCURSES_LIB_ALIASES); do \
+		ln -sf libncursestw.a "$(NCURSES_PREFIX)/lib/$$l"; \
+	done; \
+	mkdir -p "$(NCURSES_PREFIX)/include/ncurses"; \
+	for h in $(NCURSES_HDR_ALIASES); do \
+		ln -sf ../ncursestw/$$h "$(NCURSES_PREFIX)/include/ncurses/$$h"; \
+	done; \
+	for l in $(NCURSES_LIB_ALIASES); do \
+		test -f "$(NCURSES_PREFIX)/lib/$$l" || { \
+			printf '[FreeLinX/ports][error] ncurses: %s is not a link to libncursestw.a\n' "$$l" >&2; \
+			exit 1; \
+		}; \
+	done; \
+	printf '[FreeLinX/ports] staged ncurses aliases: %s\n' "$(NCURSES_LIB_ALIASES)"

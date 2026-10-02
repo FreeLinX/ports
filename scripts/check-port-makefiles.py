@@ -30,6 +30,19 @@ and that make make fail in ways which name neither the file nor the variable:
      stops at "cd: .../foo-1.2.3: No such file or directory".  Reported with the
      override that fixes it, never applied: only the tarball knows the answer.
 
+  5. A host include or library directory on a compile or link line, whether
+     spelled out (-L/usr/lib) or arrived at through a variable that expands
+     there (-L$(FREELINX_STAGING_DIR)/usr/lib).  The sysroot puts musl's libc
+     in the sysroot, but -L/usr/lib is searched first and /usr/lib/libc.a on a
+     glibc build host is a real file, so the link picks glibc's static libc and
+     stops on
+       ld.lld: error: undefined symbol: __gcc_personality_v0
+       >>> referenced by iofputs.o:(_IO_fputs.cold) in archive /usr/lib/libc.a
+     or, on a host without it, quietly compiles glibc's headers.  Either way
+     the port is no longer a musl port.  Install destinations are fine and are
+     not matched: --prefix=/usr, --libdir=/usr/lib and --tccdir=/usr/lib/tcc
+     name where to write, not where to look.
+
 Run from the ports root.
 """
 
@@ -226,6 +239,49 @@ for pat in ("*/Makefile", "*/*/Makefile"):
                 problems.append((f, "line %d: links %s but %s provides %s"
                                  % (i + 1, want, prefixes[var],
                                     ", ".join(have))))
+
+# --- is a host directory on a search path? -----------------------------------
+# -L/usr/lib finds the build host's libc.a ahead of the sysroot's, which turns a
+# musl port into a glibc one or fails the link outright.  -I/usr/include puts
+# glibc's headers ahead of musl's for the same reason.  A variable that expands
+# to either is the same mistake, so it is resolved before matching.
+HOST_ROOTS = r"/usr(?:/(?:local/)?(?:include|lib\d*|share/pkgconfig))?"
+# The variables that hold the rootfs or the staging tree.  A dependency staged
+# into one of those is installed at /usr inside it, so $(X)/usr/include is the
+# path of the copy -- and on this host /usr/include is also glibc's.  Use the
+# dependency's own build/deps prefix instead; audio/tinyalsa publishes one.
+#
+# FREELINX_SYSROOT is not one of these: it is the toolchain's musl sysroot, and
+# naming it is the whole point.
+STAGING_VARS = ("FREELINX_STAGING_DIR", "FREELINX_ROOTFS", "ROOTFS_DIR",
+                "STAGE_ROOT", "STAGING_DIR")
+HOST_SEARCH = re.compile(r"(?<![-\w])-(L|I|isystem|idirafter|B|LIBPATH)\s*=?\s*("
+                         + HOST_ROOTS + r")\b")
+HOST_EXPANDING = re.compile(
+    r"-(L|I|isystem|idirafter|B|LIBPATH)\s*=?\s*\$\((" + "|".join(STAGING_VARS)
+    + r")\)(/[^\s\"'|)]*)")
+
+for pat in ("*/Makefile", "*/*/Makefile"):
+    for f in sorted(glob.glob(pat)):
+        if "/build/" in f:
+            continue
+        for i, l in enumerate(open(f).read().split("\n")):
+            # A recipe comment starts with # after the optional @ that keeps
+            # make from echoing the line, and these Makefiles explain their own
+            # mistakes in exactly this place -- devel/expat says why expat.pc
+            # must not say /usr/local, and quotes the offending Cflags doing it.
+            if l.lstrip().lstrip("@").lstrip().startswith("#"):
+                continue
+            m = HOST_SEARCH.search(l)
+            if m:
+                problems.append((f, "line %d: host directory on the search path: "
+                                    "-%s %s; the sysroot is the only place a musl "
+                                    "build may look" % (i + 1, m.group(1), m.group(2))))
+            for m2 in HOST_EXPANDING.finditer(l):
+                problems.append((f, "line %d: host directory on the search path: "
+                                    "-%s $(%s)%s; use the dependency's own "
+                                    "build/deps prefix, not the rootfs"
+                                 % (i + 1, m2.group(1), m2.group(2), m2.group(3))))
 
 for f, what in problems:
     print(f"  {f}: {what}")

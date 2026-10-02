@@ -41,19 +41,34 @@ fetch_one() {
     . "$_distinfo"
 
     : "${DISTINFO_NAME:?distinfo missing DISTINFO_NAME}"
-    : "${DISTINFO_URL:?distinfo missing DISTINFO_URL}"
 
-    # A native port has no upstream to fetch: base/dmesg, base/flxpasswd,
-    # base/flxuseradd, base/mount, base/umount and sysutils/flxpart are written
-    # here and say so with DISTINFO_ARCHIVE= and a placeholder URL.  Asking for
-    # them used to fail, which put six working ports into a fetch failure report
-    # and made the report's count mean nothing.
-    case "$DISTINFO_URL" in
-        \(*\)|*native*|*"(local)"*)
-            flx_info "$_port: native port, nothing to fetch"
-            return 0
-            ;;
-    esac
+    # A native port has no upstream to fetch, and there are two ways a distinfo
+    # says so.  base/dmesg, base/flxpasswd, base/flxuseradd, base/mount,
+    # base/umount and sysutils/flxpart carry an empty DISTINFO_ARCHIVE and a
+    # placeholder URL of "(native FreeLinX implementation)".  base/ifconfig and
+    # base/route carry a bare DISTINFO_NAME and nothing else, because they are
+    # built from files/ inside the port directory.
+    #
+    # This has to come before the guard below, or the second kind aborts on it:
+    #
+    #   ./scripts/fetch.sh: line 44: DISTINFO_URL: distinfo missing DISTINFO_URL
+    #
+    # which is a hard error for a port that has nothing to fetch, and put two
+    # working ports into the failure report.
+    _native=0
+    if [ -z "${DISTINFO_URL:-}" ] || [ -z "${DISTINFO_ARCHIVE:-}" ]; then
+        _native=1
+    else
+        case "$DISTINFO_URL" in
+            \(*\)|*native*|*"local"*) _native=1 ;;
+        esac
+    fi
+    if [ "$_native" -eq 1 ]; then
+        flx_info "$_port: native port, nothing to fetch"
+        return 0
+    fi
+
+    : "${DISTINFO_URL:?distinfo missing DISTINFO_URL}"
 
     # Saved under DISTINFO_ARCHIVE, which is the name the build looks for, and
     # not under basename "$DISTINFO_URL".  A GitHub branch archive has the

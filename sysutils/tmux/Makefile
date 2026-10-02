@@ -35,8 +35,8 @@ PROJECT_CFG_CMDS = \
 		--prefix=/usr \
 		--enable-static \
 		--disable-shared \
-		CPPFLAGS="-I$(LIBEVENT_PREFIX)/include -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursesw" \
-		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(LIBEVENT_PREFIX)/lib -L$(NCURSES_PREFIX)/lib" \
+		CPPFLAGS="-I$(LIBEVENT_PREFIX)/include -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursestw" \
+		LDFLAGS="$(FLX_LINK_FLAGS) -L$(LIBEVENT_PREFIX)/lib -L$(NCURSES_PREFIX)/lib" \
 		CC="$(FREELINX_CC)"
 
 BUILD_CMDS = \

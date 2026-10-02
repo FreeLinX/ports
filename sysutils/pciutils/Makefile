@@ -7,8 +7,8 @@ NAME    := pciutils
 VERSION := 3.13.0
 CATEGORY:= sysutils
 LICENSE := GPL-2.0
-DEPENDENCIES:=
-BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot)
+DEPENDENCIES:= kmod
+BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot), kmod (sysutils/kmod), zlib
 TARGET  := $(FREELINX_TRIPLE)
 PREFIX  := /
 
@@ -27,10 +27,17 @@ BUILD_BIN   = $(PROJECT_BIN)
 
 ZLIB_PREFIX = $(FREELINX_BUILD_DIR)/deps/zlib
 
+# sysutils/kmod publishes this prefix; see the stage-libkmod target there for
+# why meson's libkmod-internal.a is published as libkmod.a.  pciutils builds
+# ls-kernel.o unconditionally and its Makefile appends $(LIBKMOD_CFLAGS) to
+# that one object, so the header has to be reachable and the archive has to
+# link whether or not anything said --with-kmod.
+KMOD_PREFIX = $(FREELINX_BUILD_DIR)/deps/kmod
+
 pciutils_targets = CC="$(FREELINX_CC)" \
-	CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(ZLIB_PREFIX)/include" \
-	LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(ZLIB_PREFIX)/lib" \
-	LDLIBS="-lz" \
+	CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(ZLIB_PREFIX)/include -I$(KMOD_PREFIX)/include" \
+	LDFLAGS="$(FLX_LINK_FLAGS) -L$(ZLIB_PREFIX)/lib -L$(KMOD_PREFIX)/lib" \
+	LDLIBS="-lz -lkmod" \
 	AR="$(FREELINX_TOOLCHAIN_BIN)/llvm-ar" \
 	RANLIB="$(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib" \
 	SHARED=no \

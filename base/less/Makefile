@@ -33,7 +33,7 @@ PROJECT_CFG_CMDS = \
 	autoreconf -fi && \
 	CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(NCURSES_PREFIX)/include -fuse-ld=lld --rtlib=compiler-rt" \
 	LDFLAGS="-L$(NCURSES_PREFIX)/lib" \
-	LIBS="-lncursesw" \
+	LIBS="-lncursestw" \
 	./configure \
 		--prefix=/usr \
 		--host=$(FREELINX_TRIPLE) \
@@ -45,4 +45,4 @@ BUILD_CMDS = \
 	grep -h '^public [^;]*$$' *.c | sed 's/$$/;/' > funcs.h && \
 	make -j"$(FREELINX_JOBS)" \
 			LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(NCURSES_PREFIX)/lib" \
-		LIBS="-lncursesw -ltinfo"
+		LIBS="-lncursestw"

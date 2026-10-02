@@ -1,5 +1,5 @@
---- a/usr.bin/diff/diff.h
-+++ b/usr.bin/diff/diff.h
+--- a/diff.h
++++ b/diff.h
 @@ -88,7 +88,7 @@
  extern struct	excludes *excludes_list;
  extern regex_t	ignore_re;
@@ -9,8 +9,8 @@
  int	diffreg(char *, char *, int);
  void	diffdir(char *, char *, int);
  void	print_only(const char *, size_t, const char *);
---- a/usr.bin/diff/diffreg.c
-+++ b/usr.bin/diff/diffreg.c
+--- a/diffreg.c
++++ b/diffreg.c
 @@ -479,7 +479,7 @@
  }
  
@@ -20,8 +20,8 @@
  {
  	char *tail, *buf;
  	size_t dirlen;
---- a/usr.bin/diff/diff.c
-+++ b/usr.bin/diff/diff.c
+--- a/diff.c
++++ b/diff.c
 @@ -256,12 +256,12 @@
  		diffdir(argv[0], argv[1], dflags);
  	} else {

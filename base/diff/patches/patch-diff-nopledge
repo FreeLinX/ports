@@ -1,5 +1,5 @@
---- a/usr.bin/diff/diff.c
-+++ b/usr.bin/diff/diff.c
+--- a/diff.c
++++ b/diff.c
 @@ -211,13 +211,6 @@
  	argc -= optind;
  	argv += optind;

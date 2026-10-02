@@ -44,4 +44,4 @@ PORT_SRCS = games/hangman/endgame.c \
 	games/hangman/prword.c \
 	games/hangman/setup.c
 FLX_CPPFLAGS += $(FLX_NCURSES_CPPFLAGS)
-FLX_LDADD    += $(FLX_NCURSES)/lib/libncursesw.a
+FLX_LDADD    += $(FLX_NCURSES)/lib/libncursestw.a

@@ -15,8 +15,10 @@ PREFIX  := /
 INSTALL_BIN:= mpg123
 INSTALL_RELPATH:= usr/bin/mpg123
 
-TINY_INC:= $(FREELINX_STAGING_DIR)/usr/include
-TINY_LIB:= $(FREELINX_STAGING_DIR)/usr/lib
+# audio/tinyalsa publishes this prefix.  Not the staging root, and never
+# /usr/include or /usr/lib: see audio/tinyalsa/Makefile for what a -L/usr/lib
+# does to a musl link.
+TINY_PREFIX = $(FREELINX_BUILD_DIR)/deps/tinyalsa
 
 include ../../mk/project-port.mk
 
@@ -34,8 +36,9 @@ PROJECT_CFG_CMDS = \
 		--with-default-audio=tinyalsa \
 		--with-cpu=x86-64 \
 		CC="$(FREELINX_CC)" \
-		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(TINY_INC)" \
-		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -unwindlib=none -L$(TINY_LIB)"
+		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(TINY_PREFIX)/include" \
+		LDFLAGS="$(FLX_LINK_FLAGS) -L$(TINY_PREFIX)/lib" \
+		LIBS="$(TINY_PREFIX)/lib/libtinyalsa.a"
 
 BUILD_CMDS = \
 	make -j"$(FREELINX_JOBS)" src/mpg123

@@ -29,7 +29,7 @@ PROJECT_CFG_CMDS = \
 BUILD_CMDS = \
 	cd "$(SRC_TREE)" && \
 	$(MAKE) CC="$(FREELINX_CC)" \
-		CFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -O2 -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursesw" \
-		LDFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -static -fuse-ld=lld --rtlib=compiler-rt -L$(NCURSES_PREFIX)/lib -lncursesw" \
+		CFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -O2 -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursestw" \
+		LDFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -static -fuse-ld=lld --rtlib=compiler-rt -L$(NCURSES_PREFIX)/lib -lncursestw" \
 		CPPFLAGS="-D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -D_XOPEN_SOURCE_EXTENDED" \
 		dvtm

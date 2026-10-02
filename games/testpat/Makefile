@@ -24,4 +24,4 @@ NETBSD_MEMBERS = usr/src/games/testpat/testpat.c
 
 PORT_SRCS = games/testpat/testpat.c
 FLX_CPPFLAGS += $(FLX_NCURSES_CPPFLAGS)
-FLX_LDADD    += $(FLX_NCURSES)/lib/libncursesw.a
+FLX_LDADD    += $(FLX_NCURSES)/lib/libncursestw.a
