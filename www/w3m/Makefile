@@ -1,100 +1,52 @@
-# FreeLinX/ports - www/w3m : w3m text-based web browser (0.5.3).
+# FreeLinX/ports - www/w3m : w3m text-based web browser (0.5.3+git20230121).
 #
-# Text-mode web browser with SSL support.
-# w3m license. Autotools build.
-# Requires: libgc, netbsd-curses, openssl, zlib.
-# Notes: needs native mktable for table generation during cross-compile.
-#        needs multiple musl/compat patches.
+# Text-mode web browser with TLS.  The maintained w3m (tats/w3m, the one
+# Debian and the BSDs ship) - the 2011 sourceforge 0.5.3 is abandoned.
+# w3m license.  Autotools build, static.
+# Requires: libgc (devel/libgc), NetBSD curses, OpenSSL, zlib.
+#
+# Cross-compiling needs w3m's table generator (mktable) to run on the build
+# host.  It is linked -static like everything else here, so the musl binary
+# runs on the host directly: no host C compiler is involved.
 
 NAME    := w3m
-VERSION := 0.5.3
+VERSION := 0.5.3+git20230121
 CATEGORY:= www
 LICENSE := w3m
 DEPENDENCIES:= libgc netbsd-curses openssl
-BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot), native libgc (for mktable)
+BUILD_DEPENDENCIES:= musl (via FreeLinX toolchain sysroot), devel/libgc, devel/netbsd-curses, base/openssl, base/zlib
 TARGET  := $(FREELINX_TRIPLE)
 PREFIX  := /
 
 INSTALL_BIN:= w3m
-INSTALL_RELPATH:= usr/bin
+INSTALL_RELPATH:= bin/w3m
 
 include ../../mk/project-port.mk
 
-SRC_TREE = $(FREELINX_BUILD_DIR)/work/$(NAME)/w3m-$(VERSION)
+SRC_TREE = $(FREELINX_BUILD_DIR)/work/$(NAME)/w3m-0.5.3-git20230121
 PROJECT_BIN = $(SRC_TREE)/w3m
 
 OPENSSL_PREFIX = $(FREELINX_BUILD_DIR)/deps/openssl
-NCURSES_PREFIX = $(FREELINX_PORTS_ROOT)/staging/usr
-LIBGC_PREFIX = $(FREELINX_PORTS_ROOT)/staging/usr
-ZLIB_PREFIX = $(FREELINX_BUILD_DIR)/deps/zlib
-NATIVE_GC = $(FREELINX_BUILD_DIR)/work/bdwgc-8.2.8/build-native
-NATIVE_GC_INC = $(FREELINX_BUILD_DIR)/work/bdwgc-8.2.8/include
+NCURSES_PREFIX = $(FREELINX_BUILD_DIR)/deps/netbsd-curses
+LIBGC_TREE     = $(FREELINX_BUILD_DIR)/work/libgc/bdwgc-8.2.8
+ZLIB_PREFIX    = $(FREELINX_BUILD_DIR)/deps/zlib
 
-W3M_CFLAGS = \
-	-O2 -I. -I.. -I./libwc \
-	-I$(OPENSSL_PREFIX)/include \
-	-I$(NCURSES_PREFIX)/include/ncurses \
-	-I$(NCURSES_PREFIX)/include \
-	-I$(LIBGC_PREFIX)/include \
-	-I$(ZLIB_PREFIX)/include \
-	-Wno-format-security -Wno-deprecated-non-prototype \
-	-Wno-int-conversion -Wno-pointer-sign \
-	-Wno-implicit-function-declaration -Wno-implicit-int \
-	-Wno-incompatible-pointer-types
-
-W3M_LDFLAGS = \
-	--target=x86_64-linux-musl --sysroot=$(FREELINX_TOOLCHAIN_DIR)/$(FREELINX_TRIPLE) \
-	-L$(OPENSSL_PREFIX)/lib64 -L$(NCURSES_PREFIX)/lib -L$(ZLIB_PREFIX)/lib \
-	-fuse-ld=lld --rtlib=compiler-rt -static
+W3M_CC = $(FREELINX_CC) --target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_TOOLCHAIN_DIR)/$(FREELINX_TRIPLE)
+W3M_CFLAGS = -O2 -I$(NCURSES_PREFIX)/include -I$(LIBGC_TREE)/include \
+	-I$(OPENSSL_PREFIX)/include -I$(ZLIB_PREFIX)/include \
+	-Wno-int-conversion -Wno-incompatible-pointer-types \
+	-Wno-implicit-function-declaration -Wno-implicit-int
+W3M_LDFLAGS = -L$(LIBGC_TREE)/.libs -L$(NCURSES_PREFIX)/lib -L$(OPENSSL_PREFIX)/lib64 \
+	-L$(ZLIB_PREFIX)/lib -fuse-ld=lld --rtlib=compiler-rt -static
 
 PROJECT_CFG_CMDS = \
-	@# Patches for musl/compat \
-	cd "$(SRC_TREE)" && \
-	sed -i 's/struct file_handle/struct w3m_file_handle/g' istream.h istream.c && \
-	sed -i 's/file_handle \*/w3m_file_handle */g' istream.h && \
-	sed -i 's/orig_GC_warn_proc = GC_set_warn_proc(wrap_GC_warn_proc);/GC_set_warn_proc(wrap_GC_warn_proc);/' main.c && \
-	sed -i 's/^prepare_sys_errlist()$$/void prepare_sys_errlist(void)/' etc.c && \
-	sed -i 's/if (RAND_egd(file) > 0)/#if OPENSSL_VERSION_NUMBER < 0x10100000L\n\tif (RAND_egd(file) > 0)\n#else\n\tif (0)\n#endif/' url.c && \
-	@# Build native mktable \
-	mkdir -p "$(NATIVE_GC)" && \
-	if [ ! -f "$(NATIVE_GC)/.libs/libgc.a" ]; then \
-		cd "$(FREELINX_BUILD_DIR)/work/bdwgc-8.2.8" && \
-		autoreconf -fi 2>/dev/null && \
-		cd build-native && \
-		../configure --disable-shared --enable-static CC=/usr/bin/cc CFLAGS="-O2" && \
-		make -j"$(FREELINX_JOBS)"; \
-	fi && \
-	cd "$(SRC_TREE)" && \
-	/usr/bin/cc -O2 -DHAVE_CONFIG_H -I. -I./libwc -I$(NATIVE_GC_INC) \
-		-c -o Str_native.o Str.c && \
-	/usr/bin/cc -O2 -DHAVE_CONFIG_H -I. -I./libwc -I$(NATIVE_GC_INC) \
-		-c -o hash_native.o hash.c && \
-	/usr/bin/cc -O2 -DHAVE_CONFIG_H -I. -I./libwc -I$(NATIVE_GC_INC) \
-		-c -o myctype_native.o myctype.c && \
-	/usr/bin/cc -O2 -DHAVE_CONFIG_H -I. -I./libwc -I$(NATIVE_GC_INC) \
-		-o mktable_native mktable.c Str_native.o hash_native.o myctype_native.o \
-		-L$(NATIVE_GC)/.libs -lgc -lm && \
-	@# Generate tables with native mktable \
-	sort funcname.tab | mawk -f functable.awk > functable.tab && \
-	./mktable_native 100 functable.tab > functable.c && \
-	./mktable_native 100 tagtable.tab > tagtable.c && \
-	./mktable_native 100 entity.tab > entity.h && \
-	@# Configure for cross-compilation \
-	./configure \
-		--host=x86_64-pc-linux-gnu \
-		--prefix=/usr \
-		--disable-image \
-		--disable-xface \
-		--with-ssl="$(OPENSSL_PREFIX)" \
-		--with-gc="$(LIBGC_PREFIX)" \
-		ac_cv_func_setpgrp_void=yes \
-		CC="$(FREELINX_CC)" \
-		CXX=no \
-		CFLAGS="$(W3M_CFLAGS)" \
-		LDFLAGS="$(W3M_LDFLAGS)" && \
-	@# Add missing defines \
-	sed -i '1i #define RC_DIR "~/.w3m"\n#define CONF_DIR "/etc/w3m"\n#define ETC_DIR "/etc"' config.h
+	test -f "$(LIBGC_TREE)/.libs/libgc.a" || { echo "build devel/libgc first" >&2; exit 1; }; \
+	./configure --host=$(FREELINX_TRIPLE) --build=x86_64-pc-linux-gnu --prefix=/usr --sysconfdir=/etc \
+		--disable-image --disable-xface --disable-nls \
+		--with-ssl="$(OPENSSL_PREFIX)" --with-gc="$(LIBGC_TREE)" \
+		--with-termlib="curses terminfo" ac_cv_func_setpgrp_void=yes \
+		CC="$(W3M_CC)" CXX="$(W3M_CC)" \
+		CFLAGS="$(W3M_CFLAGS)" LDFLAGS="$(W3M_LDFLAGS)"
 
 BUILD_CMDS = \
-	cd "$(SRC_TREE)" && \
 	make -j"$(FREELINX_JOBS)" w3m

@@ -33,13 +33,9 @@ FLX_PROJECT_LDFLAGS :=
 
 include ../../mk/project-port.mk
 
-# The FreeLinX toolchain's llvm-ar/llvm-ranlib need GLIBC_2.38 which the
-# build host (GLIBC 2.36) does not provide, so they cannot run here.
-# Archiving is libc-agnostic, so we use the host ar/ranlib to package the
-# musl .o files; the final consumers (xpkg) still link ONLY with FreeLinX
-# clang+LLD+musl. (Same pattern as base/zlib and base/openssl.)
-FLX_HOST_AR   ?= /usr/bin/ar
-FLX_HOST_RANLIB ?= /usr/bin/ranlib
+# Archives: llvm-ar/llvm-ranlib from the FreeLinX toolchain (no GNU binutils).
+FLX_HOST_AR   ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ar
+FLX_HOST_RANLIB ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib
 
 # sqlite ships an autoconf amalgamation; drive it with the exported
 # FreeLinX CC/CFLAGS/LDFLAGS (project-port.mk exports them).

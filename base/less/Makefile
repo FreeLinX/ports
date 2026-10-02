@@ -19,8 +19,8 @@ FLX_PROJECT_LIBS :=
 FLX_PROJECT_CPPFLAGS =-I$(NCURSES_PREFIX)/include
 FLX_PROJECT_LDFLAGS  =-L$(NCURSES_PREFIX)/lib
 
-FLX_HOST_AR      ?= /usr/bin/ar
-FLX_HOST_RANLIB  ?= /usr/bin/ranlib
+FLX_HOST_AR      ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ar
+FLX_HOST_RANLIB  ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib
 
 include ../../mk/project-port.mk
 

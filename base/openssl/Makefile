@@ -1,4 +1,4 @@
-# FreeLinX/ports - base/openssl : OpenSSL 3.3.2 (build dependency, upstream).
+# FreeLinX/ports - base/openssl : OpenSSL 3.5.9 LTS (build dependency, upstream).
 #
 # Real upstream OpenSSL built with the FreeLinX clang + LLD + musl toolchain,
 # statically (libssl.a / libcrypto.a).  It is a build-time dependency for
@@ -7,7 +7,7 @@
 # it is linked statically into its consumers.  No GNU runtime dependency.
 
 NAME   := openssl
-VERSION:= 3.3.2
+VERSION:= 3.5.9
 CATEGORY:= base
 LICENSE:= Apache-2.0
 DEPENDENCIES:=
@@ -23,12 +23,9 @@ FLX_PROJECT_LIBS :=
 FLX_PROJECT_CPPFLAGS =
 FLX_PROJECT_LDFLAGS  =
 
-# The FreeLinX toolchain's llvm-ar/llvm-ranlib/llvm-nm require GLIBC_2.38 (host
-# has 2.36) and cannot run here; archiving is libc-agnostic so host tools
-# package the musl .o files.  The final OpenSSL link uses ONLY FreeLinX
-# clang+LLD.
-FLX_HOST_AR      ?= /usr/bin/ar
-FLX_HOST_RANLIB  ?= /usr/bin/ranlib
+# Archives: llvm-ar/llvm-ranlib from the FreeLinX toolchain (no GNU binutils).
+FLX_HOST_AR      ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ar
+FLX_HOST_RANLIB  ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib
 
 include ../../mk/project-port.mk
 
@@ -39,7 +36,7 @@ BUILD_BIN   = $(PROJECT_BIN)
 PROJECT_CFG_CMDS = \
 	./Configure linux-x86_64 \
 		--prefix="$(OSSL_PREFIX)" \
-		--openssldir="$(OSSL_PREFIX)/ssl" \
+		--openssldir=/etc/ssl \
 		no-shared no-tests no-dso no-ui-console no-ssl3 no-comp \
 		no-afalgeng no-threads no-secure-memory \
 		"CC=$(FREELINX_CC)" \
@@ -49,4 +46,4 @@ PROJECT_CFG_CMDS = \
 
 BUILD_CMDS = \
 	make -j"$(FREELINX_JOBS)" && \
-	make install_sw install_ssldirs
+	make install_sw

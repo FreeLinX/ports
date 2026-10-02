@@ -40,7 +40,6 @@ BUILD_CMDS = \
 install: $(STAGE_FILE)
 	@mkdir -p $(STAGE_ROOT)/usr/bin $(STAGE_ROOT)/usr/lib/tcc/include $(STAGE_ROOT)/bin
 	@ln -sf tcc $(STAGE_ROOT)/usr/bin/cc
-	@ln -sf tcc $(STAGE_ROOT)/usr/bin/gcc
 	@ln -sf ../usr/bin/tcc $(STAGE_ROOT)/bin/cc
 	@cp -f $(SRC_TREE)/libtcc1.a $(STAGE_ROOT)/usr/lib/tcc/
 	@cp -f $(SRC_TREE)/include/*.h $(STAGE_ROOT)/usr/lib/tcc/include/
@@ -49,7 +48,6 @@ install-rootfs: check-install-rootfs $(STAGE_FILE)
 	@mkdir -p $(ROOTFS_DIR)/usr/bin $(ROOTFS_DIR)/usr/lib/tcc/include $(ROOTFS_DIR)/bin
 	@install -m 755 $(STAGE_FILE) $(ROOTFS_DIR)/usr/bin/tcc
 	@ln -sf tcc $(ROOTFS_DIR)/usr/bin/cc
-	@ln -sf tcc $(ROOTFS_DIR)/usr/bin/gcc
 	@ln -sf ../usr/bin/tcc $(ROOTFS_DIR)/bin/cc
 	@cp -f $(SRC_TREE)/libtcc1.a $(ROOTFS_DIR)/usr/lib/tcc/
 	@cp -f $(SRC_TREE)/include/*.h $(ROOTFS_DIR)/usr/lib/tcc/include/

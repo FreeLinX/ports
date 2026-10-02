@@ -29,12 +29,11 @@ INSTALL_RELPATH:= lib/libz.a
 include ../../mk/project-port.mk
 
 # zlib ships its own configure; drive it with the exported FreeLinX CC/CFLAGS.
-# NOTE: the FreeLinX toolchain's llvm-ar/llvm-ranlib require GLIBC_2.38 which
-# the build host (GLIBC 2.36) does not provide, so they cannot run here.  Archiving
-# is libc-agnostic, so we use the host ar/ranlib to package the musl .o files;
+# Archives are made with the FreeLinX toolchain's llvm-ar/llvm-ranlib (no GNU
+# binutils anywhere in the build);
 # the final consumers (git, openssh) still link ONLY with FreeLinX clang+LLD+musl.
-FLX_HOST_AR   ?= /usr/bin/ar
-FLX_HOST_RANLIB ?= /usr/bin/ranlib
+FLX_HOST_AR   ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ar
+FLX_HOST_RANLIB ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib
 
 PROJECT_CFG_CMDS = \
 	AR="$(FLX_HOST_AR)" RANLIB="$(FLX_HOST_RANLIB)" ./configure --static --prefix="$(ZLIB_PREFIX)"
