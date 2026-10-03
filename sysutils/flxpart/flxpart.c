@@ -18,9 +18,18 @@
  *   2-33         primary partition array
  *   34           partition 1, EFI system partition, FAT32
  *   ...          partition 2, BIOS boot, 1 MiB, for a BIOS bootloader
- *   ...          partition 3, FreeLinX root, the rest of the disk
+ *   ...          partition 3, FreeLinX system, --flx-sys-size MiB
+ *   ...          partition 4, FreeLinX home, the rest of the disk
  *   ...          backup array
  *   last-1       backup GPT header
+ *
+ * Partitions 3 and 4 are one partition unless --flx-sys-size is given, because
+ * /usr /etc /var /root /bin /sbin /lib and /home are separate concerns with
+ * separate lifetimes: the first is the system and what is installed into it, the
+ * second is the user's files.  A caller that wants them apart asks for the size
+ * of the system partition and gets a home partition for what is left.  Without
+ * the flag there is no home partition, so a caller written against the old
+ * layout still gets the old layout rather than a disk with an empty /home.
  *
  * The BIOS boot partition is there because a BIOS bootloader has to be
  * somewhere the firmware will not overwrite and the GPT will not manage, and
@@ -112,8 +121,14 @@ static const unsigned char GUID_BIOSBOOT[16] = {
 };
 /* Linux filesystem data: 0FC63DAF-8483-4772-8E79-3D69D8477DE4.  The bytes
  * here used to be 4F68EE06-F53D-D74B-1193-47F89EF89EF8, an unregistered value
- * that matched nothing including this file's own header comment. */
-static const unsigned char GUID_LINUX_ROOT[16] = {
+ * that matched nothing including this file's own header comment.
+ *
+ * One type for the system partition and for /home alike.  A distinct GUID per
+ * role would be a thing that cannot be honoured: a type GUID cannot say "this is
+ * /home" without every other Linux partition on the machine claiming the same
+ * thing, so what makes a partition the home partition is the filesystem label
+ * on it and nothing else. */
+static const unsigned char GUID_LINUX[16] = {
 	0xaf,0x3d,0xc6,0x0f, 0x83,0x84, 0x72,0x47,
 	0x8e,0x79, 0x3d,0x69, 0xd8,0x47,0x7d,0xe4
 };
@@ -521,7 +536,8 @@ dev_reread(struct dev *d)
  * disagree with the first about where the array goes. */
 static void write_table(struct dev *d, struct ptable *t, int dry_run);
 static void report_table(struct ptable *t, uint64_t total, int dry_run);
-static int create_standard(struct dev *d, unsigned long esp_mb, int dry_run);
+static int create_standard(struct dev *d, unsigned long esp_mb,
+    unsigned long sys_mb, int dry_run);
 static int create_data(struct dev *d, int dry_run);
 
 /* create_standard - the FreeLinX layout on an already-sized device.
@@ -529,13 +545,18 @@ static int create_data(struct dev *d, int dry_run);
  * dry_run computes and reports the layout without writing a byte, which is
  * what an installer needs in order to show a plan on a machine where the
  * answer is not yet a partitioned disk.  The geometry is the real one: the
- * same code and the same arithmetic, only the writes are skipped. */
+ * same code and the same arithmetic, only the writes are skipped.
+ *
+ * sys_mb splits the third partition in two: that many MiB for the system, the
+ * remainder for /home.  Zero means do not split it, which is what a caller
+ * that has no /home to separate wants. */
 static int
-create_standard(struct dev *d, unsigned long esp_mb, int dry_run)
+create_standard(struct dev *d, unsigned long esp_mb, unsigned long sys_mb,
+    int dry_run)
 {
 	struct ptable t;
 	uint64_t total, first_free;
-	uint64_t esp_sectors, bios_sectors;
+	uint64_t esp_sectors, bios_sectors, sys_sectors;
 	int n;
 
 	memset(&t, 0, sizeof t);
@@ -557,6 +578,7 @@ create_standard(struct dev *d, unsigned long esp_mb, int dry_run)
 	/* The BIOS boot partition is 1 MiB, the traditional size, and is
 	 * where a BIOS bootloader goes. */
 	bios_sectors = MB / SECTOR;
+	sys_sectors = (uint64_t)sys_mb * MB / SECTOR;
 
 	/* Work out where every partition ends before writing anything.
 	 *
@@ -596,17 +618,46 @@ create_standard(struct dev *d, unsigned long esp_mb, int dry_run)
 	say("partition %d: BIOS boot, 1 MiB, LBA %" PRIu64 "-%" PRIu64,
 	    n + 1, t.part[n].first, t.part[n].last);
 
-	/* 3. root, to the end.  The tail is already excluded by
-	 * last_usable, so this cannot run into the backup array. */
+	/* 3. the system, and 4. /home, when the caller asked for the split.
+	 *
+	 * One MiB is the floor for /home.  Less than that and mkfs.ext4 gets
+	 * a filesystem it cannot use, which is a worse outcome than refusing:
+	 * the install appears to succeed and /home is unusable afterwards. */
 	first_free += bios_sectors;
 	if (first_free > t.last_usable)
 		die("%s has no room left for a root partition after the ESP "
 		    "and the BIOS boot partition", d->path);
-	n = add_part(&t, GUID_LINUX_ROOT, first_free, t.last_usable, "FreeLinX");
-	say("partition %d: FreeLinX root, %" PRIu64 " MiB, LBA %" PRIu64
-	    "-%" PRIu64, n + 1,
-	    (uint64_t)((t.part[n].last - t.part[n].first + 1) * SECTOR) / MB,
-	    t.part[n].first, t.part[n].last);
+	if (sys_sectors > 0) {
+		if (first_free + sys_sectors + ALIGN / SECTOR - 1 >
+		    t.last_usable)
+			die("%s is %" PRIu64 " MiB, which cannot hold a %lu MiB "
+			    "system partition as well as a %lu MiB EFI system "
+			    "partition, a BIOS boot partition and at least 1 MiB "
+			    "of /home. Use a smaller --flx-sys-size, or a "
+			    "larger disk.",
+			    d->path, total * SECTOR / MB, sys_mb, esp_mb);
+		n = add_part(&t, GUID_LINUX, first_free,
+		    first_free + sys_sectors - 1, "FreeLinX system");
+		say("partition %d: FreeLinX system, %lu MiB, LBA %" PRIu64
+		    "-%" PRIu64, n + 1, sys_mb, t.part[n].first,
+		    t.part[n].last);
+		first_free += sys_sectors;
+		n = add_part(&t, GUID_LINUX, first_free, t.last_usable,
+		    "FreeLinX home");
+		say("partition %d: FreeLinX home, %" PRIu64 " MiB, LBA %" PRIu64
+		    "-%" PRIu64, n + 1,
+		    (uint64_t)((t.part[n].last - t.part[n].first + 1) * SECTOR) /
+		    MB, t.part[n].first, t.part[n].last);
+	} else {
+		/* To the end.  The tail is already excluded by last_usable, so
+		 * this cannot run into the backup array. */
+		n = add_part(&t, GUID_LINUX, first_free, t.last_usable,
+		    "FreeLinX");
+		say("partition %d: FreeLinX root, %" PRIu64 " MiB, LBA %" PRIu64
+		    "-%" PRIu64, n + 1,
+		    (uint64_t)((t.part[n].last - t.part[n].first + 1) * SECTOR) /
+		    MB, t.part[n].first, t.part[n].last);
+	}
 
 	write_table(d, &t, dry_run);
 	report_table(&t, total, dry_run);
@@ -680,7 +731,15 @@ write_table(struct dev *d, struct ptable *t, int dry_run)
 }
 
 /* report_table - print the layout in a form a caller can parse, so an installer
- * does not have to read this program's human output. */
+ * does not have to read this program's human output.
+ *
+ * SIZE_BYTES and SIZE_MB are both printed, and the reason is that they are not
+ * the same number: a partition's real extent lands on a 1 MiB boundary the
+ * requested MiB figure does not divide evenly into, so SIZE_MB is a floor and
+ * not a round trip.  A caller that formats a filesystem has to be handed the
+ * byte count or it overwrites the last partial megabyte; a caller that has to
+ * print a plan to a person wants the MiB figure.  The old output had only the
+ * bytes, and every caller that wanted to say "6553 MiB" divided them itself. */
 static void
 report_table(struct ptable *t, uint64_t total, int dry_run)
 {
@@ -688,6 +747,7 @@ report_table(struct ptable *t, uint64_t total, int dry_run)
 
 	for (n = 0; n < t->npart; n++) {
 		char g[37];
+		uint64_t bytes;
 
 		guid_text(t->part[n].type, g);
 		printf("FLX_PART%d_TYPE=%s\n", n + 1, g);
@@ -695,8 +755,9 @@ report_table(struct ptable *t, uint64_t total, int dry_run)
 		printf("FLX_PART%d_GUID=%s\n", n + 1, g);
 		printf("FLX_PART%d_FIRST=%" PRIu64 "\n", n + 1, t->part[n].first);
 		printf("FLX_PART%d_LAST=%" PRIu64 "\n", n + 1, t->part[n].last);
-		printf("FLX_PART%d_SIZE_BYTES=%" PRIu64 "\n", n + 1,
-		    (t->part[n].last - t->part[n].first + 1) * SECTOR);
+		bytes = (t->part[n].last - t->part[n].first + 1) * SECTOR;
+		printf("FLX_PART%d_SIZE_BYTES=%" PRIu64 "\n", n + 1, bytes);
+		printf("FLX_PART%d_SIZE_MB=%" PRIu64 "\n", n + 1, bytes / MB);
 		printf("FLX_PART%d_NAME=%s\n", n + 1, t->part[n].name);
 	}
 	printf("FLX_DISK_SECTORS=%" PRIu64 "\n", total);
@@ -746,7 +807,7 @@ create_data(struct dev *d, int dry_run)
 
 	random_guid(t.disk_guid);
 
-	n = add_part(&t, GUID_LINUX_ROOT, t.first_usable, t.last_usable,
+	n = add_part(&t, GUID_LINUX, t.first_usable, t.last_usable,
 	    "FreeLinX data");
 	say("partition %d: FreeLinX data, %" PRIu64 " MiB, LBA %" PRIu64
 	    "-%" PRIu64, n + 1,
@@ -792,7 +853,12 @@ show(struct dev *d)
 	for (i = 0; i < 8; i++)
 		array_lba |= (uint64_t)sector[72 + i] << (8 * i);
 
-	printf("%s: %" PRIu64 " sectors, GPT\n", d->path, total);
+	/* "GPT Partition Table detected" is the phrase, not a description of
+	 * one.  A caller reads this output to decide whether the disk it was
+	 * handed is one it may repartition, and it greps for that phrase; the
+	 * wording is a contract with the installers, not prose. */
+	printf("%s: %" PRIu64 " sectors, GPT Partition Table detected\n",
+	    d->path, total);
 	printf("  first usable LBA %" PRIu64 "\n", read_le64(sector + 40));
 	printf("  last usable LBA  %" PRIu64 "\n", read_le64(sector + 48));
 	printf("  array at LBA %" PRIu64 "\n", array_lba);
@@ -842,7 +908,8 @@ static void
 usage_text(FILE *f)
 {
 	fprintf(f,
-	    "usage: %s --create-standard [--esp-size MB] [--dry-run] DEVICE\n"
+	    "usage: %s --create-standard [--esp-size MB] [--flx-sys-size MB] "
+	    "[--dry-run] DEVICE\n"
 	    "       %s --create-data [--dry-run] DEVICE\n"
 	    "       %s --show DEVICE\n"
 	    "       %s --help | --version\n"
@@ -853,6 +920,16 @@ usage_text(FILE *f)
 	    "  1  EFI system   FAT32, 256 MiB by default, the UEFI boot target\n"
 	    "  2  BIOS boot    1 MiB, where a BIOS bootloader goes\n"
 	    "  3  FreeLinX     the rest of the disk, and the system on it\n"
+	    "\n"
+	    "  With --flx-sys-size, the third partition is that many MiB and\n"
+	    "  a fourth partition takes what is left:\n"
+	    "  3  FreeLinX system  --flx-sys-size MiB, the system and /usr\n"
+	    "  4  FreeLinX home    the rest, /home\n"
+	    "\n"
+	    "  They are separate because their lifetimes are: the system is\n"
+	    "  what is installed into, /home is what the user keeps.  Without\n"
+	    "  the flag there is no fourth partition, so a caller with no /home\n"
+	    "  to separate gets the three-partition layout and not an empty one.\n"
 	    "\n"
 	    "--create-data lays out a disk that only holds state:\n"
 	    "  1  FreeLinX data  the whole disk\n"
@@ -884,6 +961,8 @@ main(int argc, char **argv)
 	int create_standard_mode = 0, create_data_mode = 0;
 	int do_show = 0, help = 0, dry_run = 0;
 	unsigned long esp_mb = 256;
+	unsigned long sys_mb = 0;	/* 0: do not split off /home */
+	int sys_seen = 0;		/* the flag was given at all */
 	const char *devpath = NULL;
 	struct dev d;
 	int i;
@@ -901,6 +980,10 @@ main(int argc, char **argv)
 			do_show = 1;
 		else if (strcmp(argv[i], "--esp-size") == 0 && i + 1 < argc)
 			esp_mb = strtoul(argv[++i], NULL, 10);
+		else if (strcmp(argv[i], "--flx-sys-size") == 0 && i + 1 < argc) {
+			sys_mb = strtoul(argv[++i], NULL, 10);
+			sys_seen = 1;
+		}
 		else if (strcmp(argv[i], "--dry-run") == 0)
 			dry_run = 1;
 		else if (strcmp(argv[i], "-q") == 0 || strcmp(argv[i], "--quiet") == 0)
@@ -944,6 +1027,14 @@ main(int argc, char **argv)
 		    "different jobs\n", prog);
 		usage();
 	}
+	/* Refused rather than ignored: a caller that sized the system
+	 * partition and got a one-partition data disk back has no way to tell
+	 * from the exit status that the size it asked for went nowhere. */
+	if (!create_standard_mode && sys_seen) {
+		fprintf(stderr, "%s: --flx-sys-size applies to "
+		    "--create-standard only\n", prog);
+		usage();
+	}
 	if (!create_standard_mode && !create_data_mode && !do_show) {
 		fprintf(stderr, "%s: nothing to do; pass --create-standard, "
 		    "--create-data or --show\n", prog);
@@ -951,6 +1042,23 @@ main(int argc, char **argv)
 	}
 	if (esp_mb == 0)
 		die("--esp-size must be at least 1");
+	/* 0 means "do not split", which is a legitimate thing to ask for and is
+	 * not the same as asking for a zero-sized system partition.  A typo that
+	 * reaches here as 0 silently produces the three-partition layout on a
+	 * disk the caller meant to have four partitions on, so only an explicit
+	 * zero is accepted and anything unparseable is refused. */
+	if (sys_mb == 0) {
+		const char *a = NULL;
+		int j;
+
+		for (j = 1; j < argc; j++)
+			if (strcmp(argv[j], "--flx-sys-size") == 0 &&
+			    j + 1 < argc)
+				a = argv[j + 1];
+		if (a != NULL && a[0] != '\0' &&
+		    strspn(a, "0123456789") != strlen(a))
+			die("--flx-sys-size takes a number of MiB, not '%s'", a);
+	}
 
 	if (do_show) {
 		dev_open(&d, devpath, 0);
@@ -975,7 +1083,7 @@ main(int argc, char **argv)
 	say("%s %s (%" PRIu64 " bytes)", dry_run ? "planning" : "partitioning",
 	    devpath, d.size);
 	if (create_standard_mode) {
-		if (create_standard(&d, esp_mb, dry_run) != 0)
+		if (create_standard(&d, esp_mb, sys_mb, dry_run) != 0)
 			return 1;
 	} else {
 		if (create_data(&d, dry_run) != 0)

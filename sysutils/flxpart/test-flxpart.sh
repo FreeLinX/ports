@@ -339,6 +339,94 @@ ok 'parted accepts 3 TiB' "$(printf '%s' "$p4" | grep -ci corrupt)" '0'
 ok 'the root partition is huge' \
 	"$([ "$(sed -n 's/^FLX_PART3_SIZE_BYTES=//p' "$TMP/o4.txt")" -gt 3000000000000 ] && echo yes || echo no)" 'yes'
 
+echo '== --flx-sys-size splits the system partition from /home =='
+# The installer needs /usr /etc /var /root /bin /sbin /lib and /home on separate
+# filesystems: the first is what gets installed into and the second is what the
+# user keeps.  A single partition for both means a full system, or a full disk
+# of home directories, has to be thrown away to change the other one.
+ds=$(make_disk 16384)
+"$FLXPART" -q --create-standard --esp-size 1024 --flx-sys-size 6553 \
+    "$ds" >"$TMP/sys.txt" 2>"$TMP/syserr.txt"
+ok 'exit status' "$?" '0'
+ok 'no complaints' "$(cat "$TMP/syserr.txt")" ''
+ok 'four partitions' "$(grep -c '^FLX_PART[0-9]*_NAME=' "$TMP/sys.txt")" '4'
+
+# Read the keys back rather than restating the numbers here.  The point of this
+# block is that flxpart reports what it actually wrote; a test that computed the
+# expected size the same way flxpart does would agree with a flxpart that
+# ignored --flx-sys-size entirely.
+syskey() { sed -n "s/^FLX_PART$1_$2=//p" "$TMP/sys.txt"; }
+ok 'the ESP is 1 GiB' "$(syskey 1 SIZE_BYTES)" '1073741824'
+ok 'the BIOS boot partition is 1 MiB' "$(syskey 2 SIZE_BYTES)" '1048576'
+ok 'the system partition is the size asked for' "$(syskey 3 SIZE_MB)" '6553'
+ok 'the home partition runs to the end of the disk' \
+    "$(syskey 4 LAST)" "$(sed -n 's/^FLX_DISK_LAST_USABLE=//p' "$TMP/sys.txt")"
+# The capture is the partition number and nothing else.  `s///p` prints the
+# whole line with the match taken out, which here is an empty line per hit, so
+# the numbers never appear and the check passes on nothing.
+ok 'the two Linux partitions are 3 and 4' \
+    "$(sed -n 's/^FLX_PART\([0-9]*\)_TYPE=AF3DC60F-8384-7247-8E79-3D69D8477DE4$/\1/p' \
+        "$TMP/sys.txt" | tr '\n' ' ')" '3 4 '
+
+# In order, and not touching.  An overlap here is a disk that reads as having
+# two partitions where one starts before the other ends.
+_inorder=no
+if [ "$(syskey 3 FIRST)" -gt "$(syskey 2 LAST)" ] &&
+    [ "$(syskey 4 FIRST)" -gt "$(syskey 3 LAST)" ]; then
+    _inorder=yes
+fi
+ok 'the partitions are in order and do not overlap' "$_inorder" 'yes'
+
+# SIZE_MB is a floor, not a round trip: the last partition ends at the last
+# usable LBA, which is 33 sectors short of the end of the disk, so its bytes are
+# not a whole number of MiB.  Checking the relationship rather than the number
+# keeps the test true whichever way the tail lands.
+_mb=$(( $(syskey 4 SIZE_BYTES) / 1048576 ))
+ok 'SIZE_MB is SIZE_BYTES in whole MiB' "$_mb" "$(syskey 4 SIZE_MB)"
+
+ok '--show reads four partitions back' \
+    "$("$FLXPART" -q --show "$ds" | grep -cE '^  [0-9]+:')" '4'
+ok '--show names the home partition' \
+    "$("$FLXPART" -q --show "$ds" | grep -c 'FreeLinX home')" '1'
+
+if command -v parted >/dev/null 2>&1; then
+    ok 'parted accepts the four-partition table' \
+        "$(parted -s "$ds" unit MiB print 2>&1 | grep -ci corrupt)" '0'
+fi
+
+echo '== without --flx-sys-size there is no home partition =='
+# Not a deprecation: a caller with no /home to separate must get the old three
+# partitions rather than a fourth one it has no name for.
+dn=$(make_disk 16384)
+"$FLXPART" -q --create-standard --esp-size 1024 "$dn" >"$TMP/nosys.txt" 2>&1
+ok 'still three partitions' "$(grep -c '^FLX_PART[0-9]*_NAME=' "$TMP/nosys.txt")" '3'
+ok 'no home partition' "$(grep -c 'FreeLinX home' "$TMP/nosys.txt")" '0'
+ok 'the third partition still runs to the end' \
+    "$(sed -n 's/^FLX_PART3_LAST=//p' "$TMP/nosys.txt")" \
+    "$(sed -n 's/^FLX_DISK_LAST_USABLE=//p' "$TMP/nosys.txt")"
+
+echo '== a system partition that does not fit is refused, and nothing is written =='
+# The check has to happen before the first write.  A table with an ESP and a
+# BIOS boot partition and no third one reads as a disk with a very small root.
+dno=$(make_disk 4096)
+"$FLXPART" -q --create-standard --esp-size 256 --flx-sys-size 4000 \
+    "$dno" >/dev/null 2>"$TMP/nofit.txt"
+ok 'exits non-zero' "$?" '1'
+ok 'says why' "$(grep -cE 'cannot hold|no room' "$TMP/nofit.txt")" '1'
+ok 'wrote nothing' "$(table_area_untouched "$dno")" 'yes'
+
+echo '== --flx-sys-size is refused where it means nothing =='
+dbad=$(make_disk 2048)
+"$FLXPART" -q --create-data --flx-sys-size 512 "$dbad" >/dev/null 2>&1
+ok 'refused with --create-data' "$?" '1'
+"$FLXPART" -q --show --flx-sys-size 512 "$dbad" >/dev/null 2>&1
+ok 'refused with --show' "$?" '1'
+"$FLXPART" -q --create-standard --flx-sys-size "$(printf 'x')" "$dbad" \
+    >/dev/null 2>"$TMP/garbage.txt"
+ok 'a non-numeric size is refused' "$?" '1'
+ok 'and says so' "$(grep -c 'flx-sys-size' "$TMP/garbage.txt")" '1'
+ok 'wrote nothing' "$(table_area_untouched "$dbad")" 'yes'
+
 echo '== re-running on the same disk is the same result =='
 d4=$(make_disk 1024)
 "$FLXPART" -q --create-standard "$d4" >"$TMP/o5.txt" 2>&1
