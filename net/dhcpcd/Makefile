@@ -37,8 +37,8 @@ FLX_PROJECT_LDFLAGS  =
 # exported CFLAGS so dhcpcd's configure feature-test link works.
 FLX_PROJECT_CFLAGS := -O2 --rtlib=compiler-rt -fuse-ld=lld -static
 
-FLX_HOST_AR      ?= /usr/bin/ar
-FLX_HOST_RANLIB  ?= /usr/bin/ranlib
+FLX_HOST_AR      ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ar
+FLX_HOST_RANLIB  ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib
 
 include ../../mk/project-port.mk
 

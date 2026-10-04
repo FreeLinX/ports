@@ -1,4 +1,4 @@
-# FreeLinX/ports - net/busybox : busybox 1.36.1 (multi-call binary toolkit).
+# FreeLinX/ports - net/busybox : busybox 1.38.0 (multi-call binary toolkit).
 #
 # Lightweight multi-call binary toolkit. GPL-2.0 license.
 # Custom do-extract overrides the port framework's default extraction to
@@ -8,7 +8,7 @@
 # Busybox's minimal build system is used; no autoconf/cmake.
 
 NAME    := busybox
-VERSION := 1.36.1
+VERSION := 1.38.0
 CATEGORY:= net
 LICENSE := GPL-2.0
 DEPENDENCIES:=

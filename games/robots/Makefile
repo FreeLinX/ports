@@ -48,5 +48,4 @@ PORT_SRCS = games/robots/auto.c \
 	games/robots/rnd_pos.c \
 	games/robots/score.c
 FLX_CPPFLAGS += $(FLX_NCURSES_CPPFLAGS)
-FLX_LDADD    += $(FLX_NCURSES)/lib/libncursestw.a
 FLX_CPPFLAGS += -DMAX_PER_UID=5 -DFANCY

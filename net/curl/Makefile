@@ -1,11 +1,11 @@
-# FreeLinX/ports - net/curl : curl 8.12.1 (HTTP client).
+# FreeLinX/ports - net/curl : curl 8.22.0 (HTTP client).
 #
 # The de facto standard HTTP client for command line. Supports HTTP, HTTPS,
 # FTP, SFTP, SCP, and many other protocols. Depends on OpenSSL and zlib
 # (both already ported as build dependencies).
 
 NAME    := curl
-VERSION := 8.12.1
+VERSION := 8.22.0
 CATEGORY:= net
 LICENSE := MIT
 DEPENDENCIES:= openssl zlib
@@ -22,8 +22,8 @@ ZLIB_PREFIX = $(FREELINX_BUILD_DIR)/deps/zlib
 FLX_PROJECT_LIBS :=
 FLX_PROJECT_CPPFLAGS =
 FLX_PROJECT_LDFLAGS  =
-FLX_HOST_AR      ?= /usr/bin/ar
-FLX_HOST_RANLIB  ?= /usr/bin/ranlib
+FLX_HOST_AR      ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ar
+FLX_HOST_RANLIB  ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib
 
 include ../../mk/project-port.mk
 
@@ -36,6 +36,7 @@ PROJECT_CFG_CMDS = \
 		--prefix=/usr \
 		--enable-static \
 		--disable-shared \
+		--host=x86_64-linux-musl \
 		--with-openssl="$(OPENSSL_PREFIX)" \
 		--with-zlib="$(ZLIB_PREFIX)" \
 		--disable-ldap \
@@ -58,6 +59,8 @@ PROJECT_CFG_CMDS = \
 		--without-brotli \
 		--without-zstd \
 		--without-libpsl \
+		--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt \
+		--with-ca-path=/etc/ssl/certs \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(OPENSSL_PREFIX)/include -I$(ZLIB_PREFIX)/include" \
 		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(OPENSSL_PREFIX)/lib64 -L$(ZLIB_PREFIX)/lib" \

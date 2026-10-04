@@ -1,0 +1,5 @@
+# FreeLinX/ports - www/links : upstream source reference.
+DISTINFO_NAME=links-2.30
+DISTINFO_ARCHIVE=links-2.30.tar.bz2
+DISTINFO_URL=https://links.twibright.com/download/links-2.30.tar.bz2
+DISTINFO_SHA256=c4631c6b5a11527cdc3cb7872fc23b7f2b25c2b021d596be410dadb40315f166

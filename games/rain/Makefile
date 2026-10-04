@@ -24,4 +24,3 @@ NETBSD_MEMBERS = usr/src/games/rain/rain.c
 
 PORT_SRCS = games/rain/rain.c
 FLX_CPPFLAGS += $(FLX_NCURSES_CPPFLAGS)
-FLX_LDADD    += $(FLX_NCURSES)/lib/libncursestw.a

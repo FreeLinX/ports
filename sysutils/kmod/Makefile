@@ -34,8 +34,8 @@ FLX_PROJECT_CPPFLAGS =
 FLX_PROJECT_LDFLAGS  =
 
 # Host ar/ranlib.
-FLX_HOST_AR      ?= /usr/bin/ar
-FLX_HOST_RANLIB  ?= /usr/bin/ranlib
+FLX_HOST_AR      ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ar
+FLX_HOST_RANLIB  ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib
 
 include ../../mk/project-port.mk
 

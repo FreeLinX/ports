@@ -1,4 +1,4 @@
-# FreeLinX/ports - base/openssh : OpenSSH 9.9p1 (upstream portable port).
+# FreeLinX/ports - base/openssh : OpenSSH 10.5p1 (upstream portable port).
 #
 # Real upstream OpenSSH (portable) built with the FreeLinX clang + LLD + musl
 # toolchain, fully static.  Dependencies:
@@ -14,7 +14,7 @@
 # FreeLinX target, not faked here on the build host.
 
 NAME   := openssh
-VERSION:= 9.9p1
+VERSION:= 10.5p1
 CATEGORY:= base
 LICENSE:= BSD-2-Clause
 DEPENDENCIES:= zlib openssl
@@ -36,11 +36,9 @@ FLX_PROJECT_LIBS :=
 FLX_PROJECT_CPPFLAGS =
 FLX_PROJECT_LDFLAGS  =
 
-# The FreeLinX toolchain's llvm-ar/llvm-ranlib require GLIBC_2.38 (host has
-# 2.36) and cannot run here; archiving is libc-agnostic so host ar/ranlib
-# package the musl .o files.  The final link uses ONLY FreeLinX clang+LLD.
-FLX_HOST_AR      ?= /usr/bin/ar
-FLX_HOST_RANLIB  ?= /usr/bin/ranlib
+# Archives: llvm-ar/llvm-ranlib from the FreeLinX toolchain (no GNU binutils).
+FLX_HOST_AR      ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ar
+FLX_HOST_RANLIB  ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib
 
 include ../../mk/project-port.mk
 
@@ -64,4 +62,4 @@ PROJECT_CFG_CMDS = \
 		AR="$(FLX_HOST_AR)" RANLIB="$(FLX_HOST_RANLIB)"
 
 BUILD_CMDS = \
-	make -j"$(FREELINX_JOBS)" ssh sshd ssh-keygen scp sftp
+	make -j"$(FREELINX_JOBS)"

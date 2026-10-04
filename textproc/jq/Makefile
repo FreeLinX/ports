@@ -1,4 +1,4 @@
-# FreeLinX/ports - textproc/jq : jq 1.7.1 (command-line JSON processor).
+# FreeLinX/ports - textproc/jq : jq 1.8.2 (command-line JSON processor).
 #
 # MIT-licensed lightweight and flexible command-line JSON processor.
 # Autoconf configure, static only.  Links against -lm (math library from
@@ -6,7 +6,7 @@
 # minimise dependencies.
 
 NAME    := jq
-VERSION := 1.7.1
+VERSION := 1.8.2
 CATEGORY:= textproc
 LICENSE := MIT
 DEPENDENCIES:=

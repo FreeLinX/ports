@@ -22,13 +22,12 @@ SRC_TREE = $(FREELINX_BUILD_DIR)/work/$(NAME)/ldns-$(VERSION)
 PROJECT_BIN = $(SRC_TREE)/drill/.libs/drill
 
 OPENSSL_PREFIX = $(FREELINX_BUILD_DIR)/deps/openssl
-NATIVE_CC = /usr/bin/cc
 
 PROJECT_CFG_CMDS = \
 	cd "$(SRC_TREE)" && \
 	sed -i 's/k->_key.key = ENGINE_load_private_key(e, key_id, UI_OpenSSL(), NULL);/k->_key.key = NULL;/' keys.c && \
 	./configure \
-		--host=x86_64-pc-linux-gnu \
+		--host=x86_64-linux-musl \
 		--prefix=/usr \
 		--with-drill \
 		--with-ssl="$(OPENSSL_PREFIX)" \

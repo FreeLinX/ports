@@ -15,7 +15,7 @@ PREFIX  := /
 INSTALL_BIN:= ncdu
 INSTALL_RELPATH:= usr/bin/ncdu
 
-NCURSES_PREFIX=$(FREELINX_BUILD_DIR)/deps/ncurses
+NCURSES_PREFIX=$(FREELINX_BUILD_DIR)/deps/netbsd-curses
 
 FLX_PROJECT_CPPFLAGS = -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursestw
 

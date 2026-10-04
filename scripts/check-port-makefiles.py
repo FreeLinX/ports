@@ -59,6 +59,9 @@ and that make make fail in ways which name neither the file nor the variable:
      missing -I or -L in a recipe two ports away, and it surfaces as
      "X11/Xft/Xft.h: No such file or directory".
 
+  --only PORT...  check just those ports.  build.sh uses it so a port that is
+                  wrong cannot stop a different port from being built.
+
 Run from the ports root.
 """
 
@@ -101,11 +104,35 @@ def any_assigns_prefix(text, portdir):
 
 
 fix = "--fix" in sys.argv
+
+# --only PORT... checks just those ports.  build.sh passes the ports it was
+# asked to build, because a Makefile that is wrong in one port cannot break the
+# build of another: the whole-tree run refused to build anything at all over a
+# desktop port whose dependency is not in this tree, which is how a lint meant
+# to catch a typo in your own recipe ends up stopping the ports that are fine.
+# With no --only the whole tree is checked, which is what scripts/check.sh runs.
+only = [a for a in sys.argv[1:] if not a.startswith("-")]
+wanted = None
+if only:
+    # accept base/sh, sh and base/sh/Makefile as the same port
+    def _norm(p):
+        if p.endswith("/Makefile"):
+            p = p[:-len("/Makefile")]
+        return os.path.normpath(p)
+    wanted = {_norm(p) for p in only}
+
+def selected(f):
+    if wanted is None:
+        return True
+    return os.path.normpath(os.path.dirname(f)) in wanted
+
 problems = []
 
 for pat in ("*/Makefile", "*/*/Makefile", "mk/*.mk"):
     for f in sorted(glob.glob(pat)):
         if "/build/" in f:
+            continue
+        if not selected(f):
             continue
         text = open(f).read()
         lines = text.split("\n")
@@ -281,6 +308,8 @@ for pat in ("*/Makefile", "*/*/Makefile"):
     for f in sorted(glob.glob(pat)):
         if "/build/" in f:
             continue
+        if not selected(f):
+            continue
         for i, l in enumerate(open(f).read().split("\n")):
             # A recipe comment starts with # after the optional @ that keeps
             # make from echoing the line, and these Makefiles explain their own
@@ -329,6 +358,8 @@ for pat in ("*/*/Makefile",):
     for f in sorted(glob.glob(pat)):
         if "/build/" in f:
             continue
+        if not selected(f):
+            continue
         for i, l in enumerate(open(f).read().split("\n")):
             m = re.match(r"^DEPENDENCIES\s*:?=\s*(.*)$", l)
             if not m or OPT_OUT.search(l):
@@ -346,5 +377,6 @@ for pat in ("*/*/Makefile",):
 
 for f, what in problems:
     print(f"  {f}: {what}")
-print(f"  {len(problems)} problem(s)" + ("  (repaired)" if fix and problems else ""))
+scope = "" if wanted is None else " in " + ", ".join(sorted(wanted))
+print(f"  {len(problems)} problem(s)" + scope + ("  (repaired)" if fix and problems else ""))
 sys.exit(1 if problems and not fix else 0)

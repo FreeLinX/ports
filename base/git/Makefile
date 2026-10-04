@@ -14,7 +14,7 @@
 # `git-<builtin>` hardlinks.
 
 NAME   := git
-VERSION:= 2.47.1
+VERSION:= 2.56.0
 CATEGORY:= base
 LICENSE:= GPL-2.0
 DEPENDENCIES:= zlib
@@ -35,11 +35,9 @@ FLX_PROJECT_LIBS :=
 FLX_PROJECT_CPPFLAGS = -I$(ZLIB_PREFIX)/include
 FLX_PROJECT_LDFLAGS  = -L$(ZLIB_PREFIX)/lib
 
-# The FreeLinX toolchain's llvm-ar/llvm-ranlib require GLIBC_2.38 (host has
-# 2.36) and cannot run here; archiving is libc-agnostic so host ar/ranlib
-# package the musl .o files.  The final git link uses ONLY FreeLinX clang+LLD.
-FLX_HOST_AR      ?= /usr/bin/ar
-FLX_HOST_RANLIB  ?= /usr/bin/ranlib
+# Archives: llvm-ar/llvm-ranlib from the FreeLinX toolchain (no GNU binutils).
+FLX_HOST_AR      ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ar
+FLX_HOST_RANLIB  ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib
 
 include ../../mk/project-port.mk
 

@@ -24,4 +24,3 @@ NETBSD_MEMBERS = usr/src/games/worms/worms.c
 
 PORT_SRCS = games/worms/worms.c
 FLX_CPPFLAGS += $(FLX_NCURSES_CPPFLAGS)
-FLX_LDADD    += $(FLX_NCURSES)/lib/libncursestw.a

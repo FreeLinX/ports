@@ -1,0 +1,5 @@
+# FreeLinX/ports - base/bc : upstream source reference.
+DISTINFO_NAME=bc-7.0.3
+DISTINFO_ARCHIVE=bc-7.0.3.tar.xz
+DISTINFO_URL=https://github.com/gavinhoward/bc/releases/download/7.0.3/bc-7.0.3.tar.xz
+DISTINFO_SHA256=91eb74caed0ee6655b669711a4f350c25579778694df248e28363318e03c7fc4

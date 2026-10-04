@@ -1,10 +1,10 @@
-# FreeLinX/ports - net/rsync : rsync 3.3.0 (remote file sync).
+# FreeLinX/ports - net/rsync : rsync 3.5.1 (remote file sync).
 #
 # Fast incremental file transfer utility. Autoconf build, GPL-3.0 license.
 # Built without xxhash, zstd, lz4, and openssl compression features.
 
 NAME    := rsync
-VERSION := 3.3.0
+VERSION := 3.5.1
 CATEGORY:= net
 LICENSE := GPL-3.0
 DEPENDENCIES:=
@@ -30,6 +30,7 @@ PROJECT_CFG_CMDS = \
 		--disable-xxhash \
 		--disable-zstd \
 		--disable-lz4 \
+		--disable-idn \
 		--disable-openssl \
 		CC="$(FREELINX_CC)" \
 		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2" \

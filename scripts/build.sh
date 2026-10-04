@@ -54,17 +54,6 @@ flx_setup_dirs
 _lint=$(mktemp)
 trap 'rm -f "$_lint"' EXIT
 
-# The port lint runs before anything is built, not on request.  A FREELINUX_
-# where FREELINX_ was meant expands to nothing, so CC= is empty and configure
-# says "C compiler cannot create executables" or the install target mkdirs
-# /deps; either way the error names a compiler or a path rather than the
-# variable that is undefined, and that is hours to find from the log alone.
-flx_info "Checking port Makefiles..."
-if ! python3 "$FREELINX_ROOT/scripts/check-port-makefiles.py" > "$_lint" 2>&1; then
-    cat "$_lint" >&2
-    flx_die "port Makefile problems above; run scripts/check-port-makefiles.py --fix"
-fi
-
 flx_info "Checking toolchain..."
 if flx_detect_toolchain; then
     flx_info "toolchain available"
@@ -78,6 +67,29 @@ if [ "$#" -eq 0 ]; then
     flx_info "no PORT given; building all ports"
     set -- $(flx_all_ports)
     _all=yes
+fi
+
+# The port lint runs before anything is built, not on request.  A FREELINUX_
+# where FREELINUX_ was meant expands to nothing, so CC= is empty and configure
+# says "C compiler cannot create executables" or the install target mkdirs
+# /deps; either way the error names a compiler or a path rather than the
+# variable that is undefined, and that is hours to find from the log alone.
+#
+# It is asked about the ports this run will build and no others.  A whole-tree
+# run refused to build anything at all because a desktop port named a
+# dependency this tree does not carry: a real finding about that port, and
+# nothing to do with the ports that do build.  Whole-tree linting is still what
+# scripts/check.sh runs, so the finding is not lost.
+_lint_ports=
+for p in "$@"; do
+    _d=$(flx_port_dir "$p") || flx_die "no such port: $p"
+    _lint_ports="$_lint_ports ${_d#"$FREELINUX_ROOT"/}"
+done
+flx_info "Checking port Makefiles..."
+# shellcheck disable=SC2086
+if ! python3 "$FREELINUX_ROOT/scripts/check-port-makefiles.py" --only $_lint_ports > "$_lint" 2>&1; then
+    cat "$_lint" >&2
+    flx_die "port Makefile problems above; run scripts/check-port-makefiles.py --fix"
 fi
 
 # A port may declare itself unbuildable on a Linux kernel by setting

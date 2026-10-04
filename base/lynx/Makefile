@@ -2,7 +2,7 @@
 #
 # Real upstream Lynx (invisible-island.net, lynx2.9.2.tar.bz2) built with the
 # FreeLinX clang + LLD + musl toolchain, fully static.  Dependencies:
-#   - ncurses (base/ncurses, static, wide-char) for the terminal UI
+#   - NetBSD curses (devel/netbsd-curses, static, wide-char) for the terminal UI
 #   - zlib (base/zlib) for gzip content-encoding
 #   - openssl (base/openssl) for HTTPS
 # Lynx is a genuine text-mode browser with NO GNU runtime dependency.
@@ -11,8 +11,8 @@ NAME   := lynx
 VERSION:= 2.9.2
 CATEGORY:= base
 LICENSE:= ISC-style (lynx2.8.8rel.2)
-DEPENDENCIES:= ncurses zlib openssl
-BUILD_DEPENDENCIES:= musl, ncurses, zlib, openssl
+DEPENDENCIES:= netbsd-curses zlib openssl
+BUILD_DEPENDENCIES:= musl, netbsd-curses, zlib, openssl
 TARGET := $(FREELINX_TRIPLE)
 PREFIX := /
 
@@ -21,7 +21,7 @@ INSTALL_RELPATH:= bin/lynx
 
 # Build-time dependency prefixes (lazy = so they bind after project-port.mk
 # sets FREELINX_BUILD_DIR).
-NCURSES_PREFIX = $(FREELINX_BUILD_DIR)/deps/ncurses
+NCURSES_PREFIX = $(FREELINX_BUILD_DIR)/deps/netbsd-curses
 ZLIB_PREFIX    = $(FREELINX_BUILD_DIR)/deps/zlib
 OSSL_PREFIX    = $(FREELINX_BUILD_DIR)/deps/openssl
 
@@ -36,8 +36,8 @@ FLX_PROJECT_CPPFLAGS = -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/n
 	-I$(ZLIB_PREFIX)/include -I$(OSSL_PREFIX)/include
 FLX_PROJECT_LDFLAGS  = -L$(NCURSES_PREFIX)/lib -L$(ZLIB_PREFIX)/lib -L$(OSSL_PREFIX)/lib64
 
-FLX_HOST_AR      ?= /usr/bin/ar
-FLX_HOST_RANLIB  ?= /usr/bin/ranlib
+FLX_HOST_AR      ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ar
+FLX_HOST_RANLIB  ?= $(FREELINX_TOOLCHAIN_BIN)/llvm-ranlib
 
 include ../../mk/project-port.mk
 

@@ -1,10 +1,10 @@
-# FreeLinX/ports - sysutils/tmux : tmux 3.4 (terminal multiplexer).
+# FreeLinX/ports - sysutils/tmux : tmux 3.7c (terminal multiplexer).
 #
 # tmux allows multiple terminal sessions to be accessed from a single
 # terminal. Depends on libevent (build dependency) and ncurses (via musl).
 
 NAME    := tmux
-VERSION := 3.4
+VERSION := 3.7c
 CATEGORY:= sysutils
 LICENSE := BSD-2-Clause
 DEPENDENCIES:= libevent
@@ -16,7 +16,7 @@ INSTALL_BIN:= tmux
 INSTALL_RELPATH:= usr/bin/tmux
 
 LIBEVENT_PREFIX = $(FREELINX_BUILD_DIR)/deps/libevent
-NCURSES_PREFIX = $(FREELINX_BUILD_DIR)/deps/ncurses
+NCURSES_PREFIX = $(FREELINX_BUILD_DIR)/deps/netbsd-curses
 
 FLX_PROJECT_LIBS :=
 FLX_PROJECT_CPPFLAGS =
@@ -31,6 +31,7 @@ BUILD_BIN   = $(PROJECT_BIN)
 PROJECT_CFG_CMDS = \
 	ac_cv_search_forkpty="none required" \
 	ac_cv_search_fdforkpty=no \
+	ac_cv_header_bitstring_h=no \
 	./configure \
 		--prefix=/usr \
 		--enable-static \

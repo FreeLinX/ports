@@ -1,14 +1,25 @@
-diff -ruN pa/usr.bin/grep/util.c pb/usr.bin/grep/util.c
---- a/usr.bin/grep/util.c	2026-08-31 02:31:22.523054157 +0400
-+++ b/usr.bin/grep/util.c	2026-08-31 02:31:22.683056525 +0400
-@@ -310,8 +310,12 @@
+--- a/usr.bin/grep/util.c	2026-10-01 23:07:42.036938326 +0400
++++ b/usr.bin/grep/util.c	2026-10-01 23:07:42.048938471 +0400
+@@ -310,8 +310,24 @@
  				r = (r == 0) ? 0 : REG_NOMATCH;
  				st = pmatch.rm_eo;
  			} else {
 -				r = regexec(&r_pattern[i], l->dat, 1,
 -				    &pmatch, eflags);
-+				r = regexec(&r_pattern[i], l->dat + st, 1,
-+				    &pmatch, 0);
++				/* FreeLinX: musl's regexec has no REG_STARTEND
++				 * and reads up to a NUL, past the end of the
++				 * line ('$' never matched): match against a
++				 * NUL-terminated copy of the line instead. */
++				static char *lbuf;
++				static size_t lbsz;
++				if (l->len + 1 > lbsz) {
++					lbsz = l->len + 1;
++					lbuf = grep_realloc(lbuf, lbsz);
++				}
++				memcpy(lbuf, l->dat, l->len);
++				lbuf[l->len] = '\0';
++				r = regexec(&r_pattern[i], lbuf + st, 1,
++				    &pmatch, st > 0 ? REG_NOTBOL : 0);
 +				if (r == 0) {
 +					pmatch.rm_so += st;
 +					pmatch.rm_eo += st;
