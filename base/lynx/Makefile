@@ -32,7 +32,7 @@ FLX_PROJECT_LIBS :=
 # expanded lazily via CPPFLAGS (below) so the prefix binds correctly.
 FLX_PROJECT_CFLAGS := --rtlib=compiler-rt -fuse-ld=lld -static -O2
 
-FLX_PROJECT_CPPFLAGS = -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursestw \
+FLX_PROJECT_CPPFLAGS = -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursesw \
 	-I$(ZLIB_PREFIX)/include -I$(OSSL_PREFIX)/include
 FLX_PROJECT_LDFLAGS  = -L$(NCURSES_PREFIX)/lib -L$(ZLIB_PREFIX)/lib -L$(OSSL_PREFIX)/lib64
 
@@ -85,7 +85,7 @@ PROJECT_CFG_CMDS = \
 		--disable-option-checking \
 		AR="$(FLX_HOST_AR)" RANLIB="$(FLX_HOST_RANLIB)" \
 		CPPFLAGS="-DHAVE_PUTENV=1 -DNCURSES_WIDECHAR=1 $(FLX_NBSYS_FLAGS)" \
-		LIBS="-lncursestw -lz -lssl -lcrypto"
+		LIBS="-lncursesw -lz -lssl -lcrypto"
 
 BUILD_CMDS = \
 	make -j"$(FREELINX_JOBS)"

@@ -31,8 +31,9 @@ BUILD_BIN   = $(PROJECT_BIN)
 
 PROJECT_CFG_CMDS = \
 	autoreconf -fi && \
-	CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(NCURSES_PREFIX)/include -fuse-ld=lld --rtlib=compiler-rt" \
+	CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2 -I$(NCURSES_PREFIX)/include -fuse-ld=lld --rtlib=compiler-rt" \
 	LDFLAGS="-L$(NCURSES_PREFIX)/lib" \
+	LIBS="-lncursesw -lterminfo" \
 	./configure \
 		--prefix=/usr \
 		--host=$(FREELINX_TRIPLE) \
@@ -43,5 +44,5 @@ BUILD_CMDS = \
 	sh mkhelp.sh < less.hlp > help.c && \
 	grep -h '^public [^;]*$$' *.c | sed 's/$$/;/' > funcs.h && \
 	make -j"$(FREELINX_JOBS)" \
-			LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(NCURSES_PREFIX)/lib" \
-		LIBS="-lncursestw"
+			LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(NCURSES_PREFIX)/lib" \
+		LIBS="-lncursesw -ltinfo"

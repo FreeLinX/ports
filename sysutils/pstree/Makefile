@@ -31,11 +31,11 @@ PROJECT_CFG_CMDS = \
 		--disable-shared \
 		--enable-static \
 		CC="$(FREELINX_CC)" \
-		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) $(FREELINX_RESOURCE_FLAGS) -O2 -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursestw" \
-		LDFLAGS="$(FLX_LINK_FLAGS) -L$(NCURSES_PREFIX)/lib"
+		CFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -O2 -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursesw" \
+		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(NCURSES_PREFIX)/lib"
 
 BUILD_CMDS = \
-	make -j"$(FREELINX_JOBS)" LDFLAGS="$(FLX_LINK_FLAGS) -L$(NCURSES_PREFIX)/lib"
+	make -j"$(FREELINX_JOBS)" LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(NCURSES_PREFIX)/lib"
 
 # ---------------------------------------------------------------------------
 # Extra staged binaries beyond INSTALL_BIN/INSTALL_RELPATH.

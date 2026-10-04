@@ -1,7 +1,8 @@
 # FreeLinX/ports - sysutils/tmux : tmux 3.7c (terminal multiplexer).
 #
 # tmux allows multiple terminal sessions to be accessed from a single
-# terminal. Depends on libevent (build dependency) and ncurses (via musl).
+# terminal. Depends on libevent (build dependency) and NetBSD curses, which is
+# the curses this tree has: there is no ncurses, and musl ships none.
 
 NAME    := tmux
 VERSION := 3.7c
@@ -36,8 +37,8 @@ PROJECT_CFG_CMDS = \
 		--prefix=/usr \
 		--enable-static \
 		--disable-shared \
-		CPPFLAGS="-I$(LIBEVENT_PREFIX)/include -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursestw" \
-		LDFLAGS="$(FLX_LINK_FLAGS) -L$(LIBEVENT_PREFIX)/lib -L$(NCURSES_PREFIX)/lib" \
+		CPPFLAGS="-I$(LIBEVENT_PREFIX)/include -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursesw" \
+		LDFLAGS="$(FREELINX_TARGET_FLAGS) $(FREELINX_SYSROOT_FLAGS) -static -fuse-ld=lld --rtlib=compiler-rt -L$(LIBEVENT_PREFIX)/lib -L$(NCURSES_PREFIX)/lib" \
 		CC="$(FREELINX_CC)"
 
 BUILD_CMDS = \

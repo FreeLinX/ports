@@ -17,7 +17,7 @@ INSTALL_RELPATH:= usr/bin/ncdu
 
 NCURSES_PREFIX=$(FREELINX_BUILD_DIR)/deps/netbsd-curses
 
-FLX_PROJECT_CPPFLAGS = -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursestw
+FLX_PROJECT_CPPFLAGS = -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursesw
 
 include ../../mk/project-port.mk
 
@@ -31,5 +31,5 @@ PROJECT_CFG_CMDS = \
 BUILD_CMDS = \
 	cd "$(SRC_TREE)" && \
 	$(MAKE) CC="$(FREELINX_CC)" \
-		CFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -O2 -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursestw" \
-		LDFLAGS="$(FLX_LINK_FLAGS) -L$(NCURSES_PREFIX)/lib -lncursestw"
+		CFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -O2 -I$(NCURSES_PREFIX)/include -I$(NCURSES_PREFIX)/include/ncursesw" \
+		LDFLAGS="--target=$(FREELINX_TRIPLE) --sysroot=$(FREELINX_SYSROOT) -static -fuse-ld=lld --rtlib=compiler-rt -L$(NCURSES_PREFIX)/lib -lncursesw -ltinfo"
