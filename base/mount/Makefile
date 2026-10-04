@@ -7,8 +7,8 @@
 # front-end reading /proc/mounts; see mount.c.
 #
 # Builds with the FreeLinX toolchain (clang + LLD + musl sysroot), static.
-# Actually mounting depends on the FreeLinX kernel implementing mount(2) /
-# tmpfs / devtmpfs - not present yet, not faked.
+# It asks mount(2) for the flags -o names; whether a filesystem mounts is the
+# kernel's answer, and its error is what this reports.
 #
 # Native-port build: SRC_DIR/BUILD_BIN etc. MUST precede the include, because
 # base-port.mk expands $(BUILD_BIN) eagerly when parsing its build rule.

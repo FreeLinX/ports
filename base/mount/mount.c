@@ -13,13 +13,11 @@
  *   - otherwise calls mount(2) directly (source, target, fstype, flags,
  *     data) building the flags from -o options, like the Linux mount.
  *
- * Whether it can actually MOUNT anything depends on the FreeLinX kernel
- * implementing mount(2) and the requested filesystem (tmpfs, devtmpfs, ...);
- * that is a kernel concern and is not faked here.  Until the kernel boots,
- * mount builds/installs but cannot perform a real mount; listing still works
- * once /proc comes up, and every invocation validates its arguments.
- *
- * musl provides mount(2), the MS_* flags and getmntent(3) - no compat shims.
+ * Whether a given mount succeeds is a kernel question: this front-end asks
+ * for exactly the flags it was given and reports mount(2)'s own error, so a
+ * filesystem the kernel has no driver for fails where it fails rather than
+ * here.  musl provides mount(2), the MS_* flags and getmntent(3) - no compat
+ * shims.
  */
 
 #include <err.h>
@@ -92,7 +90,26 @@ parse_opts(const char *o, const char *fstype)
 		else if (strcmp(tok, "noexec") == 0)	flags |= MS_NOEXEC;
 		else if (strcmp(tok, "sync") == 0)	flags |= MS_SYNCHRONOUS;
 		else if (strcmp(tok, "remount") == 0)	flags |= MS_REMOUNT;
-		/* other options are passed as filesystem data */
+		/*
+		 * bind and rbind: the only way one filesystem can appear at
+		 * more than one place.  /init uses it to put an installed
+		 * system's /usr /etc /var /root /bin /sbin /lib -- seven
+		 * directories of one partition -- at the root of the image,
+		 * so mounting the partition once and binding the seven is both
+		 * cheaper and easier to reason about than mounting it seven
+		 * times.  rbind additionally carries the submounts.
+		 */
+		else if (strcmp(tok, "bind") == 0)	flags |= MS_BIND;
+		else if (strcmp(tok, "rbind") == 0)	flags |= MS_BIND | MS_REC;
+		/* noatime: the kernel skips the write of an access timestamp */
+		else if (strcmp(tok, "noatime") == 0)	flags |= MS_NOATIME;
+		else if (strcmp(tok, "atime") == 0)	flags &= ~MS_NOATIME;
+		/*
+		 * An option this port does not implement is dropped: the
+		 * filesystem-specific half of -o, the data argument, is not
+		 * plumbed through, so a devpts mode= or gid= is not applied.
+		 * What the kernel is asked for is only ever the flags above.
+		 */
 	}
 	free(copy);
 	(void)fstype;
@@ -106,6 +123,7 @@ main(int argc, char **argv)
 	const char *fstype = NULL;
 	const char *opts = NULL;
 	const char *source, *target;
+	unsigned long flags;
 
 	while ((ch = getopt(argc, argv, "t:o:h")) != -1) {
 		switch (ch) {
@@ -133,8 +151,14 @@ main(int argc, char **argv)
 	source = argv[0];
 	target = argv[1];
 
+	flags = parse_opts(opts, fstype);
+	/* the kernel ignores the filesystem type of a bind; "auto" is not a
+	 * type anything implements, so it is not passed as one */
+	if ((flags & MS_BIND) != 0)
+		fstype = NULL;
+
 	if (mount(source, target, fstype ? fstype : "auto",
-	    parse_opts(opts, fstype), NULL) == -1)
+	    flags, NULL) == -1)
 		err(EXIT_FAILURE, "mount %s on %s", source, target);
 
 	return EXIT_SUCCESS;
