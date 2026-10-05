@@ -1,0 +1,5 @@
+# FreeLinX/ports - devel/fossil : upstream source reference.
+DISTINFO_NAME=fossil-src-2.28
+DISTINFO_ARCHIVE=fossil-src-2.28.tar.gz
+DISTINFO_URL=https://fossil-scm.org/home/tarball/version-2.28/fossil-src-2.28.tar.gz
+DISTINFO_SHA256=84c18824ca227e7602d2408b663c3747f754ad306ed5c73ddab959d6589538a6

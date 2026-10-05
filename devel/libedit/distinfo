@@ -1,0 +1,8 @@
+# FreeLinX/ports - devel/libedit : upstream source reference.
+# NOTE: upstream (https://www.thrysoee.dk/editline/) publishes no checksum
+# for its tarballs, so the hash below was computed locally after download
+# (sha256sum of the tarball) rather than verified against a published value.
+DISTINFO_NAME=libedit-20260512-3.1
+DISTINFO_ARCHIVE=libedit-20260512-3.1.tar.gz
+DISTINFO_URL=https://www.thrysoee.dk/editline/libedit-20260512-3.1.tar.gz
+DISTINFO_SHA256=432d5e7ea8b0116dd39f2eca7bc11d0eed77faa6b77ea526ace89907c23ea4a0

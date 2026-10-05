@@ -1,5 +1,5 @@
 {
-  "generated": 1791230029,
+  "generated": 1791231138,
   "packages": {
     "abduco": {
       "version": "0.6",
@@ -810,6 +810,15 @@
       "file": "fortune-10.1-1.xpkg",
       "size": 1237839,
       "sha256": "c09d6e5b96a7731d50f67af4983e651a96495d4db3ac3fcfd1c11fc536773792"
+    },
+    "fossil": {
+      "version": "2.28",
+      "description": "fossil 2.28 (distributed version control).",
+      "arch": "x86_64",
+      "depends": [],
+      "file": "fossil-2.28.xpkg",
+      "size": 2710854,
+      "sha256": "34b8f7ed1f52164c0c79da6ef29b706226e097a72648ad781f0c88fa22a7956e"
     },
     "fpr": {
       "version": "10.1-1",
