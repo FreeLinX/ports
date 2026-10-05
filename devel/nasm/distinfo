@@ -1,0 +1,7 @@
+# FreeLinX/ports - devel/nasm : upstream source reference.
+# nasm.us publishes no checksum file for this release; the sha256 below was
+# computed locally from the downloaded tarball (see port Makefile header).
+DISTINFO_NAME=nasm-3.02
+DISTINFO_ARCHIVE=nasm-3.02.tar.xz
+DISTINFO_URL=https://www.nasm.us/pub/nasm/releasebuilds/3.02/nasm-3.02.tar.xz
+DISTINFO_SHA256=87336eba53b4acfe917424ab5d500d2b0054d9f5148d35c2273ccf2cfb712f0d

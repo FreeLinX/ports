@@ -1,0 +1,5 @@
+# FreeLinX/ports - devel/libmd : upstream source reference.
+DISTINFO_NAME=libmd-1.2.0
+DISTINFO_ARCHIVE=libmd-1.2.0.tar.xz
+DISTINFO_URL=https://libbsd.freedesktop.org/releases/libmd-1.2.0.tar.xz
+DISTINFO_SHA256=ac15ffb8430502fbaccdec66c5a82ee0eab0b0f36220df56710feadfeb13d0a0

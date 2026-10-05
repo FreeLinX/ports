@@ -1,5 +1,5 @@
 {
-  "generated": 1790712401,
+  "generated": 1791230029,
   "packages": {
     "abduco": {
       "version": "0.6",
@@ -91,6 +91,15 @@
       "size": 23322,
       "sha256": "f2c2cab8c44d0aeb014b978342ae87c4ad35644f8e229ae54e02c150669fa049"
     },
+    "bc": {
+      "version": "7.0.3-1",
+      "description": "bc arbitrary-precision calculator (Gavin D. Howard, BSD)",
+      "arch": "x86_64",
+      "depends": [],
+      "file": "bc-7.0.3-1.xpkg",
+      "size": 83696,
+      "sha256": "919faed709f05ebab80e1198ac5307455c60f07ba6af35cbbec00d53a1b8973a"
+    },
     "bcd": {
       "version": "10.1",
       "description": "NetBSD 10.1 `/games/bcd`.",
@@ -101,13 +110,13 @@
       "sha256": "ff9619704b51200823f7576ce2bdf4674a4bda4492a3d4f7197fb840f9743f61"
     },
     "bdes": {
-      "version": "10.1-1",
+      "version": "10.1-2",
       "description": "Encrypt/decrypt using the Data Encryption Standard",
       "arch": "x86_64",
       "depends": [],
-      "file": "bdes-10.1-1.xpkg",
-      "size": 1778529,
-      "sha256": "49c2db7fae5e51a6d5ab9f91fef09b0d7aed59514d0970d5894515da91e47bd0"
+      "file": "bdes-10.1-2.xpkg",
+      "size": 1775493,
+      "sha256": "ee3c927b133e39bf1068e8ec7cd58f7e40063071c085439983bafcf2e9f3810c"
     },
     "biff": {
       "version": "10.1-1",
@@ -128,13 +137,22 @@
       "sha256": "49b0eb192fb602e27513d9cd3efc40f0d5379899777f2152cebeb40eac4d3965"
     },
     "busybox": {
-      "version": "1.36.1",
-      "description": "busybox multi-call binary (1.36.1, static)",
+      "version": "1.38.0",
+      "description": "busybox multi-call binary (1.38.0, static)",
       "arch": "x86_64",
       "depends": [],
-      "file": "busybox-1.36.1.xpkg",
-      "size": 990707,
-      "sha256": "6ebc0605d23d2e06ad1e4f83a642bbac1c7cd3ba7e8668ebd85b8d1f06fc3057"
+      "file": "busybox-1.38.0.xpkg",
+      "size": 1016531,
+      "sha256": "ec37ce60363310855bebdb8ba4b9465f06113d130bb5a8dae59f1c2055adb5a8"
+    },
+    "byacc": {
+      "version": "20260126",
+      "description": "byacc 20260126 (Berkeley Yacc, maintained).",
+      "arch": "x86_64",
+      "depends": [],
+      "file": "byacc-20260126.xpkg",
+      "size": 101481,
+      "sha256": "00fafeb452461c6b561a73b72363de1f6c0c1809b7c43e2301cccd9aa98dcfc5"
     },
     "bzip2": {
       "version": "10.1",
@@ -155,13 +173,13 @@
       "sha256": "a0c4a6952df3983df2989722788b023a850f9516054bcca0476c2ce5733416f4"
     },
     "calendar": {
-      "version": "10.1-1",
+      "version": "10.1-2",
       "description": "Reminder service",
       "arch": "x86_64",
       "depends": [],
-      "file": "calendar-10.1-1.xpkg",
-      "size": 62850,
-      "sha256": "771103dce89b63700926207936b0a2b27668f70bd8430add6ae9275e87b691bf"
+      "file": "calendar-10.1-2.xpkg",
+      "size": 47592,
+      "sha256": "08751757db48cfee1670810118779cb2089d476de33aab46b05e80098e56015f"
     },
     "cap_mkdb": {
       "version": "10.1",
@@ -344,13 +362,13 @@
       "sha256": "0336ebdf3243262cb434f3122af01ff1a18d7f646060b0b7d03e455ec190a441"
     },
     "curl": {
-      "version": "8.12.1",
-      "description": "curl 8.12.1 (HTTP client).",
+      "version": "8.22.0",
+      "description": "curl 8.22.0 (HTTP client).",
       "arch": "x86_64",
       "depends": [],
-      "file": "curl-8.12.1.xpkg",
-      "size": 2550698,
-      "sha256": "6a63f891714de30f4eb8d8a9883adc98605641f392f255ec4ae247dfad38e921"
+      "file": "curl-8.22.0.xpkg",
+      "size": 2603243,
+      "sha256": "1b7c99060f1363665bd5f7911299c34d41929dba52654dde4a7c26df171baa9f"
     },
     "cut": {
       "version": "10.1",
@@ -389,13 +407,13 @@
       "sha256": "87e754dfc348ae0117cff434aeaabf0f9436123428482770b76ae035f2798949"
     },
     "dc": {
-      "version": "10.1-1",
+      "version": "10.1-2",
       "description": "Desk calculator",
       "arch": "x86_64",
       "depends": [],
-      "file": "dc-10.1-1.xpkg",
-      "size": 1805459,
-      "sha256": "e900a5d882fcb8fdf3d5152f071136aa5a7b332163915c0cbce598c247604d6f"
+      "file": "dc-10.1-2.xpkg",
+      "size": 1776406,
+      "sha256": "7864eaa2f3c6ee11fdd18251114db95f955d70c93214c5e35d1b5ba98cb283bd"
     },
     "dd": {
       "version": "10.1-1",
@@ -442,15 +460,6 @@
       "size": 107131,
       "sha256": "7666b3efe730aab682c1437b6be5a498a8acfafba3054049d9a2e38f5a02299e"
     },
-    "dillo": {
-      "version": "3.1.1",
-      "description": "Dillo lightweight graphical web browser (3.1.1).",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "dillo-3.1.1.xpkg",
-      "size": 6787368,
-      "sha256": "723adf32d61ac017b53d49f5802728e6c16310f0835bbb63fbb75acfefa0d16d"
-    },
     "dirname": {
       "version": "10.1",
       "description": "FreeLinX dirname (NetBSD 10.1 src)",
@@ -470,13 +479,13 @@
       "sha256": "57f1b2b04a6c8dbca98ba8a8b78519fea3eb6406a84e759b35757b8f24acb145"
     },
     "dnsmasq": {
-      "version": "2.90",
-      "description": "dnsmasq lightweight DNS/DHCP (2.90, static)",
+      "version": "2.93",
+      "description": "dnsmasq lightweight DNS/DHCP (2.93, static)",
       "arch": "x86_64",
       "depends": [],
-      "file": "dnsmasq-2.90.xpkg",
-      "size": 230015,
-      "sha256": "c47aa9d038357808c56a822d497a82be4f1367b25e786a0741faa7987d30b0bd"
+      "file": "dnsmasq-2.93.xpkg",
+      "size": 224199,
+      "sha256": "e384fd02f43299e86a6906020baa4d473be14de009da73a6ef15bb1b80acc77a"
     },
     "doas": {
       "version": "6.8.2",
@@ -495,15 +504,6 @@
       "file": "domainname-10.1.xpkg",
       "size": 19367,
       "sha256": "e4d75ae90c03c695ae05a596b6ee53c51863a84f5957238fc6376ff73c6df814"
-    },
-    "doom": {
-      "version": "1.10",
-      "description": "Classic Doom port for FreeLinX",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "doom-1.10.xpkg",
-      "size": 1545102,
-      "sha256": "956afa4025ae36e46211a0a332e967a42840478a9960a46aa5ce356aab584691"
     },
     "dos2unix": {
       "version": "7.5.2",
@@ -533,13 +533,13 @@
       "sha256": "2c91b393ad9c0e7c391c8b3586977d0eaffec0e39a32e4660cda0c9d9c9df750"
     },
     "dvtm": {
-      "version": "0.15",
+      "version": "0.15-1",
       "description": "dvtm dynamic virtual terminal manager (0.15, static)",
       "arch": "x86_64",
       "depends": [],
-      "file": "dvtm-0.15.xpkg",
-      "size": 205523,
-      "sha256": "f672a897883c6e60c9ecb1747be6bb451f4149702a6ff0b378a466e0a1ba2a00"
+      "file": "dvtm-0.15-1.xpkg",
+      "size": 136409,
+      "sha256": "709d040ac4958cefc1f713bb4968ce97b8718208e2c2d915bcf1055b8d70eca8"
     },
     "dzen2": {
       "version": "0.9.5-1",
@@ -667,15 +667,6 @@
       "size": 963217,
       "sha256": "a5b0583a2ca2d6d34c9a3e10518f66e64f75e973332c2f4f1eb81ae04ee2648d"
     },
-    "ffmpeg": {
-      "version": "6.1.2",
-      "description": "Universal multimedia converter and streamer (6.1.2).",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "ffmpeg-6.1.2.xpkg",
-      "size": 10535192,
-      "sha256": "ad32ccb26c13698621676108f8e76ce5973cd704381f69f80a86ce502cf22de9"
-    },
     "figlet": {
       "version": "2.2.5-1",
       "description": "figlet 2.2.5 (banner generator).",
@@ -749,13 +740,13 @@
       "sha256": "d16cef75d08c9cf667814a59441187656526dafc71e5aa71c7ab51febbf250d8"
     },
     "flx-desktop-apps": {
-      "version": "1.0-1",
-      "description": "FreeLinX desktop menu entries (file manager, viewer, editor)",
+      "version": "1.0-2",
+      "description": "Transitional package: its menu entries pointed at programs FreeLinX does not ship (upgrading removes them)",
       "arch": "x86_64",
-      "depends": ["flxtools", "flx-yt", "x11-apps", "flxt"],
-      "file": "flx-desktop-apps-1.0-1.xpkg",
-      "size": 604,
-      "sha256": "9d04f7d074df0d4938bf3018afc05b453006aaf4bad973235242e3311d0ff0a5"
+      "depends": ["flxtools"],
+      "file": "flx-desktop-apps-1.0-2.xpkg",
+      "size": 244,
+      "sha256": "adc974e48ebbe502579887421ef314c4edd7c8423a3286ad54865a15aea522ac"
     },
     "flx-yt": {
       "version": "1.0",
@@ -775,23 +766,14 @@
       "size": 627,
       "sha256": "c7cf4da83ddea04a907f822390f08611de92ee6027981a61e33412b383ac6f6e"
     },
-    "flxt": {
-      "version": "1.0",
-      "description": "1990s Unix Motif/X11 Text Editor",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "flxt-1.0.xpkg",
-      "size": 2182102,
-      "sha256": "8af539a4be5e582c17d50a1165429a5b3e7f0e31fce81e2442e6271e3307d9da"
-    },
     "flxtools": {
-      "version": "1.0-1",
+      "version": "1.0-2",
       "description": "FreeLinX Core Desktop Utilities & Tools (flx suite).",
       "arch": "x86_64",
-      "depends": [],
-      "file": "flxtools-1.0-1.xpkg",
-      "size": 4510201,
-      "sha256": "bfc1628a394a8f569ba1c0e6db904db219a0720932b9210a90db5b76111f2c52"
+      "depends": ["libX11", "cairo", "musl"],
+      "file": "flxtools-1.0-2.xpkg",
+      "size": 167051,
+      "sha256": "f2441b3b88246116e2f8e026989f55fe1c2bcb3de57652f3544bd41f87991f88"
     },
     "fmt": {
       "version": "10.1-1",
@@ -920,22 +902,22 @@
       "sha256": "98a525afa0285b2f89655d52171c24ad9c542a234da2da8c2216372b4a08525f"
     },
     "git": {
-      "version": "2.47.1-1",
-      "description": "Git 2.47.1 (upstream project port).",
+      "version": "2.56.0",
+      "description": "Git 2.56.0 (upstream project port).",
       "arch": "x86_64",
       "depends": [],
-      "file": "git-2.47.1-1.xpkg",
-      "size": 1967427,
-      "sha256": "9be7a6f74acd33f3a6bcf4d0935eb7a4270a6a95ac5255dbda21fcde25e6de66"
+      "file": "git-2.56.0.xpkg",
+      "size": 2118926,
+      "sha256": "c325dc21cdc4a14c0144636f5ac5dfe6da39aecc667e62fb5f8039b6df354b7e"
     },
     "grep": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "FreeLinX grep (NetBSD 10.1 src)",
       "arch": "x86_64",
       "depends": [],
-      "file": "grep-10.1.xpkg",
-      "size": 112186,
-      "sha256": "a294726365434fc0755f01418ff61a6a2ca66af91576fc9581cd59d03ced55df"
+      "file": "grep-10.1-1.xpkg",
+      "size": 75831,
+      "sha256": "1123bcc9ae5dbe3f453fc04c0e21653582cedfe922331714809dbce191706c5a"
     },
     "gzip": {
       "version": "10.1",
@@ -947,13 +929,13 @@
       "sha256": "655338af55c8cfbc50c3c600c12364af437017cfe79a306ce5061aed11c07618"
     },
     "hangman": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/games/hangman`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "hangman-10.1.xpkg",
-      "size": 197478,
-      "sha256": "3faa5028c45878b1b8e144d438d13c708d838f6dfff860d0588b4baeeb648582"
+      "file": "hangman-10.1-1.xpkg",
+      "size": 104557,
+      "sha256": "1e866c83fa2f5aed63e85be7f9d8a58a8ae1fe321fc9d65a430f79da64ca7e83"
     },
     "head": {
       "version": "10.1",
@@ -992,22 +974,13 @@
       "sha256": "17495a1d55a18dcfb6749e9c30c21da35aaca9be5e31fade3414e2e41bbc0282"
     },
     "htop": {
-      "version": "3.3.0",
-      "description": "htop interactive process viewer (3.3.0, static)",
+      "version": "3.5.3",
+      "description": "htop interactive process viewer (3.5.3, static)",
       "arch": "x86_64",
       "depends": [],
-      "file": "htop-3.3.0.xpkg",
-      "size": 322450,
-      "sha256": "0b1a2745b2d58f0d5ebcf2829dc8206fbf1a81a173e9b65478809d0f4c4d5d17"
-    },
-    "i3status": {
-      "version": "2.8",
-      "description": "i3status 2.8 system status generator.",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "i3status-2.8.xpkg",
-      "size": 129639,
-      "sha256": "c26174d69ad1f60e4297618a4540826cc26af9e973ae0e4ce7c1925f9dd38f3c"
+      "file": "htop-3.5.3.xpkg",
+      "size": 275601,
+      "sha256": "018472e76b6e02589774f557aca2aa66dacb392130fb75193d436a48496484c3"
     },
     "iconv": {
       "version": "10.1",
@@ -1055,13 +1028,13 @@
       "sha256": "a53eb04270bee82b2a4e0bcc8258daf53089ce7c399ac072099242332b4f082e"
     },
     "infocmp": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/usr/bin/infocmp`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "infocmp-10.1.xpkg",
-      "size": 142219,
-      "sha256": "98781c55043151c08463ea73084bb6d4f67cd820a69cb4ccf3a2812eb6578e92"
+      "file": "infocmp-10.1-1.xpkg",
+      "size": 60110,
+      "sha256": "4cd4c18b760fb53fd3a75f5fe65bab41e66a39af293550082ca1794f57d64b1e"
     },
     "innetgr": {
       "version": "10.1-1",
@@ -1091,13 +1064,13 @@
       "sha256": "9c7302a54fb6d51498dcd90d8ca26e8d016e9b610eb39ce002b2390081559278"
     },
     "iperf3": {
-      "version": "3.17.1",
-      "description": "iperf3 network throughput tester (3.17.1, static)",
+      "version": "3.22",
+      "description": "iperf3 network throughput tester (3.22, static)",
       "arch": "x86_64",
       "depends": [],
-      "file": "iperf3-3.17.1.xpkg",
-      "size": 81680,
-      "sha256": "960ae20842d2be388b8c8f93c93cc3e61c02b29ca1870e455d6a69f13b4fd111"
+      "file": "iperf3-3.22.xpkg",
+      "size": 71527,
+      "sha256": "84e5530d279f7e047acd97fb8d1dd1b8f358e27638a6182d2212a43cba1af94b"
     },
     "iproute2": {
       "version": "6.9.0",
@@ -1127,13 +1100,13 @@
       "sha256": "b405a02d5df60ac6114dcfd17359fac5fa1de38a1e054fe9c3af91c555b66232"
     },
     "jq": {
-      "version": "1.7.1",
-      "description": "jq JSON processor (1.7.1, static)",
+      "version": "1.8.2",
+      "description": "jq JSON processor (1.8.2, static)",
       "arch": "x86_64",
       "depends": [],
-      "file": "jq-1.7.1.xpkg",
-      "size": 258180,
-      "sha256": "72e0f4e66e2816101d0b28da40bccb2930820b9dec78dfbb9e323e2e99292dfe"
+      "file": "jq-1.8.2.xpkg",
+      "size": 246908,
+      "sha256": "216279aac7834f193c213fae2c8698d73a1d2a354b2f35bd8f23c1cb432667f1"
     },
     "kill": {
       "version": "10.1",
@@ -1181,13 +1154,13 @@
       "sha256": "f383c4004213251cf40ff902d8fe24ce592a152ba47122632bd7ea677fd85aec"
     },
     "ldns": {
-      "version": "1.8.3",
+      "version": "1.8.3-1",
       "description": "ldns library + drill DNS tool (1.8.3).",
       "arch": "x86_64",
       "depends": [],
-      "file": "ldns-1.8.3.xpkg",
-      "size": 3850180,
-      "sha256": "a19e57d15ac187146d3e5eee0af7f3a9e657ee47e1cf00b8c04b95fbd74353d0"
+      "file": "ldns-1.8.3-1.xpkg",
+      "size": 3843320,
+      "sha256": "88519145e2cd1b8528356619fb358a17e919c9bc66c335d2c5d2b9ece2a39390"
     },
     "leave": {
       "version": "10.1-1",
@@ -1208,31 +1181,22 @@
       "sha256": "4726ea75bcaa9975c9d70bf87edc5432811d429bb754034a2dcf45b58f1e1d80"
     },
     "less": {
-      "version": "661",
+      "version": "661-1",
       "description": "less 661 terminal pager (static)",
       "arch": "x86_64",
       "depends": [],
-      "file": "less-661.xpkg",
-      "size": 227282,
-      "sha256": "95aa7cfc029414cd492425f91f1f585e26c4d0f2430c03015db4c665293a6feb"
-    },
-    "libnl": {
-      "version": "3.9.0",
-      "description": "libnl 3.9.0 (netlink socket library).",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "libnl-3.9.0.xpkg",
-      "size": 68514,
-      "sha256": "b2acc240819703d6f602911787d69f98bd3eef5687651814c6c46be8bb3afe24"
+      "file": "less-661-1.xpkg",
+      "size": 184854,
+      "sha256": "58a364aa13b5e451fa9b21524f4aac924facb292f6b50d35336d1f8c80f3419b"
     },
     "links": {
-      "version": "2.30",
+      "version": "2.30-1",
       "description": "Links 2.30 text and graphic web browser.",
       "arch": "x86_64",
       "depends": [],
-      "file": "links-2.30.xpkg",
-      "size": 6099626,
-      "sha256": "49c4eb688daf04276b0dbb9c583b154affb2a1abc968114e6bf8c9ebe0e6c068"
+      "file": "links-2.30-1.xpkg",
+      "size": 2959803,
+      "sha256": "92345a0a5baf36c1391a7921c2cbb4c872d6e880861f1c969775c320a9c1db7e"
     },
     "llvm-binutils": {
       "version": "21.1.8",
@@ -1314,6 +1278,15 @@
       "file": "lsof-4.99.3.xpkg",
       "size": 178130,
       "sha256": "c9c9c68850ca8eb38c54927e34e79f460c365ebe161b6286de2577338869622b"
+    },
+    "lua": {
+      "version": "5.4.9",
+      "description": "lua 5.4.9 (embeddable scripting language).",
+      "arch": "x86_64",
+      "depends": [],
+      "file": "lua-5.4.9.xpkg",
+      "size": 184371,
+      "sha256": "f31020de33c814f6c1fda859adb25a4da72c097d7819069d2df9a77633b5239c"
     },
     "m4": {
       "version": "10.1",
@@ -1468,24 +1441,6 @@
       "size": 395013,
       "sha256": "0a09f08fd60d595458b5c5247bcee6559a4e2eebd3ab2df2885cfcb36a5bb979"
     },
-    "mpv": {
-      "version": "0.39.0",
-      "description": "mpv media player with hardware acceleration and OpenGL output",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "mpv-0.39.0.xpkg",
-      "size": 13183091,
-      "sha256": "ef6fde996fa86a238178d331b5acc7e932473a8b5c9ae6a910a8f25925a6c3c1"
-    },
-    "mupdf": {
-      "version": "1.24.10",
-      "description": "Lightweight PDF, XPS, and EPUB viewer (1.24.10).",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "mupdf-1.24.10.xpkg",
-      "size": 30193522,
-      "sha256": "f1661b930c469d39760a238fc70605007d11781735fb8f60cd14c6be61cafd15"
-    },
     "mv": {
       "version": "10.1",
       "description": "FreeLinX mv (NetBSD 10.1 src)",
@@ -1495,14 +1450,23 @@
       "size": 44422,
       "sha256": "bea02fa39e9f1055df674c74053083090b19bbfa010ec01749ab6eed21a5553b"
     },
+    "nasm": {
+      "version": "3.02",
+      "description": "NASM 3.02 (Netwide Assembler for x86).",
+      "arch": "x86_64",
+      "depends": [],
+      "file": "nasm-3.02.xpkg",
+      "size": 1198471,
+      "sha256": "33e3c1ef4e08cab46ee68b98d8660f481d539635a1ae13b187e3ba18358a9640"
+    },
     "nbperf": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/usr/bin/nbperf`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "nbperf-10.1.xpkg",
-      "size": 64054,
-      "sha256": "686030cdb5d1b31340a64637b4e307ecb1398eb2281936ac1f9dfdbe34c66544"
+      "file": "nbperf-10.1-1.xpkg",
+      "size": 39927,
+      "sha256": "a6081347b037fc08cdcb8fba86d20d066464f91ac1bd8fa2f40fa8397d2a7b4b"
     },
     "nc": {
       "version": "10.1",
@@ -1514,13 +1478,13 @@
       "sha256": "d7f38e3f8500977666135070a6a909cc4d1193620828fc31895ba0a0f2418a2c"
     },
     "ncdu": {
-      "version": "1.20",
+      "version": "1.20-1",
       "description": "ncdu disk usage analyzer (1.20, static)",
       "arch": "x86_64",
       "depends": [],
-      "file": "ncdu-1.20.xpkg",
-      "size": 222410,
-      "sha256": "0576a3edb6dcd7c3b40869d69bc11b9c8141f2c35aee0bf771b900804b0cef62"
+      "file": "ncdu-1.20-1.xpkg",
+      "size": 145634,
+      "sha256": "a42330863e3bb25cae2b8e001953cf54a99c23624ecddeaa0dbec0d2f98b92ab"
     },
     "ne": {
       "version": "3.3.3",
@@ -1585,23 +1549,14 @@
       "size": 18860,
       "sha256": "ab274174c531dfb66af139ac16180f761189f62e8c571da73f2d8282cd0d9953"
     },
-    "netsurf": {
-      "version": "3.11",
-      "description": "NetSurf fast and lightweight web browser with JavaScript",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "netsurf-3.11.xpkg",
-      "size": 6077610,
-      "sha256": "206fcddda4cd52a339d81fb0785dfedf6d95938deb7a77925aed5fa5f2f34a6c"
-    },
     "newgrp": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/usr/bin/newgrp`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "newgrp-10.1.xpkg",
-      "size": 71567,
-      "sha256": "0fc283b3729e3e8c33f8a936463ec8fc386f0f38916813baa7b379cc70540361"
+      "file": "newgrp-10.1-1.xpkg",
+      "size": 55355,
+      "sha256": "9f60b9de8a1dc5982be015446bcffcfea177c8d9f5ec23ab2c04a1ce60f6b75f"
     },
     "newsyslog": {
       "version": "10.1-1",
@@ -1675,15 +1630,6 @@
       "size": 56244,
       "sha256": "8f23bba66660a4fd6767521a4c987ef2a2401ef2c172f1d5638779e8472ed4f9"
     },
-    "openbox": {
-      "version": "3.6.1",
-      "description": "Openbox 3.6.1 window manager.",
-      "arch": "x86_64",
-      "depends": ["xorg"],
-      "file": "openbox-3.6.1.xpkg",
-      "size": 10046989,
-      "sha256": "e26d8d13f801c4799b3a0c5719e9565362b19798c271e1ce33fff8fd8dbe97f2"
-    },
     "openntpd": {
       "version": "7.9p1",
       "description": "OpenNTPD 7.9p1 (NTP time sync daemon).",
@@ -1694,13 +1640,13 @@
       "sha256": "49109ad4dbb9a191128482a539d21dc950b4faf0c5c15e6ed063226a5a1c35ac"
     },
     "openssh": {
-      "version": "9.9p1",
-      "description": "OpenSSH 9.9p1 (upstream portable port).",
+      "version": "10.5p1",
+      "description": "OpenSSH 10.5p1 (upstream portable port).",
       "arch": "x86_64",
       "depends": [],
-      "file": "openssh-9.9p1.xpkg",
-      "size": 2292304,
-      "sha256": "1002b94f5118e1a0d01da89b98b23e4b3b011951dab016f92a71ba569d7f0ab3"
+      "file": "openssh-10.5p1.xpkg",
+      "size": 2289160,
+      "sha256": "a83de5eafd1096a100d3d0f6f1cbe8799b7f45a36fdce0ed22e87ba70b532b22"
     },
     "paste": {
       "version": "10.1",
@@ -1838,13 +1784,13 @@
       "sha256": "ac4cd426bcd68c61cc5bdd95b47bd5b6bcef254185ca83bc542b13b3ab98fabd"
     },
     "pstree": {
-      "version": "23.6",
+      "version": "23.6-1",
       "description": "pstree process tree (psmisc 23.6, static)",
       "arch": "x86_64",
       "depends": [],
-      "file": "pstree-23.6.xpkg",
-      "size": 128212,
-      "sha256": "378d9551fd7affda0a6c8fd04bcf5f5e7509220503701049c3bd9afed6af213f"
+      "file": "pstree-23.6-1.xpkg",
+      "size": 76496,
+      "sha256": "e09e79580caf53b6380f22d41d2e24cfb09decbf58c70694d8f051d6dc4ab961"
     },
     "pv": {
       "version": "1.8.13",
@@ -1892,13 +1838,13 @@
       "sha256": "487be64c3923375bcbe04626e5868f604d156bf22f091201568ff8c93fd92677"
     },
     "rain": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/games/rain`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "rain-10.1.xpkg",
-      "size": 190097,
-      "sha256": "a29d5c59134fa41d81bb7d26fd39590a7cd3693202ea3206867c8c5375625b12"
+      "file": "rain-10.1-1.xpkg",
+      "size": 98000,
+      "sha256": "ffa8500751986d0a042f1ea13975493700df0a8ef3a3718be5552a1ae8bcff1f"
     },
     "realpath": {
       "version": "10.1-1",
@@ -1973,13 +1919,13 @@
       "sha256": "2b750ffc6b313f536a325d8882355bb1dfe54cf26e1e4f7ee577b7c675fa8d04"
     },
     "robots": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/games/robots`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "robots-10.1.xpkg",
-      "size": 216516,
-      "sha256": "f605d6650f5d3ef132dfa72240537c66c2f1abc4bec8069edb68c59f466b1797"
+      "file": "robots-10.1-1.xpkg",
+      "size": 111616,
+      "sha256": "f8f8ae4dd3627d1d0a093c4016faadd462a9b76abbdb1362774c780d59b819b3"
     },
     "route": {
       "version": "freelinx",
@@ -2009,13 +1955,13 @@
       "sha256": "139b4b5482aad5abaa94724a9657550b861eadbf937ff8d730511ec68e97b012"
     },
     "rsync": {
-      "version": "3.3.0",
-      "description": "rsync file sync (3.3.0, static)",
+      "version": "3.5.1",
+      "description": "rsync file sync (3.5.1, static)",
       "arch": "x86_64",
       "depends": [],
-      "file": "rsync-3.3.0.xpkg",
-      "size": 493053,
-      "sha256": "cbc6d9d66680887de2f0d315274fa151e6a5cc5c4e2ae36f5d730759627b4f2b"
+      "file": "rsync-3.5.1.xpkg",
+      "size": 504946,
+      "sha256": "a9a7815b7638cfa4411944402c574864f76f3c94e75cced2f5a51b9f5def9b22"
     },
     "runit": {
       "version": "2.2.0",
@@ -2080,15 +2026,6 @@
       "size": 33384,
       "sha256": "09bde0c776b3b75493fb8131fb8b052ed239e5cebe49c3a662c751b39b9a518a"
     },
-    "setxkbmap": {
-      "version": "1.3.5",
-      "description": "Set the keyboard using the X Keyboard Extension (1.3.5).",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "setxkbmap-1.3.5.xpkg",
-      "size": 729650,
-      "sha256": "a5b53a3d87656869982d931bd74f0f1f424be3a281d9f41f790f23880645d9b8"
-    },
     "shlock": {
       "version": "10.1-1",
       "description": "Create or verify a lock file for shell scripts",
@@ -2107,6 +2044,15 @@
       "size": 34599,
       "sha256": "1dc5bd0ba6f5909ad1abe9d96529c27c30f9e2c0a420768f5eeef638cf94d054"
     },
+    "signify": {
+      "version": "33",
+      "description": "signify 33 (file signing utility).",
+      "arch": "x86_64",
+      "depends": [],
+      "file": "signify-33.xpkg",
+      "size": 125059,
+      "sha256": "6d028adb35b977d047dad33d50bec427169a6bfcbb6d9be64386f22bb2a1d89f"
+    },
     "sleep": {
       "version": "10.1",
       "description": "FreeLinX sleep (NetBSD 10.1 src)",
@@ -2117,22 +2063,22 @@
       "sha256": "0d1d8e75d07ac4d3b124e5fef06522242539f6e842ca1e3ec3ecbf9852996803"
     },
     "smartmontools": {
-      "version": "7.4",
-      "description": "S.M.A.R.T. monitoring utilities (7.4)",
+      "version": "7.5",
+      "description": "S.M.A.R.T. monitoring utilities (7.5)",
       "arch": "x86_64",
       "depends": [],
-      "file": "smartmontools-7.4.xpkg",
-      "size": 596427,
-      "sha256": "ed3240441183ad0905b357d2b649d654ed117455181adc465caf56b7565fc098"
+      "file": "smartmontools-7.5.xpkg",
+      "size": 551563,
+      "sha256": "20ae3da06a2d58ea5b02df0901836fb6a2297c0449cf0a039f9a08a439011ad9"
     },
     "socat": {
-      "version": "1.8.0.2",
+      "version": "1.8.0.2-1",
       "description": "socat socket relay (1.8.0.2, static)",
       "arch": "x86_64",
       "depends": [],
-      "file": "socat-1.8.0.2.xpkg",
-      "size": 243086,
-      "sha256": "3dafeb781a15c38ca05593892e5706c7d20c0142ff20f6405128b7dcceb01e1d"
+      "file": "socat-1.8.0.2-1.xpkg",
+      "size": 2342226,
+      "sha256": "9d66f7a7bbeefa0681e6fda42bd92c9403704de8bf6b52a7a39ba581ed9757de"
     },
     "soelim": {
       "version": "10.1-1",
@@ -2161,15 +2107,6 @@
       "size": 27543,
       "sha256": "a1cdcb2593c4117d9fc42fccab5b1da9bf70f098b1b576c37bcda2bd0d075058"
     },
-    "st": {
-      "version": "0.9.2",
-      "description": "suckless terminal emulator.",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "st-0.9.2.xpkg",
-      "size": 1700315,
-      "sha256": "dbe0cd378d373019208b132f4d689acd66ae64191039e565af12bf0fa98700be"
-    },
     "stat": {
       "version": "10.1",
       "description": "FreeLinX stat (NetBSD 10.1 src)",
@@ -2189,13 +2126,13 @@
       "sha256": "169a45baed2ae0d3f545fc3c5e028790cfc9b927516977a59290cc5aebbbb963"
     },
     "su": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "FreeLinX su (NetBSD 10.1 src)",
       "arch": "x86_64",
       "depends": [],
-      "file": "su-10.1.xpkg",
-      "size": 76827,
-      "sha256": "e30ba244e1899cae834c09596973424043d8a4aaf2e2ba81576ba676f34cd09a"
+      "file": "su-10.1-1.xpkg",
+      "size": 62235,
+      "sha256": "509fb944973b8fc0004345fc6be9d0af0f35ca441f9bca7c461c4ad6acf2510f"
     },
     "sync": {
       "version": "10.1",
@@ -2207,13 +2144,13 @@
       "sha256": "52f7bba6ff551a95bcbf73eded2505f1f7332aab1a35a71fc5c7e464e5a29a0b"
     },
     "tabs": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/usr/bin/tabs`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "tabs-10.1.xpkg",
-      "size": 93503,
-      "sha256": "0e1753586198e1b29d7fc05208f9766d3df0dd1c0a6a68bc31e30c5c93dcb786"
+      "file": "tabs-10.1-1.xpkg",
+      "size": 46915,
+      "sha256": "84a18891f5110a58dec271ab83f6bc84a138f56bf6e6ea5ed3db3e7bda6c875f"
     },
     "tail": {
       "version": "10.1",
@@ -2279,22 +2216,22 @@
       "sha256": "ce9b35d211dcfe21d1a299fb857ebfba788b3d57fd17084473f94602b641d3b8"
     },
     "testpat": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/games/testpat`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "testpat-10.1.xpkg",
-      "size": 195260,
-      "sha256": "45f6b8f4e6c16d7232668c7f364bf3c2ba6df64a6717c0b4bdd45e2f0a80b065"
+      "file": "testpat-10.1-1.xpkg",
+      "size": 100552,
+      "sha256": "b08e5660e271562ad48b39bc3bfd6a8f6b1b99cd3171cfd56ac12a85d32727dc"
     },
     "tetris": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "tetris game (NetBSD 10.1, static)",
       "arch": "x86_64",
       "depends": [],
-      "file": "tetris-10.1.xpkg",
-      "size": 119537,
-      "sha256": "918458c74d6f84e2c965e4bb8b4538b7647b50dc913ff1debaab39e121062855"
+      "file": "tetris-10.1-1.xpkg",
+      "size": 61230,
+      "sha256": "9da3dbfbbba9c64a302e8c6d69c808406991d63bc2c48b3be19c516577ee4510"
     },
     "tftp": {
       "version": "10.1-1",
@@ -2306,13 +2243,13 @@
       "sha256": "8ca3eac3f91c063a317659f9295f5449bea716557b518baa8ebb2a04e8c1e514"
     },
     "tic": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/usr/bin/tic`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "tic-10.1.xpkg",
-      "size": 140912,
-      "sha256": "c63be80946da3a5fda5aa9154d94c51d5ebd270db33c19ae019795a9cf41d20e"
+      "file": "tic-10.1-1.xpkg",
+      "size": 58687,
+      "sha256": "468cac5a11203f02fcfb08551ccdefb42e6c19513d2d9831f57843ea62ee9128"
     },
     "time": {
       "version": "10.1",
@@ -2342,13 +2279,13 @@
       "sha256": "3052d32a9df4141cd01da86e81ea185d8723048264b80aceecb80676706655f5"
     },
     "tmux": {
-      "version": "3.4",
-      "description": "tmux 3.4 (terminal multiplexer).",
+      "version": "3.7c",
+      "description": "tmux 3.7c (terminal multiplexer).",
       "arch": "x86_64",
       "depends": [],
-      "file": "tmux-3.4.xpkg",
-      "size": 610836,
-      "sha256": "5bb307550565dfadfa7f49a2c0ee9eb20e2715393070a92402957be210365f7b"
+      "file": "tmux-3.7c.xpkg",
+      "size": 645664,
+      "sha256": "7a3414f0ab834a26ae3fb8f8d2c8167d3b39328d321c5453050239d9768cd398"
     },
     "touch": {
       "version": "10.1",
@@ -2359,23 +2296,14 @@
       "size": 37251,
       "sha256": "a69c84ba630aae8ec5ce9172522f4035f6e422954ae52e5f31c7347b71545cad"
     },
-    "toybox": {
-      "version": "0.8.12",
-      "description": "toybox multi-call utility (0.8.12, static)",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "toybox-0.8.12.xpkg",
-      "size": 561564,
-      "sha256": "966d123647118f51ccfb8d14b03988ef29bf5f3fbf4ab04244f2347d528d4ea6"
-    },
     "tput": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/usr/bin/tput`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "tput-10.1.xpkg",
-      "size": 128671,
-      "sha256": "b44a3fbf6e1116f1b9f5b9078567252d308acc078440256aada0daafe6438c68"
+      "file": "tput-10.1-1.xpkg",
+      "size": 54084,
+      "sha256": "7b7085e687fb31e044a4982ee624aa983ab7576f7dad1e24796f53fdca9aa3d7"
     },
     "tr": {
       "version": "10.1",
@@ -2405,13 +2333,13 @@
       "sha256": "82bfb1e6fdf8405a552c73de3daff768645806ec2c21860e9545288034b8fec7"
     },
     "tset": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/usr/bin/tset`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "tset-10.1.xpkg",
-      "size": 139887,
-      "sha256": "b93981ff837b664e27fa98385fe1a532a267ee19d5fb6aaf981f9eb4bfd6ca3e"
+      "file": "tset-10.1-1.xpkg",
+      "size": 56895,
+      "sha256": "cd590700d4f39a4e54f4e93aa3cae57e1e48ad6487f887ce1da4b616726b43ed"
     },
     "tsort": {
       "version": "10.1",
@@ -2432,13 +2360,13 @@
       "sha256": "d31534b9713e401a89a11b73cb449cb30aecc92355f6003186f83cf9b7fff310"
     },
     "ul": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/usr/bin/ul`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "ul-10.1.xpkg",
-      "size": 132176,
-      "sha256": "92b79b2a16a6d2a6e0aed877e45b5b20dfbc548166f43eb8ea0e4662b49d6af7"
+      "file": "ul-10.1-1.xpkg",
+      "size": 55012,
+      "sha256": "08d28ae3d1145ee671d803445127e5e703cc8bf4af411e944e5c29702770d4a1"
     },
     "umount": {
       "version": "freelinx",
@@ -2520,15 +2448,6 @@
       "file": "unzip-10.1.xpkg",
       "size": 283551,
       "sha256": "b4c88003ec7a17e3dae85c8b164bfab80a8f45ee170883c2ac533af9ab59b948"
-    },
-    "urxvt": {
-      "version": "9.31",
-      "description": "rxvt-unicode (urxvt) terminal emulator.",
-      "arch": "x86_64",
-      "depends": ["xorg", "fonts"],
-      "file": "urxvt-9.31.xpkg",
-      "size": 2219296,
-      "sha256": "be6650cd187d57109b685fc4a8ab322ad0ff6155ea59def51d8391340ec7623e"
     },
     "usbutils": {
       "version": "018",
@@ -2612,13 +2531,13 @@
       "sha256": "e9092b040cb0f5b810e2271a521d9cc4c89820c334b8506fb7c84adf180ce25f"
     },
     "vim": {
-      "version": "9.2.1025-1",
+      "version": "9.2.1025-2",
       "description": "Vim 9.2.1025 (upstream project port).",
       "arch": "x86_64",
       "depends": [],
-      "file": "vim-9.2.1025-1.xpkg",
-      "size": 1986121,
-      "sha256": "0a8ba6b914fbce6fd1d80374f34dd0cd40d6efb41c095a13e754af953c337a93"
+      "file": "vim-9.2.1025-2.xpkg",
+      "size": 1968241,
+      "sha256": "9794134445eee2c201993795529935cfba1bbcabc275d051d0b02a3c4d7b9c28"
     },
     "vis": {
       "version": "10.1",
@@ -2639,13 +2558,13 @@
       "sha256": "df0e2c2736b57588cc983e462e68266929c249dd0fac80a85355f4181c1f7341"
     },
     "w3m": {
-      "version": "0.5.3-1",
-      "description": "w3m text-based web browser (0.5.3).",
+      "version": "0.5.3+git20230121",
+      "description": "w3m text-based web browser (0.5.3+git20230121).",
       "arch": "x86_64",
       "depends": [],
-      "file": "w3m-0.5.3-1.xpkg",
-      "size": 3201003,
-      "sha256": "0a69cf7aed3de9b84c5ddd63aee9b4db6601cb41f03050317ba3989ff522d53e"
+      "file": "w3m-0.5.3+git20230121.xpkg",
+      "size": 3205623,
+      "sha256": "9cf0a2c03c9c595100528d74253b3dfa7e0d181f59cfbd864f61d1eaf1fb1257"
     },
     "wall": {
       "version": "10.1-1",
@@ -2673,15 +2592,6 @@
       "file": "wc-10.1.xpkg",
       "size": 29111,
       "sha256": "40b8cfdd43a80bf9862902f6d263b2bec8c738eb3688b1f51e23685d55f33aa6"
-    },
-    "wget": {
-      "version": "1.25.0",
-      "description": "wget network retriever (1.25.0, static, HTTPS)",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "wget-1.25.0.xpkg",
-      "size": 2629938,
-      "sha256": "b255277ae4aaf2872aa02bd0538095253e4c2ec3be72a3a7fad664bdb40923a7"
     },
     "what": {
       "version": "10.1-1",
@@ -2729,31 +2639,22 @@
       "sha256": "41259c2aecd74ee7b0608edf6650afeb1058c46a52795cb9b36f501951e12985"
     },
     "worm": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/games/worm`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "worm-10.1.xpkg",
-      "size": 193649,
-      "sha256": "2c49dfe1d47dbbd3d656a5afab96531f3d2decac83e011c2bd1403f54bc5d063"
+      "file": "worm-10.1-1.xpkg",
+      "size": 104586,
+      "sha256": "58dd6df9f51e66f999f451a8737096f04670677089f3440c7e30ca1ff0177740"
     },
     "worms": {
-      "version": "10.1",
+      "version": "10.1-1",
       "description": "NetBSD 10.1 `/games/worms`.",
       "arch": "x86_64",
       "depends": [],
-      "file": "worms-10.1.xpkg",
-      "size": 193595,
-      "sha256": "e53ff72bf4046b3455f958d869419e0db53a17521f7ea031bf39d2d9eab0f212"
-    },
-    "wpa_supplicant": {
-      "version": "2.11",
-      "description": "WPA/WPA2 supplicant (wpa_supplicant 2.11, static)",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "wpa_supplicant-2.11.xpkg",
-      "size": 2214638,
-      "sha256": "b7da387377fae288726a620fdaeb712a183ea9ff5be1bb038be34d31f1cf2322"
+      "file": "worms-10.1-1.xpkg",
+      "size": 99263,
+      "sha256": "04f3e8fdb09bbfd78989de3dd44a178f04b8615023c02f908603fa710c80b7a2"
     },
     "write": {
       "version": "10.1-1",
@@ -2773,15 +2674,6 @@
       "size": 56844,
       "sha256": "27a51701d51b14af95be44aa4ec49d450f0fc60800fdd9ea8befebaa80aed1c1"
     },
-    "x11-apps": {
-      "version": "1.0",
-      "description": "X11 toy programs (xeyes, xmag, xdemo, xsetroot, glxgears).",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "x11-apps-1.0.xpkg",
-      "size": 6845702,
-      "sha256": "06ba9c47f329ec00a871514ca3eab7f89d4d631af1f1c88d85e18be72b8a8ac6"
-    },
     "xargs": {
       "version": "10.1",
       "description": "FreeLinX xargs (NetBSD 10.1 src)",
@@ -2790,15 +2682,6 @@
       "file": "xargs-10.1.xpkg",
       "size": 73797,
       "sha256": "dc56a7756f1b0d8065b14a78f0cb642e53fe763140516e12ef99c4ab0f16db5a"
-    },
-    "xclock": {
-      "version": "1.1.1",
-      "description": "X clock display.",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "xclock-1.1.1.xpkg",
-      "size": 2176690,
-      "sha256": "3b6cc7c97f36f0c290fd8de6e26b5d17fc44ec046e4829849c6ca0bb7b7a0553"
     },
     "xinstall": {
       "version": "10.1",
@@ -2809,23 +2692,14 @@
       "size": 115589,
       "sha256": "cc266c4d46afe954ecbb619a222a0db8d60fd08102aedd9a1d5bdba2cd816db3"
     },
-    "xrandr": {
-      "version": "1.5.4",
-      "description": "Primitive command line interface to RandR extension (1.5.4).",
-      "arch": "x86_64",
-      "depends": [],
-      "file": "xrandr-1.5.4.xpkg",
-      "size": 740182,
-      "sha256": "523ab305dfed39f749702fae4894e3558d63c9276233096c0b34a9077fd89d12"
-    },
     "xstr": {
-      "version": "10.1-1",
+      "version": "10.1-2",
       "description": "Extract strings from C programs to implement shared strings",
       "arch": "x86_64",
       "depends": [],
-      "file": "xstr-10.1-1.xpkg",
-      "size": 40112,
-      "sha256": "9498262638e0ec9c1d559c57858a089085c9665db1d0db95ffee8bb206e8baf0"
+      "file": "xstr-10.1-2.xpkg",
+      "size": 30917,
+      "sha256": "60a8f46dd2aedc405232bf8f239f3c0f8849c9dcde5dd080ce5812368aba458c"
     },
     "yes": {
       "version": "10.1",

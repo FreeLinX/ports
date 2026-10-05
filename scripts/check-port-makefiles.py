@@ -251,6 +251,8 @@ for pat in ("*/Makefile", "*/*/Makefile"):
     for f in sorted(glob.glob(pat)):
         if "/build/" in f:
             continue
+        if not selected(f):
+            continue
         text = open(f).read()
         prefixes = dict(PREFIX_DEF.findall(text))
         if not prefixes:

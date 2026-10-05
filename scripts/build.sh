@@ -83,11 +83,11 @@ fi
 _lint_ports=
 for p in "$@"; do
     _d=$(flx_port_dir "$p") || flx_die "no such port: $p"
-    _lint_ports="$_lint_ports ${_d#"$FREELINUX_ROOT"/}"
+    _lint_ports="$_lint_ports ${_d#"$FREELINX_ROOT"/}"
 done
 flx_info "Checking port Makefiles..."
 # shellcheck disable=SC2086
-if ! python3 "$FREELINUX_ROOT/scripts/check-port-makefiles.py" --only $_lint_ports > "$_lint" 2>&1; then
+if ! python3 "$FREELINX_ROOT/scripts/check-port-makefiles.py" --only $_lint_ports > "$_lint" 2>&1; then
     cat "$_lint" >&2
     flx_die "port Makefile problems above; run scripts/check-port-makefiles.py --fix"
 fi

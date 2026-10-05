@@ -1,0 +1,5 @@
+# FreeLinX/ports - security/signify : upstream source reference.
+DISTINFO_NAME=signify-33
+DISTINFO_ARCHIVE=signify-33.tar.xz
+DISTINFO_URL=https://codeberg.org/aperezdc/signify/releases/download/v33/signify-33.tar.xz
+DISTINFO_SHA256=61635e45abcf1c78e28fbe3534a4224a2251c39295bb70bb211f699ef5f6eb27
