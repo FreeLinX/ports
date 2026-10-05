@@ -1,0 +1,5 @@
+# FreeLinX/ports - devel/python3 : upstream source reference.
+DISTINFO_NAME=Python-3.13.16
+DISTINFO_ARCHIVE=Python-3.13.16.tgz
+DISTINFO_URL=https://www.python.org/ftp/python/3.13.16/Python-3.13.16.tgz
+DISTINFO_SHA256=cfac63bddf956deafb1172ca131ae5dcaafd6f95056086e233fca205593ed427

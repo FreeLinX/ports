@@ -1,0 +1,36 @@
+--- a/Modules/_ssl.c
++++ b/Modules/_ssl.c
+@@ -70,7 +70,14 @@
+ #include "openssl/dh.h"
+ 
+ #ifndef OPENSSL_THREADS
+-#  error "OPENSSL_THREADS is not defined, Python requires thread-safe OpenSSL"
++/* FreeLinX: the OpenSSL staged under build/deps by this tree is a
++ * no-threads build, so a hard error here makes _ssl and _hashlib
++ * unbuildable.  Downgraded to a warning: single-threaded use is
++ * correct, but concurrent TLS/hashing from several threads shares
++ * a lock-free libcrypto.  Rebuilding the tree openssl with threads
++ * would remove this caveat (and this patch).
++ */
++#  warning "OPENSSL_THREADS is not defined, Python requires thread-safe OpenSSL"
+ #endif
+ 
+ 
+--- a/Modules/_hashopenssl.c
++++ b/Modules/_hashopenssl.c
+@@ -40,7 +40,14 @@
+ #include <stdbool.h>
+ 
+ #ifndef OPENSSL_THREADS
+-#  error "OPENSSL_THREADS is not defined, Python requires thread-safe OpenSSL"
++/* FreeLinX: the OpenSSL staged under build/deps by this tree is a
++ * no-threads build, so a hard error here makes _ssl and _hashlib
++ * unbuildable.  Downgraded to a warning: single-threaded use is
++ * correct, but concurrent TLS/hashing from several threads shares
++ * a lock-free libcrypto.  Rebuilding the tree openssl with threads
++ * would remove this caveat (and this patch).
++ */
++#  warning "OPENSSL_THREADS is not defined, Python requires thread-safe OpenSSL"
+ #endif
+ 
+ #define MUNCH_SIZE INT_MAX

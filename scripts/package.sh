@@ -254,6 +254,71 @@ package_one_port() {
                 _found=1
             fi
         done
+    elif [ "$_pname" = "go" ]; then
+        # devel/go stages a GOROOT tree plus two symlinks into it.  The generic
+        # branch below only packs the port's own name, so gofmt would be
+        # dropped (the same gap nasm/ndisasm and lua/luac have); pack the tree
+        # and both symlinks explicitly.
+        for _sdir in "$FREELINX_STAGING_ROOT" "$ROOTFS_DIR"; do
+            if [ -d "$_sdir/usr/lib/go" ]; then
+                mkdir -p "$_temp_stage/usr/bin" "$_temp_stage/usr/lib"
+                cp -a "$_sdir/usr/lib/go" "$_temp_stage/usr/lib/"
+                _found=1
+            fi
+            for _b in go gofmt; do
+                if [ -f "$_sdir/usr/bin/$_b" ] || [ -h "$_sdir/usr/bin/$_b" ]; then
+                    mkdir -p "$_temp_stage/usr/bin"
+                    cp -a "$_sdir/usr/bin/$_b" "$_temp_stage/usr/bin/"
+                    _found=1
+                fi
+            done
+        done
+    elif [ "$_pname" = "python3" ]; then
+        # devel/python3 stages the interpreter plus its versioned stdlib tree
+        # and a versioned alias symlink.  The generic branch below only packs
+        # the port's own name, so the stdlib (usr/lib/python3.13, which the
+        # interpreter needs at runtime) and the python3.13 alias would be
+        # dropped; pack all three explicitly (same gap as go/gofmt above).
+        _flx_pymajmin=${_version%.*}
+        for _sdir in "$FREELINX_STAGING_ROOT" "$ROOTFS_DIR"; do
+            if [ -d "$_sdir/usr/lib/python$_flx_pymajmin" ]; then
+                mkdir -p "$_temp_stage/usr/lib"
+                cp -a "$_sdir/usr/lib/python$_flx_pymajmin" "$_temp_stage/usr/lib/"
+                _found=1
+            fi
+            for _b in python3 "python$_flx_pymajmin"; do
+                if [ -f "$_sdir/usr/bin/$_b" ] || [ -h "$_sdir/usr/bin/$_b" ]; then
+                    mkdir -p "$_temp_stage/usr/bin"
+                    cp -a "$_sdir/usr/bin/$_b" "$_temp_stage/usr/bin/"
+                    _found=1
+                fi
+            done
+        done
+    elif [ "$_pname" = "lua" ]; then
+        # devel/lua stages the interpreter plus its compiler.  The generic
+        # branch packs the port's own name only, so luac would be dropped;
+        # pack both explicitly.
+        for _sdir in "$FREELINX_STAGING_ROOT" "$ROOTFS_DIR"; do
+            for _b in lua luac; do
+                if [ -f "$_sdir/usr/bin/$_b" ] || [ -h "$_sdir/usr/bin/$_b" ]; then
+                    mkdir -p "$_temp_stage/usr/bin"
+                    cp -a "$_sdir/usr/bin/$_b" "$_temp_stage/usr/bin/"
+                    _found=1
+                fi
+            done
+        done
+    elif [ "$_pname" = "nasm" ]; then
+        # devel/nasm stages the assembler plus its disassembler.  Pack both
+        # explicitly (same gap as lua/luac above).
+        for _sdir in "$FREELINX_STAGING_ROOT" "$ROOTFS_DIR"; do
+            for _b in nasm ndisasm; do
+                if [ -f "$_sdir/usr/bin/$_b" ] || [ -h "$_sdir/usr/bin/$_b" ]; then
+                    mkdir -p "$_temp_stage/usr/bin"
+                    cp -a "$_sdir/usr/bin/$_b" "$_temp_stage/usr/bin/"
+                    _found=1
+                fi
+            done
+        done
     else
 # Search staging root, deps, then fallback to rootfs
         for _sdir in "$FREELINX_STAGING_ROOT" "$FREELINX_ROOT/build/deps/$_pname" "$ROOTFS_DIR"; do

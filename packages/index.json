@@ -1,5 +1,5 @@
 {
-  "generated": 1791231138,
+  "generated": 1791233859,
   "packages": {
     "abduco": {
       "version": "0.6",
@@ -919,6 +919,15 @@
       "size": 2118926,
       "sha256": "c325dc21cdc4a14c0144636f5ac5dfe6da39aecc667e62fb5f8039b6df354b7e"
     },
+    "go": {
+      "version": "1.27.1",
+      "description": "Go 1.27.1 (Go programming language toolchain).",
+      "arch": "x86_64",
+      "depends": [],
+      "file": "go-1.27.1.xpkg",
+      "size": 66857138,
+      "sha256": "25931deb838908c1b074063feb2ec69a578a7cc35e0f6d23b9f07209131dba00"
+    },
     "grep": {
       "version": "10.1-1",
       "description": "FreeLinX grep (NetBSD 10.1 src)",
@@ -1294,8 +1303,8 @@
       "arch": "x86_64",
       "depends": [],
       "file": "lua-5.4.9.xpkg",
-      "size": 184371,
-      "sha256": "f31020de33c814f6c1fda859adb25a4da72c097d7819069d2df9a77633b5239c"
+      "size": 307102,
+      "sha256": "c3f59acb82cbdf301ce29f18a53c6b17bb8c34392a4db16a91d2ba423b2a55a1"
     },
     "m4": {
       "version": "10.1",
@@ -1465,8 +1474,8 @@
       "arch": "x86_64",
       "depends": [],
       "file": "nasm-3.02.xpkg",
-      "size": 1198471,
-      "sha256": "33e3c1ef4e08cab46ee68b98d8660f481d539635a1ae13b187e3ba18358a9640"
+      "size": 1545252,
+      "sha256": "481eb77219a50ca9ca3e4f555099de1c3167e7506a6b77125bab38aac234dd21"
     },
     "nbperf": {
       "version": "10.1-1",
@@ -1836,6 +1845,15 @@
       "file": "pwhash-10.1-1.xpkg",
       "size": 55277,
       "sha256": "5c627bf1322b3f8952f91acefd5169d8de38e7a562137acb57a202a29e960a59"
+    },
+    "python3": {
+      "version": "3.13.16",
+      "description": "Python 3.13.16 (upstream project port).",
+      "arch": "x86_64",
+      "depends": [],
+      "file": "python3-3.13.16.xpkg",
+      "size": 54485341,
+      "sha256": "3bace49ec81755b49dbb1937656f084a08d26ec894e056537ba1b84094e945c2"
     },
     "radioctl": {
       "version": "10.1",
