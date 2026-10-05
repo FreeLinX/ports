@@ -1,5 +1,5 @@
 {
-  "generated": 1791233859,
+  "generated": 1791237792,
   "packages": {
     "abduco": {
       "version": "0.6",
@@ -925,8 +925,8 @@
       "arch": "x86_64",
       "depends": [],
       "file": "go-1.27.1.xpkg",
-      "size": 66857138,
-      "sha256": "25931deb838908c1b074063feb2ec69a578a7cc35e0f6d23b9f07209131dba00"
+      "size": 52973625,
+      "sha256": "4f0f4a20a26cfe96b417322119c3947532b5d1fc847a84ed9eeb2aa281d55865"
     },
     "grep": {
       "version": "10.1-1",

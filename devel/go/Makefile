@@ -131,6 +131,10 @@ $(STAGE_TREE): do-build
 		for k in $(GOROOT_KEEP); do \
 			cp -a "$(SRC_TREE)/$$k" "$(STAGE_TREE)/"; \
 		done; \
+		find "$(STAGE_TREE)" -type d -name '*testdata*' -prune -exec rm -rf {} + 2>/dev/null || :; \
+		find "$(STAGE_TREE)" -type f -name '*_test.go' -delete 2>/dev/null || :; \
+		rm -rf "$(STAGE_TREE)/src/runtime/race" 2>/dev/null || :; \
+		find "$(STAGE_TREE)" -type d -name test -prune -exec rm -rf {} + 2>/dev/null || :; \
 		[ -x "$(STAGE_TREE)/bin/go" ] || { \
 			printf '[FreeLinX/ports][error] %s: staged tree has no bin/go\n' "$(NAME)" >&2; \
 			exit 1; }; \
