@@ -1,0 +1,17 @@
+# FreeLinX/ports - devel/zig : Zig 0.17.0 bootstrap tarball.
+#
+# Real upstream source:
+#   https://ziglang.org/download/0.17.0/zig-bootstrap-0.17.0.tar.xz
+# (bundles LLVM/Clang/LLD 21.1.0, zlib 1.3.1, zstd 1.5.2 and zig 0.17.0
+# sources for a clean-room build; see the port Makefile header.)
+#
+# Upstream publishes only a minisig signature alongside the tarball
+# (zig-bootstrap-0.17.0.tar.xz.minisig) and no sha256 file. No `minisig`
+# tool exists on the build host, so the signature could not be verified
+# here. The sha256 below was computed locally from the downloaded tarball
+# (xz -t integrity check also passed); re-verify against the minisig on a
+# host that carries minisig before trusting a re-download.
+DISTINFO_NAME=zig-bootstrap-0.17.0
+DISTINFO_ARCHIVE=zig-bootstrap-0.17.0.tar.xz
+DISTINFO_URL=https://ziglang.org/download/0.17.0/zig-bootstrap-0.17.0.tar.xz
+DISTINFO_SHA256=1e9e9b8e3c753b35dfb1d9ea48f097579fadbd3e5c1e724ab3fc5bce05477b71
