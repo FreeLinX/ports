@@ -1,0 +1,7 @@
+# FreeLinX/ports - devel/alsa-lib : ALSA userspace library
+DISTINFO_NAME=alsa-lib-1.2.16
+DISTINFO_ARCHIVE=alsa-lib-1.2.16.tar.bz2
+DISTINFO_URL=https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.16.tar.bz2
+# NOTE(locally-computed): upstream publishes no hash for this tarball, so
+# this sha256 was computed from the downloaded file (fetch.sh verifies it).
+DISTINFO_SHA256=122b1e3166d55fe19bcde656535d7a36f2ab10e66c72c6ad2f43f20ffded0a96

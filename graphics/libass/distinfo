@@ -1,0 +1,7 @@
+# FreeLinX/ports - graphics/libass : portable subtitle renderer
+DISTINFO_NAME=libass-0.17.5
+DISTINFO_ARCHIVE=libass-0.17.5.tar.gz
+DISTINFO_URL=https://github.com/libass/libass/releases/download/0.17.5/libass-0.17.5.tar.gz
+# NOTE(locally-computed): GitHub publishes no hash for release tarballs, so
+# this sha256 was computed from the downloaded file (fetch.sh verifies it).
+DISTINFO_SHA256=caab4b993dd7be6187c55623b789ed75dddefea6e65938af134637c732fe094a

@@ -1,0 +1,7 @@
+# FreeLinX/ports - devel/harfbuzz : OpenType text shaping engine
+DISTINFO_NAME=harfbuzz-14.6.0
+DISTINFO_ARCHIVE=harfbuzz-14.6.0.tar.xz
+DISTINFO_URL=https://github.com/harfbuzz/harfbuzz/releases/download/14.6.0/harfbuzz-14.6.0.tar.xz
+# NOTE(locally-computed): GitHub publishes no hash for release tarballs, so
+# this sha256 was computed from the downloaded file (fetch.sh verifies it).
+DISTINFO_SHA256=d07a007327277708a2a73ae437887cdbaf282937f6d03ca5467723e9099af586
